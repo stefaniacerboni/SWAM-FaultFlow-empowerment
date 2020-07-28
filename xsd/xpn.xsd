@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid Studio 2020 (https://www.liquid-technologies.com)-->
+<xs:schema xmlns="http://www.oris-tool.org" elementFormDefault="qualified" targetNamespace="http://www.oris-tool.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="tpn-editor">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tpn-entities" type="TPN-entities" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="empty">
+        <xs:annotation>
+            <xs:documentation xml:lang="EN">An element of this type is forced to be empty</xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    <xs:attributeGroup name="node">
+        <xs:annotation>
+            <xs:documentation xml:lang="EN">Every node's type (joint, place, transition) have this attrs</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="uuid" type="xs:string" use="required" />
+        <xs:attribute name="y" type="xs:int" use="required" />
+        <xs:attribute name="x" type="xs:int" use="required" />
+    </xs:attributeGroup>
+    <xs:attributeGroup name="arc">
+        <xs:annotation>
+            <xs:documentation xml:lang="EN">Every arc's type (arc, inhibitor-arc, note-connector) have this attr</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="from" type="xs:string" use="required" />
+        <xs:attribute name="to" type="xs:string" use="required" />
+        <xs:attribute name="uuid" type="xs:string" use="required" />
+    </xs:attributeGroup>
+    <xs:complexType name="Joint">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="empty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="node" />
+    </xs:complexType>
+    <xs:complexType name="PlaceProperty">
+        <xs:annotation>
+            <xs:documentation xml:lang="EN">Place element have to contains name and marking properties</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="empty">
+                <xs:attribute name="id">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="0.default.name" />
+                            <xs:enumeration value="default.marking" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="name" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="satellite-x" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="satellite-y" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="marking" type="xs:unsignedShort" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For marking property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ListPlaceProperty">
+        <xs:sequence>
+            <xs:element name="property" type="PlaceProperty" minOccurs="2" maxOccurs="2" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Place">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="ListPlaceProperty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="node" />
+    </xs:complexType>
+    <xs:complexType name="ResourceProperty">
+        <xs:complexContent>
+            <xs:extension base="empty">
+                <xs:attribute name="name" type="xs:string" />
+                <xs:attribute name="id" fixed="0.default.name" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ListResourceProperty">
+        <xs:sequence>
+            <xs:element name="property" type="ResourceProperty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Resource">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="ListResourceProperty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="id" />
+    </xs:complexType>
+    <xs:complexType name="Note">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="empty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="node" />
+        <xs:attribute name="width" type="xs:int" use="required" />
+        <xs:attribute name="height" type="xs:int" use="required" />
+    </xs:complexType>
+    <xs:complexType name="Inhibitor-arc">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="empty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="arc" />
+    </xs:complexType>
+    <xs:complexType name="Arc">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="empty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="arc" />
+    </xs:complexType>
+    <xs:complexType name="Note-connector">
+        <xs:sequence>
+            <xs:element name="features" type="empty" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="empty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attributeGroup ref="arc" />
+    </xs:complexType>
+    <xs:complexType name="TransitionFeature">
+        <xs:complexContent>
+            <xs:extension base="empty">
+                <xs:attribute name="id" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="transition.stochastic" />
+                            <xs:enumeration value="transition.timed" />
+                            <xs:enumeration value="transition.preemptive" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ListTransitionFeatures">
+        <xs:sequence>
+            <xs:element name="feature" type="TransitionFeature" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TransitionProperty">
+        <xs:annotation>
+            <xs:documentation xml:lang="EN">Every transition element have to contains name, enabling function, marking update and reset transition properties.
+Stochastic, timed and preemptive transition element have to contains (respectively) stochastic, timed and preemptive properties</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="empty">
+                <xs:attribute name="id" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="0.default.name" />
+                            <xs:enumeration value="10.default.enablingFunction" />
+                            <xs:enumeration value="11.default.markingUpdate" />
+                            <xs:enumeration value="12.default.resetTransitions" />
+                            <xs:enumeration value="transition.stochastic" />
+                            <xs:enumeration value="transition.timed" />
+                            <xs:enumeration value="transition.preemptive" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="name" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="satellite-x" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name, stochastic, timed and preemptive properties</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="satellite-y" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For name, stochastic, timed and preemptive properties</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="enabling-function" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For enabling function property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="marking-update" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For marking update property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="reset-transitions" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For reset transition property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="property-data-type" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic property</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="0.type.immediate" />
+                            <xs:enumeration value="1.type.uniform" />
+                            <xs:enumeration value="2.type.deterministic" />
+                            <xs:enumeration value="3.type.exponential" />
+                            <xs:enumeration value="4.type.erlang" />
+                            <xs:enumeration value="5.type.expolynomial" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="priority" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (immediate and deterministic) and preemptive property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="weight" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (immediate and deterministic) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="eft" type="xs:float" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (uniform), timed and preemptive property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="lft" type="xs:float" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (uniform), timed and preemptive property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="value" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (deterministic) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="lambda" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (exponential and Erlang) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="k" type="xs:int" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (Erlang) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="efts" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (expolynomial) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="lfts" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (expolynomial) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="expressions" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (expolynomial) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="normalizationFactor" type="xs:float" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For stochastic (expolynomial) property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="resource" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="EN">For preemptive property</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ListTransitionProperty">
+        <xs:sequence>
+            <xs:element name="property" type="TransitionProperty" minOccurs="4" maxOccurs="5" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Transition">
+        <xs:sequence>
+            <xs:element name="features" type="ListTransitionFeatures" minOccurs="1" maxOccurs="1" />
+            <xs:element name="properties" type="ListTransitionProperty" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="rotation-angle" type="xs:float" use="required" />
+        <xs:attributeGroup ref="node" />
+    </xs:complexType>
+    <xs:complexType name="TPN-entities">
+        <xs:sequence>
+            <xs:element name="joint" type="Joint" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="place" type="Place" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="resource" type="Resource" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="transition" type="Transition" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="note" type="Note" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="inhibitor-arc" type="Inhibitor-arc" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="arc" type="Arc" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="note-connector" type="Note-connector" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
