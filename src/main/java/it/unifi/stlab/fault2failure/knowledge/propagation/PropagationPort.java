@@ -4,9 +4,9 @@ import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 
 public class PropagationPort {
     private final FailureMode inFail;
-    private final FailureMode outFail;
+    private final FailureMode outFail; // TODO diventa exogenousFaultMode
     private final ErrorMode errorMode;
-    private final MetaComponent metaComponent;
+    private final MetaComponent metaComponent; // TODO diventa affectedComponent
 
     /**
      * Add a propagationPort by specifying four parameters: the inputFail already happened, the outputFault in which

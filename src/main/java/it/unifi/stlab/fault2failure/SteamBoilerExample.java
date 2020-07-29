@@ -36,6 +36,11 @@ public class SteamBoilerExample {
         }
         pnt.translate( pplist);
 
+        /**
+         * Manca un meccanismo di generazione di un Component a partire dal livello Meta generato in
+         * SteamBoilerModelBuilder.
+         * In questa fase sembra necessario conoscere (due volte) la composizione del sistema.
+         */
         List<Component> system = new ArrayList<>();
         Component controller = new Component("controller-0", components.get("Controller"));
         Component sensor1 = new Component("sensor-1", components.get("Sensor1"));

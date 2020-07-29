@@ -1,9 +1,10 @@
-package it.unifi.stlab.fault2failure.knowledge.propagation;
+package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
+
+import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class NOT extends Operator{
+public class NOT extends Operator {
     public NOT(){
         this.elements = new ArrayList<>();
     }

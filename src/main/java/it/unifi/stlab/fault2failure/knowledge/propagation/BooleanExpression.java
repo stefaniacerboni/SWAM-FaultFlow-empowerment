@@ -1,5 +1,10 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.operators.AND;
+import it.unifi.stlab.fault2failure.knowledge.propagation.operators.KofN;
+import it.unifi.stlab.fault2failure.knowledge.propagation.operators.NOT;
+import it.unifi.stlab.fault2failure.knowledge.propagation.operators.OR;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -123,8 +128,8 @@ public interface BooleanExpression {
                 be.addChild(_config(parseNOT(booleanExpression), failModes));
                 return be;
             case'/':
-                be = new KofN(Integer.parseInt(booleanExpression.substring(booleanExpression.indexOf("/")-1,booleanExpression.indexOf("/"))),
-                Integer.parseInt(booleanExpression.substring(booleanExpression.indexOf("/")+1, booleanExpression.indexOf("/")+2)));
+                be = new KofN(Integer.parseInt(booleanExpression.substring(booleanExpression.indexOf("/")-1, booleanExpression.indexOf("/"))),
+                              Integer.parseInt(booleanExpression.substring(booleanExpression.indexOf("/")+1, booleanExpression.indexOf("/")+2)));
                 String failNames = booleanExpression.substring(booleanExpression.indexOf("/")+2);
                 for(String literal : failNames.split(","))
                     be.addChild(_config(literal, failModes));

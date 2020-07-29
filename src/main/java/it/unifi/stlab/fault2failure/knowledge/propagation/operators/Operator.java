@@ -1,4 +1,7 @@
-package it.unifi.stlab.fault2failure.knowledge.propagation;
+package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
+
+import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +9,7 @@ import java.util.List;
 /**
  * Abstract class
  */
-public abstract class Operator implements BooleanExpression{
+public abstract class Operator implements BooleanExpression {
     protected List<BooleanExpression> elements;
 
     /**
@@ -46,5 +49,9 @@ public abstract class Operator implements BooleanExpression{
             }
         }
         return incomingFails;
+    }
+
+    public List<BooleanExpression> getElements() {
+        return elements;
     }
 }

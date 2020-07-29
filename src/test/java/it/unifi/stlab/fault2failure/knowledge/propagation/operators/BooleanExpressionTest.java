@@ -1,4 +1,4 @@
-package it.unifi.stlab.fault2failure.knowledge.propagation;
+package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.operators.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 
 public class BooleanExpressionTest {
     private FailureMode A_Fault1, A_Fault2, A_Fault3;
@@ -106,7 +108,7 @@ public class BooleanExpressionTest {
     }
     @Test
     public void testKOutOfN(){
-        Operator kofn = new KofN(2,3);
+        Operator kofn = new KofN(2, 3);
         kofn.addChild(A_Fault1);
         kofn.addChild(A_Fault2);
         kofn.addChild(A_Fault3);

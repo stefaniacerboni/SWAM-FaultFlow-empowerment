@@ -7,7 +7,7 @@ public class ErrorMode {
     private String name;
     private final BooleanExpression activationFunction;
     private FailureMode outgoingFailure;
-    private List<FailureMode> incomingFailures;
+    private List<FailureMode> inputFaultModes; // TODO questa diventa una lista di FaultMode
     private StochasticTransitionFeature timetofailurePDF;
 
     /**
@@ -20,7 +20,7 @@ public class ErrorMode {
     public ErrorMode(String name, BooleanExpression function){
         this.name=name;
         this.activationFunction = function;
-        this.incomingFailures = activationFunction.extractIncomingFails();
+        this.inputFaultModes = activationFunction.extractIncomingFails();
         this.outgoingFailure = null;
     }
 
@@ -35,8 +35,8 @@ public class ErrorMode {
 
     public String getName(){return this.name;}
     public String getActivationFunction(){return activationFunction.toString();}
-    public List<FailureMode> getIncomingFailures() {
-        return incomingFailures;
+    public List<FailureMode> getInputFaultModes() {
+        return inputFaultModes;
     }
     public FailureMode getOutgoingFailure(){
         return this.outgoingFailure;

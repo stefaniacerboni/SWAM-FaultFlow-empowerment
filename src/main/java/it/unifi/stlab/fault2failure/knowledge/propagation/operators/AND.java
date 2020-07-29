@@ -1,8 +1,10 @@
-package it.unifi.stlab.fault2failure.knowledge.propagation;
+package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
+
+import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
 
 import java.util.ArrayList;
 
-public class AND extends Operator{
+public class AND extends Operator {
 
     public AND(){
         this.elements = new ArrayList<>();

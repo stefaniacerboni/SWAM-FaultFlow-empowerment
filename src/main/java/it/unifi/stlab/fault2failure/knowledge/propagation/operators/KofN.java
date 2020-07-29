@@ -1,9 +1,10 @@
-package it.unifi.stlab.fault2failure.knowledge.propagation;
+package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
+
+import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class KofN extends Operator{
+public class KofN extends Operator {
     private int k;
     private int n;
     public KofN(int k, int n){

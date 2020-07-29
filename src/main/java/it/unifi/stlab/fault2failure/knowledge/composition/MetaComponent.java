@@ -1,9 +1,10 @@
 package it.unifi.stlab.fault2failure.knowledge.composition;
 
-
 public class MetaComponent {
     private String name;
     private CompositionPort compositionPort;
+
+    // TODO aggiungere liste errorModes (di ErrorMode) e propagations (di PropagationPort)
 
     /**
      * Create a MetaComponent by setting its name to the String passed in input and its CompositionPort to null
@@ -27,4 +28,5 @@ public class MetaComponent {
     protected void setCompositionPort(CompositionPort cp){
         this.compositionPort = cp;
     }
+
 }
