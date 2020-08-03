@@ -38,7 +38,7 @@ public class SteamBoilerExample {
         for (Map.Entry<String, List<PropagationPort>> mapElement : failConnections.entrySet()){
             pplist.addAll(mapElement.getValue());
         }
-        pnt.translate(SteamBoilerModelBuilder.getErrorModes().values().stream().collect(Collectors.toList()), pplist);
+        pnt.translate(SteamBoilerModelBuilder.getSystem());
 
         /**
          * Manca un meccanismo di generazione di un Component a partire dal livello Meta generato in
@@ -73,7 +73,7 @@ public class SteamBoilerExample {
         scenario.propagate();
         scenario.printReport();
 
-        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(failConnections,errorModes, pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(SteamBoilerModelBuilder.getSystem(), pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
     }
 }

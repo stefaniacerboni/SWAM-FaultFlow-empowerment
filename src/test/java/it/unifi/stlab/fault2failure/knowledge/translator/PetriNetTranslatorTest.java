@@ -49,7 +49,7 @@ public class PetriNetTranslatorTest {
 		for (Map.Entry<String, List<PropagationPort>> mapElement : failConnections.entrySet()){
 			pplist.addAll(mapElement.getValue());
 		}
-		pnt.translate(BasicModelBuilder.getErrorModes().values().stream().collect(Collectors.toList()), pplist);
+		pnt.translate(BasicModelBuilder.getSystem());
 		actualPN = pnt.getPetriNet();
 		actualMarking = pnt.getMarking();
 	}

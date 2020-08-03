@@ -4,6 +4,7 @@ import it.unifi.stlab.exporter.XPNExporter;
 import it.unifi.stlab.exporter.strategies.BasicExportStrategy;
 import it.unifi.stlab.exporter.strategies.OrderByComponentStrategy;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
@@ -31,12 +32,14 @@ public class BasicModelExample {
 		HashMap<String, FaultMode> failModes = BasicModelBuilder.getFaultModes();
 		HashMap<String, List<PropagationPort>> failConnections = BasicModelBuilder.getFailConnections();
 		HashMap<String, ErrorMode> errorModes = BasicModelBuilder.getErrorModes();
+		System sys = BasicModelBuilder.getSystem();
+
 		PetriNetTranslator pnt = new PetriNetTranslator();
 		List<PropagationPort> pplist = new ArrayList<>();
 		for (Map.Entry<String, List<PropagationPort>> mapElement : BasicModelBuilder.getFailConnections().entrySet()){
 			pplist.addAll(mapElement.getValue());
 		}
-		pnt.translate(BasicModelBuilder.getErrorModes().values().stream().collect(Collectors.toList()), pplist);
+		pnt.translate(BasicModelBuilder.getSystem());
 		//System.out.println( pnt.getPetriNet().toString() +"\n");
 		//System.out.println( pnt.getMarking().toString() +"\n");
 
@@ -68,8 +71,8 @@ public class BasicModelExample {
 		scenario.accept(pnt);
 		scenario.propagate();
 		scenario.printReport();
-		System.out.println(pnt.getMarking().toString());
-		XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(failConnections, errorModes, pnt.getPetriNet(), pnt.getMarking()));
+		java.lang.System.out.println(pnt.getMarking().toString());
+		XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(sys, pnt.getPetriNet(), pnt.getMarking()));
 		//XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
 		}
 }

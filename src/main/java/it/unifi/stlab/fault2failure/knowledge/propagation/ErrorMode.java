@@ -8,7 +8,7 @@ public class ErrorMode {
     private String name;
     private final BooleanExpression activationFunction;
     private FailureMode outgoingFailure;
-    private List<FaultMode> inputFaultModes; // TODO questa diventa una lista di FaultMode
+    private List<FaultMode> inputFaultModes; // DONE questa diventa una lista di FaultMode
     private StochasticTransitionFeature timetofailurePDF;
     private MetaComponent metaComponent;
 
@@ -51,6 +51,28 @@ public class ErrorMode {
         return this.outgoingFailure;
     }
     public StochasticTransitionFeature getTimetofailurePDF(){return this.timetofailurePDF;}
+
+    public void setPDF(String timetofailurePDF) {
+        String typePDF = timetofailurePDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
+        String arguments = timetofailurePDF.substring(typePDF.length()+1, timetofailurePDF.length()-1);
+        String[] args;
+        switch (typePDF) {
+            case "uniform":
+                //two arguments
+                args = arguments.split(",");
+                this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(args[0], args[1]);
+            case "dirac":
+                //one argument
+                this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
+            case "exp":
+                //one argument
+                this.timetofailurePDF = StochasticTransitionFeature.newExponentialInstance(arguments);
+            case "erlang":
+                args = arguments.split(",");
+                this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
+        }
+    }
+
     public void setOutGoingFailure(FailureMode fm){
         this.outgoingFailure=fm;
     }

@@ -2,6 +2,7 @@ package it.unifi.stlab.fault2failure.knowledge.utils;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
@@ -24,6 +25,7 @@ public class SteamBoilerModelBuilder{
     private static HashMap<String, FaultMode> faultModes;
     private static HashMap<String, List<PropagationPort>> failConnections;
     private static HashMap<String, ErrorMode> errorModes;
+    private static System system;
 
     public static HashMap<String, ErrorMode> getErrorModes() {
         return errorModes;
@@ -38,6 +40,10 @@ public class SteamBoilerModelBuilder{
 
     public static HashMap<String, List<PropagationPort>> getFailConnections() {
         return failConnections;
+    }
+
+    public static System getSystem() {
+        return system;
     }
 
     public static void build(){

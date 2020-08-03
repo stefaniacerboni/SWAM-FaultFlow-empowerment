@@ -1,10 +1,18 @@
 package it.unifi.stlab.fault2failure.knowledge.composition;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MetaComponent {
     private String name;
     private CompositionPort compositionPort;
+    private List<ErrorMode> errorModes;
+    private List<PropagationPort> propagationPort;
 
-    // TODO aggiungere liste errorModes (di ErrorMode) e propagations (di PropagationPort)
+    //  aggiungere liste errorModes (di ErrorMode) e propagations (di PropagationPort)
 
     /**
      * Create a MetaComponent by setting its name to the String passed in input and its CompositionPort to null
@@ -13,6 +21,8 @@ public class MetaComponent {
     public MetaComponent(String name){
         this.name = name;
         this.compositionPort=null;
+        this.errorModes= new ArrayList<>();
+        this.propagationPort=new ArrayList<>();
     }
 
     public String getName(){
@@ -29,4 +39,21 @@ public class MetaComponent {
         this.compositionPort = cp;
     }
 
+    public void addErrorMode(ErrorMode errorMode){
+        this.errorModes.add(errorMode);
+    }
+    public void addPropagationPort(PropagationPort propagationPort){
+        this.propagationPort.add(propagationPort);
+    }
+    public void addPropagationPort(List<PropagationPort> propagationPorts){
+        this.propagationPort.addAll(propagationPorts);
+    }
+
+    public List<ErrorMode> getErrorModes() {
+        return errorModes;
+    }
+
+    public List<PropagationPort> getPropagationPort() {
+        return propagationPort;
+    }
 }
