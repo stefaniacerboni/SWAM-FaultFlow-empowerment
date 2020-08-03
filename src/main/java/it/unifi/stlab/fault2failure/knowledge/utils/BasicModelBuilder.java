@@ -117,9 +117,9 @@ public class BasicModelBuilder{
         BooleanExpression c_Failure2 = BooleanExpression.config("C_Fault6 && C_Fault4", faultModes);
         BooleanExpression c_Failure3 = BooleanExpression.config("C_Fault5 && C_Fault6", faultModes);
 
-        errorModes.put("A_Propagation1", new ErrorMode("A_Propagation1", a_Failure1, a_failure1, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("5"), new BigDecimal("1")), metaComponents.get("Leaf_A")));
-        errorModes.put("A_Propagation2", new ErrorMode("A_Propagation2", a_Failure2, a_failure2, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("7"), new BigDecimal("1")), metaComponents.get("Leaf_A")));
-        errorModes.put("A_Propagation3", new ErrorMode("A_Propagation3", a_Failure3, a_failure3, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("9"), new BigDecimal("1")), metaComponents.get("Leaf_A")));
+        errorModes.put("A_Propagation1", new ErrorMode("A_Propagation1", a_Failure1, a_failure1, "erlang(5,1)", metaComponents.get("Leaf_A")));
+        errorModes.put("A_Propagation2", new ErrorMode("A_Propagation2", a_Failure2, a_failure2, "erlang(7,1)", metaComponents.get("Leaf_A")));
+        errorModes.put("A_Propagation3", new ErrorMode("A_Propagation3", a_Failure3, a_failure3, "erlang(9,1)", metaComponents.get("Leaf_A")));
 
         a.addErrorMode(errorModes.get("A_Propagation1"));
         a.addErrorMode(errorModes.get("A_Propagation2"));
@@ -127,16 +127,16 @@ public class BasicModelBuilder{
 
 
 
-        errorModes.put("B_Propagation1", new ErrorMode("B_Propagation1", b_Failure1, b_failure1, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("6"), new BigDecimal("1")), metaComponents.get("Leaf_B")));
-        errorModes.put("B_Propagation2", new ErrorMode("B_Propagation2", b_Failure2, b_failure2, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")), metaComponents.get("Leaf_B")));
+        errorModes.put("B_Propagation1", new ErrorMode("B_Propagation1", b_Failure1, b_failure1, "erlang(6,1)", metaComponents.get("Leaf_B")));
+        errorModes.put("B_Propagation2", new ErrorMode("B_Propagation2", b_Failure2, b_failure2, "erlang(2,1)", metaComponents.get("Leaf_B")));
 
         b.addErrorMode(errorModes.get("B_Propagation1"));
         b.addErrorMode(errorModes.get("B_Propagation2"));
 
 
-        errorModes.put("C_Propagation1", new ErrorMode("C_Propagation1", c_Failure1, c_failure1, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")), metaComponents.get("Root_C")));
-        errorModes.put("C_Propagation2", new ErrorMode("C_Propagation2", c_Failure2, c_failure2, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")), metaComponents.get("Root_C")));
-        errorModes.put("C_Propagation3", new ErrorMode("C_Propagation3", c_Failure3, c_failure3, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")), metaComponents.get("Root_C")));
+        errorModes.put("C_Propagation1", new ErrorMode("C_Propagation1", c_Failure1, c_failure1,"erlang(2,1)", metaComponents.get("Root_C")));
+        errorModes.put("C_Propagation2", new ErrorMode("C_Propagation2", c_Failure2, c_failure2, "erlang(2,1)", metaComponents.get("Root_C")));
+        errorModes.put("C_Propagation3", new ErrorMode("C_Propagation3", c_Failure3, c_failure3, "erlang(2,1)", metaComponents.get("Root_C")));
 
         c.addErrorMode(errorModes.get("C_Propagation1"));
         c.addErrorMode(errorModes.get("C_Propagation2"));

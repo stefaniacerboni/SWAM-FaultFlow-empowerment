@@ -65,21 +65,19 @@ public class PetriNetTranslator implements Translator {
                         }
                     }
                 }
-
-                //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
-
-                for (PropagationPort pp : metaComponent.getPropagationPort()) {
-                    a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
-                    b = net.addPlace(pp.getExogenousFaultMode().getName());
-                    t = net.addTransition(getTransitionName(b.getName()));
-                    TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
-                    if (tf == null) {
-                        t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
-                        t.addFeature(new Priority(0));
-                    }
-                    net.addPrecondition(a, t);
-                    net.addPostcondition(t, b);
+            }
+            //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
+            for (PropagationPort pp : metaComponent.getPropagationPort()) {
+                a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
+                b = net.addPlace(pp.getExogenousFaultMode().getName());
+                t = net.addTransition(getTransitionName(b.getName()));
+                TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
+                if (tf == null) {
+                    t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+                    t.addFeature(new Priority(0));
                 }
+                net.addPrecondition(a, t);
+                net.addPostcondition(t, b);
             }
         }
     }

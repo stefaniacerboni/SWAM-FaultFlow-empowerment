@@ -36,8 +36,17 @@ public class ErrorMode {
         this(name, function, outgoingFailure);
         this.timetofailurePDF = timetofailurePDF;
     }
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF){
+        this(name, function, outgoingFailure);
+        setPDF(timetofailurePDF);
+    }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, StochasticTransitionFeature timetofailurePDF, MetaComponent metaComponent){
+        this(name, function, outgoingFailure, timetofailurePDF);
+        this.metaComponent=metaComponent;
+    }
+
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF, MetaComponent metaComponent){
         this(name, function, outgoingFailure, timetofailurePDF);
         this.metaComponent=metaComponent;
     }
@@ -56,11 +65,11 @@ public class ErrorMode {
         String typePDF = timetofailurePDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
         String arguments = timetofailurePDF.substring(typePDF.length()+1, timetofailurePDF.length()-1);
         String[] args;
-        switch (typePDF) {
+        switch (typePDF.toLowerCase()) {
             case "uniform":
                 //two arguments
                 args = arguments.split(",");
-                this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(args[0], args[1]);
+                this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(args[0].trim(), args[1].trim());
             case "dirac":
                 //one argument
                 this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
@@ -69,7 +78,7 @@ public class ErrorMode {
                 this.timetofailurePDF = StochasticTransitionFeature.newExponentialInstance(arguments);
             case "erlang":
                 args = arguments.split(",");
-                this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
+                this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0].trim()), args[1].trim());
         }
     }
 

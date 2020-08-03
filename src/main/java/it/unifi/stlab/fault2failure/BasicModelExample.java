@@ -73,6 +73,6 @@ public class BasicModelExample {
 		scenario.printReport();
 		java.lang.System.out.println(pnt.getMarking().toString());
 		XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(sys, pnt.getPetriNet(), pnt.getMarking()));
-		//XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
+		XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
 		}
 }
