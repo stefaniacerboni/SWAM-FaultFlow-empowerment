@@ -10,7 +10,6 @@ public class ErrorMode {
     private FailureMode outgoingFailure;
     private List<FaultMode> inputFaultModes; // DONE questa diventa una lista di FaultMode
     private StochasticTransitionFeature timetofailurePDF;
-    private MetaComponent metaComponent;
 
     /**
      * Create and ErrorMode by saying its name and its EnablingFunction (or ActivationFunction).
@@ -24,7 +23,6 @@ public class ErrorMode {
         this.activationFunction = function;
         this.inputFaultModes = activationFunction.extractIncomingFaults();
         this.outgoingFailure = null;
-        this.metaComponent= null;
 
     }
 
@@ -43,12 +41,10 @@ public class ErrorMode {
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, StochasticTransitionFeature timetofailurePDF, MetaComponent metaComponent){
         this(name, function, outgoingFailure, timetofailurePDF);
-        this.metaComponent=metaComponent;
     }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF, MetaComponent metaComponent){
         this(name, function, outgoingFailure, timetofailurePDF);
-        this.metaComponent=metaComponent;
     }
 
     public String getName(){return this.name;}
@@ -84,10 +80,6 @@ public class ErrorMode {
 
     public void setOutGoingFailure(FailureMode fm){
         this.outgoingFailure=fm;
-    }
-
-    public MetaComponent getMetaComponent() {
-        return metaComponent;
     }
 
     public boolean checkActivationFunction(){
