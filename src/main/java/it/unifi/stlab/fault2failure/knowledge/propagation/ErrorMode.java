@@ -1,5 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import java.util.List;
 
@@ -7,8 +8,9 @@ public class ErrorMode {
     private String name;
     private final BooleanExpression activationFunction;
     private FailureMode outgoingFailure;
-    private List<FailureMode> inputFaultModes; // TODO questa diventa una lista di FaultMode
+    private List<FaultMode> inputFaultModes; // TODO questa diventa una lista di FaultMode
     private StochasticTransitionFeature timetofailurePDF;
+    private MetaComponent metaComponent;
 
     /**
      * Create and ErrorMode by saying its name and its EnablingFunction (or ActivationFunction).
@@ -20,8 +22,10 @@ public class ErrorMode {
     public ErrorMode(String name, BooleanExpression function){
         this.name=name;
         this.activationFunction = function;
-        this.inputFaultModes = activationFunction.extractIncomingFails();
+        this.inputFaultModes = activationFunction.extractIncomingFaults();
         this.outgoingFailure = null;
+        this.metaComponent= null;
+
     }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure){
@@ -33,9 +37,14 @@ public class ErrorMode {
         this.timetofailurePDF = timetofailurePDF;
     }
 
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, StochasticTransitionFeature timetofailurePDF, MetaComponent metaComponent){
+        this(name, function, outgoingFailure, timetofailurePDF);
+        this.metaComponent=metaComponent;
+    }
+
     public String getName(){return this.name;}
     public String getActivationFunction(){return activationFunction.toString();}
-    public List<FailureMode> getInputFaultModes() {
+    public List<FaultMode> getInputFaultModes() {
         return inputFaultModes;
     }
     public FailureMode getOutgoingFailure(){
@@ -46,7 +55,15 @@ public class ErrorMode {
         this.outgoingFailure=fm;
     }
 
+    public MetaComponent getMetaComponent() {
+        return metaComponent;
+    }
+
     public boolean checkActivationFunction(){
         return activationFunction.compute();
+    }
+
+    public boolean checkFaultIsPresent(String name){
+        return this.inputFaultModes.stream().anyMatch(x-> x.name.equals(name));
     }
 }

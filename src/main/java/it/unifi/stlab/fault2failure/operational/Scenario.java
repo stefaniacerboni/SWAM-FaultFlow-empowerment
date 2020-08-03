@@ -101,6 +101,7 @@ public class Scenario {
      * @param failure the failure that's being propagated.
      */
     private void propagate(Failure failure){
+        /*
             //System.out.println(failure.getDescription()+" is occurred at time "+failure.getTimestamp().toString());
             Failure next;
             List<PropagationPort> thisconnection = failConnections.get(failure.getFailureMode().getDescription());
@@ -145,12 +146,13 @@ public class Scenario {
                             //failuresOccurred.putIfAbsent(next.getDescription(), next);
                             propagate(next, component);
                         }
-                        */
+
                     }
                 }
             }
             //else
                 //System.out.println("PropEnded");
+         */
     }
 
     /**

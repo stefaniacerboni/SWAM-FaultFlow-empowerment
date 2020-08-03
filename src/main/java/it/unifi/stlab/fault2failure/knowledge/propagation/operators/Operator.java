@@ -2,6 +2,7 @@ package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
 
 import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,18 @@ public abstract class Operator implements BooleanExpression {
                 incomingFails.add((FailureMode)be);
             else{
                 incomingFails.addAll(be.extractIncomingFails());
+            }
+        }
+        return incomingFails;
+    }
+
+    public List<FaultMode> extractIncomingFaults(){
+        List <FaultMode> incomingFails = new ArrayList<>();
+        for(BooleanExpression be: elements){
+            if(be instanceof FaultMode)
+                incomingFails.add((FaultMode)be);
+            else{
+                incomingFails.addAll(be.extractIncomingFaults());
             }
         }
         return incomingFails;

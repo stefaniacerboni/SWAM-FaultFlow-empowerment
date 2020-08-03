@@ -7,21 +7,23 @@ import java.util.HashMap;
 import java.util.List;
 
 import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.operators.*;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BooleanExpressionTest {
-    private FailureMode A_Fault1, A_Fault2, A_Fault3;
+    private FaultMode A_Fault1, A_Fault2, A_Fault3;
     private BooleanExpression a_Failure1;
 
     @Before
     public void setBooleanExpression(){
         //Testing (!Fault1)&&((Fault2)||(Fault3))
-        A_Fault1 = new FailureMode("A_Fault1");
-        A_Fault2 = new FailureMode("A_Fault2");
-        A_Fault3 = new FailureMode("A_Fault3");
+        A_Fault1 = new EndogenousFaultMode("A_Fault1");
+        A_Fault2 = new EndogenousFaultMode("A_Fault2");
+        A_Fault3 = new EndogenousFaultMode("A_Fault3");
 
         a_Failure1 = new AND();
         Operator notA_Fault1 = new NOT();
@@ -47,7 +49,7 @@ public class BooleanExpressionTest {
 
     @Test
     public void testExtractIncomingFails(){
-        List<FailureMode> expected = new ArrayList<>();
+        List<FaultMode> expected = new ArrayList<>();
         expected.add(A_Fault1);
         expected.add(A_Fault2);
         expected.add(A_Fault3);
@@ -62,12 +64,12 @@ public class BooleanExpressionTest {
     @Test
     public void testAddChild(){
         assertEquals(3, a_Failure1.extractIncomingFails().size());
-        a_Failure1.addChild(new FailureMode("Temp"));
+        a_Failure1.addChild(new EndogenousFaultMode("Temp"));
         assertEquals(4, a_Failure1.extractIncomingFails().size());
     }
     @Test(expected = IllegalArgumentException.class)
     public void testAddChild_NotInLeaf(){
-        A_Fault1.addChild(new FailureMode("Temp"));
+        A_Fault1.addChild(new EndogenousFaultMode("Temp"));
     }
     @Test
     public void testRemoveChild(){
@@ -78,7 +80,7 @@ public class BooleanExpressionTest {
     @Test
     public void testRemoveOperator(){
         AND temp = new AND();
-        temp.addChild(new FailureMode("tempFail"));
+        temp.addChild(new EndogenousFaultMode("tempFail"));
         a_Failure1.addChild(temp);
         assertEquals(4, a_Failure1.extractIncomingFails().size());
         a_Failure1.removeChild(temp);
@@ -90,7 +92,7 @@ public class BooleanExpressionTest {
     }
     @Test
     public void testToString(){
-        HashMap<String, FailureMode> failModes = new HashMap<>();
+        HashMap<String, FaultMode> failModes = new HashMap<>();
         BooleanExpression a_failure = BooleanExpression.config("(!Fault1)&&(Fault2||Fault3)", failModes);
         assertEquals("(!Fault1>0)&&((Fault2>0)||(Fault3>0))", a_failure.toString());
     }
@@ -98,11 +100,11 @@ public class BooleanExpressionTest {
     public void testAddInNOT(){
         //NOT is an Unary Operator, so it must have always just one element (FailureMode or Operator) inside its list of elements.
         Operator not = new NOT();
-        not.addChild(new FailureMode("temp1"));
+        not.addChild(new EndogenousFaultMode("temp1"));
         assertEquals(1, not.elements.size());
         assertEquals("temp1>0", not.elements.get(0).toString());
         //When I add another element, delete the previous one and add the new one
-        not.addChild(new FailureMode("temp2"));
+        not.addChild(new EndogenousFaultMode("temp2"));
         assertEquals(1, not.elements.size());
         assertEquals("temp2>0", not.elements.get(0).toString());
     }

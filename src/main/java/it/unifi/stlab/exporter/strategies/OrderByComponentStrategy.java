@@ -1,6 +1,9 @@
 package it.unifi.stlab.exporter.strategies;
 
 import it.unifi.stlab.exporter.jaxb.*;
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 import org.oristool.petrinet.Marking;
@@ -8,6 +11,7 @@ import org.oristool.petrinet.PetriNet;
 import org.oristool.petrinet.Postcondition;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Create an export strategy that implements and order between places and transition.
@@ -17,11 +21,13 @@ import java.util.*;
  */
 public class OrderByComponentStrategy implements ExportStrategy {
     private HashMap<String, List<PropagationPort>> failConnections;
+    private HashMap<String, ErrorMode> errorModes;
     private PetriNet petriNet = null;
     private Marking marking = null;
 
-    public OrderByComponentStrategy(HashMap<String, List<PropagationPort>> failConnections, PetriNet petriNet, Marking marking){
+    public OrderByComponentStrategy(HashMap<String, List<PropagationPort>> failConnections, HashMap<String, ErrorMode> errorModes,PetriNet petriNet, Marking marking){
         this.failConnections=failConnections;
+        this.errorModes=errorModes;
         this.petriNet = petriNet;
         this.marking = marking;
     }
@@ -30,14 +36,15 @@ public class OrderByComponentStrategy implements ExportStrategy {
         ObjectFactory objectFactory = new ObjectFactory();
         TpnEditor tpnEditor = objectFactory.createTpnEditor();
         TPNEntities tpnEntities = objectFactory.createTPNEntities();
-        translateOccurrences(failConnections, petriNet, marking, tpnEntities);
+        translateOccurrences(failConnections,errorModes, petriNet, marking, tpnEntities);
         tpnEditor.setTpnEntities(tpnEntities);
         return tpnEditor;
     }
-    private void translateOccurrences(HashMap<String, List<PropagationPort>> failConnections, PetriNet petriNet, Marking marking, TPNEntities tpnEntities){
+    //dovrei passsare qui dentro anche una lista di errorMode, il resto concettualmente è giusto. 
+    private void translateOccurrences(HashMap<String, List<PropagationPort>> failConnections, HashMap<String, ErrorMode> errorModes, PetriNet petriNet, Marking marking, TPNEntities tpnEntities){
         int x,y;
         y=Y_START;
-        HashMap<String, List<org.oristool.petrinet.Place>> componentPlaces = getOccurrencesOrderedByMetaComponent(failConnections, petriNet);
+        HashMap<String, List<org.oristool.petrinet.Place>> componentPlaces = getOccurrencesOrderedByMetaComponent(errorModes, petriNet);
         for (Map.Entry<String, List<org.oristool.petrinet.Place>> mapElement : componentPlaces.entrySet()){
 
             for(org.oristool.petrinet.Place place : mapElement.getValue()){
@@ -59,14 +66,55 @@ public class OrderByComponentStrategy implements ExportStrategy {
                 addArc(tpnEntities, transition.getName(), postcondition.getPlace().getName());
 
                 y+=Y_SPACING;
-                if(failConnections.get(fault.getUuid())!=null)
-                    propagateTranslate(tpnEntities, failConnections, petriNet, marking, fault);
+                if(!getErrorModesFromFault(fault, errorModes).isEmpty())
+                    propagateTranslate(tpnEntities, failConnections, errorModes, petriNet, marking, fault);
             }
             y+=100;
         }
     }
 
-    private void propagateTranslate(TPNEntities tpnEntities, HashMap<String, List<PropagationPort>> failConnections, PetriNet petriNet, Marking marking, Place fault) {
+    private void propagateTranslate(TPNEntities tpnEntities, HashMap<String, List<PropagationPort>> failConnections, HashMap<String, ErrorMode> errorModes, PetriNet petriNet, Marking marking, Place fault) {
+        int y = fault.getY();
+        int xvalue=setSpacingToPreventOverlapping(failConnections);
+        for(ErrorMode em : getErrorModesFromFault(fault, errorModes)){
+            if(!isPlaceInXML(tpnEntities, em.getName())){
+                int x = fault.getX()+xvalue;
+
+                addPlace(tpnEntities, petriNet.getPlace(em.getName()), marking, x, y);
+                x += xvalue;
+                org.oristool.petrinet.Transition transition = petriNet.getTransition(PetriNetTranslator.getTransitionName(em.getOutgoingFailure().getDescription()));
+                addTransition(tpnEntities, transition, x, y);
+
+                addArc(tpnEntities, em.getName(), transition.getName());
+
+                x += xvalue;
+
+                Place next = addPlace(tpnEntities, petriNet.getPlace(em.getOutgoingFailure().getDescription()), marking, x, y);
+                addArc(tpnEntities, transition.getName(), em.getOutgoingFailure().getDescription());
+                if(failConnections.get(next.getUuid())!=null){
+
+                    FaultMode exoFault = failConnections.get(next.getUuid()).stream().findFirst().get().getExogenousFaultMode();
+                    Transition t = addTransition(tpnEntities, petriNet.getTransition(PetriNetTranslator.getTransitionName(exoFault.getName())), next.getX()+70, next.getY());
+                    addArc(tpnEntities, next.getUuid(), t.getUuid());
+                    //addArc(tpnEntities, PetriNetTranslator.getTransitionName(em.getOutgoingFailure().getDescription()), exoFault.getName());
+                    Place b = getPlace(tpnEntities, exoFault.getName());
+                    if(!isPlaceInXML(tpnEntities, exoFault.getName()))
+                        b= addPlace(tpnEntities, petriNet.getPlace(exoFault.getName()), marking, t.getX()+180, t.getY());
+                    else{
+                        if(b.getY()!=fault.getY()) {
+                            adjustPlacePosition(b, t.getX()+180, fault.getY());
+                        }
+                    }
+                    addArc(tpnEntities, t.getUuid(), b.getUuid());
+                    if(!getErrorModesFromFault(b, errorModes).isEmpty())
+                        propagateTranslate(tpnEntities, failConnections,errorModes, petriNet, marking, b);
+                }
+                //propagateTranslate(tpnEntities, failConnections, errorModes,petriNet, marking, next);
+                y+=Y_SPACING;
+            }
+        }
+
+        /*
         int y = fault.getY();
         int xvalue=setSpacingToPreventOverlapping(failConnections);
         for(PropagationPort pp: failConnections.get(fault.getUuid())){
@@ -104,7 +152,9 @@ public class OrderByComponentStrategy implements ExportStrategy {
                     propagateTranslate(tpnEntities, failConnections, petriNet, marking, b);
             }
         }
+        */
     }
+    /*
     private HashMap<String, List<org.oristool.petrinet.Place>> getOccurrencesOrderedByMetaComponent(HashMap<String, List<PropagationPort>> propagationPorts, PetriNet petrinet) {
         HashMap<String, List<org.oristool.petrinet.Place>> componentPlaces = new HashMap<>();
         List<org.oristool.petrinet.Place> occurrences = new ArrayList<>();
@@ -127,9 +177,34 @@ public class OrderByComponentStrategy implements ExportStrategy {
         return componentPlaces;
     }
 
+     */
+
+    private HashMap<String, List<org.oristool.petrinet.Place>> getOccurrencesOrderedByMetaComponent(HashMap<String, ErrorMode> errorModes, PetriNet petrinet) {
+        HashMap<String, List<org.oristool.petrinet.Place>> componentPlaces = new HashMap<>();
+        for (ErrorMode errorMode : errorModes.values()) {
+            for(FaultMode faultMode: errorMode.getInputFaultModes()) {
+                if(faultMode instanceof EndogenousFaultMode) {
+                    org.oristool.petrinet.Place place = petrinet.getPlace(faultMode.getName() + "Occurrence");
+                    if (componentPlaces.get(errorMode.getMetaComponent().getName()) == null)
+                        componentPlaces.computeIfAbsent(errorMode.getMetaComponent().getName(), k -> new ArrayList<>()).add(place);
+                    else {
+                        if (!componentPlaces.get(errorMode.getMetaComponent().getName()).contains(place))
+                            componentPlaces.get(errorMode.getMetaComponent().getName()).add(place);
+                    }
+                }
+            }
+        }
+        return componentPlaces;
+    }
+
+    private List<ErrorMode> getErrorModesFromFault(Place fault, HashMap<String, ErrorMode> errorModes){
+        return errorModes.values().stream().filter(x-> x.checkFaultIsPresent(fault.getUuid())).collect(Collectors.toList());
+    }
+
     int setSpacingToPreventOverlapping(HashMap<String, List<PropagationPort>> failconnections){
         Set<String> keyset = failconnections.keySet();
         String maxstring = keyset.stream().max(Comparator.comparingInt(String::length)).toString();
         return maxstring.length()*5;
     }
+
 }

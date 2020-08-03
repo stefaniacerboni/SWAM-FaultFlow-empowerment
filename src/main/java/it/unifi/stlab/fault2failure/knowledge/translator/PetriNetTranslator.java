@@ -3,6 +3,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Failure;
 import org.oristool.models.pn.Priority;
@@ -26,52 +29,53 @@ public class PetriNetTranslator implements Translator {
     	marking = new Marking();
     }
 
-    public void translate(List<PropagationPort> failConnections) {
+    public void translate(List<ErrorMode> errorModes, List<PropagationPort> propagationPorts) {
         //First add ErrorModes to the net, thus the ErrorMode and its outgoing failure become places and
         //between them there's a transition with the ErrorMode's enabling function
-        for (PropagationPort pp : failConnections) {
-            if (pp.getErrorMode() != null && net.getPlace(pp.getErrorMode().getName()) == null) {
-                Place a = net.addPlace(pp.getErrorMode().getName());
-                Place b = net.addPlace(pp.getErrorMode().getOutgoingFailure().getDescription());
-                Transition t = net.addTransition(getTransitionName(b.getName()));
-                t.addFeature(new EnablingFunction(pp.getErrorMode().getActivationFunction()));
-                t.addFeature(pp.getErrorMode().getTimetofailurePDF());
-                net.addPrecondition(a, t);
-                net.addPostcondition(t, b);
-                marking.setTokens(a, 1); //Every ErrorMode(Propagation) already has a token in its place.
-                marking.setTokens(b, 0); //Everything else doesn't have a token yet.
-                //^avoidable since everything's at 0 if it's not stated different
+        Place a, b;
+        Transition t;
+        for (ErrorMode e : errorModes) {
+            //add ErrorMode and its failureMode
+            a = net.addPlace(e.getName());
+            b = net.addPlace(e.getOutgoingFailure().getDescription());
+            t = net.addTransition(getTransitionName(b.getName()));
+            t.addFeature(new EnablingFunction(e.getActivationFunction()));
+            t.addFeature(e.getTimetofailurePDF());
+            net.addPrecondition(a, t);
+            net.addPostcondition(t, b);
+            marking.setTokens(a, 1);
+
+            //add its faultModes
+
+            List<FaultMode> inFaults = e.getInputFaultModes();
+            for (FaultMode fault : inFaults) {
+                if (net.getPlace(fault.getName()) == null) {
+                    //if fault is not already in the net
+                    b = net.addPlace(fault.getName());
+                    if (fault instanceof EndogenousFaultMode) {
+                        a = net.addPlace(fault.getName() + "Occurrence");
+                        t = net.addTransition(getTransitionName(a.getName()));
+                        t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
+                        t.addFeature(new Priority(0));
+                        net.addPrecondition(a, t);
+                        net.addPostcondition(t, b);
+                    }
+                }
             }
-        }
-        //Then add transitions between Failure at low level to fault at higher level.
-        for (PropagationPort pp : failConnections) {
-            //Nelle failConnections questi collegamenti sono evidenziati non specificando il propagationMechanism che li gestisce
-            //Perché sono, effettivamente, esenti da errorMode, la propagazione è immediata
-            if (pp.getErrorMode() == null) {
-                Place a = net.getPlace(pp.getFailIn().getDescription());
-                Place b = net.addPlace(pp.getFailOut().getDescription());
-                Transition t = net.addTransition(getTransitionName(b.getName()));
+
+            //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
+
+            for (PropagationPort pp : propagationPorts) {
+                a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
+                b = net.addPlace(pp.getExogenousFaultMode().getName());
+                t = net.addTransition(getTransitionName(b.getName()));
                 TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
-                if(tf == null) {
+                if (tf == null) {
                     t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
                     t.addFeature(new Priority(0));
                 }
                 net.addPrecondition(a, t);
                 net.addPostcondition(t, b);
-            }
-        }
-        //Finally add the endogenous fault as places: if a fault it's not already into the net
-        // then it's not a result of a propagation, this means that it's an endogenous fault
-        for (PropagationPort pp : failConnections) {
-            if (net.getPlace(pp.getFailIn().getDescription()) == null) {
-                Place a = net.addPlace(pp.getFailIn().getDescription() + "Occurrence");
-                Place b = net.addPlace(pp.getFailIn().getDescription());
-                Transition t = net.addTransition(getTransitionName(a.getName()));
-                t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
-                t.addFeature(new Priority(0));
-                net.addPrecondition(a, t);
-                net.addPostcondition(t, b);
-
             }
         }
     }
@@ -84,7 +88,7 @@ public class PetriNetTranslator implements Translator {
      *                into a Place in the PetriNet.
      */
     public void decorateOccurrence(Failure failure, BigDecimal timestamp) {
-        Place a = net.getPlace((failure.getFailureMode().getDescription()+"Occurrence"));
+        Place a = net.getPlace((failure.getFaultMode().getName()+"Occurrence"));
         marking.setTokens(a,1);
         Transition t = net.getTransition(getTransitionName(a.getName()));
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);

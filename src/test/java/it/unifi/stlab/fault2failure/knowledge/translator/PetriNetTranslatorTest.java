@@ -2,7 +2,9 @@ package it.unifi.stlab.fault2failure.knowledge.translator;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Failure;
@@ -38,15 +40,16 @@ public class PetriNetTranslatorTest {
 	private void buildActualPN() {
 		BasicModelBuilder.build();
 		HashMap<String, MetaComponent> components = BasicModelBuilder.getMetaComponents();
-		HashMap<String, FailureMode> failModes = BasicModelBuilder.getFailModes();
+		HashMap<String, FaultMode> failModes = BasicModelBuilder.getFaultModes();
 		HashMap<String, List<PropagationPort>> failConnections = BasicModelBuilder.getFailConnections();
+
 		
 		pnt = new PetriNetTranslator();
 		List<PropagationPort> pplist = new ArrayList<>();
 		for (Map.Entry<String, List<PropagationPort>> mapElement : failConnections.entrySet()){
 			pplist.addAll(mapElement.getValue());
 		}
-		pnt.translate( pplist);
+		pnt.translate(BasicModelBuilder.getErrorModes().values().stream().collect(Collectors.toList()), pplist);
 		actualPN = pnt.getPetriNet();
 		actualMarking = pnt.getMarking();
 	}
@@ -365,7 +368,7 @@ public class PetriNetTranslatorTest {
 		}
 	}
 	private void setupScenario(){
-		HashMap<String, FailureMode> failModes = BasicModelBuilder.getFailModes();
+		HashMap<String, FaultMode> failModes = BasicModelBuilder.getFaultModes();
 
 		Failure A_fault1Occurred = new Failure("A_fault1Occurred", failModes.get("A_Fault1"));
 		Failure A_fault2Occurred = new Failure("A_fault2Occurred", failModes.get("A_Fault2"));

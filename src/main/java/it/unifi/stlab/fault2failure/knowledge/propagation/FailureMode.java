@@ -1,6 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-public class FailureMode implements BooleanExpression{
+public class FailureMode{
     private final String description;
     private Boolean state;
 
