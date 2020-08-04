@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.composition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CompositionPort {
@@ -21,9 +22,10 @@ public class CompositionPort {
      * Add a child to the hierarchical structure represented and set its CompositionPort to this.
      * @param metaComponent An instance of MetaComponent to be added as a child of the parent in the hierarchy
      */
-    public void addChild(MetaComponent metaComponent){
-        this.children.add(metaComponent);
-        metaComponent.setCompositionPort(this);
+    public void addChild(MetaComponent... metaComponent){
+        this.children.addAll(Arrays.asList(metaComponent));
+        for(MetaComponent mc: metaComponent)
+            mc.setCompositionPort(this);
     }
 
     public MetaComponent getParent(){

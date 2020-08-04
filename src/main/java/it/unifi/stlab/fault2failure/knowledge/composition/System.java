@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.composition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class System {
@@ -52,8 +53,8 @@ public class System {
         return topLevelComponent;
     }
 
-    public void addComponent(MetaComponent c){
-        this.components.add(c);
+    public void addComponent(MetaComponent... c){
+        this.components.addAll(Arrays.asList(c));
     }
     public void setTopLevelComponent(MetaComponent metaComponent) throws IllegalArgumentException{
         //assure that top level component it's inside the list of components that make up the system

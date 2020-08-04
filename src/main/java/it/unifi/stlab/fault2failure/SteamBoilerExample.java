@@ -35,9 +35,12 @@ public class SteamBoilerExample {
         HashMap<String, ErrorMode> errorModes = SteamBoilerModelBuilder.getErrorModes();
         PetriNetTranslator pnt = new PetriNetTranslator();
         List<PropagationPort> pplist = new ArrayList<>();
+        /*
         for (Map.Entry<String, List<PropagationPort>> mapElement : failConnections.entrySet()){
             pplist.addAll(mapElement.getValue());
         }
+
+         */
         pnt.translate(SteamBoilerModelBuilder.getSystem());
 
         /**

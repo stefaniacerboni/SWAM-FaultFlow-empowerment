@@ -58,7 +58,10 @@ public class PetriNetTranslator implements Translator {
                         if (fault instanceof EndogenousFaultMode) {
                             a = net.addPlace(fault.getName() + "Occurrence");
                             t = net.addTransition(getTransitionName(a.getName()));
-                            t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
+                            if(((EndogenousFaultMode) fault).getArisingPDF()!=null)
+                                t.addFeature(((EndogenousFaultMode) fault).getArisingPDF());
+                            else
+                                t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
                             t.addFeature(new Priority(0));
                             net.addPrecondition(a, t);
                             net.addPostcondition(t, b);
@@ -67,17 +70,19 @@ public class PetriNetTranslator implements Translator {
                 }
             }
             //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
-            for (PropagationPort pp : metaComponent.getPropagationPort()) {
-                a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
-                b = net.addPlace(pp.getExogenousFaultMode().getName());
-                t = net.addTransition(getTransitionName(b.getName()));
-                TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
-                if (tf == null) {
-                    t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
-                    t.addFeature(new Priority(0));
+            if(!metaComponent.getPropagationPort().isEmpty()) {
+                for (PropagationPort pp : metaComponent.getPropagationPort()) {
+                    a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
+                    b = net.addPlace(pp.getExogenousFaultMode().getName());
+                    t = net.addTransition(getTransitionName(b.getName()));
+                    TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
+                    if (tf == null) {
+                        t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+                        t.addFeature(new Priority(0));
+                    }
+                    net.addPrecondition(a, t);
+                    net.addPostcondition(t, b);
                 }
-                net.addPrecondition(a, t);
-                net.addPostcondition(t, b);
             }
         }
     }

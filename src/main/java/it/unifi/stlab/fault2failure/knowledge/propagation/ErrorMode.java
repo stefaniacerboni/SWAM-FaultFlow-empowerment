@@ -2,11 +2,15 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ErrorMode {
     private String name;
-    private final BooleanExpression activationFunction;
+    private BooleanExpression activationFunction;
     private FailureMode outgoingFailure;
     private List<FaultMode> inputFaultModes; // DONE questa diventa una lista di FaultMode
     private StochasticTransitionFeature timetofailurePDF;
@@ -23,7 +27,12 @@ public class ErrorMode {
         this.activationFunction = function;
         this.inputFaultModes = activationFunction.extractIncomingFaults();
         this.outgoingFailure = null;
+    }
 
+    public ErrorMode(String name){
+        this.name=name;
+        this.activationFunction=null;
+        this.inputFaultModes= new ArrayList<>();
     }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure){
@@ -66,15 +75,19 @@ public class ErrorMode {
                 //two arguments
                 args = arguments.split(",");
                 this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(args[0].trim(), args[1].trim());
+                break;
             case "dirac":
                 //one argument
                 this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
+                break;
             case "exp":
                 //one argument
                 this.timetofailurePDF = StochasticTransitionFeature.newExponentialInstance(arguments);
+                break;
             case "erlang":
                 args = arguments.split(",");
                 this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0].trim()), args[1].trim());
+                break;
         }
     }
 
@@ -88,5 +101,17 @@ public class ErrorMode {
 
     public boolean checkFaultIsPresent(String name){
         return this.inputFaultModes.stream().anyMatch(x-> x.name.equals(name));
+    }
+
+    public void addInputFaultMode(FaultMode... faultMode){
+        this.inputFaultModes.addAll(Arrays.asList(faultMode));
+    }
+
+    public void addOutputFailureMode(FailureMode failureMode){
+        this.outgoingFailure=failureMode;
+    }
+
+    public void setEnablingCondition(String booleanExpression){
+        this.activationFunction= BooleanExpression.config(booleanExpression, new HashMap<>());
     }
 }

@@ -1,7 +1,10 @@
 package it.unifi.stlab.exporter.strategies;
 
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
+import org.jfree.util.StringUtils;
+import org.oristool.math.function.EXP;
 import org.oristool.math.function.Erlang;
+import org.oristool.math.function.Function;
 import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.EnablingFunction;
@@ -139,16 +142,26 @@ public interface ExportStrategy {
             stochastic.setPropertyDataType("4.type.erlang");
         }
         else if(GEN.class.equals(stochasticTransitionFeature.density().getClass())){
-            String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString();
-            int fireTime = Integer.parseInt(domain.substring(0,domain.indexOf(" ")));
-            if(fireTime==0){
-                stochastic.setPropertyDataType("0.type.immediate");
+            String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
+            String[] bounds = domain.split("<=");
+            if(bounds[0].equals(bounds[2])){
+                if(Integer.parseInt(bounds[0])==0)
+                    stochastic.setPropertyDataType("0.type.immediate");
+                else {
+                    stochastic.setPropertyDataType("2.type.deterministic");
+                    stochastic.setValue(Integer.parseInt(bounds[0]));
+                }
             }
             else{
-                stochastic.setPropertyDataType("2.type.deterministic");
-                stochastic.setValue(fireTime);
+                stochastic.setPropertyDataType("1.type.uniform");
+                stochastic.setEft(Float.valueOf(bounds[0]));
+                stochastic.setLft(Float.valueOf(bounds[2]));
             }
             stochastic.setWeight(1);
+        }
+        else if(EXP.class.equals(stochasticTransitionFeature.density().getClass())){
+            stochastic.setLambda(((EXP) stochasticTransitionFeature.density()).getLambda().intValue());
+            stochastic.setPropertyDataType("3.type.exponential");
         }
         else
             throw new UnsupportedOperationException("This type of StochasticTransitionFeature is unsupported");

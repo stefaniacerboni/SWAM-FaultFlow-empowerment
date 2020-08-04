@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import org.jfree.util.StringUtils;
+import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
@@ -38,6 +39,10 @@ public class EndogenousFaultMode extends FaultMode{
             case "erlang":
                 args = arguments.split(",");
                 this.arisingPDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
+                break;
+            case "gaussian":
+                args = arguments.split(",");
+                //this.arisingPDF = StochasticTransitionFeature.new;
                 break;
         }
 

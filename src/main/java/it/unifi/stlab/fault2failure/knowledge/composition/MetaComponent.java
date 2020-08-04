@@ -4,6 +4,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MetaComponent {
@@ -39,11 +40,11 @@ public class MetaComponent {
         this.compositionPort = cp;
     }
 
-    public void addErrorMode(ErrorMode errorMode){
-        this.errorModes.add(errorMode);
+    public void addErrorMode(ErrorMode... errorMode){
+        this.errorModes.addAll(Arrays.asList(errorMode));
     }
-    public void addPropagationPort(PropagationPort propagationPort){
-        this.propagationPort.add(propagationPort);
+    public void addPropagationPort(PropagationPort... propagationPort){
+        this.propagationPort.addAll(Arrays.asList(propagationPort));
     }
     public void addPropagationPort(List<PropagationPort> propagationPorts){
         this.propagationPort.addAll(propagationPorts);
