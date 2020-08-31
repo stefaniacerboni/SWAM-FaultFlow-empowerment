@@ -54,18 +54,18 @@ public class BooleanExpressionTest {
         expected.add(A_Fault2);
         expected.add(A_Fault3);
 
-        List<FailureMode> actual = a_Failure1.extractIncomingFails();
+        List<FaultMode> actual = a_Failure1.extractIncomingFaults();
         assertThat(actual, is(expected));
     }
     @Test
     public void testExtractIncomingFails_NullInLeaf(){
-        assertNull(A_Fault1.extractIncomingFails());
+        assertNull(A_Fault1.extractIncomingFaults());
     }
     @Test
     public void testAddChild(){
-        assertEquals(3, a_Failure1.extractIncomingFails().size());
+        assertEquals(3, a_Failure1.extractIncomingFaults().size());
         a_Failure1.addChild(new EndogenousFaultMode("Temp"));
-        assertEquals(4, a_Failure1.extractIncomingFails().size());
+        assertEquals(4, a_Failure1.extractIncomingFaults().size());
     }
     @Test(expected = IllegalArgumentException.class)
     public void testAddChild_NotInLeaf(){
@@ -73,18 +73,18 @@ public class BooleanExpressionTest {
     }
     @Test
     public void testRemoveChild(){
-        assertEquals(3, a_Failure1.extractIncomingFails().size());
+        assertEquals(3, a_Failure1.extractIncomingFaults().size());
         a_Failure1.removeChild(A_Fault2);
-        assertEquals(2, a_Failure1.extractIncomingFails().size());
+        assertEquals(2, a_Failure1.extractIncomingFaults().size());
     }
     @Test
     public void testRemoveOperator(){
         AND temp = new AND();
         temp.addChild(new EndogenousFaultMode("tempFail"));
         a_Failure1.addChild(temp);
-        assertEquals(4, a_Failure1.extractIncomingFails().size());
+        assertEquals(4, a_Failure1.extractIncomingFaults().size());
         a_Failure1.removeChild(temp);
-        assertEquals(3, a_Failure1.extractIncomingFails().size());
+        assertEquals(3, a_Failure1.extractIncomingFaults().size());
     }
     @Test(expected = IllegalArgumentException.class)
     public void testRemoveChild_NotInLeaf(){

@@ -1,6 +1,5 @@
 package it.unifi.stlab.fault2failure.operational;
 
-import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
 import org.junit.Before;
@@ -30,7 +29,7 @@ public class ScenarioTest {
         current_system.add(b2);
         current_system.add(c);
 
-        scenario = new Scenario(BasicModelBuilder.getFailConnections(), current_system);
+        scenario = new Scenario(current_system);
     }
     @Test
     public void testAddFailure(){
@@ -39,13 +38,13 @@ public class ScenarioTest {
 
         HashMap<String, FaultMode> faultModes = BasicModelBuilder.getFaultModes();
         //instantiate 6 occurrences
-        Failure A_fault1Occurred = new Failure("A_fault1Occurred", faultModes.get("A_Fault1"));
-        Failure A_fault2Occurred = new Failure("A_fault2Occurred", faultModes.get("A_Fault2"));
-        Failure A_fault3Occurred = new Failure("A_fault3Occurred", faultModes.get("A_Fault3"));
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
 
-        Failure B_fault1Occurred = new Failure("B_fault1Occurred", faultModes.get("B_Fault1"));
-        Failure B_fault2Occurred = new Failure("B_fault2Occurred", faultModes.get("B_Fault2"));
-        Failure C_fault6Occurred = new Failure("C_fault6Occurred", faultModes.get("C_Fault6"));
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
+        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"));
         //add 6 occurrences
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10));
         scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13));
@@ -63,13 +62,13 @@ public class ScenarioTest {
 
         HashMap<String, FaultMode> faultModes = BasicModelBuilder.getFaultModes();
         //instantiate 6 occurrences
-        Failure A_fault1Occurred = new Failure("A_fault1Occurred", faultModes.get("A_Fault1"));
-        Failure A_fault2Occurred = new Failure("A_fault2Occurred", faultModes.get("A_Fault2"));
-        Failure A_fault3Occurred = new Failure("A_fault3Occurred", faultModes.get("A_Fault3"));
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
 
-        Failure B_fault1Occurred = new Failure("B_fault1Occurred", faultModes.get("B_Fault1"));
-        Failure B_fault2Occurred = new Failure("B_fault2Occurred", faultModes.get("B_Fault2"));
-        Failure C_fault6Occurred = new Failure("C_fault6Occurred", faultModes.get("C_Fault6"));
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
+        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"));
         //add 6 occurrences
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10));
         scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13));

@@ -9,7 +9,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.operational.Component;
-import it.unifi.stlab.fault2failure.operational.Failure;
+import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.pn.Priority;
 import org.oristool.models.stpn.MarkingExpr;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
@@ -91,11 +91,11 @@ public class PetriNetTranslator implements Translator {
      * Decorate the already instanced petri net with information coming at the Operational Level: this includes
      * -adding timestamp to failure occurrences' transitions
      * -decorate failure occurrence's places with tokens if they're active
-     * @param failure the instance of Failure created at Operational Level in a Scenario, that has to be translated
+     * @param fault the instance of Failure created at Operational Level in a Scenario, that has to be translated
      *                into a Place in the PetriNet.
      */
-    public void decorateOccurrence(Failure failure, BigDecimal timestamp) {
-        Place a = net.getPlace((failure.getFaultMode().getName()+"Occurrence"));
+    public void decorateOccurrence(Fault fault, BigDecimal timestamp) {
+        Place a = net.getPlace((fault.getFaultMode().getName()+"Occurrence"));
         marking.setTokens(a,1);
         Transition t = net.getTransition(getTransitionName(a.getName()));
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);

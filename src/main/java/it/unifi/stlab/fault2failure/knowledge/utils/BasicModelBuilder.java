@@ -25,12 +25,8 @@ public class BasicModelBuilder{
     private static HashMap<String, MetaComponent> metaComponents;
     private static HashMap<String, FaultMode> faultModes;
     private static HashMap<String, List<PropagationPort>> failConnections;
-    private static HashMap<String, ErrorMode> errorModes;
     private static System system;
 
-    public static HashMap<String, ErrorMode> getErrorModes() {
-        return errorModes;
-    }
     public static HashMap<String, MetaComponent> getMetaComponents() {
         return metaComponents;
     }
@@ -51,7 +47,6 @@ public class BasicModelBuilder{
         metaComponents = new HashMap<>();
         faultModes = new HashMap<>();
         failConnections = new HashMap<>();
-        errorModes= new HashMap<>();
         /*
         metaComponents.put("Root_C", new MetaComponent("Root_C"));
         CompositionPort abc = new CompositionPort(metaComponents.get("Root_C"));
@@ -117,30 +112,16 @@ public class BasicModelBuilder{
         BooleanExpression c_Failure2 = BooleanExpression.config("C_Fault6 && C_Fault4", faultModes);
         BooleanExpression c_Failure3 = BooleanExpression.config("C_Fault5 && C_Fault6", faultModes);
 
-        errorModes.put("A_Propagation1", new ErrorMode("A_Propagation1", a_Failure1, a_failure1, "erlang(5,1)"));
-        errorModes.put("A_Propagation2", new ErrorMode("A_Propagation2", a_Failure2, a_failure2, "erlang(7,1)"));
-        errorModes.put("A_Propagation3", new ErrorMode("A_Propagation3", a_Failure3, a_failure3, "erlang(9,1)"));
+        a.addErrorMode(new ErrorMode("A_Propagation1", a_Failure1, a_failure1, "erlang(5,1)"));
+        a.addErrorMode(new ErrorMode("A_Propagation2", a_Failure2, a_failure2, "erlang(7,1)"));
+        a.addErrorMode(new ErrorMode("A_Propagation3", a_Failure3, a_failure3, "erlang(9,1)"));
 
-        a.addErrorMode(errorModes.get("A_Propagation1"));
-        a.addErrorMode(errorModes.get("A_Propagation2"));
-        a.addErrorMode(errorModes.get("A_Propagation3"));
+        b.addErrorMode(new ErrorMode("B_Propagation1", b_Failure1, b_failure1, "erlang(6,1)"));
+        b.addErrorMode(new ErrorMode("B_Propagation2", b_Failure2, b_failure2, "erlang(2,1)"));
 
-
-
-        errorModes.put("B_Propagation1", new ErrorMode("B_Propagation1", b_Failure1, b_failure1, "erlang(6,1)"));
-        errorModes.put("B_Propagation2", new ErrorMode("B_Propagation2", b_Failure2, b_failure2, "erlang(2,1)"));
-
-        b.addErrorMode(errorModes.get("B_Propagation1"));
-        b.addErrorMode(errorModes.get("B_Propagation2"));
-
-
-        errorModes.put("C_Propagation1", new ErrorMode("C_Propagation1", c_Failure1, c_failure1,"erlang(2,1)"));
-        errorModes.put("C_Propagation2", new ErrorMode("C_Propagation2", c_Failure2, c_failure2, "erlang(2,1)"));
-        errorModes.put("C_Propagation3", new ErrorMode("C_Propagation3", c_Failure3, c_failure3, "erlang(2,1)"));
-
-        c.addErrorMode(errorModes.get("C_Propagation1"));
-        c.addErrorMode(errorModes.get("C_Propagation2"));
-        c.addErrorMode(errorModes.get("C_Propagation3"));
+        c.addErrorMode(new ErrorMode("C_Propagation1", c_Failure1, c_failure1,"erlang(2,1)"));
+        c.addErrorMode(new ErrorMode("C_Propagation2", c_Failure2, c_failure2, "erlang(2,1)"));
+        c.addErrorMode(new ErrorMode("C_Propagation3", c_Failure3, c_failure3, "erlang(2,1)"));
 
         /*
         failConnections.computeIfAbsent("A_Fault1", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault1"), faultModes.get("A_Failure1"), A_Propagation1, metaComponents.get("Leaf_A")));

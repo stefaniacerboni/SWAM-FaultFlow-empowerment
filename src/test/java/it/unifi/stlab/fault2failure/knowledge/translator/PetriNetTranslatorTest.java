@@ -2,12 +2,11 @@ package it.unifi.stlab.fault2failure.knowledge.translator;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
 import it.unifi.stlab.fault2failure.operational.Component;
-import it.unifi.stlab.fault2failure.operational.Failure;
+import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
-import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 
 import static org.junit.Assert.*;
@@ -370,13 +368,13 @@ public class PetriNetTranslatorTest {
 	private void setupScenario(){
 		HashMap<String, FaultMode> failModes = BasicModelBuilder.getFaultModes();
 
-		Failure A_fault1Occurred = new Failure("A_fault1Occurred", failModes.get("A_Fault1"));
-		Failure A_fault2Occurred = new Failure("A_fault2Occurred", failModes.get("A_Fault2"));
-		Failure A_fault3Occurred = new Failure("A_fault3Occurred", failModes.get("A_Fault3"));
+		Fault A_fault1Occurred = new Fault("A_fault1Occurred", failModes.get("A_Fault1"));
+		Fault A_fault2Occurred = new Fault("A_fault2Occurred", failModes.get("A_Fault2"));
+		Fault A_fault3Occurred = new Fault("A_fault3Occurred", failModes.get("A_Fault3"));
 
-		Failure B_fault1Occurred = new Failure("B_fault1Occurred", failModes.get("B_Fault1"));
-		Failure B_fault2Occurred = new Failure("B_fault2Occurred", failModes.get("B_Fault2"));
-		Failure C_fault6Occurred = new Failure("C_fault6Occurred", failModes.get("C_Fault6"));
+		Fault B_fault1Occurred = new Fault("B_fault1Occurred", failModes.get("B_Fault1"));
+		Fault B_fault2Occurred = new Fault("B_fault2Occurred", failModes.get("B_Fault2"));
+		Fault C_fault6Occurred = new Fault("C_fault6Occurred", failModes.get("C_Fault6"));
 
 		List<Component> current_system = new ArrayList<>();
 		Component a1 = new Component("A_Serial1", BasicModelBuilder.getMetaComponents().get("Leaf_A"));
@@ -390,7 +388,7 @@ public class PetriNetTranslatorTest {
 		current_system.add(b2);
 		current_system.add(c);
 
-		Scenario scenario = new Scenario(BasicModelBuilder.getFailConnections(), current_system);
+		Scenario scenario = new Scenario(current_system);
 		
 		scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), a1);
 		scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), a2);

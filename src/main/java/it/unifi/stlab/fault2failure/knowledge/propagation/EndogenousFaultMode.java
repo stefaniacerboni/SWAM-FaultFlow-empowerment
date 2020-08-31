@@ -40,16 +40,9 @@ public class EndogenousFaultMode extends FaultMode{
                 args = arguments.split(",");
                 this.arisingPDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
                 break;
-            case "gaussian":
-                args = arguments.split(",");
-                //this.arisingPDF = StochasticTransitionFeature.new;
-                break;
+            default:
+                throw new UnsupportedOperationException("PDF not supported");
         }
 
-    }
-
-    @Override
-    public boolean compute() {
-        return false;
     }
 }

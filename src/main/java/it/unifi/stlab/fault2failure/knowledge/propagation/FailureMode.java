@@ -2,7 +2,6 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 public class FailureMode{
     private final String description;
-    private Boolean state;
 
     /**
      * Create a FailureMode by saying its description
@@ -10,24 +9,10 @@ public class FailureMode{
      */
     public FailureMode(String description){
         this.description = description;
-        this.state = false;
     }
 
-    /**
-     * Set FailureMode state to the booleans passed as parameter.
-     * Also increase/decrease (according to the boolean passed) the counter inside the FailureMode,
-     * Counter is needed for the K out of N Operator to know how many times a FailureMode has happened inside the system.
-     * @param value the new state (true/false) of the FailureMode
-     */
-    public void setState(boolean value){
-        state = value;
-    }
     public String getDescription(){
         return description;
-    }
-
-    public boolean compute() {
-        return state;
     }
 
     /**

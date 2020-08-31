@@ -5,14 +5,12 @@ import it.unifi.stlab.exporter.strategies.BasicExportStrategy;
 import it.unifi.stlab.exporter.strategies.OrderByComponentStrategy;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
-import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
 import it.unifi.stlab.fault2failure.knowledge.utils.SteamBoilerModelBuilder;
 import it.unifi.stlab.fault2failure.operational.Component;
-import it.unifi.stlab.fault2failure.operational.Failure;
+import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
 import javax.xml.bind.JAXBException;
@@ -22,9 +20,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class SteamBoilerExample {
     public static void main( String[] args ) throws JAXBException, FileNotFoundException {
@@ -64,11 +59,11 @@ public class SteamBoilerExample {
         system.add(valve2);
         system.add(steamBoiler);
 
-        Failure sensor1_ED = new Failure("sensor1_ED", faultModes.get("Sensor1_ED"));
-        Failure sensor2_MD = new Failure("sensor2_MD", faultModes.get("Sensor2_MD"));
-        Failure valve1_MD = new Failure("valve1_MD", faultModes.get("Valve1_MD"));
+        Fault sensor1_ED = new Fault("sensor1_ED", faultModes.get("Sensor1_ED"));
+        Fault sensor2_MD = new Fault("sensor2_MD", faultModes.get("Sensor2_MD"));
+        Fault valve1_MD = new Fault("valve1_MD", faultModes.get("Valve1_MD"));
 
-        Scenario scenario = new Scenario(failConnections,system);
+        Scenario scenario = new Scenario(system);
         scenario.addFault(sensor1_ED, BigDecimal.valueOf(12), sensor1);
         scenario.addFault(sensor2_MD, BigDecimal.valueOf(13), sensor2);
         scenario.addFault(valve1_MD,BigDecimal.valueOf(16), valve1);

@@ -8,7 +8,7 @@ import java.util.List;
 public class Component {
     private final String serial;
     private MetaComponent componentType;
-    private List<Failure> failureList;
+    private List<Fault> faultList;
 
     /**
      * Create a Component by giving its serial number (which must be unique) and its component type.
@@ -18,7 +18,7 @@ public class Component {
     public Component(String serial, MetaComponent componentType){
         this.serial=serial;
         this.componentType=componentType;
-        failureList = new ArrayList<>();
+        faultList = new ArrayList<>();
     }
     public String getSerial(){
         return this.serial;
@@ -29,15 +29,15 @@ public class Component {
     public void setComponentType(MetaComponent componentType){
         this.componentType=componentType;
     }
-    public List<Failure> getFailureList() {
-        return failureList;
+    public List<Fault> getFaultList() {
+        return faultList;
     }
-    public void addFailure(Failure failure){
-        this.failureList.add(failure);
+    public void addFailure(Fault fault){
+        this.faultList.add(fault);
     }
-    public void removeFailure(Failure failure){
-        if(failureList.contains(failure))
-            this.failureList.remove(failure);
+    public void removeFailure(Fault fault){
+        if(faultList.contains(fault))
+            this.faultList.remove(fault);
         else
             throw new IllegalArgumentException("No such failure inside the list");
     }
@@ -50,6 +50,6 @@ public class Component {
      * @return a boolean value that's true if the component is already failed, else it's false.
      */
     public boolean isFailureAlreadyOccurred(String failDescription){
-        return failureList.stream().anyMatch(failure -> failure.getDescription().equals(failDescription));
+        return faultList.stream().anyMatch(failure -> failure.getDescription().equals(failDescription));
     }
 }

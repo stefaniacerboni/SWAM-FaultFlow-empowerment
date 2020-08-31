@@ -5,9 +5,4 @@ public class ExogenousFaultMode extends FaultMode{
     public ExogenousFaultMode(String name){
         this.name=name;
     }
-
-    @Override
-    public boolean compute() {
-        return false;
-    }
 }

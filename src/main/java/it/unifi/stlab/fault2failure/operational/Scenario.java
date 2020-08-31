@@ -1,11 +1,14 @@
 package it.unifi.stlab.fault2failure.operational;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class Scenario gives a test scenario in which we want to simulate how
@@ -13,13 +16,11 @@ import java.util.*;
  * Needs a map of <String,List<PropagationPort>>
  */
 public class Scenario {
-    private List<Failure> incomingFaults;
-    private List<Failure> failuresOccurred;
+    private List<Fault> incomingFaults;
+    private List<Fault> failuresOccurred;
 
-    private final HashMap<String, BigDecimal> incomingFaultTimes;
     private final HashMap<String, List<BigDecimal>> failuresOccurredTimes;
-
-    private HashMap<String, List<PropagationPort>> failConnections;
+    private HashMap<String, Component> failureComponents;
 
 
     private List<Component> system;
@@ -27,53 +28,45 @@ public class Scenario {
     public Scenario(){
         incomingFaults = new ArrayList<>(); //List of failures in the scenario
         failuresOccurred = new ArrayList<>(); //List of failures occurred after the propagation
-        incomingFaultTimes = new HashMap<>(); //Map with incoming Fault linked to their occurrence time
         failuresOccurredTimes = new HashMap<>(); //Map with occurred Failures linked to their occurrence time
+
+        failureComponents= new HashMap<>();
     }
-    public Scenario(HashMap<String, List<PropagationPort>> failConnections, List<Component> currentSystem){
+    public Scenario(List<Component> currentSystem){
         this();
-        this.failConnections=failConnections;
         this.system =currentSystem;
     }
 
-    public void addFault(Failure fail, BigDecimal timestamp){
+    public void addFault(Fault fail, BigDecimal timestamp){
         //Add the fault to the incomingFault list,
         //Add it also to the incomingFaultTimes with its timestamp
         if(!incomingFaults.contains(fail))
             incomingFaults.add(fail);
-        if(!incomingFaultTimes.containsKey(fail.getDescription()))
-            incomingFaultTimes.put(fail.getDescription(),timestamp);
-
     }
 
-    public void addFault(Failure fail, BigDecimal timestamp, Component component){
+    public void addFault(Fault fail, BigDecimal timestamp, Component component){
         //Add the fault to the incomingFault list,
         //Add it also to the incomingFaultTimes with its timestamp
+        fail.occurred(timestamp);
         if(!incomingFaults.contains(fail))
             incomingFaults.add(fail);
-        if(!incomingFaultTimes.containsKey(fail.getDescription()))
-            incomingFaultTimes.put(fail.getDescription(),timestamp);
         component.addFailure(fail);
+        failureComponents.put(fail.getDescription(), component);
 
 
     }
-    public void removeFailure(Failure fail){
+    public void removeFailure(Fault fail){
         if(incomingFaults.contains(fail))
             incomingFaults.remove(fail);
-        if(incomingFaultTimes.containsKey(fail.getDescription()))
-            incomingFaultTimes.remove(fail.getDescription());
 
     }
-    public List<Failure> getIncomingFaults(){
+    public List<Fault> getIncomingFaults(){
         return this.incomingFaults;
     }
-    public List<Failure> getFailuresOccurred(){
+    public List<Fault> getFailuresOccurred(){
         return this.failuresOccurred;
     }
     public HashMap<String, List<BigDecimal>> getFailuresOccurredWithTimes(){ return this.failuresOccurredTimes;}
-    public void setFailConnections(HashMap<String, List<PropagationPort>> failConnections){
-        this.failConnections=failConnections;
-    }
     public void setSystem(List<Component> system) {
         this.system = system;
     }
@@ -83,24 +76,51 @@ public class Scenario {
      * method propagate(Failure, Component) in a chronological way.
      */
     public void propagate(){
-        Failure fault;
-        LinkedHashMap<String, BigDecimal> Ordered_failOccurrences = sortFaultOccurrencesByTimestamp(incomingFaultTimes);
-        for (Map.Entry<String, BigDecimal> mapElement : Ordered_failOccurrences.entrySet()){
-            fault = incomingFaults.stream()
-                    .filter(failure -> mapElement.getKey().equals(failure.getDescription()))
-                    .findAny()
-                    .orElse(null);
-            fault.occurred(mapElement.getValue());
-            propagate(fault);
+        List<Fault> orderedList = incomingFaults.stream().sorted(Comparator.comparing(Fault::getTimestamp)).collect(Collectors.toList());
+        for(Fault fault :orderedList){
+            Component affectedComponent = failureComponents.get(fault.getDescription());
+            propagate(fault, affectedComponent);
         }
+    }
+
+    private void propagate(Fault fault, Component affectedComponent){
+        Fault next;
+        fault.getFaultMode().setState(true);
+        for(ErrorMode em: getErrorModesFromFault(fault, affectedComponent.getComponentType())){
+            if(em.checkActivationFunction()){
+                failuresOccurredTimes.computeIfAbsent(em.getOutgoingFailure().getDescription(),k->new ArrayList<>()).add(BigDecimal.valueOf(fault.getTimestamp().intValue()+1));
+                Optional<PropagationPort> propagationPort = affectedComponent.getComponentType().getPropagationPort().stream().filter(x-> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).findAny();
+                if(propagationPort.isPresent()){
+                    FaultMode exoFault = propagationPort.get().getExogenousFaultMode();
+                    next = new Fault(exoFault.getName(),exoFault);
+                    Component failedComponent = system.stream()
+                            .filter(component -> propagationPort.get().getAffectedComponent().equals(component.getComponentType()))
+                            .findAny()
+                            .orElse(null);
+                    if(!failedComponent.isFailureAlreadyOccurred(next.getDescription())) {
+                        failedComponent.addFailure(next);
+                        next.occurred(BigDecimal.valueOf(fault.getTimestamp().intValue() + 1));
+                        failuresOccurredTimes.computeIfAbsent(next.getDescription(), k -> new ArrayList<>()).add(next.getTimestamp());
+                        failuresOccurred.add(next);
+                        propagate(next, failedComponent);
+                    }
+                }
+            }
+        }
+    }
+
+    private List<ErrorMode> getErrorModesFromFault(Fault fault, MetaComponent metaComponent){
+        return metaComponent.getErrorModes().stream().filter(x-> x.checkFaultIsPresent(fault.getFaultMode().getName())).collect(Collectors.toList());
     }
 
     /**
      * Method propagate(Failure, component) is called recursively following the PropagationPorts inside failConnections,
      * declared before at Knowledge level. The propagation stops if there's no more PropagationPorts for a certain Failure.
-     * @param failure the failure that's being propagated.
+     * @param fault the failure that's being propagated.
      */
-    private void propagate(Failure failure){
+    private void propagate(Fault fault){
+        Fault next;
+
         /*
             //System.out.println(failure.getDescription()+" is occurred at time "+failure.getTimestamp().toString());
             Failure next;
@@ -154,41 +174,6 @@ public class Scenario {
                 //System.out.println("PropEnded");
          */
     }
-
-    /**
-     * Reorder the incoming fault map by timestamp.
-     * @param passedMap the map that needs to be reordered
-     * @return an instance of LinkedHashMap that has all the occurrences of passedMap in input but ordered by timestamp
-     */
-    private LinkedHashMap<String, BigDecimal> sortFaultOccurrencesByTimestamp(
-            HashMap<String, BigDecimal> passedMap) {
-        List<String> mapKeys = new ArrayList<>(passedMap.keySet());
-        List<BigDecimal> mapValues = new ArrayList<>(passedMap.values());
-        Collections.sort(mapValues);
-
-        LinkedHashMap<String, BigDecimal> sortedMap =
-                new LinkedHashMap<>();
-
-        Iterator<BigDecimal> valueIt = mapValues.iterator();
-        while (valueIt.hasNext()) {
-            BigDecimal val = valueIt.next();
-            Iterator<String> keyIt = mapKeys.iterator();
-
-            while (keyIt.hasNext()) {
-                String key = keyIt.next();
-                BigDecimal comp1 = passedMap.get(key);
-                BigDecimal comp2 = val;
-
-                if (comp1.equals(comp2)) {
-                    keyIt.remove();
-                    sortedMap.put(key, val);
-                    break;
-                }
-            }
-        }
-        return sortedMap;
-    }
-
     /**
      * In a visitor design pattern way, the Scenario Class accepts a Visit from the PetriNetTranslator class
      * to translate all the information concerning failure occurrences and their timestamps into petriNet places
@@ -196,8 +181,8 @@ public class Scenario {
      * @param pnt a PetriNetTranslator instance
      */
     public void accept(PetriNetTranslator pnt){
-        for(Failure f : this.incomingFaults) {
-            pnt.decorateOccurrence(f, incomingFaultTimes.get(f.getDescription()));
+        for(Fault f : this.incomingFaults) {
+            pnt.decorateOccurrence(f, f.getTimestamp());
         }
 
     }
@@ -207,9 +192,9 @@ public class Scenario {
             System.out.println("\n" +
                     "Component: "+component.getSerial()+
                     " of Type: "+ component.getComponentType().getName()+
-                    " has Failures: \n");
-            for(Failure failure: component.getFailureList()){
-                System.out.println(failure.getDescription()+ " Occurred at time: "+failure.getTimestamp());
+                    " has Faults: \n");
+            for(Fault fault : component.getFaultList()){
+                System.out.println(fault.getDescription()+ " Occurred at time: "+ fault.getTimestamp());
             }
         }
     }

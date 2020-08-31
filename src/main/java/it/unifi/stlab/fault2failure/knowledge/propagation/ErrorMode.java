@@ -79,6 +79,7 @@ public class ErrorMode {
             case "dirac":
                 //one argument
                 this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
+                //or this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(arguments, arguments) //TODO ask
                 break;
             case "exp":
                 //one argument
@@ -88,6 +89,8 @@ public class ErrorMode {
                 args = arguments.split(",");
                 this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0].trim()), args[1].trim());
                 break;
+            default:
+                throw new UnsupportedOperationException("PDF not supported");
         }
     }
 
@@ -111,7 +114,7 @@ public class ErrorMode {
         this.outgoingFailure=failureMode;
     }
 
-    public void setEnablingCondition(String booleanExpression){
-        this.activationFunction= BooleanExpression.config(booleanExpression, new HashMap<>());
+    public void setEnablingCondition(String booleanExpression, HashMap<String, FaultMode> faultModes){
+        this.activationFunction= BooleanExpression.config(booleanExpression, faultModes);
     }
 }

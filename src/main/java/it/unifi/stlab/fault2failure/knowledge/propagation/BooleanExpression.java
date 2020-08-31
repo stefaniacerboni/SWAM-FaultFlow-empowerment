@@ -18,9 +18,6 @@ public interface BooleanExpression {
         throw new IllegalArgumentException("Cannot remove in Leaf");
     }
 
-    default List<FailureMode> extractIncomingFails() {
-        return null;
-    }
     default List<FaultMode> extractIncomingFaults(){
         return null;
     }

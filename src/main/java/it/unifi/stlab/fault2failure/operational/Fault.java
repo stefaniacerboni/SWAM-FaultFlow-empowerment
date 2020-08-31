@@ -6,7 +6,7 @@ import it.unifi.stlab.fault2failure.knowledge.translator.Translator;
 
 import java.math.BigDecimal;
 
-public class Failure {
+public class Fault {
     private String description;
     private FaultMode faultMode;
     private BigDecimal timestamp;
@@ -19,7 +19,7 @@ public class Failure {
      * @param description a string which must be unique.
      * @param faultMode the type of the Failure.
      */
-    public Failure(String description, FaultMode faultMode){
+    public Fault(String description, FaultMode faultMode){
         this.description=description;
         this.faultMode=faultMode;
         this.isActive = false;

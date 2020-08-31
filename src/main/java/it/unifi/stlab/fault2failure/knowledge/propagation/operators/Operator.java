@@ -39,19 +39,6 @@ public abstract class Operator implements BooleanExpression {
      * @return a list of the FailureModes that appears inside the BooleanExpression.
      *          In a tree-perspective: returns all the leaves inside the tree.
      */
-    @Override
-    public List<FailureMode> extractIncomingFails(){
-        List <FailureMode> incomingFails = new ArrayList<>();
-        for(BooleanExpression be: elements){
-            if(be instanceof FailureMode)
-                incomingFails.add((FailureMode)be);
-            else{
-                incomingFails.addAll(be.extractIncomingFails());
-            }
-        }
-        return incomingFails;
-    }
-
     public List<FaultMode> extractIncomingFaults(){
         List <FaultMode> incomingFails = new ArrayList<>();
         for(BooleanExpression be: elements){
