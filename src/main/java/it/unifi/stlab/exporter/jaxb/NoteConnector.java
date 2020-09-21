@@ -1,18 +1,13 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Classe Java per Note-connector complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="Note-connector">
  *   &lt;complexContent>
@@ -26,13 +21,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Note-connector", namespace = "http://www.oris-tool.org", propOrder = {
-    "features",
-    "properties"
+        "features",
+        "properties"
 })
 public class NoteConnector {
 
@@ -49,11 +42,9 @@ public class NoteConnector {
 
     /**
      * Recupera il valore della proprietà features.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Empty }
-     *     
+     *
+     * @return possible object is
+     * {@link Empty }
      */
     public Empty getFeatures() {
         return features;
@@ -61,11 +52,9 @@ public class NoteConnector {
 
     /**
      * Imposta il valore della proprietà features.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Empty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Empty }
      */
     public void setFeatures(Empty value) {
         this.features = value;
@@ -73,11 +62,9 @@ public class NoteConnector {
 
     /**
      * Recupera il valore della proprietà properties.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Empty }
-     *     
+     *
+     * @return possible object is
+     * {@link Empty }
      */
     public Empty getProperties() {
         return properties;
@@ -85,11 +72,9 @@ public class NoteConnector {
 
     /**
      * Imposta il valore della proprietà properties.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Empty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Empty }
      */
     public void setProperties(Empty value) {
         this.properties = value;
@@ -97,11 +82,9 @@ public class NoteConnector {
 
     /**
      * Recupera il valore della proprietà from.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getFrom() {
         return from;
@@ -109,11 +92,9 @@ public class NoteConnector {
 
     /**
      * Imposta il valore della proprietà from.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setFrom(String value) {
         this.from = value;
@@ -121,11 +102,9 @@ public class NoteConnector {
 
     /**
      * Recupera il valore della proprietà to.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTo() {
         return to;
@@ -133,11 +112,9 @@ public class NoteConnector {
 
     /**
      * Imposta il valore della proprietà to.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTo(String value) {
         this.to = value;
@@ -145,11 +122,9 @@ public class NoteConnector {
 
     /**
      * Recupera il valore della proprietà uuid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUuid() {
         return uuid;
@@ -157,11 +132,9 @@ public class NoteConnector {
 
     /**
      * Imposta il valore della proprietà uuid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUuid(String value) {
         this.uuid = value;

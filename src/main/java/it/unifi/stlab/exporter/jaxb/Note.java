@@ -1,18 +1,13 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Classe Java per Note complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="Note">
  *   &lt;complexContent>
@@ -28,13 +23,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Note", namespace = "http://www.oris-tool.org", propOrder = {
-    "features",
-    "properties"
+        "features",
+        "properties"
 })
 public class Note {
 
@@ -55,11 +48,9 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà features.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Empty }
-     *     
+     *
+     * @return possible object is
+     * {@link Empty }
      */
     public Empty getFeatures() {
         return features;
@@ -67,11 +58,9 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà features.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Empty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Empty }
      */
     public void setFeatures(Empty value) {
         this.features = value;
@@ -79,11 +68,9 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà properties.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Empty }
-     *     
+     *
+     * @return possible object is
+     * {@link Empty }
      */
     public Empty getProperties() {
         return properties;
@@ -91,11 +78,9 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà properties.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Empty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Empty }
      */
     public void setProperties(Empty value) {
         this.properties = value;
@@ -103,7 +88,6 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà width.
-     * 
      */
     public int getWidth() {
         return width;
@@ -111,7 +95,6 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà width.
-     * 
      */
     public void setWidth(int value) {
         this.width = value;
@@ -119,7 +102,6 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà height.
-     * 
      */
     public int getHeight() {
         return height;
@@ -127,7 +109,6 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà height.
-     * 
      */
     public void setHeight(int value) {
         this.height = value;
@@ -135,11 +116,9 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà uuid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUuid() {
         return uuid;
@@ -147,11 +126,9 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà uuid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUuid(String value) {
         this.uuid = value;
@@ -159,7 +136,6 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà y.
-     * 
      */
     public int getY() {
         return y;
@@ -167,7 +143,6 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà y.
-     * 
      */
     public void setY(int value) {
         this.y = value;
@@ -175,7 +150,6 @@ public class Note {
 
     /**
      * Recupera il valore della proprietà x.
-     * 
      */
     public int getX() {
         return x;
@@ -183,7 +157,6 @@ public class Note {
 
     /**
      * Imposta il valore della proprietà x.
-     * 
      */
     public void setX(int value) {
         this.x = value;

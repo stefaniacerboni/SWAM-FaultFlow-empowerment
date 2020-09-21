@@ -1,13 +1,11 @@
 package it.unifi.stlab.fault2failure.knowledge.translator;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
+import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.pn.Priority;
@@ -15,7 +13,9 @@ import org.oristool.models.stpn.MarkingExpr;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
-import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class that implements the method translate that transforms the system OO into a petriNet model.
@@ -24,11 +24,22 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
  */
 public class PetriNetTranslator implements Translator {
     private final PetriNet net;
-    private Marking marking;
-    
+    private final Marking marking;
+
     public PetriNetTranslator() {
-    	net = new PetriNet();
-    	marking = new Marking();
+        net = new PetriNet();
+        marking = new Marking();
+    }
+
+    /**
+     * Simple method that returns the name of a Transition accordingly to the place connected to it. Place->Transition
+     * Places' names will begin with a capital letter, transitions' names will start with the first letter in lower case.
+     *
+     * @param placeName name of the place before the transition. PlaceName->TransitionName
+     * @return the name of a Transition accordingly to the place connected to it
+     */
+    public static String getTransitionName(String placeName) {
+        return Character.toString(placeName.charAt(0)).toLowerCase() + placeName.substring(1);
     }
 
     public void translate(System system) {
@@ -36,7 +47,7 @@ public class PetriNetTranslator implements Translator {
         //between them there's a transition with the ErrorMode's enabling function
         Place a, b;
         Transition t;
-        for(MetaComponent metaComponent: system.getComponents()) {
+        for (MetaComponent metaComponent : system.getComponents()) {
             for (ErrorMode e : metaComponent.getErrorModes()) {
                 //add ErrorMode and its failureMode
                 a = net.addPlace(e.getName());
@@ -58,7 +69,7 @@ public class PetriNetTranslator implements Translator {
                         if (fault instanceof EndogenousFaultMode) {
                             a = net.addPlace(fault.getName() + "Occurrence");
                             t = net.addTransition(getTransitionName(a.getName()));
-                            if(((EndogenousFaultMode) fault).getArisingPDF()!=null)
+                            if (((EndogenousFaultMode) fault).getArisingPDF() != null)
                                 t.addFeature(((EndogenousFaultMode) fault).getArisingPDF());
                             else
                                 t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
@@ -70,7 +81,7 @@ public class PetriNetTranslator implements Translator {
                 }
             }
             //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
-            if(!metaComponent.getPropagationPort().isEmpty()) {
+            if (!metaComponent.getPropagationPort().isEmpty()) {
                 for (PropagationPort pp : metaComponent.getPropagationPort()) {
                     a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
                     b = net.addPlace(pp.getExogenousFaultMode().getName());
@@ -91,39 +102,29 @@ public class PetriNetTranslator implements Translator {
      * Decorate the already instanced petri net with information coming at the Operational Level: this includes
      * -adding timestamp to failure occurrences' transitions
      * -decorate failure occurrence's places with tokens if they're active
+     *
      * @param fault the instance of Failure created at Operational Level in a Scenario, that has to be translated
-     *                into a Place in the PetriNet.
+     *              into a Place in the PetriNet.
      */
     public void decorateOccurrence(Fault fault, BigDecimal timestamp) {
-        Place a = net.getPlace((fault.getFaultMode().getName()+"Occurrence"));
-        marking.setTokens(a,1);
+        Place a = net.getPlace((fault.getFaultMode().getName() + "Occurrence"));
+        marking.setTokens(a, 1);
         Transition t = net.getTransition(getTransitionName(a.getName()));
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
-        if(tf != null)
+        if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
         t.addFeature(StochasticTransitionFeature.newDeterministicInstance(timestamp, MarkingExpr.from("1", net)));
     }
 
-    public void translateFromSystem(HashMap<String, BigDecimal> inFailures, List<Component> system){
+    public void translateFromSystem(HashMap<String, BigDecimal> inFailures, List<Component> system) {
 
     }
-
-    /**
-     * Simple method that returns the name of a Transition accordingly to the place connected to it. Place->Transition
-     * Places' names will begin with a capital letter, transitions' names will start with the first letter in lower case.
-     * @param placeName name of the place before the transition. PlaceName->TransitionName
-     * @return the name of a Transition accordingly to the place connected to it
-     */
-    public static String getTransitionName(String placeName){
-        return Character.toString(placeName.charAt(0)).toLowerCase() + placeName.substring(1);
-    }
-
 
     public PetriNet getPetriNet() {
-    	return net;
+        return net;
     }
 
     public Marking getMarking() {
-    	return marking;
+        return marking;
     }
 }

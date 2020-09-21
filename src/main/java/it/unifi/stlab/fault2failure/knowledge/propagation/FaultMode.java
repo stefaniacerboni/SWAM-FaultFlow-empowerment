@@ -6,7 +6,7 @@ public abstract class FaultMode implements BooleanExpression {
 
     private boolean state;
 
-    public void setState(boolean value){
+    public void setState(boolean value) {
         state = value;
     }
 
@@ -18,7 +18,7 @@ public abstract class FaultMode implements BooleanExpression {
         return this.name;
     }
 
-    public String toString(){
-        return this.name+">0";
+    public String toString() {
+        return this.name + ">0";
     }
 }

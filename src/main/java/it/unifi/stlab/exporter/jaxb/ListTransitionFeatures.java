@@ -1,4 +1,3 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Classe Java per ListTransitionFeatures complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ListTransitionFeatures">
  *   &lt;complexContent>
@@ -23,12 +22,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListTransitionFeatures", namespace = "http://www.oris-tool.org", propOrder = {
-    "feature"
+        "feature"
 })
 public class ListTransitionFeatures {
 
@@ -37,11 +34,9 @@ public class ListTransitionFeatures {
 
     /**
      * Recupera il valore della proprietà feature.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TransitionFeature }
-     *     
+     *
+     * @return possible object is
+     * {@link TransitionFeature }
      */
     public TransitionFeature getFeature() {
         return feature;
@@ -49,11 +44,9 @@ public class ListTransitionFeatures {
 
     /**
      * Imposta il valore della proprietà feature.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TransitionFeature }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link TransitionFeature }
      */
     public void setFeature(TransitionFeature value) {
         this.feature = value;

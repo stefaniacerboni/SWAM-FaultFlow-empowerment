@@ -1,26 +1,28 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-public class FailureMode{
+public class FailureMode {
     private final String description;
 
     /**
      * Create a FailureMode by saying its description
+     *
      * @param description a string describing the FailureMode. Must be unique.
      */
-    public FailureMode(String description){
+    public FailureMode(String description) {
         this.description = description;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
     /**
      * Override toString Method inside BooleanExpression.
+     *
      * @return A string that describes FailureMode's state in a way that resembles the enabling Functions in a Petri Net.
      */
 
-    public String toString(){
-        return this.description+">0";
+    public String toString() {
+        return this.description + ">0";
     }
 }

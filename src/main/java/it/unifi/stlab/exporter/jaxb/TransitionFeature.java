@@ -1,4 +1,3 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,9 +10,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Classe Java per TransitionFeature complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="TransitionFeature">
  *   &lt;complexContent>
@@ -31,14 +30,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TransitionFeature", namespace = "http://www.oris-tool.org")
 public class TransitionFeature
-    extends Empty
-{
+        extends Empty {
 
     @XmlAttribute(name = "id", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -46,11 +42,9 @@ public class TransitionFeature
 
     /**
      * Recupera il valore della proprietà id.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getId() {
         return id;
@@ -58,11 +52,9 @@ public class TransitionFeature
 
     /**
      * Imposta il valore della proprietà id.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setId(String value) {
         this.id = value;

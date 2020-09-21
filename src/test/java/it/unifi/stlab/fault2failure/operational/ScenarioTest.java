@@ -14,15 +14,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ScenarioTest {
     private Scenario scenario;
+
     @Before
-    public void setup(){
-        BasicModelBuilder.build();
+    public void setup() {
         List<Component> current_system = new ArrayList<>();
-        Component a1 = new Component("A_Serial1", BasicModelBuilder.getMetaComponents().get("Leaf_A"));
-        Component a2 = new Component("A_Serial2", BasicModelBuilder.getMetaComponents().get("Leaf_A"));
-        Component b1 = new Component("B_Serial1", BasicModelBuilder.getMetaComponents().get("Leaf_B"));
-        Component b2 = new Component("B_Serial2", BasicModelBuilder.getMetaComponents().get("Leaf_B"));
-        Component c = new Component("C_Serial", BasicModelBuilder.getMetaComponents().get("Root_C"));
+        Component a1 = new Component("A_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
+        Component a2 = new Component("A_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
+        Component b1 = new Component("B_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
+        Component b2 = new Component("B_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
+        Component c = new Component("C_Serial", BasicModelBuilder.getInstance().getMetaComponents().get("Root_C"));
         current_system.add(a1);
         current_system.add(a2);
         current_system.add(b1);
@@ -31,12 +31,13 @@ public class ScenarioTest {
 
         scenario = new Scenario(current_system);
     }
+
     @Test
-    public void testAddFailure(){
+    public void testAddFailure() {
         //Begin with empty list
         assertEquals(0, scenario.getFailuresOccurred().size());
 
-        HashMap<String, FaultMode> faultModes = BasicModelBuilder.getFaultModes();
+        HashMap<String, FaultMode> faultModes = BasicModelBuilder.getInstance().getFaultModes();
         //instantiate 6 occurrences
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
         Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
@@ -55,12 +56,13 @@ public class ScenarioTest {
         //check if they're all there
         assertEquals(6, scenario.getIncomingFaults().size());
     }
+
     @Test
-    public void testRemoveFailure(){
+    public void testRemoveFailure() {
         //Begin with empty list
         assertEquals(0, scenario.getFailuresOccurred().size());
 
-        HashMap<String, FaultMode> faultModes = BasicModelBuilder.getFaultModes();
+        HashMap<String, FaultMode> faultModes = BasicModelBuilder.getInstance().getFaultModes();
         //instantiate 6 occurrences
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
         Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));

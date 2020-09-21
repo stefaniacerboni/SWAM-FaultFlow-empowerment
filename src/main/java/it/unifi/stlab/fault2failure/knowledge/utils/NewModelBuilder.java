@@ -11,31 +11,18 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class NewModelBuilder {
+    private static NewModelBuilder single_instance;
     private static System system;
     private static HashMap<String, FaultMode> faultModes;
 
-
-    public static System getSystem() {
-        return system;
-    }
-
-    public static Map<String, MetaComponent> getMetaComponents() {
-        return system.getComponents().stream().collect(Collectors.toMap(MetaComponent::getName, Function.identity()));
-    }
-
-    public static HashMap<String, FaultMode> getFaultModes() {
-        return faultModes;
-    }
-
-
-    public static void build() {
-        faultModes= new HashMap<>();
+    private NewModelBuilder() {
+        faultModes = new HashMap<>();
 
         system = new System("S");
         MetaComponent a = new MetaComponent("A");
         MetaComponent b = new MetaComponent("B");
         MetaComponent c = new MetaComponent("C");
-        system.addComponent(a,b,c);
+        system.addComponent(a, b, c);
         system.setTopLevelComponent(c);
         CompositionPort abc = new CompositionPort(c);
         abc.addChild(a);
@@ -86,7 +73,6 @@ public class NewModelBuilder {
         b.addErrorMode(eM_B1);
 
 
-
         ExogenousFaultMode exFM_C1 = new ExogenousFaultMode("C_Fault1");
         ExogenousFaultMode exFM_C2 = new ExogenousFaultMode("C_Fault2");
         ExogenousFaultMode exFM_C3 = new ExogenousFaultMode("C_Fault3");
@@ -116,4 +102,24 @@ public class NewModelBuilder {
 
         c.addErrorMode(eM_C1, eM_C2);
     }
+
+    public static NewModelBuilder getInstance() {
+        if (single_instance == null)
+            single_instance = new NewModelBuilder();
+        return single_instance;
+    }
+
+    public Map<String, MetaComponent> getMetaComponents() {
+        return system.getComponents().stream().collect(Collectors.toMap(MetaComponent::getName, Function.identity()));
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public HashMap<String, FaultMode> getFaultModes() {
+        return faultModes;
+    }
+
+
 }

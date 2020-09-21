@@ -1,28 +1,25 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-import org.jfree.util.StringUtils;
-import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
-import java.math.BigDecimal;
-
-public class EndogenousFaultMode extends FaultMode{
+public class EndogenousFaultMode extends FaultMode {
     private StochasticTransitionFeature arisingPDF;
 
-    public EndogenousFaultMode(String name){
+    public EndogenousFaultMode(String name) {
         this.name = name;
-        this.arisingPDF= null;
+        this.arisingPDF = null;
     }
 
     public StochasticTransitionFeature getArisingPDF() {
         return arisingPDF;
     }
 
+    //TODO: move Parse function outside class
     public void setArisingPDF(String arisingPDF) {
         String typePDF = arisingPDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
-        String arguments = arisingPDF.substring(typePDF.length()+1, arisingPDF.length()-1);
+        String arguments = arisingPDF.substring(typePDF.length() + 1, arisingPDF.length() - 1);
         String[] args;
-        switch (typePDF){
+        switch (typePDF) {
             case "uniform":
                 //two arguments
                 args = arguments.split(",");

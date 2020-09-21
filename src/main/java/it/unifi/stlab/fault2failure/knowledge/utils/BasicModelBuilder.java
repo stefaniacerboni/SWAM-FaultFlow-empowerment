@@ -4,9 +4,7 @@ import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,42 +17,20 @@ import java.util.List;
  * -metaComponents collects all the MetaComponents in the system
  * -failModes collects all the FailureModes that could happen inside the system
  * -failConnections collects all the PropagationPorts that describe the connections between faults and failures
- *                   as well as their ErrorMode, MetaComponents
+ * as well as their ErrorMode, MetaComponents
  */
-public class BasicModelBuilder{
-    private static HashMap<String, MetaComponent> metaComponents;
-    private static HashMap<String, FaultMode> faultModes;
-    private static HashMap<String, List<PropagationPort>> failConnections;
-    private static System system;
+public class BasicModelBuilder {
+    private static BasicModelBuilder singleInstance = null;
 
-    public static HashMap<String, MetaComponent> getMetaComponents() {
-        return metaComponents;
-    }
+    private final HashMap<String, MetaComponent> metaComponents;
+    private final HashMap<String, FaultMode> faultModes;
+    private final HashMap<String, List<PropagationPort>> failConnections;
+    private final System system;
 
-    public static HashMap<String, FaultMode> getFaultModes() {
-        return faultModes;
-    }
-
-    public static HashMap<String, List<PropagationPort>> getFailConnections() {
-        return failConnections;
-    }
-
-    public static System getSystem() {
-        return system;
-    }
-
-    public static void build() {
+    private BasicModelBuilder() {
         metaComponents = new HashMap<>();
         faultModes = new HashMap<>();
         failConnections = new HashMap<>();
-        /*
-        metaComponents.put("Root_C", new MetaComponent("Root_C"));
-        CompositionPort abc = new CompositionPort(metaComponents.get("Root_C"));
-        metaComponents.put("Leaf_A", new MetaComponent("Leaf_A"));
-        metaComponents.put("Leaf_B", new MetaComponent("Leaf_B"));
-        abc.addChild(metaComponents.get("Leaf_A"));
-        abc.addChild(metaComponents.get("Leaf_B"));
-         */
         system = new System("S");
         MetaComponent a = new MetaComponent("Leaf_A");
         MetaComponent b = new MetaComponent("Leaf_B");
@@ -119,7 +95,7 @@ public class BasicModelBuilder{
         b.addErrorMode(new ErrorMode("B_Propagation1", b_Failure1, b_failure1, "erlang(6,1)"));
         b.addErrorMode(new ErrorMode("B_Propagation2", b_Failure2, b_failure2, "erlang(2,1)"));
 
-        c.addErrorMode(new ErrorMode("C_Propagation1", c_Failure1, c_failure1,"erlang(2,1)"));
+        c.addErrorMode(new ErrorMode("C_Propagation1", c_Failure1, c_failure1, "erlang(2,1)"));
         c.addErrorMode(new ErrorMode("C_Propagation2", c_Failure2, c_failure2, "erlang(2,1)"));
         c.addErrorMode(new ErrorMode("C_Propagation3", c_Failure3, c_failure3, "erlang(2,1)"));
 
@@ -156,6 +132,27 @@ public class BasicModelBuilder{
         failConnections.computeIfAbsent("B_Failure2", k -> new ArrayList<>()).add(new PropagationPort(b_failure2, (ExogenousFaultMode) faultModes.get("C_Fault5"), metaComponents.get("Root_C")));
         b.addPropagationPort(failConnections.get("B_Failure1"));
         b.addPropagationPort(failConnections.get("B_Failure2"));
+    }
 
+    public static BasicModelBuilder getInstance() {
+        if (singleInstance == null)
+            singleInstance = new BasicModelBuilder();
+        return singleInstance;
+    }
+
+    public HashMap<String, MetaComponent> getMetaComponents() {
+        return metaComponents;
+    }
+
+    public HashMap<String, FaultMode> getFaultModes() {
+        return faultModes;
+    }
+
+    public HashMap<String, List<PropagationPort>> getFailConnections() {
+        return failConnections;
+    }
+
+    public System getSystem() {
+        return system;
     }
 }

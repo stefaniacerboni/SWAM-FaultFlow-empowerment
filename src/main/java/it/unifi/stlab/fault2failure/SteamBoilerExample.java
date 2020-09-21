@@ -4,7 +4,6 @@ import it.unifi.stlab.exporter.XPNExporter;
 import it.unifi.stlab.exporter.strategies.BasicExportStrategy;
 import it.unifi.stlab.exporter.strategies.OrderByComponentStrategy;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
-import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
@@ -22,12 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SteamBoilerExample {
-    public static void main( String[] args ) throws JAXBException, FileNotFoundException {
-        SteamBoilerModelBuilder.build();
-        HashMap<String, MetaComponent> components = SteamBoilerModelBuilder.getMetaComponents();
-        HashMap<String, FaultMode> faultModes = SteamBoilerModelBuilder.getFaultModes();
-        HashMap<String, List<PropagationPort>> failConnections = SteamBoilerModelBuilder.getFailConnections();
-        HashMap<String, ErrorMode> errorModes = SteamBoilerModelBuilder.getErrorModes();
+    public static void main(String[] args) throws JAXBException, FileNotFoundException {
+        HashMap<String, MetaComponent> components = SteamBoilerModelBuilder.getInstance().getMetaComponents();
+        HashMap<String, FaultMode> faultModes = SteamBoilerModelBuilder.getInstance().getFaultModes();
+        HashMap<String, List<PropagationPort>> failConnections = SteamBoilerModelBuilder.getInstance().getFailConnections();
         PetriNetTranslator pnt = new PetriNetTranslator();
         List<PropagationPort> pplist = new ArrayList<>();
         /*
@@ -36,9 +33,9 @@ public class SteamBoilerExample {
         }
 
          */
-        pnt.translate(SteamBoilerModelBuilder.getSystem());
+        pnt.translate(SteamBoilerModelBuilder.getInstance().getSystem());
 
-        /**
+        /*
          * Manca un meccanismo di generazione di un Component a partire dal livello Meta generato in
          * SteamBoilerModelBuilder.
          * In questa fase sembra necessario conoscere (due volte) la composizione del sistema.
@@ -66,12 +63,12 @@ public class SteamBoilerExample {
         Scenario scenario = new Scenario(system);
         scenario.addFault(sensor1_ED, BigDecimal.valueOf(12), sensor1);
         scenario.addFault(sensor2_MD, BigDecimal.valueOf(13), sensor2);
-        scenario.addFault(valve1_MD,BigDecimal.valueOf(16), valve1);
+        scenario.addFault(valve1_MD, BigDecimal.valueOf(16), valve1);
         scenario.accept(pnt);
         scenario.propagate();
         scenario.printReport();
 
-        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(SteamBoilerModelBuilder.getSystem(), pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(SteamBoilerModelBuilder.getInstance().getSystem(), pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
     }
 }

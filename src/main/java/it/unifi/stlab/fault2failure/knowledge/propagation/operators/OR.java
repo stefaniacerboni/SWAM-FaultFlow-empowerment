@@ -13,9 +13,11 @@ public class OR extends Operator {
     public void addChild(BooleanExpression be) {
         elements.add(be);
     }
+
     /**
      * Method compute() calculates the booleanExpression in a recursive way by calling the compute() method in every
      * child of the Operator.
+     *
      * @return a boolean value. For the OR operator: returns true if even just one of the children of the operator is in a true state.
      */
     @Override
@@ -26,13 +28,14 @@ public class OR extends Operator {
         }
         return false;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
-        for(BooleanExpression be : elements){
+        for (BooleanExpression be : elements) {
             sb.append(be.toString()).append(")||(");
         }
-        return sb.substring(0, sb.length()-3);
+        return sb.substring(0, sb.length() - 3);
     }
 }

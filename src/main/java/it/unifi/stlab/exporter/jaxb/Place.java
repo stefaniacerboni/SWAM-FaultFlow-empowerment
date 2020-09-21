@@ -1,18 +1,13 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Classe Java per Place complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="Place">
  *   &lt;complexContent>
@@ -26,13 +21,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Place", namespace = "http://www.oris-tool.org", propOrder = {
-    "features",
-    "properties"
+        "features",
+        "properties"
 })
 public class Place {
 
@@ -49,11 +42,9 @@ public class Place {
 
     /**
      * Recupera il valore della proprietà features.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Empty }
-     *     
+     *
+     * @return possible object is
+     * {@link Empty }
      */
     public Empty getFeatures() {
         return features;
@@ -61,11 +52,9 @@ public class Place {
 
     /**
      * Imposta il valore della proprietà features.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Empty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Empty }
      */
     public void setFeatures(Empty value) {
         this.features = value;
@@ -73,11 +62,9 @@ public class Place {
 
     /**
      * Recupera il valore della proprietà properties.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListPlaceProperty }
-     *     
+     *
+     * @return possible object is
+     * {@link ListPlaceProperty }
      */
     public ListPlaceProperty getProperties() {
         return properties;
@@ -85,11 +72,9 @@ public class Place {
 
     /**
      * Imposta il valore della proprietà properties.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListPlaceProperty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ListPlaceProperty }
      */
     public void setProperties(ListPlaceProperty value) {
         this.properties = value;
@@ -97,11 +82,9 @@ public class Place {
 
     /**
      * Recupera il valore della proprietà uuid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUuid() {
         return uuid;
@@ -109,11 +92,9 @@ public class Place {
 
     /**
      * Imposta il valore della proprietà uuid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUuid(String value) {
         this.uuid = value;
@@ -121,7 +102,6 @@ public class Place {
 
     /**
      * Recupera il valore della proprietà y.
-     * 
      */
     public int getY() {
         return y;
@@ -129,7 +109,6 @@ public class Place {
 
     /**
      * Imposta il valore della proprietà y.
-     * 
      */
     public void setY(int value) {
         this.y = value;
@@ -137,7 +116,6 @@ public class Place {
 
     /**
      * Recupera il valore della proprietà x.
-     * 
      */
     public int getX() {
         return x;
@@ -145,7 +123,6 @@ public class Place {
 
     /**
      * Imposta il valore della proprietà x.
-     * 
      */
     public void setX(int value) {
         this.x = value;

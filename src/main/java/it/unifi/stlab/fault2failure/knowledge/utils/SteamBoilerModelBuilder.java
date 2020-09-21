@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * Class that builds an example system composed of four Meta Components (SteamBoiler, Valve, Sensor, Controller).
  * The system represented is well known in system reliability as the SteamBoiler Example.
@@ -18,35 +19,16 @@ import java.util.List;
  * -metaComponents collects all the MetaComponents in the system
  * -failModes collects all the FailureModes that could happen inside the system
  * -failConnections collects all the PropagationPorts that describe the connections between faults and failures
- *                   as well as their ErrorMode, MetaComponents
+ * as well as their ErrorMode, MetaComponents
  */
-public class SteamBoilerModelBuilder{
+public class SteamBoilerModelBuilder {
+    private static SteamBoilerModelBuilder single_instance = null;
     private static HashMap<String, MetaComponent> metaComponents;
     private static HashMap<String, FaultMode> faultModes;
     private static HashMap<String, List<PropagationPort>> failConnections;
-    private static HashMap<String, ErrorMode> errorModes;
     private static System system;
 
-    public static HashMap<String, ErrorMode> getErrorModes() {
-        return errorModes;
-    }
-    public static HashMap<String, MetaComponent> getMetaComponents() {
-        return metaComponents;
-    }
-
-    public static HashMap<String, FaultMode> getFaultModes() {
-        return faultModes;
-    }
-
-    public static HashMap<String, List<PropagationPort>> getFailConnections() {
-        return failConnections;
-    }
-
-    public static System getSystem() {
-        return system;
-    }
-
-    public static void build(){
+    private SteamBoilerModelBuilder() {
         metaComponents = new HashMap<>();
         faultModes = new HashMap<>();
         failConnections = new HashMap<>();
@@ -129,8 +111,7 @@ public class SteamBoilerModelBuilder{
         metaComponents.put("Sensor3", sensor3MC);
         subsystem.addChild(metaComponents.get("Sensor3"));
         system = new System("SteamBoiler");
-        system.addComponent(steamBoilerMC,valve1MC,valve2MC,controllerMC,sensor1MC,sensor2MC,sensor3MC);
-
+        system.addComponent(steamBoilerMC, valve1MC, valve2MC, controllerMC, sensor1MC, sensor2MC, sensor3MC);
 
 
         faultModes.put("Sensor1_ED", new EndogenousFaultMode("Sensor1_ED"));
@@ -139,7 +120,7 @@ public class SteamBoilerModelBuilder{
         faultModes.put("Sensor2_MD", new EndogenousFaultMode("Sensor2_MD"));
         faultModes.put("Sensor3_ED", new EndogenousFaultMode("Sensor3_ED"));
         faultModes.put("Sensor3_MD", new EndogenousFaultMode("Sensor3_MD"));
-        FailureMode sensor1_PressureValueFailure =  new FailureMode("Sensor1_PressureValueFailure");
+        FailureMode sensor1_PressureValueFailure = new FailureMode("Sensor1_PressureValueFailure");
         FailureMode sensor2_PressureValueFailure = new FailureMode("Sensor2_PressureValueFailure");
         FailureMode sensor3_PressureValueFailure = new FailureMode("Sensor3_PressureValueFailure");
 
@@ -179,7 +160,7 @@ public class SteamBoilerModelBuilder{
         sensor2MC.addErrorMode(sensor2_Propagation);
         sensor3MC.addErrorMode(sensor3_Propagation);
 
-        ErrorMode controller_Propagation = new ErrorMode("Controller_Propagation", controller,controller_CommandOmissionFailure, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("7"), new BigDecimal("1")));
+        ErrorMode controller_Propagation = new ErrorMode("Controller_Propagation", controller, controller_CommandOmissionFailure, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("7"), new BigDecimal("1")));
         controllerMC.addErrorMode(controller_Propagation);
         ErrorMode valve1_Propagation = new ErrorMode("Valve1_Propagation", valve1, valve1_OpenOmissionFailure, StochasticTransitionFeature.newErlangInstance(Integer.parseInt("9"), new BigDecimal("1")));
         valve1MC.addErrorMode(valve1_Propagation);
@@ -214,20 +195,42 @@ public class SteamBoilerModelBuilder{
 */
 
         failConnections.computeIfAbsent("Sensor1_PressureValueFailure", k -> new ArrayList<>()).add(new PropagationPort(sensor1_PressureValueFailure, (ExogenousFaultMode) faultModes.get("Controller_PressureValueFault1"), metaComponents.get("Controller")));
-        failConnections.computeIfAbsent("Sensor2_PressureValueFailure", k -> new ArrayList<>()).add(new PropagationPort(sensor2_PressureValueFailure, (ExogenousFaultMode) faultModes.get("Controller_PressureValueFault2"),metaComponents.get("Controller")));
+        failConnections.computeIfAbsent("Sensor2_PressureValueFailure", k -> new ArrayList<>()).add(new PropagationPort(sensor2_PressureValueFailure, (ExogenousFaultMode) faultModes.get("Controller_PressureValueFault2"), metaComponents.get("Controller")));
         failConnections.computeIfAbsent("Sensor3_PressureValueFailure", k -> new ArrayList<>()).add(new PropagationPort(sensor3_PressureValueFailure, (ExogenousFaultMode) faultModes.get("Controller_PressureValueFault3"), metaComponents.get("Controller")));
         sensor1MC.addPropagationPort(failConnections.get("Sensor1_PressureValueFailure"));
         sensor2MC.addPropagationPort(failConnections.get("Sensor2_PressureValueFailure"));
         sensor3MC.addPropagationPort(failConnections.get("Sensor3_PressureValueFailure"));
 
-        failConnections.computeIfAbsent("Controller_CommandOmissionFailure", k -> new ArrayList<>()).add(new PropagationPort(controller_CommandOmissionFailure, (ExogenousFaultMode) faultModes.get("Valve_CommandOmissionFault"),metaComponents.get("Valve1")));
+        failConnections.computeIfAbsent("Controller_CommandOmissionFailure", k -> new ArrayList<>()).add(new PropagationPort(controller_CommandOmissionFailure, (ExogenousFaultMode) faultModes.get("Valve_CommandOmissionFault"), metaComponents.get("Valve1")));
         failConnections.computeIfAbsent("Controller_CommandOmissionFailure", k -> new ArrayList<>()).add(new PropagationPort(controller_CommandOmissionFailure, (ExogenousFaultMode) faultModes.get("Valve_CommandOmissionFault"), metaComponents.get("Valve2")));
-       controllerMC.addPropagationPort(failConnections.get("Controller_CommandOmissionFailure"));
+        controllerMC.addPropagationPort(failConnections.get("Controller_CommandOmissionFailure"));
         controllerMC.addPropagationPort(failConnections.get("Controller_CommandOmissionFailure"));
 
         failConnections.computeIfAbsent("Valve1_OpenOmissionFailure", k -> new ArrayList<>()).add(new PropagationPort(valve1_OpenOmissionFailure, (ExogenousFaultMode) faultModes.get("SteamBoiler_OpenOmissionFault1"), metaComponents.get("SteamBoiler")));
         failConnections.computeIfAbsent("Valve2_OpenOmissionFailure", k -> new ArrayList<>()).add(new PropagationPort(valve2_OpenOmissionFailure, (ExogenousFaultMode) faultModes.get("SteamBoiler_OpenOmissionFault2"), metaComponents.get("SteamBoiler")));
         valve1MC.addPropagationPort(failConnections.get("Valve1_OpenOmissionFailure"));
         valve2MC.addPropagationPort(failConnections.get("Valve2_OpenOmissionFailure"));
+    }
+
+    public static SteamBoilerModelBuilder getInstance() {
+        if (single_instance == null)
+            single_instance = new SteamBoilerModelBuilder();
+        return single_instance;
+    }
+
+    public HashMap<String, MetaComponent> getMetaComponents() {
+        return metaComponents;
+    }
+
+    public HashMap<String, FaultMode> getFaultModes() {
+        return faultModes;
+    }
+
+    public HashMap<String, List<PropagationPort>> getFailConnections() {
+        return failConnections;
+    }
+
+    public System getSystem() {
+        return system;
     }
 }

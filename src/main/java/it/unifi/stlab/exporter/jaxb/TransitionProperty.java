@@ -1,4 +1,3 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * Every transition element have to contains name, enabling function, marking update and reset transition properties.
  * Stochastic, timed and preemptive transition element have to contains (respectively) stochastic, timed and preemptive properties
- * 
+ *
  * <p>Classe Java per TransitionProperty complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="TransitionProperty">
  *   &lt;complexContent>
@@ -66,14 +65,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TransitionProperty", namespace = "http://www.oris-tool.org")
 public class TransitionProperty
-    extends Empty
-{
+        extends Empty {
 
     @XmlAttribute(name = "id", required = true)
     protected String id;
@@ -118,11 +114,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà id.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getId() {
         return id;
@@ -130,11 +124,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà id.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setId(String value) {
         this.id = value;
@@ -142,11 +134,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà name.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getName() {
         return name;
@@ -154,11 +144,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà name.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setName(String value) {
         this.name = value;
@@ -166,11 +154,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà satelliteX.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getSatelliteX() {
         return satelliteX;
@@ -178,11 +164,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà satelliteX.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setSatelliteX(Integer value) {
         this.satelliteX = value;
@@ -190,11 +174,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà satelliteY.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getSatelliteY() {
         return satelliteY;
@@ -202,11 +184,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà satelliteY.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setSatelliteY(Integer value) {
         this.satelliteY = value;
@@ -214,11 +194,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà enablingFunction.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEnablingFunction() {
         return enablingFunction;
@@ -226,11 +204,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà enablingFunction.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEnablingFunction(String value) {
         this.enablingFunction = value;
@@ -238,11 +214,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà markingUpdate.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getMarkingUpdate() {
         return markingUpdate;
@@ -250,11 +224,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà markingUpdate.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setMarkingUpdate(String value) {
         this.markingUpdate = value;
@@ -262,11 +234,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà resetTransitions.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getResetTransitions() {
         return resetTransitions;
@@ -274,11 +244,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà resetTransitions.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setResetTransitions(String value) {
         this.resetTransitions = value;
@@ -286,11 +254,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà propertyDataType.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getPropertyDataType() {
         return propertyDataType;
@@ -298,11 +264,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà propertyDataType.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setPropertyDataType(String value) {
         this.propertyDataType = value;
@@ -310,11 +274,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà priority.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getPriority() {
         return priority;
@@ -322,11 +284,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà priority.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setPriority(Integer value) {
         this.priority = value;
@@ -334,11 +294,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà weight.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getWeight() {
         return weight;
@@ -346,11 +304,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà weight.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setWeight(Integer value) {
         this.weight = value;
@@ -358,11 +314,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà eft.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
+     *
+     * @return possible object is
+     * {@link Float }
      */
     public Float getEft() {
         return eft;
@@ -370,11 +324,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà eft.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Float }
      */
     public void setEft(Float value) {
         this.eft = value;
@@ -382,11 +334,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà lft.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
+     *
+     * @return possible object is
+     * {@link Float }
      */
     public Float getLft() {
         return lft;
@@ -394,11 +344,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà lft.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Float }
      */
     public void setLft(Float value) {
         this.lft = value;
@@ -406,11 +354,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà value.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getValue() {
         return value;
@@ -418,11 +364,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà value.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setValue(Integer value) {
         this.value = value;
@@ -430,11 +374,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà lambda.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getLambda() {
         return lambda;
@@ -442,11 +384,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà lambda.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setLambda(Integer value) {
         this.lambda = value;
@@ -454,11 +394,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà k.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getK() {
         return k;
@@ -466,11 +404,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà k.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setK(Integer value) {
         this.k = value;
@@ -478,11 +414,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà efts.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEfts() {
         return efts;
@@ -490,11 +424,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà efts.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEfts(String value) {
         this.efts = value;
@@ -502,11 +434,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà lfts.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getLfts() {
         return lfts;
@@ -514,11 +444,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà lfts.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setLfts(String value) {
         this.lfts = value;
@@ -526,11 +454,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà expressions.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getExpressions() {
         return expressions;
@@ -538,11 +464,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà expressions.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setExpressions(String value) {
         this.expressions = value;
@@ -550,11 +474,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà normalizationFactor.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
+     *
+     * @return possible object is
+     * {@link Float }
      */
     public Float getNormalizationFactor() {
         return normalizationFactor;
@@ -562,11 +484,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà normalizationFactor.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Float }
      */
     public void setNormalizationFactor(Float value) {
         this.normalizationFactor = value;
@@ -574,11 +494,9 @@ public class TransitionProperty
 
     /**
      * Recupera il valore della proprietà resource.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getResource() {
         return resource;
@@ -586,11 +504,9 @@ public class TransitionProperty
 
     /**
      * Imposta il valore della proprietà resource.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setResource(String value) {
         this.resource = value;

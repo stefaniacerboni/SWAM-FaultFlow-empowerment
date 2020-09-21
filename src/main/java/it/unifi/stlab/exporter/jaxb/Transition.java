@@ -1,18 +1,13 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Classe Java per Transition complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="Transition">
  *   &lt;complexContent>
@@ -27,13 +22,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Transition", namespace = "http://www.oris-tool.org", propOrder = {
-    "features",
-    "properties"
+        "features",
+        "properties"
 })
 public class Transition {
 
@@ -52,11 +45,9 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà features.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListTransitionFeatures }
-     *     
+     *
+     * @return possible object is
+     * {@link ListTransitionFeatures }
      */
     public ListTransitionFeatures getFeatures() {
         return features;
@@ -64,11 +55,9 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà features.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListTransitionFeatures }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ListTransitionFeatures }
      */
     public void setFeatures(ListTransitionFeatures value) {
         this.features = value;
@@ -76,11 +65,9 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà properties.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListTransitionProperty }
-     *     
+     *
+     * @return possible object is
+     * {@link ListTransitionProperty }
      */
     public ListTransitionProperty getProperties() {
         return properties;
@@ -88,11 +75,9 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà properties.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListTransitionProperty }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ListTransitionProperty }
      */
     public void setProperties(ListTransitionProperty value) {
         this.properties = value;
@@ -100,7 +85,6 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà rotationAngle.
-     * 
      */
     public float getRotationAngle() {
         return rotationAngle;
@@ -108,7 +92,6 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà rotationAngle.
-     * 
      */
     public void setRotationAngle(float value) {
         this.rotationAngle = value;
@@ -116,11 +99,9 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà uuid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUuid() {
         return uuid;
@@ -128,11 +109,9 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà uuid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUuid(String value) {
         this.uuid = value;
@@ -140,7 +119,6 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà y.
-     * 
      */
     public int getY() {
         return y;
@@ -148,7 +126,6 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà y.
-     * 
      */
     public void setY(int value) {
         this.y = value;
@@ -156,7 +133,6 @@ public class Transition {
 
     /**
      * Recupera il valore della proprietà x.
-     * 
      */
     public int getX() {
         return x;
@@ -164,7 +140,6 @@ public class Transition {
 
     /**
      * Imposta il valore della proprietà x.
-     * 
      */
     public void setX(int value) {
         this.x = value;

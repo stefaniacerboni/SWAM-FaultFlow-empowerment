@@ -1,20 +1,15 @@
-
 package it.unifi.stlab.exporter.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * Place element have to contains name and marking properties
- * 
+ *
  * <p>Classe Java per PlaceProperty complex type.
- * 
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="PlaceProperty">
  *   &lt;complexContent>
@@ -35,14 +30,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PlaceProperty", namespace = "http://www.oris-tool.org")
 public class PlaceProperty
-    extends Empty
-{
+        extends Empty {
 
     @XmlAttribute(name = "id")
     protected String id;
@@ -58,11 +50,9 @@ public class PlaceProperty
 
     /**
      * Recupera il valore della proprietà id.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getId() {
         return id;
@@ -70,11 +60,9 @@ public class PlaceProperty
 
     /**
      * Imposta il valore della proprietà id.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setId(String value) {
         this.id = value;
@@ -82,11 +70,9 @@ public class PlaceProperty
 
     /**
      * Recupera il valore della proprietà name.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getName() {
         return name;
@@ -94,11 +80,9 @@ public class PlaceProperty
 
     /**
      * Imposta il valore della proprietà name.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setName(String value) {
         this.name = value;
@@ -106,11 +90,9 @@ public class PlaceProperty
 
     /**
      * Recupera il valore della proprietà satelliteX.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getSatelliteX() {
         return satelliteX;
@@ -118,11 +100,9 @@ public class PlaceProperty
 
     /**
      * Imposta il valore della proprietà satelliteX.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setSatelliteX(Integer value) {
         this.satelliteX = value;
@@ -130,11 +110,9 @@ public class PlaceProperty
 
     /**
      * Recupera il valore della proprietà satelliteY.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getSatelliteY() {
         return satelliteY;
@@ -142,11 +120,9 @@ public class PlaceProperty
 
     /**
      * Imposta il valore della proprietà satelliteY.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setSatelliteY(Integer value) {
         this.satelliteY = value;
@@ -154,11 +130,9 @@ public class PlaceProperty
 
     /**
      * Recupera il valore della proprietà marking.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getMarking() {
         return marking;
@@ -166,11 +140,9 @@ public class PlaceProperty
 
     /**
      * Imposta il valore della proprietà marking.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMarking(Integer value) {
         this.marking = value;

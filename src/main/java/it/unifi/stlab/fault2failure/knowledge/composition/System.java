@@ -5,20 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class System {
-    private String name;
+    private final String name;
     private String manufacturer;
     private String model;
     private List<MetaComponent> components;
     private MetaComponent topLevelComponent;
 
-    public System(String name){
-        this.name=name;
-        this.components=new ArrayList<>();
+    public System(String name) {
+        this.name = name;
+        this.components = new ArrayList<>();
     }
-    public System(String name, String manufacturer, String model){
+
+    public System(String name, String manufacturer, String model) {
         this(name);
         this.manufacturer = manufacturer;
-        this.model=model;
+        this.model = model;
     }
 
     public String getName() {
@@ -53,14 +54,15 @@ public class System {
         return topLevelComponent;
     }
 
-    public void addComponent(MetaComponent... c){
-        this.components.addAll(Arrays.asList(c));
-    }
-    public void setTopLevelComponent(MetaComponent metaComponent) throws IllegalArgumentException{
+    public void setTopLevelComponent(MetaComponent metaComponent) throws IllegalArgumentException {
         //assure that top level component it's inside the list of components that make up the system
-        if(components.contains(metaComponent))
-            this.topLevelComponent=metaComponent;
+        if (components.contains(metaComponent))
+            this.topLevelComponent = metaComponent;
         else
             throw new IllegalArgumentException("Top level component must be inside the system");
+    }
+
+    public void addComponent(MetaComponent... c) {
+        this.components.addAll(Arrays.asList(c));
     }
 }

@@ -1,7 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation.operators;
 
 import it.unifi.stlab.fault2failure.knowledge.propagation.BooleanExpression;
-import it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 
 import java.util.ArrayList;
@@ -15,20 +14,20 @@ public abstract class Operator implements BooleanExpression {
 
     /**
      * Method removeChild removes a FailureMode or an Operator from the BooleanExpression.
+     *
      * @param be the operator or FailureMode to be removed
      * @return be if successfully deletes the element, else returns null.
      */
     @Override
     public BooleanExpression removeChild(BooleanExpression be) {
         for (BooleanExpression elem : elements) {
-            if(elem==be) {
+            if (elem == be) {
                 elements.remove(elem);
                 return be;
-            }
-            else{
+            } else {
                 //check into Operator's children too
                 if (elem instanceof Operator)
-                    if(elem.removeChild(be)!=null)
+                    if (elem.removeChild(be) != null)
                         return be;
             }
         }
@@ -37,14 +36,14 @@ public abstract class Operator implements BooleanExpression {
 
     /**
      * @return a list of the FailureModes that appears inside the BooleanExpression.
-     *          In a tree-perspective: returns all the leaves inside the tree.
+     * In a tree-perspective: returns all the leaves inside the tree.
      */
-    public List<FaultMode> extractIncomingFaults(){
-        List <FaultMode> incomingFails = new ArrayList<>();
-        for(BooleanExpression be: elements){
-            if(be instanceof FaultMode)
-                incomingFails.add((FaultMode)be);
-            else{
+    public List<FaultMode> extractIncomingFaults() {
+        List<FaultMode> incomingFails = new ArrayList<>();
+        for (BooleanExpression be : elements) {
+            if (be instanceof FaultMode)
+                incomingFails.add((FaultMode) be);
+            else {
                 incomingFails.addAll(be.extractIncomingFaults());
             }
         }
