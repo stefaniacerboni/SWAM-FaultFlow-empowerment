@@ -76,6 +76,9 @@ public class NewModelBuilder {
         ExogenousFaultMode exFM_C1 = new ExogenousFaultMode("C_Fault1");
         ExogenousFaultMode exFM_C2 = new ExogenousFaultMode("C_Fault2");
         ExogenousFaultMode exFM_C3 = new ExogenousFaultMode("C_Fault3");
+        faultModes.put(exFM_C1.getName(), exFM_C1);
+        faultModes.put(exFM_C2.getName(), exFM_C2);
+        faultModes.put(exFM_C3.getName(), exFM_C3);
 
         a.addPropagationPort(
                 new PropagationPort(fM_A1, exFM_C1, c),

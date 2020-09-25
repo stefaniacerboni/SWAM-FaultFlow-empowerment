@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.translator;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
@@ -35,16 +36,7 @@ public class PetriNetTranslatorTest {
     }
 
     private void buildActualPN() {
-        HashMap<String, MetaComponent> components = BasicModelBuilder.getInstance().getMetaComponents();
-        HashMap<String, FaultMode> failModes = BasicModelBuilder.getInstance().getFaultModes();
-        HashMap<String, List<PropagationPort>> failConnections = BasicModelBuilder.getInstance().getFailConnections();
-
-
         pnt = new PetriNetTranslator();
-        List<PropagationPort> pplist = new ArrayList<>();
-        for (Map.Entry<String, List<PropagationPort>> mapElement : failConnections.entrySet()) {
-            pplist.addAll(mapElement.getValue());
-        }
         pnt.translate(BasicModelBuilder.getInstance().getSystem());
         actualPN = pnt.getPetriNet();
         actualMarking = pnt.getMarking();
@@ -275,11 +267,6 @@ public class PetriNetTranslatorTest {
 
         //c_Fault6.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("17"), MarkingExpr.from("1", expectedPN)));
         c_Fault6.addFeature(new Priority(0));
-
-
-        //TODO mancano le distribuzioni da inserire e testare -> Done
-        //TODO mancano le enabling function da inserire e testare -> Done
-        //TODO aggiungere marking e testare -> Done
     }
 
     @Test
@@ -316,8 +303,8 @@ public class PetriNetTranslatorTest {
         List<String> acttrnas = new ArrayList<String>(actualPN.getTransitionNames());
         Collections.sort(exptrnas);
         Collections.sort(acttrnas);
-        System.out.println(acttrnas);
-        System.out.println(exptrnas);
+        java.lang.System.out.println(acttrnas);
+        java.lang.System.out.println(exptrnas);
         // END : solo per trovare il problema
 
         for (String transition : expectedPN.getTransitionNames()) {
@@ -376,26 +363,17 @@ public class PetriNetTranslatorTest {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", failModes.get("B_Fault2"));
         Fault C_fault6Occurred = new Fault("C_fault6Occurred", failModes.get("C_Fault6"));
 
-        List<Component> current_system = new ArrayList<>();
-        Component a1 = new Component("A_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
-        Component a2 = new Component("A_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
-        Component b1 = new Component("B_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
-        Component b2 = new Component("B_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
-        Component c = new Component("C_Serial", BasicModelBuilder.getInstance().getMetaComponents().get("Root_C"));
-        current_system.add(a1);
-        current_system.add(a2);
-        current_system.add(b1);
-        current_system.add(b2);
-        current_system.add(c);
+        System system = BasicModelBuilder.getInstance().getSystem();
 
-        Scenario scenario = new Scenario(current_system);
+        Scenario scenario = new Scenario(system);
+        Map<String, Component> current_system = scenario.getCurrentSystemMap();
 
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), a1);
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), a2);
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), a2);
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), b1);
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), b2);
-        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(17), c);
+        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), current_system.get("Leaf_A_Base"));
+        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), current_system.get("Leaf_A_Base"));
+        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), current_system.get("Leaf_A_Base"));
+        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), current_system.get("Leaf_B_Base"));
+        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), current_system.get("Leaf_B_Base"));
+        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(17), current_system.get("Root_C_Base"));
         scenario.propagate();
         scenario.accept(pnt);
 

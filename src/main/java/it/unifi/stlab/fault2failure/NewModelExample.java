@@ -25,7 +25,6 @@ public class NewModelExample {
 
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
 
-        Map<String, MetaComponent> components = NewModelBuilder.getInstance().getMetaComponents();
         HashMap<String, FaultMode> faultModes = NewModelBuilder.getInstance().getFaultModes();
         System s = NewModelBuilder.getInstance().getSystem();
         PetriNetTranslator pnt = new PetriNetTranslator();
@@ -39,22 +38,16 @@ public class NewModelExample {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
         Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
 
-        List<Component> current_system = new ArrayList<>();
-        Component a = new Component("A_Serial", components.get("A"));
-        Component b = new Component("B_Serial", components.get("B"));
-        Component c = new Component("C_Serial", components.get("C"));
-        current_system.add(a);
-        current_system.add(b);
-        current_system.add(c);
+        Scenario scenario = new Scenario(s);
+        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("A_Base"));
+        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), currentSystem.get("A_Base"));
+        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), currentSystem.get("A_Base"));
+        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), currentSystem.get("B_Base"));
+        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), currentSystem.get("B_Base"));
+        scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), currentSystem.get("C_Base"));
 
-        Scenario scenario = new Scenario(current_system);
 
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), a);
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), a);
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), a);
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), b);
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), b);
-        scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), c);
 
         scenario.accept(pnt);
         scenario.propagate();

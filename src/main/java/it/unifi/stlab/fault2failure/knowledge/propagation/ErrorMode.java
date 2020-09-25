@@ -92,7 +92,6 @@ public class ErrorMode {
             case "dirac":
                 //one argument
                 this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
-                //or this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(arguments, arguments) //TODO ask
                 break;
             case "exp":
                 //one argument

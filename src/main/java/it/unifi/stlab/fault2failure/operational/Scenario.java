@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.operational;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
@@ -8,12 +9,12 @@ import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * Class Scenario gives a test scenario in which we want to simulate how
  * a set of incoming faults will propagate into failures in a certain system.
- * Needs a map of <String,List<PropagationPort>>
  */
 public class Scenario {
     private final HashMap<String, List<BigDecimal>> failuresOccurredTimes;
@@ -21,20 +22,20 @@ public class Scenario {
     private final List<Fault> failuresOccurred;
     private final HashMap<String, Component> failureComponents;
 
-
     private List<Component> system;
 
     public Scenario() {
         incomingFaults = new ArrayList<>(); //List of failures in the scenario
         failuresOccurred = new ArrayList<>(); //List of failures occurred after the propagation
         failuresOccurredTimes = new HashMap<>(); //Map with occurred Failures linked to their occurrence time
-
         failureComponents = new HashMap<>();
     }
 
-    public Scenario(List<Component> currentSystem) {
+    public Scenario(System system) {
         this();
-        this.system = currentSystem;
+        this.system = system.getComponents().stream()
+                .map(c -> new Component(c.getName() + "_Base", c))
+                .collect(Collectors.toList());
     }
 
     public void addFault(Fault fail, BigDecimal timestamp) {
@@ -71,6 +72,10 @@ public class Scenario {
 
     public HashMap<String, List<BigDecimal>> getFailuresOccurredWithTimes() {
         return this.failuresOccurredTimes;
+    }
+
+    public Map<String, Component> getCurrentSystemMap() {
+        return this.system.stream().collect(Collectors.toMap(Component::getSerial, Function.identity()));
     }
 
     public void setSystem(List<Component> system) {
@@ -119,68 +124,6 @@ public class Scenario {
         return metaComponent.getErrorModes().stream().filter(x -> x.checkFaultIsPresent(fault.getFaultMode().getName())).collect(Collectors.toList());
     }
 
-    /**
-     * Method propagate(Failure, component) is called recursively following the PropagationPorts inside failConnections,
-     * declared before at Knowledge level. The propagation stops if there's no more PropagationPorts for a certain Failure.
-     *
-     * @param fault the failure that's being propagated.
-     */
-    private void propagate(Fault fault) {
-        Fault next;
-
-        /*
-            //System.out.println(failure.getDescription()+" is occurred at time "+failure.getTimestamp().toString());
-            Failure next;
-            List<PropagationPort> thisconnection = failConnections.get(failure.getFailureMode().getDescription());
-            if(thisconnection!=null) {
-                //Propagation in the component, fault->failure inside the same component
-                for (PropagationPort pp : thisconnection) {
-                    ErrorMode em = pp.getErrorMode();
-                    if (em != null) {
-                        if (em.checkActivationFunction()) {
-                            next = new Failure(pp.getFailOut().getDescription(), pp.getFailOut());
-                            Component failedComponent = system.stream()
-                                    .filter(component -> pp.getMetaComponent().equals(component.getComponentType()))
-                                    .findAny()
-                                    .orElse(null);
-                            if(!failedComponent.isFailureAlreadyOccurred(next.getDescription())){
-                                failedComponent.addFailure(next);
-                                next.occurred(BigDecimal.valueOf(failure.getTimestamp().intValue()+1));
-                                failuresOccurredTimes.computeIfAbsent(next.getDescription(),k->new ArrayList<>()).add(next.getTimestamp());
-                                failuresOccurred.add(next);
-                                propagate(next);
-                            }
-                        }
-                        //else
-                            //System.out.println(em.getName() + "'s Activation Function is not Satisfied");
-                    }
-                    else{
-                        //Propagation in the hierarchy, failure->fault from a component to another
-                        next = new Failure(pp.getFailOut().getDescription(), pp.getFailOut());
-                        next.occurred(failure.getTimestamp());
-                        //extract the component affected by the failure by checking the metacomponent attribute
-                        Component affectedComponent = system.stream()
-                                .filter(component -> pp.getMetaComponent().equals(component.getComponentType()))
-                                .findAny()
-                                .orElse(null);
-                        affectedComponent.addFailure(next);
-                        propagate(next);
-
-                        //Propagate the fault into the components
-                        /*
-                        for(Component component: affectedComponents) {
-                            component.addFailure(next);
-                            //failuresOccurred.putIfAbsent(next.getDescription(), next);
-                            propagate(next, component);
-                        }
-
-                    }
-                }
-            }
-            //else
-                //System.out.println("PropEnded");
-         */
-    }
 
     /**
      * In a visitor design pattern way, the Scenario Class accepts a Visit from the PetriNetTranslator class
@@ -198,12 +141,12 @@ public class Scenario {
 
     public void printReport() {
         for (Component component : system) {
-            System.out.println("\n" +
+            java.lang.System.out.println("\n" +
                     "Component: " + component.getSerial() +
                     " of Type: " + component.getComponentType().getName() +
                     " has Faults: \n");
             for (Fault fault : component.getFaultList()) {
-                System.out.println(fault.getDescription() + " Occurred at time: " + fault.getTimestamp());
+                java.lang.System.out.println(fault.getDescription() + " Occurred at time: " + fault.getTimestamp());
             }
         }
     }

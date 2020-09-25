@@ -1,5 +1,6 @@
 package it.unifi.stlab.fault2failure.operational;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
 import org.junit.Before;
@@ -17,19 +18,9 @@ public class ScenarioTest {
 
     @Before
     public void setup() {
-        List<Component> current_system = new ArrayList<>();
-        Component a1 = new Component("A_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
-        Component a2 = new Component("A_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_A"));
-        Component b1 = new Component("B_Serial1", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
-        Component b2 = new Component("B_Serial2", BasicModelBuilder.getInstance().getMetaComponents().get("Leaf_B"));
-        Component c = new Component("C_Serial", BasicModelBuilder.getInstance().getMetaComponents().get("Root_C"));
-        current_system.add(a1);
-        current_system.add(a2);
-        current_system.add(b1);
-        current_system.add(b2);
-        current_system.add(c);
+        System system = BasicModelBuilder.getInstance().getSystem();
 
-        scenario = new Scenario(current_system);
+        scenario = new Scenario(system);
     }
 
     @Test

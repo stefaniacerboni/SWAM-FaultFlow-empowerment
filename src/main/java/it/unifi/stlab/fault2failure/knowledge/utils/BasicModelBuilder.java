@@ -21,16 +21,13 @@ import java.util.List;
  */
 public class BasicModelBuilder {
     private static BasicModelBuilder singleInstance = null;
-
-    private final HashMap<String, MetaComponent> metaComponents;
     private final HashMap<String, FaultMode> faultModes;
-    private final HashMap<String, List<PropagationPort>> failConnections;
     private final System system;
 
     private BasicModelBuilder() {
-        metaComponents = new HashMap<>();
         faultModes = new HashMap<>();
-        failConnections = new HashMap<>();
+
+        //Defines the System at Meta Level
         system = new System("S");
         MetaComponent a = new MetaComponent("Leaf_A");
         MetaComponent b = new MetaComponent("Leaf_B");
@@ -43,95 +40,113 @@ public class BasicModelBuilder {
         abc.addChild(a);
         abc.addChild(b);
 
-        metaComponents.put("Root_C", c);
-        metaComponents.put("Leaf_A", a);
-        metaComponents.put("Leaf_B", b);
+        //Defines the Failure Modes and Fault Modes at Meta Level
 
+
+        EndogenousFaultMode enFM_A1 = new EndogenousFaultMode("A_Fault1");
+        EndogenousFaultMode enFM_A2 = new EndogenousFaultMode("A_Fault2");
+        EndogenousFaultMode enFM_A3 = new EndogenousFaultMode("A_Fault3");
+        faultModes.put(enFM_A1.getName(), enFM_A1);
+        faultModes.put(enFM_A2.getName(), enFM_A2);
+        faultModes.put(enFM_A3.getName(), enFM_A3);
 
         FailureMode a_failure1 = new FailureMode("A_Failure1");
+        ErrorMode eM_A1 = new ErrorMode("A_Propagation1");
+        eM_A1.addInputFaultMode(enFM_A1, enFM_A2, enFM_A3);
+        eM_A1.addOutputFailureMode(a_failure1);
+        eM_A1.setEnablingCondition("(A_Fault1)&&((A_Fault2) || (A_Fault3))", faultModes);
+        eM_A1.setPDF("erlang(5,1)");
+
+        EndogenousFaultMode enFM_A4 = new EndogenousFaultMode("A_Fault4");
+        EndogenousFaultMode enFM_A5 = new EndogenousFaultMode("A_Fault5");
+        faultModes.put(enFM_A4.getName(), enFM_A4);
+        faultModes.put(enFM_A5.getName(), enFM_A5);
+
         FailureMode a_failure2 = new FailureMode("A_Failure2");
+        ErrorMode eM_A2 = new ErrorMode("A_Propagation2");
+        eM_A2.addInputFaultMode(enFM_A3, enFM_A4, enFM_A5);
+        eM_A2.addOutputFailureMode(a_failure2);
+        eM_A2.setEnablingCondition("(A_Fault3)&&((A_Fault4) || (A_Fault5))", faultModes);
+        eM_A2.setPDF("erlang(7,1)");
+
         FailureMode a_failure3 = new FailureMode("A_Failure3");
+        ErrorMode eM_A3 = new ErrorMode("A_Propagation3");
+        eM_A3.addInputFaultMode(enFM_A2, enFM_A5);
+        eM_A3.addOutputFailureMode(a_failure3);
+        eM_A3.setEnablingCondition("A_Fault2 || A_Fault5", faultModes);
+        eM_A3.setPDF("erlang(9,1)");
+
+        a.addErrorMode(eM_A1,eM_A2,eM_A3);
+
+        EndogenousFaultMode enFM_B1 = new EndogenousFaultMode("B_Fault1");
+        EndogenousFaultMode enFM_B2 = new EndogenousFaultMode("B_Fault2");
+        faultModes.put(enFM_B1.getName(), enFM_B1);
+        faultModes.put(enFM_B2.getName(), enFM_B2);
 
         FailureMode b_failure1 = new FailureMode("B_Failure1");
+        ErrorMode eM_B1 = new ErrorMode("B_Propagation1");
+        eM_B1.addInputFaultMode(enFM_B1, enFM_B2);
+        eM_B1.addOutputFailureMode(b_failure1);
+        eM_B1.setEnablingCondition("B_Fault1 && B_Fault2", faultModes);
+        eM_B1.setPDF("erlang(6,1)");
+
+        EndogenousFaultMode enFM_B3 = new EndogenousFaultMode("B_Fault3");
+        faultModes.put(enFM_B3.getName(), enFM_B3);
+
         FailureMode b_failure2 = new FailureMode("B_Failure2");
+        ErrorMode eM_B2 = new ErrorMode("B_Propagation2");
+        eM_B2.addInputFaultMode(enFM_B1, enFM_B3);
+        eM_B2.addOutputFailureMode(b_failure2);
+        eM_B2.setEnablingCondition("B_Fault1 && B_Fault3", faultModes);
+        eM_B2.setPDF("erlang(2,1)");
+
+        b.addErrorMode(eM_B1, eM_B2);
+
+
+        ExogenousFaultMode exFM_C1 = new ExogenousFaultMode("C_Fault1");
+        ExogenousFaultMode exFM_C2 = new ExogenousFaultMode("C_Fault2");
+        ExogenousFaultMode exFM_C3 = new ExogenousFaultMode("C_Fault3");
+        ExogenousFaultMode exFM_C4 = new ExogenousFaultMode("C_Fault4");
+        ExogenousFaultMode exFM_C5 = new ExogenousFaultMode("C_Fault5");
+        faultModes.put(exFM_C1.getName(), exFM_C1);
+        faultModes.put(exFM_C2.getName(), exFM_C2);
+        faultModes.put(exFM_C3.getName(), exFM_C3);
+        faultModes.put(exFM_C4.getName(), exFM_C4);
+        faultModes.put(exFM_C5.getName(), exFM_C5);
+
+        a.addPropagationPort(
+                new PropagationPort(a_failure1, exFM_C1, c),
+                new PropagationPort(a_failure2, exFM_C2, c),
+                new PropagationPort(a_failure3, exFM_C3, c));
+        b.addPropagationPort(
+                new PropagationPort(b_failure1, exFM_C4, c),
+                new PropagationPort(b_failure2, exFM_C5, c));
 
         FailureMode c_failure1 = new FailureMode("C_Failure1");
+        ErrorMode eM_C1 = new ErrorMode("C_Propagation1");
+        eM_C1.addInputFaultMode(exFM_C2, exFM_C3);
+        eM_C1.addOutputFailureMode(c_failure1);
+        eM_C1.setEnablingCondition("C_Fault2 && C_Fault3", faultModes);
+        eM_C1.setPDF("erlang(2,1)");
+
+        EndogenousFaultMode enFM_C6 = new EndogenousFaultMode("C_Fault6");
+        faultModes.put(enFM_C6.getName(), enFM_C6);
+
         FailureMode c_failure2 = new FailureMode("C_Failure2");
+        ErrorMode eM_C2 = new ErrorMode("C_Propagation2");
+        eM_C2.addInputFaultMode(exFM_C4, enFM_C6);
+        eM_C2.addOutputFailureMode(c_failure2);
+        eM_C2.setEnablingCondition("C_Fault6 && C_Fault4", faultModes);
+        eM_C2.setPDF("erlang(2,1)");
+
         FailureMode c_failure3 = new FailureMode("C_Failure3");
+        ErrorMode eM_C3 = new ErrorMode("C_Propagation3");
+        eM_C3.addInputFaultMode(exFM_C5, enFM_C6);
+        eM_C3.addOutputFailureMode(c_failure3);
+        eM_C3.setEnablingCondition("C_Fault5 && C_Fault6", faultModes);
+        eM_C3.setPDF("erlang(2,1)");
 
-        EndogenousFaultMode fm1 = new EndogenousFaultMode("A_Fault1");
-        fm1.setArisingPDF("uniform(1,2)");
-
-        faultModes.put("A_Fault1", new EndogenousFaultMode("A_Fault1"));
-        faultModes.put("A_Fault2", new EndogenousFaultMode("A_Fault2"));
-        faultModes.put("A_Fault3", new EndogenousFaultMode("A_Fault3"));
-        faultModes.put("A_Fault4", new EndogenousFaultMode("A_Fault4"));
-        faultModes.put("A_Fault5", new EndogenousFaultMode("A_Fault5"));
-
-        faultModes.put("B_Fault1", new EndogenousFaultMode("B_Fault1"));
-        faultModes.put("B_Fault2", new EndogenousFaultMode("B_Fault2"));
-        faultModes.put("B_Fault3", new EndogenousFaultMode("B_Fault3"));
-
-        faultModes.put("C_Fault1", new ExogenousFaultMode("C_Fault1"));
-        faultModes.put("C_Fault2", new ExogenousFaultMode("C_Fault2"));
-        faultModes.put("C_Fault3", new ExogenousFaultMode("C_Fault3"));
-        faultModes.put("C_Fault4", new ExogenousFaultMode("C_Fault4"));
-        faultModes.put("C_Fault5", new ExogenousFaultMode("C_Fault5"));
-        faultModes.put("C_Fault6", new EndogenousFaultMode("C_Fault6"));
-
-        BooleanExpression a_Failure1 = BooleanExpression.config("(A_Fault1)&&((A_Fault2) || (A_Fault3))", faultModes);
-        BooleanExpression a_Failure2 = BooleanExpression.config("(A_Fault3)&&((A_Fault4) || (A_Fault5))", faultModes);
-        BooleanExpression a_Failure3 = BooleanExpression.config("A_Fault2 || A_Fault5", faultModes);
-        BooleanExpression b_Failure1 = BooleanExpression.config("B_Fault1 && B_Fault2", faultModes);
-        BooleanExpression b_Failure2 = BooleanExpression.config("B_Fault1 && B_Fault3", faultModes);
-        BooleanExpression c_Failure1 = BooleanExpression.config("C_Fault2 && C_Fault3", faultModes);
-        BooleanExpression c_Failure2 = BooleanExpression.config("C_Fault6 && C_Fault4", faultModes);
-        BooleanExpression c_Failure3 = BooleanExpression.config("C_Fault5 && C_Fault6", faultModes);
-
-        a.addErrorMode(new ErrorMode("A_Propagation1", a_Failure1, a_failure1, "erlang(5,1)"));
-        a.addErrorMode(new ErrorMode("A_Propagation2", a_Failure2, a_failure2, "erlang(7,1)"));
-        a.addErrorMode(new ErrorMode("A_Propagation3", a_Failure3, a_failure3, "erlang(9,1)"));
-
-        b.addErrorMode(new ErrorMode("B_Propagation1", b_Failure1, b_failure1, "erlang(6,1)"));
-        b.addErrorMode(new ErrorMode("B_Propagation2", b_Failure2, b_failure2, "erlang(2,1)"));
-
-        c.addErrorMode(new ErrorMode("C_Propagation1", c_Failure1, c_failure1, "erlang(2,1)"));
-        c.addErrorMode(new ErrorMode("C_Propagation2", c_Failure2, c_failure2, "erlang(2,1)"));
-        c.addErrorMode(new ErrorMode("C_Propagation3", c_Failure3, c_failure3, "erlang(2,1)"));
-
-        /*
-        failConnections.computeIfAbsent("A_Fault1", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault1"), faultModes.get("A_Failure1"), A_Propagation1, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault2", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault2"), faultModes.get("A_Failure1"), A_Propagation1, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault2", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault2"), faultModes.get("A_Failure3"), A_Propagation3, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault3", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault3"), faultModes.get("A_Failure1"), A_Propagation1, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault3", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault3"), faultModes.get("A_Failure2"), A_Propagation2, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault4", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault4"), faultModes.get("A_Failure2"), A_Propagation2, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault5", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault5"), faultModes.get("A_Failure2"), A_Propagation2, metaComponents.get("Leaf_A")));
-        failConnections.computeIfAbsent("A_Fault5", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("A_Fault5"), faultModes.get("A_Failure3"), A_Propagation3, metaComponents.get("Leaf_A")));
-
-        failConnections.computeIfAbsent("B_Fault1", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("B_Fault1"), faultModes.get("B_Failure1"), B_Propagation1, metaComponents.get("Leaf_B")));
-        failConnections.computeIfAbsent("B_Fault1", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("B_Fault1"), faultModes.get("B_Failure2"), B_Propagation2, metaComponents.get("Leaf_B")));
-        failConnections.computeIfAbsent("B_Fault2", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("B_Fault2"), faultModes.get("B_Failure1"), B_Propagation1, metaComponents.get("Leaf_B")));
-        failConnections.computeIfAbsent("B_Fault3", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("B_Fault3"), faultModes.get("B_Failure2"), B_Propagation2, metaComponents.get("Leaf_B")));
-
-        failConnections.computeIfAbsent("C_Fault6", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault6"), faultModes.get("C_Failure2"), C_Propagation2, metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("C_Fault6", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault6"), faultModes.get("C_Failure3"), C_Propagation3, metaComponents.get("Root_C")));
-
-        failConnections.computeIfAbsent("C_Fault2", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault2"), faultModes.get("C_Failure1"), C_Propagation1, metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("C_Fault3", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault3"), faultModes.get("C_Failure1"), C_Propagation1, metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("C_Fault4", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault4"), faultModes.get("C_Failure2"), C_Propagation2, metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("C_Fault5", k -> new ArrayList<>()).add(new PropagationPort(faultModes.get("C_Fault5"), faultModes.get("C_Failure3"), C_Propagation3, metaComponents.get("Root_C")));
-*/
-        failConnections.computeIfAbsent("A_Failure1", k -> new ArrayList<>()).add(new PropagationPort(a_failure1, (ExogenousFaultMode) faultModes.get("C_Fault1"), metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("A_Failure2", k -> new ArrayList<>()).add(new PropagationPort(a_failure2, (ExogenousFaultMode) faultModes.get("C_Fault2"), metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("A_Failure3", k -> new ArrayList<>()).add(new PropagationPort(a_failure3, (ExogenousFaultMode) faultModes.get("C_Fault3"), metaComponents.get("Root_C")));
-        a.addPropagationPort(failConnections.get("A_Failure1"));
-        a.addPropagationPort(failConnections.get("A_Failure2"));
-        a.addPropagationPort(failConnections.get("A_Failure3"));
-        failConnections.computeIfAbsent("B_Failure1", k -> new ArrayList<>()).add(new PropagationPort(b_failure1, (ExogenousFaultMode) faultModes.get("C_Fault4"), metaComponents.get("Root_C")));
-        failConnections.computeIfAbsent("B_Failure2", k -> new ArrayList<>()).add(new PropagationPort(b_failure2, (ExogenousFaultMode) faultModes.get("C_Fault5"), metaComponents.get("Root_C")));
-        b.addPropagationPort(failConnections.get("B_Failure1"));
-        b.addPropagationPort(failConnections.get("B_Failure2"));
+        c.addErrorMode(eM_C1,  eM_C2, eM_C3);
     }
 
     public static BasicModelBuilder getInstance() {
@@ -140,16 +155,8 @@ public class BasicModelBuilder {
         return singleInstance;
     }
 
-    public HashMap<String, MetaComponent> getMetaComponents() {
-        return metaComponents;
-    }
-
     public HashMap<String, FaultMode> getFaultModes() {
         return faultModes;
-    }
-
-    public HashMap<String, List<PropagationPort>> getFailConnections() {
-        return failConnections;
     }
 
     public System getSystem() {
