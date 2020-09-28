@@ -1,6 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.utils.ParseString;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.util.ArrayList;
@@ -80,30 +81,7 @@ public class ErrorMode {
     }
 
     public void setPDF(String timetofailurePDF) {
-        String typePDF = timetofailurePDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
-        String arguments = timetofailurePDF.substring(typePDF.length() + 1, timetofailurePDF.length() - 1);
-        String[] args;
-        switch (typePDF.toLowerCase()) {
-            case "uniform":
-                //two arguments
-                args = arguments.split(",");
-                this.timetofailurePDF = StochasticTransitionFeature.newUniformInstance(args[0].trim(), args[1].trim());
-                break;
-            case "dirac":
-                //one argument
-                this.timetofailurePDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
-                break;
-            case "exp":
-                //one argument
-                this.timetofailurePDF = StochasticTransitionFeature.newExponentialInstance(arguments);
-                break;
-            case "erlang":
-                args = arguments.split(",");
-                this.timetofailurePDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0].trim()), args[1].trim());
-                break;
-            default:
-                throw new UnsupportedOperationException("PDF not supported");
-        }
+        this.timetofailurePDF = ParseString.parseStringToPDF(timetofailurePDF);
     }
 
     public void setOutGoingFailure(FailureMode fm) {
