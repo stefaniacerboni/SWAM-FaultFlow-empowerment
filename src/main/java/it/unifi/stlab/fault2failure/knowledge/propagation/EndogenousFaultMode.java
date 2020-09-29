@@ -1,5 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
+import it.unifi.stlab.fault2failure.knowledge.utils.ParseString;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 public class EndogenousFaultMode extends FaultMode {
@@ -16,30 +17,7 @@ public class EndogenousFaultMode extends FaultMode {
 
     //TODO: move Parse function outside class
     public void setArisingPDF(String arisingPDF) {
-        String typePDF = arisingPDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
-        String arguments = arisingPDF.substring(typePDF.length() + 1, arisingPDF.length() - 1);
-        String[] args;
-        switch (typePDF) {
-            case "uniform":
-                //two arguments
-                args = arguments.split(",");
-                this.arisingPDF = StochasticTransitionFeature.newUniformInstance(args[0], args[1]);
-                break;
-            case "dirac":
-                //one argument
-                this.arisingPDF = StochasticTransitionFeature.newDeterministicInstance(arguments);
-                break;
-            case "exp":
-                //one argument
-                this.arisingPDF = StochasticTransitionFeature.newExponentialInstance(arguments);
-                break;
-            case "erlang":
-                args = arguments.split(",");
-                this.arisingPDF = StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
-                break;
-            default:
-                throw new UnsupportedOperationException("PDF not supported");
-        }
-
+        this.arisingPDF = ParseString.parseStringToPDF(arisingPDF);
     }
 }
+
