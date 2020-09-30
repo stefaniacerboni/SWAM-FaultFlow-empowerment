@@ -1,6 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-import it.unifi.stlab.fault2failure.knowledge.utils.ParseString;
+import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 public class EndogenousFaultMode extends FaultMode {
@@ -17,7 +17,7 @@ public class EndogenousFaultMode extends FaultMode {
 
     //TODO: move Parse function outside class
     public void setArisingPDF(String arisingPDF) {
-        this.arisingPDF = ParseString.parseStringToPDF(arisingPDF);
+        this.arisingPDF = PDFParser.parseStringToPDF(arisingPDF);
     }
 }
 

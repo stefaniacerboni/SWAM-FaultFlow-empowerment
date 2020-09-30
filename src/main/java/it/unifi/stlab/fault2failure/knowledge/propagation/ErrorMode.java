@@ -1,7 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
-import it.unifi.stlab.fault2failure.knowledge.utils.ParseString;
+import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class ErrorMode {
     }
 
     public void setPDF(String timetofailurePDF) {
-        this.timetofailurePDF = ParseString.parseStringToPDF(timetofailurePDF);
+        this.timetofailurePDF = PDFParser.parseStringToPDF(timetofailurePDF);
     }
 
     public void setOutGoingFailure(FailureMode fm) {

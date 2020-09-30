@@ -47,8 +47,6 @@ public class NewModelExample {
         scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), currentSystem.get("B_Base"));
         scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), currentSystem.get("C_Base"));
 
-
-
         scenario.accept(pnt);
         scenario.propagate();
         scenario.printReport();
