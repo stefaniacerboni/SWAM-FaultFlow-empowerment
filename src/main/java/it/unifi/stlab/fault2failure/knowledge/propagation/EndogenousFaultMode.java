@@ -15,7 +15,6 @@ public class EndogenousFaultMode extends FaultMode {
         return arisingPDF;
     }
 
-    //TODO: move Parse function outside class
     public void setArisingPDF(String arisingPDF) {
         this.arisingPDF = PDFParser.parseStringToPDF(arisingPDF);
     }

@@ -8,6 +8,7 @@ import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
+import it.unifi.stlab.fault2failure.knowledge.utils.NewModelBuilder;
 import it.unifi.stlab.fault2failure.knowledge.utils.SteamBoilerModelBuilder;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
@@ -29,16 +30,9 @@ public class SteamBoilerExample {
         PetriNetTranslator pnt = new PetriNetTranslator();
         pnt.translate(system);
 
-        Fault sensor1_ED = new Fault("sensor1_ED", faultModes.get("Sensor1_ED"));
-        Fault sensor2_MD = new Fault("sensor2_MD", faultModes.get("Sensor2_MD"));
-        Fault valve1_MD = new Fault("valve1_MD", faultModes.get("Valve1_MD"));
-
-        Scenario scenario = new Scenario(system);
-
-        Map<String, Component> current_system = scenario.getCurrentSystemMap();
-        scenario.addFault(sensor1_ED, BigDecimal.valueOf(12), current_system.get("Sensor1_Base"));
-        scenario.addFault(sensor2_MD, BigDecimal.valueOf(13), current_system.get("Sensor2_Base"));
-        scenario.addFault(valve1_MD, BigDecimal.valueOf(16), current_system.get("Valve1_Base"));
+        Scenario scenario = new Scenario();
+        SteamBoilerModelBuilder.createBaseDigitalTwin(scenario, system, "_Serial");
+        SteamBoilerModelBuilder.injectFaultsIntoScenario(scenario, "_Serial");
         scenario.accept(pnt);
         scenario.propagate();
         scenario.printReport();

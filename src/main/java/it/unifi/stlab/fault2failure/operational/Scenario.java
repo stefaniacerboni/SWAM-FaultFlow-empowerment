@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * a set of incoming faults will propagate into failures in a certain system.
  */
 public class Scenario {
-	private final HashMap<String, List<BigDecimal>> failuresOccurredTimes;
+	private final HashMap<String, BigDecimal> failuresOccurredTimes;
 	private final List<Fault> incomingFaults;
 	private final List<Fault> failuresOccurred;
 	private final HashMap<String, Component> failureComponents;
@@ -38,16 +38,8 @@ public class Scenario {
 		                    .collect(Collectors.toList());
 	}
 
-	public void addFault(Fault fail, BigDecimal timestamp) {
-		//Add the fault to the incomingFault list,
-		//Add it also to the incomingFaultTimes with its timestamp
-		if (!incomingFaults.contains(fail))
-			incomingFaults.add(fail);
-	}
-
 	public void addFault(Fault fail, BigDecimal timestamp, Component component) {
-		//Add the fault to the incomingFault list,
-		//Add it also to the incomingFaultTimes with its timestamp
+		//Add the fault to the incomingFault list
 		fail.occurred(timestamp);
 		if (!incomingFaults.contains(fail))
 			incomingFaults.add(fail);
@@ -67,8 +59,10 @@ public class Scenario {
 		return this.failuresOccurred;
 	}
 
-	public HashMap<String, List<BigDecimal>> getFailuresOccurredWithTimes() {
-		return this.failuresOccurredTimes;
+	public LinkedHashMap<String, BigDecimal> getFailuresOccurredWithTimes() {
+		LinkedHashMap<String, BigDecimal> sortedMap = new LinkedHashMap<>();
+		failuresOccurredTimes.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEachOrdered(x-> sortedMap.put(x.getKey(), x.getValue()));
+		return sortedMap;
 	}
 
 	public Map<String, Component> getCurrentSystemMap() {
@@ -95,10 +89,16 @@ public class Scenario {
 	private void propagate(Fault fault, Component affectedComponent) {
 		Fault next;
 		fault.getFaultMode().setState(true);
+		int occurredTime;
 		for (ErrorMode em : getErrorModesFromFault(fault, affectedComponent.getComponentType())) {
 			if (em.checkActivationFunction()) {
-				failuresOccurredTimes.computeIfAbsent(em.getOutgoingFailure().getDescription(), k -> new ArrayList<>())
-                                     .add(BigDecimal.valueOf(fault.getTimestamp().intValue() + 1));
+				occurredTime = fault.getTimestamp().intValue() + 1;
+				if(failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()) != null){
+					if (failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()).intValue() > occurredTime) //se è già avvenuto con tempo> rispetto ad adesso
+						failuresOccurredTimes.replace(em.getOutgoingFailure().getDescription(), BigDecimal.valueOf(occurredTime));
+				}
+				else
+					failuresOccurredTimes.put(em.getOutgoingFailure().getDescription(), BigDecimal.valueOf(occurredTime));
 				Optional<PropagationPort> propagationPort =
                         affectedComponent.getComponentType().getPropagationPort().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).findAny();
 				if (propagationPort.isPresent()) {
@@ -111,7 +111,7 @@ public class Scenario {
 					if (!failedComponent.isFailureAlreadyOccurred(next.getDescription())) {
 						failedComponent.addFailure(next);
 						next.occurred(BigDecimal.valueOf(fault.getTimestamp().intValue() + 1));
-						failuresOccurredTimes.computeIfAbsent(next.getDescription(), k -> new ArrayList<>()).add(next.getTimestamp());
+						failuresOccurredTimes.put(next.getDescription(),next.getTimestamp());
 						failuresOccurred.add(next);
 						propagate(next, failedComponent);
 					}

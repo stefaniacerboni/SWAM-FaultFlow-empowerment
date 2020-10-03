@@ -4,12 +4,17 @@ import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
+import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.Fault;
+import it.unifi.stlab.fault2failure.operational.Scenario;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Class that builds an example system composed of four Meta Components (SteamBoiler, Valve, Sensor, Controller).
@@ -170,5 +175,22 @@ public class SteamBoilerModelBuilder {
 
     public System getSystem() {
         return system;
+    }
+
+    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
+        scenario.setSystem(system.getComponents().stream()
+                .map(c -> new Component(c.getName() + serial, c))
+                .collect(Collectors.toList()));
+    }
+
+    public static void injectFaultsIntoScenario(Scenario scenario, String serial){
+        Fault sensor1_ED = new Fault("sensor1_ED", faultModes.get("Sensor1_ED"));
+        Fault sensor2_MD = new Fault("sensor2_MD", faultModes.get("Sensor2_MD"));
+        Fault valve1_MD = new Fault("valve1_MD", faultModes.get("Valve1_MD"));
+
+        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        scenario.addFault(sensor1_ED, BigDecimal.valueOf(10), currentSystem.get("Sensor1"+serial));
+        scenario.addFault(sensor2_MD, BigDecimal.valueOf(13), currentSystem.get("Sensor2"+serial));
+        scenario.addFault(valve1_MD, BigDecimal.valueOf(16), currentSystem.get("Valve1"+serial));
     }
 }

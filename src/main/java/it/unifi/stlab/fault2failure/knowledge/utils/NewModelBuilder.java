@@ -4,7 +4,11 @@ import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
+import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.Fault;
+import it.unifi.stlab.fault2failure.operational.Scenario;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -109,7 +113,7 @@ public class NewModelBuilder {
     public static NewModelBuilder getInstance() {
         if (single_instance == null)
             single_instance = new NewModelBuilder();
-        return single_instance;
+        return new NewModelBuilder();
     }
 
     public Map<String, MetaComponent> getMetaComponents() {
@@ -122,6 +126,31 @@ public class NewModelBuilder {
 
     public HashMap<String, FaultMode> getFaultModes() {
         return faultModes;
+    }
+
+    //Base Level Methods: Create a Scenario, Sets its Base System and Injects faults into that
+
+    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
+        scenario.setSystem(system.getComponents().stream()
+                .map(c -> new Component(c.getName() + serial, c))
+                .collect(Collectors.toList()));
+    }
+
+    public static void injectFaultsIntoScenario(Scenario scenario, String serial){
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
+
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
+        Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
+        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("A"+serial));
+        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), currentSystem.get("A"+serial));
+        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), currentSystem.get("A"+serial));
+        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), currentSystem.get("B"+serial));
+        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), currentSystem.get("B"+serial));
+        scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), currentSystem.get("C"+serial));
     }
 
 

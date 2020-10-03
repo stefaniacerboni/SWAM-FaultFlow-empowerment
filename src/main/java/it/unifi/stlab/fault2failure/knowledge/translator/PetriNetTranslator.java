@@ -116,10 +116,6 @@ public class PetriNetTranslator implements Translator {
         t.addFeature(StochasticTransitionFeature.newDeterministicInstance(timestamp, MarkingExpr.from("1", net)));
     }
 
-    public void translateFromSystem(HashMap<String, BigDecimal> inFailures, List<Component> system) {
-
-    }
-
     public PetriNet getPetriNet() {
         return net;
     }
