@@ -3,8 +3,8 @@ package it.unifi.stlab.fault2failure.knowledge.utils;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 public class PDFParser {
-    public static StochasticTransitionFeature parseStringToPDF (String arisingPDF){
-        String typePDF = arisingPDF.replaceAll("\\s*\\([^()]*\\)\\s*", "");
+    public static StochasticTransitionFeature parseStringToPDF(String arisingPDF) {
+        String typePDF = arisingPDF.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
         String arguments = arisingPDF.substring(typePDF.length() + 1, arisingPDF.length() - 1);
         String[] args;
         switch (typePDF) {
