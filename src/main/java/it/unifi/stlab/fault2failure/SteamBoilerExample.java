@@ -38,6 +38,7 @@ public class SteamBoilerExample {
         scenario.printReport();
 
         java.lang.System.out.println(scenario.getFailuresOccurredWithTimes().toString());
+        java.lang.System.out.println(scenario.getMultiFailuresList().toString());
 
         XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(system, pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));

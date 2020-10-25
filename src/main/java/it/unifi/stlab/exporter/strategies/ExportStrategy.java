@@ -134,11 +134,11 @@ public interface ExportStrategy {
             String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
             String[] bounds = domain.split("<=");
             if (bounds[0].equals(bounds[2])) {
-                if (Integer.parseInt(bounds[0]) == 0)
+                if (bounds[0].equals("0"))
                     stochastic.setPropertyDataType("0.type.immediate");
                 else {
                     stochastic.setPropertyDataType("2.type.deterministic");
-                    stochastic.setValue(Integer.parseInt(bounds[0]));
+                    stochastic.setValue((int) Double.parseDouble(bounds[0]));
                 }
             } else {
                 stochastic.setPropertyDataType("1.type.uniform");

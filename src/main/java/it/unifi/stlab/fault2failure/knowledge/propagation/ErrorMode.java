@@ -81,7 +81,7 @@ public class ErrorMode {
     }
 
     public void setPDF(String timetofailurePDF) {
-        this.timetofailurePDF = PDFParser.parseStringToPDF(timetofailurePDF);
+        this.timetofailurePDF = PDFParser.parseStringToStochasticTransitionFeature(timetofailurePDF);
     }
 
     public void setOutGoingFailure(FailureMode fm) {

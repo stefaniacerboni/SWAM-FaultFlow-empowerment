@@ -7,6 +7,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.*;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
+import org.apache.commons.math3.distribution.RealDistribution;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
@@ -130,6 +131,7 @@ public class SteamBoilerModelBuilder {
         eM_V1.setPDF("erlang(9,1)");
         valve1MC.addErrorMode(eM_V1);
 
+
         FailureMode valve2_OpenOmissionFailure = new FailureMode("Valve2_OpenOmissionFailure");
         ErrorMode eM_V2 = new ErrorMode("Valve2_Propagation");
         eM_V2.addInputFaultMode(enED_V2, enMD_V2, exCOF_V);
@@ -190,7 +192,7 @@ public class SteamBoilerModelBuilder {
 
         Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
         scenario.addFault(sensor1_ED, BigDecimal.valueOf(10), currentSystem.get("Sensor1"+serial));
-        scenario.addFault(sensor2_MD, BigDecimal.valueOf(13), currentSystem.get("Sensor2"+serial));
-        scenario.addFault(valve1_MD, BigDecimal.valueOf(16), currentSystem.get("Valve1"+serial));
+        scenario.addFault(sensor2_MD, BigDecimal.valueOf(14), currentSystem.get("Sensor2"+serial));
+        scenario.addFault(valve1_MD, BigDecimal.valueOf(14), currentSystem.get("Valve1"+serial));
     }
 }

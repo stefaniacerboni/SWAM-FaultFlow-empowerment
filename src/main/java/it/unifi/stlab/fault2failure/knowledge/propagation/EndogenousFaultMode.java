@@ -15,8 +15,12 @@ public class EndogenousFaultMode extends FaultMode {
         return arisingPDF;
     }
 
+    public String getArisingPDFToString(){
+        return PDFParser.parseStochasticTransitionFeatureToString(this.arisingPDF);
+    }
+
     public void setArisingPDF(String arisingPDF) {
-        this.arisingPDF = PDFParser.parseStringToPDF(arisingPDF);
+        this.arisingPDF = PDFParser.parseStringToStochasticTransitionFeature(arisingPDF);
     }
 }
 

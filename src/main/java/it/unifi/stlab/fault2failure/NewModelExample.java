@@ -7,6 +7,7 @@ import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 import it.unifi.stlab.fault2failure.knowledge.utils.NewModelBuilder;
+import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
 import javax.xml.bind.JAXBException;
