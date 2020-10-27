@@ -191,8 +191,8 @@ public class SteamBoilerModelBuilder {
         Fault valve1_MD = new Fault("valve1_MD", faultModes.get("Valve1_MD"));
 
         Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
-        scenario.addFault(sensor1_ED, BigDecimal.valueOf(10), currentSystem.get("Sensor1"+serial));
-        scenario.addFault(sensor2_MD, BigDecimal.valueOf(14), currentSystem.get("Sensor2"+serial));
-        scenario.addFault(valve1_MD, BigDecimal.valueOf(14), currentSystem.get("Valve1"+serial));
+        scenario.addFault(sensor1_ED, BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")), currentSystem.get("Sensor1"+serial));
+        scenario.addFault(sensor2_MD, BigDecimal.valueOf(SampleGenerator.generate("dirac(14)")), currentSystem.get("Sensor2"+serial));
+        scenario.addFault(valve1_MD, BigDecimal.valueOf(SampleGenerator.generate("dirac(14)")), currentSystem.get("Valve1"+serial));
     }
 }

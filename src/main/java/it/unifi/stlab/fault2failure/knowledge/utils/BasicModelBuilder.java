@@ -186,12 +186,12 @@ public class BasicModelBuilder {
 
         Map<String, Component> current_system = scenario.getCurrentSystemMap();
 
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), current_system.get("Leaf_A"+serial));
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), current_system.get("Leaf_A"+serial));
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), current_system.get("Leaf_A"+serial));
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), current_system.get("Leaf_B"+serial));
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), current_system.get("Leaf_B"+serial));
-        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(17), current_system.get("Root_C"+serial));
+        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")), current_system.get("Leaf_A"+serial));
+        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(13)")), current_system.get("Leaf_A"+serial));
+        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(16)")), current_system.get("Leaf_A"+serial));
+        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(12)")), current_system.get("Leaf_B"+serial));
+        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(18)")), current_system.get("Leaf_B"+serial));
+        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(17)")), current_system.get("Root_C"+serial));
 
     }
 
