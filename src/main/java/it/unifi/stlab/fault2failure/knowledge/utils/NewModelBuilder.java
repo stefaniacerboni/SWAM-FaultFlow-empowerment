@@ -51,8 +51,6 @@ public class NewModelBuilder {
         eM_A1.addOutputFailureMode(fM_A1);
         eM_A1.setEnablingCondition("A_Fault1 && (A_Fault2 || A_Fault3)", faultModes);
         eM_A1.setPDF("erlang(1,5)");
-        RealDistribution rd = PDFParser.parseStochasticTransitionFeatureToRealDistribution(eM_A1.getTimetofailurePDF());
-        Double firing = rd.sample();
 
         FailureMode fM_A2 = new FailureMode("A_Failure2");
         ErrorMode eM_A2 = new ErrorMode("A_ToFailure2");

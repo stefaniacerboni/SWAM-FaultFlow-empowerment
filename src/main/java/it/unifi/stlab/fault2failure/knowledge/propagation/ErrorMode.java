@@ -2,6 +2,7 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
+import org.apache.commons.math3.distribution.RealDistribution;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ public class ErrorMode {
     private final String name;
     private BooleanExpression activationFunction;
     private FailureMode outgoingFailure;
-    private final List<FaultMode> inputFaultModes; // DONE questa diventa una lista di FaultMode
-    private StochasticTransitionFeature timetofailurePDF;
+    private final List<FaultMode> inputFaultModes;
+    private RealDistribution timetofailurePDF;
 
     /**
      * Create and ErrorMode by saying its name and its EnablingFunction (or ActivationFunction).
@@ -42,7 +43,7 @@ public class ErrorMode {
         this.outgoingFailure = outgoingFailure;
     }
 
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, StochasticTransitionFeature timetofailurePDF) {
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF) {
         this(name, function, outgoingFailure);
         this.timetofailurePDF = timetofailurePDF;
     }
@@ -52,7 +53,7 @@ public class ErrorMode {
         setPDF(timetofailurePDF);
     }
 
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, StochasticTransitionFeature timetofailurePDF, MetaComponent metaComponent) {
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF, MetaComponent metaComponent) {
         this(name, function, outgoingFailure, timetofailurePDF);
     }
 
@@ -76,12 +77,12 @@ public class ErrorMode {
         return this.outgoingFailure;
     }
 
-    public StochasticTransitionFeature getTimetofailurePDF() {
+    public RealDistribution getTimetofailurePDF() {
         return this.timetofailurePDF;
     }
 
     public void setPDF(String timetofailurePDF) {
-        this.timetofailurePDF = PDFParser.parseStringToStochasticTransitionFeature(timetofailurePDF);
+        this.timetofailurePDF = PDFParser.parseStringToRealDistribution(timetofailurePDF);
     }
 
     public void setOutGoingFailure(FailureMode fm) {

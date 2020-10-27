@@ -6,6 +6,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
+import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.pn.Priority;
@@ -54,7 +55,7 @@ public class PetriNetTranslator implements Translator {
                 b = net.addPlace(e.getOutgoingFailure().getDescription());
                 t = net.addTransition(getTransitionName(b.getName()));
                 t.addFeature(new EnablingFunction(e.getActivationFunction()));
-                t.addFeature(e.getTimetofailurePDF());
+                t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(e.getTimetofailurePDF()));
                 net.addPrecondition(a, t);
                 net.addPostcondition(t, b);
                 marking.setTokens(a, 1);
@@ -70,7 +71,7 @@ public class PetriNetTranslator implements Translator {
                             a = net.addPlace(fault.getName() + "Occurrence");
                             t = net.addTransition(getTransitionName(a.getName()));
                             if (((EndogenousFaultMode) fault).getArisingPDF() != null)
-                                t.addFeature(((EndogenousFaultMode) fault).getArisingPDF());
+                                t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDF()));
                             else
                                 t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
                             t.addFeature(new Priority(0));

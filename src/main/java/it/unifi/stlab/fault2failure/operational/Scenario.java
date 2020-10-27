@@ -2,10 +2,12 @@ package it.unifi.stlab.fault2failure.operational;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
+import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -97,12 +99,12 @@ public class Scenario {
     private void propagate(Fault fault, Component affectedComponent) {
         Fault next;
         fault.getFaultMode().setState(true);
-        int occurredTime;
+        double occurredTime;
         for (ErrorMode em : getErrorModesFromFault(fault, affectedComponent.getComponentType())) {
             if (em.checkActivationFunction()) {
-                occurredTime = fault.getTimestamp().intValue() + 1;
+                occurredTime = fault.getTimestamp().doubleValue() + em.getTimetofailurePDF().sample();
                 if (failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()) != null) {
-                	int currentTime = failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()).intValue();
+                	double currentTime = failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()).doubleValue();
                     if (currentTime > occurredTime) //se è già avvenuto con tempo > rispetto ad adesso, aggiorna i minimal cutset
                         failuresOccurredTimes.replace(em.getOutgoingFailure().getDescription(), BigDecimal.valueOf(occurredTime));
                     multiFailuresList.computeIfAbsent(em.getOutgoingFailure().getDescription(), f -> new ArrayList<>()).add(BigDecimal.valueOf(currentTime));
@@ -120,7 +122,7 @@ public class Scenario {
                             .orElse(null);
                     if (!failedComponent.isFailureAlreadyOccurred(next.getDescription())) {
                         failedComponent.addFailure(next);
-                        next.occurred(BigDecimal.valueOf(fault.getTimestamp().intValue() + 1));
+                        next.occurred(BigDecimal.valueOf(occurredTime));
                         failuresOccurredTimes.put(next.getDescription(), next.getTimestamp());
                         failuresOccurred.add(next);
                         propagate(next, failedComponent);
