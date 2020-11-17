@@ -10,11 +10,11 @@ import org.oristool.petrinet.Precondition;
  * Create an export strategy "basic", this means without any particular order in places and transition.
  * The only constraint is that Places and Transition connected together will appear aligned horizontally (with the same y coordinate)
  */
-public class BasicExportStrategy implements ExportStrategy {
+public class BasicExportToXPN implements ExportToXPN {
     private PetriNet petriNet;
     private Marking marking;
 
-    public BasicExportStrategy(PetriNet petriNet, Marking marking) {
+    public BasicExportToXPN(PetriNet petriNet, Marking marking) {
         this.petriNet = petriNet;
         this.marking = marking;
     }

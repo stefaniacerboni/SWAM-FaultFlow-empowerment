@@ -166,10 +166,10 @@ public class PDFParserTest {
         expected = "dirac(3)";
         assertEquals(actual, expected);
 
-        input = new ExponentialDistribution(3);
+        input = new ExponentialDistribution(1.0/3);
         actual = PDFParser.parseRealDistributionToString(input);
         expected = "exp(3)";
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
 
         input = new GammaDistribution(3,4);
         actual = PDFParser.parseRealDistributionToString(input);

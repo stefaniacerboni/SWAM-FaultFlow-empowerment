@@ -1,13 +1,12 @@
 package it.unifi.stlab.fault2failure;
 
 import it.unifi.stlab.exporter.XPNExporter;
-import it.unifi.stlab.exporter.strategies.BasicExportStrategy;
-import it.unifi.stlab.exporter.strategies.OrderByComponentStrategy;
+import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
+import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 import it.unifi.stlab.fault2failure.knowledge.utils.NewModelBuilder;
-import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
 import javax.xml.bind.JAXBException;
@@ -32,7 +31,7 @@ public class NewModelExample {
         scenario.printReport();
 
         java.lang.System.out.println(scenario.getFailuresOccurredWithTimes().toString());
-        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentStrategy(s, pnt.getPetriNet(), pnt.getMarking()));
-        XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportStrategy(pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
 }

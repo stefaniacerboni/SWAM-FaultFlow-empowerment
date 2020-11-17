@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
  * and far from other places that affect other Components.
  * Also as the BasicExportStrategy do, places and transition connected to each other will appear aligned horizontally (with the same y coordinate)
  */
-public class OrderByComponentStrategy implements ExportStrategy {
+public class OrderByComponentToXPN implements ExportToXPN {
     private final System system;
     private PetriNet petriNet;
     private Marking marking;
 
-    public OrderByComponentStrategy(System system, PetriNet petriNet, Marking marking) {
+    public OrderByComponentToXPN(System system, PetriNet petriNet, Marking marking) {
         this.system = system;
         this.petriNet = petriNet;
         this.marking = marking;

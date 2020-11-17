@@ -115,7 +115,7 @@ public class NewModelBuilder {
     public static NewModelBuilder getInstance() {
         if (single_instance == null)
             single_instance = new NewModelBuilder();
-        return new NewModelBuilder();
+        return single_instance;
     }
 
     public Map<String, MetaComponent> getMetaComponents() {
@@ -147,8 +147,6 @@ public class NewModelBuilder {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
         Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
 
-        BigDecimal occurred = BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode) A_fault1Occurred.getFaultMode()).getArisingPDFToString())).setScale(1, RoundingMode.HALF_EVEN);
-
         Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
         /*
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("A"+serial));
@@ -159,12 +157,12 @@ public class NewModelBuilder {
         scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), currentSystem.get("C"+serial));
 
          */
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(3)")), currentSystem.get("A"+serial));
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate("uniform(5,10)")), currentSystem.get("A"+serial));
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(SampleGenerator.generate("exp(10)")), currentSystem.get("A"+serial));
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate("exp(3)")), currentSystem.get("B"+serial));
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate("erlang(10,5)")), currentSystem.get("B"+serial));
-        scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(SampleGenerator.generate("uniform(20,40)")), currentSystem.get("C"+serial));
+        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault1Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
+        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault2Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
+        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault3Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
+        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)B_fault1Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("B"+serial));
+        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)B_fault2Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("B"+serial));
+        scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)C_fault4Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("C"+serial));
     }
 
 
