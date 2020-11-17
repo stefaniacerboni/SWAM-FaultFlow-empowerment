@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/faultflow</context-root>
+</jboss-web>

@@ -7,10 +7,8 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.*;
 import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
-import org.apache.commons.math3.distribution.RealDistribution;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
