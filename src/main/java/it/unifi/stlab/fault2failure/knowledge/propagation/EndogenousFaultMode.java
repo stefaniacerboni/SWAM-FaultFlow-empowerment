@@ -12,6 +12,11 @@ public class EndogenousFaultMode extends FaultMode {
         this.arisingPDF = null;
     }
 
+    public EndogenousFaultMode(String name, RealDistribution arisingPDF) {
+        this(name);
+        this.arisingPDF = arisingPDF;
+    }
+
     public RealDistribution getArisingPDF() {
         return arisingPDF;
     }

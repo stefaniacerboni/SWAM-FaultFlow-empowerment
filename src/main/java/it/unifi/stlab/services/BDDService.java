@@ -1,5 +1,9 @@
 package it.unifi.stlab.services;
 
+import it.unifi.stlab.DTO.BDD.InputBddDto;
+import it.unifi.stlab.mapper.SystemMapper;
+import it.unifi.stlab.fault2failure.knowledge.composition.System;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,9 +18,9 @@ public class BDDService {
 	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSomething() {
+	public Response getSomething(InputBddDto inputBddDto) {
+		System sys = SystemMapper.BddToSystem(inputBddDto);
 
-		return Response.ok().build();
+		return Response.ok(SystemMapper.systemToOutputSystem(sys)).build();
 	}
-
 }

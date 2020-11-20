@@ -1,5 +1,7 @@
 package it.unifi.stlab.services;
 
+import it.unifi.stlab.DTO.faultTree.*;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,9 +16,8 @@ public class FaultTreeService {
 	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSomething() {
-
-		return Response.ok().build();
+	public Response getSomething(InputFaultTreeDto inputFaultTreeDto) {
+		return Response.ok(inputFaultTreeDto).build();
 	}
 
 }

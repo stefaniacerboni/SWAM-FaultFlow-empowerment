@@ -65,4 +65,8 @@ public class System {
     public void addComponent(MetaComponent... c) {
         this.components.addAll(Arrays.asList(c));
     }
+
+    public MetaComponent getComponent(String componentID){
+        return components.stream().filter(x-> x.getName().equals(componentID)).findFirst().get();
+    }
 }

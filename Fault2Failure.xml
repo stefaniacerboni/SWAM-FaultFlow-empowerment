@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pnml xmlns="pnml.apromore.org">
+    <net id="net1" type="Basic">
+        <place id="steamBoiler_Propagation">
+            <name>
+                <text>steamBoiler_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="100"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="SteamBoiler_Failure">
+            <name>
+                <text>SteamBoiler_Failure</text>
+            </name>
+            <graphics>
+                <position x="375" y="100"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_Propagation">
+            <name>
+                <text>Valve1_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="175"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_OpenOmissionFailure">
+            <name>
+                <text>Valve1_OpenOmissionFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="175"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_EDOccurrence">
+            <name>
+                <text>Valve1_EDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="250"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_ED">
+            <name>
+                <text>Valve1_ED</text>
+            </name>
+            <graphics>
+                <position x="375" y="250"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_MDOccurrence">
+            <name>
+                <text>Valve1_MDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="325"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Valve1_MD">
+            <name>
+                <text>Valve1_MD</text>
+            </name>
+            <graphics>
+                <position x="375" y="325"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="SteamBoiler_OpenOmissionFault1">
+            <name>
+                <text>SteamBoiler_OpenOmissionFault1</text>
+            </name>
+            <graphics>
+                <position x="525" y="400"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_Propagation">
+            <name>
+                <text>Valve2_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="415"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_OpenOmissionFailure">
+            <name>
+                <text>Valve2_OpenOmissionFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="415"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_EDOccurrence">
+            <name>
+                <text>Valve2_EDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="490"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_ED">
+            <name>
+                <text>Valve2_ED</text>
+            </name>
+            <graphics>
+                <position x="375" y="490"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_MDOccurrence">
+            <name>
+                <text>Valve2_MDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="565"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve2_MD">
+            <name>
+                <text>Valve2_MD</text>
+            </name>
+            <graphics>
+                <position x="375" y="565"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="SteamBoiler_OpenOmissionFault2">
+            <name>
+                <text>SteamBoiler_OpenOmissionFault2</text>
+            </name>
+            <graphics>
+                <position x="525" y="640"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_Propagation">
+            <name>
+                <text>Controller_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="655"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_CommandOmissionFailure">
+            <name>
+                <text>Controller_CommandOmissionFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="655"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_HFOccurrence">
+            <name>
+                <text>Controller_HFOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="730"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_HF">
+            <name>
+                <text>Controller_HF</text>
+            </name>
+            <graphics>
+                <position x="375" y="730"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Valve_CommandOmissionFault">
+            <name>
+                <text>Valve_CommandOmissionFault</text>
+            </name>
+            <graphics>
+                <position x="525" y="805"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_Propagation">
+            <name>
+                <text>Sensor1_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="820"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_PressureValueFailure">
+            <name>
+                <text>Sensor1_PressureValueFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="820"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_EDOccurrence">
+            <name>
+                <text>Sensor1_EDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="895"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_ED">
+            <name>
+                <text>Sensor1_ED</text>
+            </name>
+            <graphics>
+                <position x="375" y="895"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_MDOccurrence">
+            <name>
+                <text>Sensor1_MDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="970"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor1_MD">
+            <name>
+                <text>Sensor1_MD</text>
+            </name>
+            <graphics>
+                <position x="375" y="970"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_PressureValueFault1">
+            <name>
+                <text>Controller_PressureValueFault1</text>
+            </name>
+            <graphics>
+                <position x="525" y="1045"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_Propagation">
+            <name>
+                <text>Sensor2_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="1060"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_PressureValueFailure">
+            <name>
+                <text>Sensor2_PressureValueFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="1060"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_EDOccurrence">
+            <name>
+                <text>Sensor2_EDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="1135"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_ED">
+            <name>
+                <text>Sensor2_ED</text>
+            </name>
+            <graphics>
+                <position x="375" y="1135"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_MDOccurrence">
+            <name>
+                <text>Sensor2_MDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="1210"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor2_MD">
+            <name>
+                <text>Sensor2_MD</text>
+            </name>
+            <graphics>
+                <position x="375" y="1210"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_PressureValueFault2">
+            <name>
+                <text>Controller_PressureValueFault2</text>
+            </name>
+            <graphics>
+                <position x="525" y="1285"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_Propagation">
+            <name>
+                <text>Sensor3_Propagation</text>
+            </name>
+            <graphics>
+                <position x="75" y="1300"/>
+            </graphics>
+            <initialMarking>
+                <text>1</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_PressureValueFailure">
+            <name>
+                <text>Sensor3_PressureValueFailure</text>
+            </name>
+            <graphics>
+                <position x="375" y="1300"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_EDOccurrence">
+            <name>
+                <text>Sensor3_EDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="1375"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_ED">
+            <name>
+                <text>Sensor3_ED</text>
+            </name>
+            <graphics>
+                <position x="375" y="1375"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_MDOccurrence">
+            <name>
+                <text>Sensor3_MDOccurrence</text>
+            </name>
+            <graphics>
+                <position x="75" y="1450"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Sensor3_MD">
+            <name>
+                <text>Sensor3_MD</text>
+            </name>
+            <graphics>
+                <position x="375" y="1450"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <place id="Controller_PressureValueFault3">
+            <name>
+                <text>Controller_PressureValueFault3</text>
+            </name>
+            <graphics>
+                <position x="525" y="1525"/>
+            </graphics>
+            <initialMarking>
+                <text>0</text>
+            </initialMarking>
+        </place>
+        <transition id="steamBoiler_Failure">
+            <graphics>
+                <position x="225" y="100"/>
+            </graphics>
+        </transition>
+        <transition id="valve1_OpenOmissionFailure">
+            <graphics>
+                <position x="225" y="175"/>
+            </graphics>
+        </transition>
+        <transition id="valve1_EDOccurrence">
+            <graphics>
+                <position x="225" y="250"/>
+            </graphics>
+        </transition>
+        <transition id="valve1_MDOccurrence">
+            <graphics>
+                <position x="225" y="325"/>
+            </graphics>
+        </transition>
+        <transition id="steamBoiler_OpenOmissionFault1">
+            <graphics>
+                <position x="375" y="400"/>
+            </graphics>
+        </transition>
+        <transition id="valve2_OpenOmissionFailure">
+            <graphics>
+                <position x="225" y="415"/>
+            </graphics>
+        </transition>
+        <transition id="valve2_EDOccurrence">
+            <graphics>
+                <position x="225" y="490"/>
+            </graphics>
+        </transition>
+        <transition id="valve2_MDOccurrence">
+            <graphics>
+                <position x="225" y="565"/>
+            </graphics>
+        </transition>
+        <transition id="steamBoiler_OpenOmissionFault2">
+            <graphics>
+                <position x="375" y="640"/>
+            </graphics>
+        </transition>
+        <transition id="controller_CommandOmissionFailure">
+            <graphics>
+                <position x="225" y="655"/>
+            </graphics>
+        </transition>
+        <transition id="controller_HFOccurrence">
+            <graphics>
+                <position x="225" y="730"/>
+            </graphics>
+        </transition>
+        <transition id="valve_CommandOmissionFault">
+            <graphics>
+                <position x="375" y="805"/>
+            </graphics>
+        </transition>
+        <transition id="sensor1_PressureValueFailure">
+            <graphics>
+                <position x="225" y="820"/>
+            </graphics>
+        </transition>
+        <transition id="sensor1_EDOccurrence">
+            <graphics>
+                <position x="225" y="895"/>
+            </graphics>
+        </transition>
+        <transition id="sensor1_MDOccurrence">
+            <graphics>
+                <position x="225" y="970"/>
+            </graphics>
+        </transition>
+        <transition id="controller_PressureValueFault1">
+            <graphics>
+                <position x="375" y="1045"/>
+            </graphics>
+        </transition>
+        <transition id="sensor2_PressureValueFailure">
+            <graphics>
+                <position x="225" y="1060"/>
+            </graphics>
+        </transition>
+        <transition id="sensor2_EDOccurrence">
+            <graphics>
+                <position x="225" y="1135"/>
+            </graphics>
+        </transition>
+        <transition id="sensor2_MDOccurrence">
+            <graphics>
+                <position x="225" y="1210"/>
+            </graphics>
+        </transition>
+        <transition id="controller_PressureValueFault2">
+            <graphics>
+                <position x="375" y="1285"/>
+            </graphics>
+        </transition>
+        <transition id="sensor3_PressureValueFailure">
+            <graphics>
+                <position x="225" y="1300"/>
+            </graphics>
+        </transition>
+        <transition id="sensor3_EDOccurrence">
+            <graphics>
+                <position x="225" y="1375"/>
+            </graphics>
+        </transition>
+        <transition id="sensor3_MDOccurrence">
+            <graphics>
+                <position x="225" y="1450"/>
+            </graphics>
+        </transition>
+        <transition id="controller_PressureValueFault3">
+            <graphics>
+                <position x="375" y="1525"/>
+            </graphics>
+        </transition>
+        <arc id="steamBoiler_PropagationsteamBoiler_Failure" source="steamBoiler_Propagation" target="steamBoiler_Failure"/>
+        <arc id="steamBoiler_FailureSteamBoiler_Failure" source="steamBoiler_Failure" target="SteamBoiler_Failure"/>
+        <arc id="Valve1_Propagationvalve1_OpenOmissionFailure" source="Valve1_Propagation" target="valve1_OpenOmissionFailure"/>
+        <arc id="valve1_OpenOmissionFailureValve1_OpenOmissionFailure" source="valve1_OpenOmissionFailure" target="Valve1_OpenOmissionFailure"/>
+        <arc id="Valve1_EDOccurrencevalve1_EDOccurrence" source="Valve1_EDOccurrence" target="valve1_EDOccurrence"/>
+        <arc id="valve1_EDOccurrenceValve1_ED" source="valve1_EDOccurrence" target="Valve1_ED"/>
+        <arc id="Valve1_MDOccurrencevalve1_MDOccurrence" source="Valve1_MDOccurrence" target="valve1_MDOccurrence"/>
+        <arc id="valve1_MDOccurrenceValve1_MD" source="valve1_MDOccurrence" target="Valve1_MD"/>
+        <arc id="Valve1_OpenOmissionFailuresteamBoiler_OpenOmissionFault1" source="Valve1_OpenOmissionFailure" target="steamBoiler_OpenOmissionFault1"/>
+        <arc id="steamBoiler_OpenOmissionFault1SteamBoiler_OpenOmissionFault1" source="steamBoiler_OpenOmissionFault1" target="SteamBoiler_OpenOmissionFault1"/>
+        <arc id="Valve2_Propagationvalve2_OpenOmissionFailure" source="Valve2_Propagation" target="valve2_OpenOmissionFailure"/>
+        <arc id="valve2_OpenOmissionFailureValve2_OpenOmissionFailure" source="valve2_OpenOmissionFailure" target="Valve2_OpenOmissionFailure"/>
+        <arc id="Valve2_EDOccurrencevalve2_EDOccurrence" source="Valve2_EDOccurrence" target="valve2_EDOccurrence"/>
+        <arc id="valve2_EDOccurrenceValve2_ED" source="valve2_EDOccurrence" target="Valve2_ED"/>
+        <arc id="Valve2_MDOccurrencevalve2_MDOccurrence" source="Valve2_MDOccurrence" target="valve2_MDOccurrence"/>
+        <arc id="valve2_MDOccurrenceValve2_MD" source="valve2_MDOccurrence" target="Valve2_MD"/>
+        <arc id="Valve2_OpenOmissionFailuresteamBoiler_OpenOmissionFault2" source="Valve2_OpenOmissionFailure" target="steamBoiler_OpenOmissionFault2"/>
+        <arc id="steamBoiler_OpenOmissionFault2SteamBoiler_OpenOmissionFault2" source="steamBoiler_OpenOmissionFault2" target="SteamBoiler_OpenOmissionFault2"/>
+        <arc id="Controller_Propagationcontroller_CommandOmissionFailure" source="Controller_Propagation" target="controller_CommandOmissionFailure"/>
+        <arc id="controller_CommandOmissionFailureController_CommandOmissionFailure" source="controller_CommandOmissionFailure" target="Controller_CommandOmissionFailure"/>
+        <arc id="Controller_HFOccurrencecontroller_HFOccurrence" source="Controller_HFOccurrence" target="controller_HFOccurrence"/>
+        <arc id="controller_HFOccurrenceController_HF" source="controller_HFOccurrence" target="Controller_HF"/>
+        <arc id="Controller_CommandOmissionFailurevalve_CommandOmissionFault" source="Controller_CommandOmissionFailure" target="valve_CommandOmissionFault"/>
+        <arc id="valve_CommandOmissionFaultValve_CommandOmissionFault" source="valve_CommandOmissionFault" target="Valve_CommandOmissionFault"/>
+        <arc id="Sensor1_Propagationsensor1_PressureValueFailure" source="Sensor1_Propagation" target="sensor1_PressureValueFailure"/>
+        <arc id="sensor1_PressureValueFailureSensor1_PressureValueFailure" source="sensor1_PressureValueFailure" target="Sensor1_PressureValueFailure"/>
+        <arc id="Sensor1_EDOccurrencesensor1_EDOccurrence" source="Sensor1_EDOccurrence" target="sensor1_EDOccurrence"/>
+        <arc id="sensor1_EDOccurrenceSensor1_ED" source="sensor1_EDOccurrence" target="Sensor1_ED"/>
+        <arc id="Sensor1_MDOccurrencesensor1_MDOccurrence" source="Sensor1_MDOccurrence" target="sensor1_MDOccurrence"/>
+        <arc id="sensor1_MDOccurrenceSensor1_MD" source="sensor1_MDOccurrence" target="Sensor1_MD"/>
+        <arc id="Sensor1_PressureValueFailurecontroller_PressureValueFault1" source="Sensor1_PressureValueFailure" target="controller_PressureValueFault1"/>
+        <arc id="controller_PressureValueFault1Controller_PressureValueFault1" source="controller_PressureValueFault1" target="Controller_PressureValueFault1"/>
+        <arc id="Sensor2_Propagationsensor2_PressureValueFailure" source="Sensor2_Propagation" target="sensor2_PressureValueFailure"/>
+        <arc id="sensor2_PressureValueFailureSensor2_PressureValueFailure" source="sensor2_PressureValueFailure" target="Sensor2_PressureValueFailure"/>
+        <arc id="Sensor2_EDOccurrencesensor2_EDOccurrence" source="Sensor2_EDOccurrence" target="sensor2_EDOccurrence"/>
+        <arc id="sensor2_EDOccurrenceSensor2_ED" source="sensor2_EDOccurrence" target="Sensor2_ED"/>
+        <arc id="Sensor2_MDOccurrencesensor2_MDOccurrence" source="Sensor2_MDOccurrence" target="sensor2_MDOccurrence"/>
+        <arc id="sensor2_MDOccurrenceSensor2_MD" source="sensor2_MDOccurrence" target="Sensor2_MD"/>
+        <arc id="Sensor2_PressureValueFailurecontroller_PressureValueFault2" source="Sensor2_PressureValueFailure" target="controller_PressureValueFault2"/>
+        <arc id="controller_PressureValueFault2Controller_PressureValueFault2" source="controller_PressureValueFault2" target="Controller_PressureValueFault2"/>
+        <arc id="Sensor3_Propagationsensor3_PressureValueFailure" source="Sensor3_Propagation" target="sensor3_PressureValueFailure"/>
+        <arc id="sensor3_PressureValueFailureSensor3_PressureValueFailure" source="sensor3_PressureValueFailure" target="Sensor3_PressureValueFailure"/>
+        <arc id="Sensor3_EDOccurrencesensor3_EDOccurrence" source="Sensor3_EDOccurrence" target="sensor3_EDOccurrence"/>
+        <arc id="sensor3_EDOccurrenceSensor3_ED" source="sensor3_EDOccurrence" target="Sensor3_ED"/>
+        <arc id="Sensor3_MDOccurrencesensor3_MDOccurrence" source="Sensor3_MDOccurrence" target="sensor3_MDOccurrence"/>
+        <arc id="sensor3_MDOccurrenceSensor3_MD" source="sensor3_MDOccurrence" target="Sensor3_MD"/>
+        <arc id="Sensor3_PressureValueFailurecontroller_PressureValueFault3" source="Sensor3_PressureValueFailure" target="controller_PressureValueFault3"/>
+        <arc id="controller_PressureValueFault3Controller_PressureValueFault3" source="controller_PressureValueFault3" target="Controller_PressureValueFault3"/>
+    </net>
+</pnml>

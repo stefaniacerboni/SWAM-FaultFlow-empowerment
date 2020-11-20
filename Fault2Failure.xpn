@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tpn-editor xmlns="http://www.oris-tool.org">
+    <tpn-entities>
+        <place uuid="Sensor1_EDOccurrence" y="100" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor1_EDOccurrence" satellite-x="85" satellite-y="125"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Sensor1_ED" y="100" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor1_ED" satellite-x="335" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor1_Propagation" y="100" x="525">
+            <properties>
+                <property id="0.default.name" name="Sensor1_Propagation" satellite-x="535" satellite-y="125"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Sensor1_PressureValueFailure" y="100" x="925">
+            <properties>
+                <property id="0.default.name" name="Sensor1_PressureValueFailure" satellite-x="935" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_PressureValueFault1" y="100" x="1175">
+            <properties>
+                <property id="0.default.name" name="Controller_PressureValueFault1" satellite-x="1185" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_Propagation" y="100" x="1375">
+            <properties>
+                <property id="0.default.name" name="Controller_Propagation" satellite-x="1385" satellite-y="125"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Controller_CommandOmissionFailure" y="100" x="1775">
+            <properties>
+                <property id="0.default.name" name="Controller_CommandOmissionFailure" satellite-x="1785" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve_CommandOmissionFault" y="100" x="2025">
+            <properties>
+                <property id="0.default.name" name="Valve_CommandOmissionFault" satellite-x="2035" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_Propagation" y="100" x="2225">
+            <properties>
+                <property id="0.default.name" name="Valve1_Propagation" satellite-x="2235" satellite-y="125"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_OpenOmissionFailure" y="100" x="2625">
+            <properties>
+                <property id="0.default.name" name="Valve1_OpenOmissionFailure" satellite-x="2635" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="SteamBoiler_OpenOmissionFault1" y="100" x="2875">
+            <properties>
+                <property id="0.default.name" name="SteamBoiler_OpenOmissionFault1" satellite-x="2885" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="steamBoiler_Propagation" y="100" x="3075">
+            <properties>
+                <property id="0.default.name" name="steamBoiler_Propagation" satellite-x="3085" satellite-y="125"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="SteamBoiler_Failure" y="100" x="3475">
+            <properties>
+                <property id="0.default.name" name="SteamBoiler_Failure" satellite-x="3485" satellite-y="125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor1_MDOccurrence" y="175" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor1_MDOccurrence" satellite-x="85" satellite-y="200"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor1_MD" y="175" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor1_MD" satellite-x="335" satellite-y="200"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_EDOccurrence" y="350" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor2_EDOccurrence" satellite-x="85" satellite-y="375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_ED" y="350" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor2_ED" satellite-x="335" satellite-y="375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_Propagation" y="350" x="525">
+            <properties>
+                <property id="0.default.name" name="Sensor2_Propagation" satellite-x="535" satellite-y="375"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_PressureValueFailure" y="350" x="925">
+            <properties>
+                <property id="0.default.name" name="Sensor2_PressureValueFailure" satellite-x="935" satellite-y="375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_PressureValueFault2" y="350" x="1175">
+            <properties>
+                <property id="0.default.name" name="Controller_PressureValueFault2" satellite-x="1185" satellite-y="375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_MDOccurrence" y="425" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor2_MDOccurrence" satellite-x="85" satellite-y="450"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Sensor2_MD" y="425" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor2_MD" satellite-x="335" satellite-y="450"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_EDOccurrence" y="600" x="75">
+            <properties>
+                <property id="0.default.name" name="Valve1_EDOccurrence" satellite-x="85" satellite-y="625"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_ED" y="600" x="325">
+            <properties>
+                <property id="0.default.name" name="Valve1_ED" satellite-x="335" satellite-y="625"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_MDOccurrence" y="675" x="75">
+            <properties>
+                <property id="0.default.name" name="Valve1_MDOccurrence" satellite-x="85" satellite-y="700"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Valve1_MD" y="675" x="325">
+            <properties>
+                <property id="0.default.name" name="Valve1_MD" satellite-x="335" satellite-y="700"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_HFOccurrence" y="850" x="75">
+            <properties>
+                <property id="0.default.name" name="Controller_HFOccurrence" satellite-x="85" satellite-y="875"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_HF" y="850" x="325">
+            <properties>
+                <property id="0.default.name" name="Controller_HF" satellite-x="335" satellite-y="875"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_EDOccurrence" y="1025" x="75">
+            <properties>
+                <property id="0.default.name" name="Valve2_EDOccurrence" satellite-x="85" satellite-y="1050"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_ED" y="1025" x="325">
+            <properties>
+                <property id="0.default.name" name="Valve2_ED" satellite-x="335" satellite-y="1050"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_Propagation" y="1025" x="525">
+            <properties>
+                <property id="0.default.name" name="Valve2_Propagation" satellite-x="535" satellite-y="1050"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_OpenOmissionFailure" y="1025" x="925">
+            <properties>
+                <property id="0.default.name" name="Valve2_OpenOmissionFailure" satellite-x="935" satellite-y="1050"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="SteamBoiler_OpenOmissionFault2" y="1025" x="1175">
+            <properties>
+                <property id="0.default.name" name="SteamBoiler_OpenOmissionFault2" satellite-x="1185" satellite-y="1050"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_MDOccurrence" y="1100" x="75">
+            <properties>
+                <property id="0.default.name" name="Valve2_MDOccurrence" satellite-x="85" satellite-y="1125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Valve2_MD" y="1100" x="325">
+            <properties>
+                <property id="0.default.name" name="Valve2_MD" satellite-x="335" satellite-y="1125"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_EDOccurrence" y="1275" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor3_EDOccurrence" satellite-x="85" satellite-y="1300"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_ED" y="1275" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor3_ED" satellite-x="335" satellite-y="1300"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_Propagation" y="1275" x="525">
+            <properties>
+                <property id="0.default.name" name="Sensor3_Propagation" satellite-x="535" satellite-y="1300"/>
+                <property id="default.marking" marking="1"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_PressureValueFailure" y="1275" x="925">
+            <properties>
+                <property id="0.default.name" name="Sensor3_PressureValueFailure" satellite-x="935" satellite-y="1300"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Controller_PressureValueFault3" y="1275" x="1175">
+            <properties>
+                <property id="0.default.name" name="Controller_PressureValueFault3" satellite-x="1185" satellite-y="1300"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_MDOccurrence" y="1350" x="75">
+            <properties>
+                <property id="0.default.name" name="Sensor3_MDOccurrence" satellite-x="85" satellite-y="1375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <place uuid="Sensor3_MD" y="1350" x="325">
+            <properties>
+                <property id="0.default.name" name="Sensor3_MD" satellite-x="335" satellite-y="1375"/>
+                <property id="default.marking" marking="0"/>
+            </properties>
+        </place>
+        <transition rotation-angle="0.0" uuid="sensor1_EDOccurrence" y="100" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor1_EDOccurrence" satellite-x="215" satellite-y="75"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="130" property-data-type="2.type.deterministic" weight="1" value="10"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor1_PressureValueFailure" y="100" x="725">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor1_PressureValueFailure" satellite-x="795" satellite-y="75"/>
+                <property id="10.default.enablingFunction" enabling-function="(Sensor1_ED&gt;0)||(Sensor1_MD&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="745" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="5"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="controller_PressureValueFault1" y="100" x="995">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="controller_PressureValueFault1" satellite-x="1065" satellite-y="75"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="1015" satellite-y="130" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="controller_CommandOmissionFailure" y="100" x="1575">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="controller_CommandOmissionFailure" satellite-x="1645" satellite-y="75"/>
+                <property id="10.default.enablingFunction" enabling-function="((Controller_PressureValueFault1&gt;0&amp;&amp;Controller_PressureValueFault2&gt;0)||(Controller_PressureValueFault1&gt;0&amp;&amp;Controller_PressureValueFault3&gt;0)||(Controller_PressureValueFault2&gt;0&amp;&amp;Controller_PressureValueFault3&gt;0))||(Controller_HF&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="1595" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="7"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve_CommandOmissionFault" y="100" x="1845">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve_CommandOmissionFault" satellite-x="1915" satellite-y="75"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="1865" satellite-y="130" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve1_OpenOmissionFailure" y="100" x="2425">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve1_OpenOmissionFailure" satellite-x="2495" satellite-y="75"/>
+                <property id="10.default.enablingFunction" enabling-function="(Valve1_ED&gt;0)||(Valve1_MD&gt;0)||(Valve_CommandOmissionFault&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="2445" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="9"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="steamBoiler_OpenOmissionFault1" y="100" x="2695">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="steamBoiler_OpenOmissionFault1" satellite-x="2765" satellite-y="75"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="2715" satellite-y="130" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="steamBoiler_Failure" y="100" x="3275">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="steamBoiler_Failure" satellite-x="3345" satellite-y="75"/>
+                <property id="10.default.enablingFunction" enabling-function="(SteamBoiler_OpenOmissionFault1&gt;0)&amp;&amp;(SteamBoiler_OpenOmissionFault2&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="3295" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="7"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor1_MDOccurrence" y="175" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor1_MDOccurrence" satellite-x="215" satellite-y="150"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="205" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor2_EDOccurrence" y="350" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor2_EDOccurrence" satellite-x="215" satellite-y="325"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="380" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor2_PressureValueFailure" y="350" x="725">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor2_PressureValueFailure" satellite-x="795" satellite-y="325"/>
+                <property id="10.default.enablingFunction" enabling-function="(Sensor2_ED&gt;0)||(Sensor2_MD&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="745" satellite-y="380" property-data-type="4.type.erlang" lambda="1" k="5"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="controller_PressureValueFault2" y="350" x="995">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="controller_PressureValueFault2" satellite-x="1065" satellite-y="325"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="1015" satellite-y="380" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor2_MDOccurrence" y="425" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor2_MDOccurrence" satellite-x="215" satellite-y="400"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="455" property-data-type="2.type.deterministic" weight="1" value="14"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve1_EDOccurrence" y="600" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve1_EDOccurrence" satellite-x="215" satellite-y="575"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="630" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve1_MDOccurrence" y="675" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve1_MDOccurrence" satellite-x="215" satellite-y="650"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="705" property-data-type="2.type.deterministic" weight="1" value="14"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="controller_HFOccurrence" y="850" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="controller_HFOccurrence" satellite-x="215" satellite-y="825"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="880" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve2_EDOccurrence" y="1025" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve2_EDOccurrence" satellite-x="215" satellite-y="1000"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="1055" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve2_OpenOmissionFailure" y="1025" x="725">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve2_OpenOmissionFailure" satellite-x="795" satellite-y="1000"/>
+                <property id="10.default.enablingFunction" enabling-function="(Valve2_ED&gt;0)||(Valve2_MD&gt;0)||(Valve_CommandOmissionFault&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="745" satellite-y="1055" property-data-type="4.type.erlang" lambda="1" k="9"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="steamBoiler_OpenOmissionFault2" y="1025" x="995">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="steamBoiler_OpenOmissionFault2" satellite-x="1065" satellite-y="1000"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="1015" satellite-y="1055" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="valve2_MDOccurrence" y="1100" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="valve2_MDOccurrence" satellite-x="215" satellite-y="1075"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="1130" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor3_EDOccurrence" y="1275" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor3_EDOccurrence" satellite-x="215" satellite-y="1250"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="1305" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor3_PressureValueFailure" y="1275" x="725">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor3_PressureValueFailure" satellite-x="795" satellite-y="1250"/>
+                <property id="10.default.enablingFunction" enabling-function="(Sensor3_ED&gt;0)||(Sensor3_MD&gt;0)"/>
+                <property id="transition.stochastic" satellite-x="745" satellite-y="1305" property-data-type="4.type.erlang" lambda="1" k="5"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="controller_PressureValueFault3" y="1275" x="995">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="controller_PressureValueFault3" satellite-x="1065" satellite-y="1250"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="1015" satellite-y="1305" property-data-type="0.type.immediate" weight="1"/>
+            </properties>
+        </transition>
+        <transition rotation-angle="0.0" uuid="sensor3_MDOccurrence" y="1350" x="145">
+            <features>
+                <feature id="transition.stochastic"/>
+            </features>
+            <properties>
+                <property id="0.default.name" name="sensor3_MDOccurrence" satellite-x="215" satellite-y="1325"/>
+                <property id="10.default.enablingFunction"/>
+                <property id="transition.stochastic" satellite-x="165" satellite-y="1380" property-data-type="2.type.deterministic" weight="1" value="1"/>
+            </properties>
+        </transition>
+        <arc from="Sensor1_EDOccurrence" to="sensor1_EDOccurrence"/>
+        <arc from="sensor1_EDOccurrence" to="Sensor1_ED"/>
+        <arc from="Sensor1_Propagation" to="sensor1_PressureValueFailure"/>
+        <arc from="sensor1_PressureValueFailure" to="Sensor1_PressureValueFailure"/>
+        <arc from="Sensor1_PressureValueFailure" to="controller_PressureValueFault1"/>
+        <arc from="controller_PressureValueFault1" to="Controller_PressureValueFault1"/>
+        <arc from="Controller_Propagation" to="controller_CommandOmissionFailure"/>
+        <arc from="controller_CommandOmissionFailure" to="Controller_CommandOmissionFailure"/>
+        <arc from="Controller_CommandOmissionFailure" to="valve_CommandOmissionFault"/>
+        <arc from="valve_CommandOmissionFault" to="Valve_CommandOmissionFault"/>
+        <arc from="Valve1_Propagation" to="valve1_OpenOmissionFailure"/>
+        <arc from="valve1_OpenOmissionFailure" to="Valve1_OpenOmissionFailure"/>
+        <arc from="Valve1_OpenOmissionFailure" to="steamBoiler_OpenOmissionFault1"/>
+        <arc from="steamBoiler_OpenOmissionFault1" to="SteamBoiler_OpenOmissionFault1"/>
+        <arc from="steamBoiler_Propagation" to="steamBoiler_Failure"/>
+        <arc from="steamBoiler_Failure" to="SteamBoiler_Failure"/>
+        <arc from="Sensor1_MDOccurrence" to="sensor1_MDOccurrence"/>
+        <arc from="sensor1_MDOccurrence" to="Sensor1_MD"/>
+        <arc from="Sensor2_EDOccurrence" to="sensor2_EDOccurrence"/>
+        <arc from="sensor2_EDOccurrence" to="Sensor2_ED"/>
+        <arc from="Sensor2_Propagation" to="sensor2_PressureValueFailure"/>
+        <arc from="sensor2_PressureValueFailure" to="Sensor2_PressureValueFailure"/>
+        <arc from="Sensor2_PressureValueFailure" to="controller_PressureValueFault2"/>
+        <arc from="controller_PressureValueFault2" to="Controller_PressureValueFault2"/>
+        <arc from="Sensor2_MDOccurrence" to="sensor2_MDOccurrence"/>
+        <arc from="sensor2_MDOccurrence" to="Sensor2_MD"/>
+        <arc from="Valve1_EDOccurrence" to="valve1_EDOccurrence"/>
+        <arc from="valve1_EDOccurrence" to="Valve1_ED"/>
+        <arc from="Valve1_MDOccurrence" to="valve1_MDOccurrence"/>
+        <arc from="valve1_MDOccurrence" to="Valve1_MD"/>
+        <arc from="Controller_HFOccurrence" to="controller_HFOccurrence"/>
+        <arc from="controller_HFOccurrence" to="Controller_HF"/>
+        <arc from="Valve2_EDOccurrence" to="valve2_EDOccurrence"/>
+        <arc from="valve2_EDOccurrence" to="Valve2_ED"/>
+        <arc from="Valve2_Propagation" to="valve2_OpenOmissionFailure"/>
+        <arc from="valve2_OpenOmissionFailure" to="Valve2_OpenOmissionFailure"/>
+        <arc from="Valve2_OpenOmissionFailure" to="steamBoiler_OpenOmissionFault2"/>
+        <arc from="steamBoiler_OpenOmissionFault2" to="SteamBoiler_OpenOmissionFault2"/>
+        <arc from="Valve2_MDOccurrence" to="valve2_MDOccurrence"/>
+        <arc from="valve2_MDOccurrence" to="Valve2_MD"/>
+        <arc from="Sensor3_EDOccurrence" to="sensor3_EDOccurrence"/>
+        <arc from="sensor3_EDOccurrence" to="Sensor3_ED"/>
+        <arc from="Sensor3_Propagation" to="sensor3_PressureValueFailure"/>
+        <arc from="sensor3_PressureValueFailure" to="Sensor3_PressureValueFailure"/>
+        <arc from="Sensor3_PressureValueFailure" to="controller_PressureValueFault3"/>
+        <arc from="controller_PressureValueFault3" to="Controller_PressureValueFault3"/>
+        <arc from="Sensor3_MDOccurrence" to="sensor3_MDOccurrence"/>
+        <arc from="sensor3_MDOccurrence" to="Sensor3_MD"/>
+    </tpn-entities>
+</tpn-editor>
