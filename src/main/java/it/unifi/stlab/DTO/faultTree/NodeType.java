@@ -3,9 +3,10 @@ package it.unifi.stlab.DTO.faultTree;
 public enum NodeType {
 
 	BASIC_EVENT,
-	GATE;
-	
-	public static NodeType fromString( String className ) {
+	GATE,
+	FAILURE;
+
+	public static NodeType fromString(String className ) {
 		switch (className) {
 		case "BasicEvent":
 			return BASIC_EVENT;

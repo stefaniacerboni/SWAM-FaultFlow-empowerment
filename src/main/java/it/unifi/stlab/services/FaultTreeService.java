@@ -1,6 +1,7 @@
 package it.unifi.stlab.services;
 
 import it.unifi.stlab.DTO.faultTree.*;
+import it.unifi.stlab.mapper.FaultTreeMapper;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -17,7 +18,7 @@ public class FaultTreeService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSomething(InputFaultTreeDto inputFaultTreeDto) {
-		return Response.ok(inputFaultTreeDto).build();
+		return Response.ok(FaultTreeMapper.generateSystemFromFaultTree2(inputFaultTreeDto)).build();
 	}
 
 }
