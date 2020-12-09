@@ -49,7 +49,7 @@ public class SystemMapper {
                 children.add(mc.getName());
             }
             compositionPortDto.setChildren(children);
-            metaComponentDto.setCompositionPortDto(compositionPortDto);
+            metaComponentDto.setCompositionPort(compositionPortDto);
             componentDtos.add(metaComponentDto);
         }
         outputSystemDto.setComponents(componentDtos);

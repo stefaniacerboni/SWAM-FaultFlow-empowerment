@@ -1,8 +1,12 @@
 package it.unifi.stlab.DTO.system;
 
+import java.util.List;
+
 public class MetaComponentDto {
-    String name;
-    CompositionPortDto compositionPort;
+    private String name;
+    private CompositionPortDto compositionPort;
+    private List<ErrorModeDto> errorModes;
+    private List<PropagationPortDto> propagationPorts;
 
     public String getName() {
         return name;
@@ -12,11 +16,27 @@ public class MetaComponentDto {
         this.name = name;
     }
 
-    public CompositionPortDto getCompositionPortDto() {
+    public CompositionPortDto getCompositionPort() {
         return compositionPort;
     }
 
-    public void setCompositionPortDto(CompositionPortDto compositionPortDto) {
-        this.compositionPort = compositionPortDto;
+    public void setCompositionPort(CompositionPortDto compositionPort) {
+        this.compositionPort = compositionPort;
+    }
+
+    public List<ErrorModeDto> getErrorModes() {
+        return errorModes;
+    }
+
+    public void setErrorModes(List<ErrorModeDto> errorModes) {
+        this.errorModes = errorModes;
+    }
+
+    public List<PropagationPortDto> getPropagationPorts() {
+        return propagationPorts;
+    }
+
+    public void setPropagationPorts(List<PropagationPortDto> propagationPorts) {
+        this.propagationPorts = propagationPorts;
     }
 }
