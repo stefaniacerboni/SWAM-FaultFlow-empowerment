@@ -1,10 +1,10 @@
 package it.unifi.stlab.mapper;
 
-import it.unifi.stlab.DTO.BDD.InputBddDto;
-import it.unifi.stlab.DTO.BDD.InputParentingDto;
-import it.unifi.stlab.DTO.system.CompositionPortDto;
-import it.unifi.stlab.DTO.system.MetaComponentDto;
-import it.unifi.stlab.DTO.system.OutputSystemDto;
+import it.unifi.stlab.dto.bdd.InputBddDto;
+import it.unifi.stlab.dto.bdd.InputParentingDto;
+import it.unifi.stlab.dto.system.CompositionPortDto;
+import it.unifi.stlab.dto.system.MetaComponentDto;
+import it.unifi.stlab.dto.system.OutputSystemDto;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;

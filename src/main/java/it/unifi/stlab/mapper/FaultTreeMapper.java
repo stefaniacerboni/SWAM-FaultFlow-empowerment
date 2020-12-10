@@ -1,24 +1,19 @@
 package it.unifi.stlab.mapper;
 
-import it.unifi.stlab.DTO.PetriNet.*;
-import it.unifi.stlab.DTO.faultTree.InputFaultTreeDto;
-import it.unifi.stlab.DTO.faultTree.InputNodeDto;
-import it.unifi.stlab.DTO.faultTree.InputParentingDto;
-import it.unifi.stlab.DTO.faultTree.NodeType;
-import it.unifi.stlab.DTO.system.*;
-import it.unifi.stlab.exporter.XPNExporter;
-import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
+import it.unifi.stlab.dto.petrinet.*;
+import it.unifi.stlab.dto.faulttree.InputFaultTreeDto;
+import it.unifi.stlab.dto.faulttree.InputNodeDto;
+import it.unifi.stlab.dto.faulttree.InputParentingDto;
+import it.unifi.stlab.dto.faulttree.NodeType;
+import it.unifi.stlab.dto.system.*;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
-import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;

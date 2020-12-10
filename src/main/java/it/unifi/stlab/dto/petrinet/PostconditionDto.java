@@ -1,4 +1,4 @@
-package it.unifi.stlab.DTO.PetriNet;
+package it.unifi.stlab.dto.petrinet;
 
 public class PostconditionDto {
     private String transition;

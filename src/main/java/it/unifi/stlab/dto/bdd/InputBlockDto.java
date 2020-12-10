@@ -1,4 +1,4 @@
-package it.unifi.stlab.DTO.BDD;
+package it.unifi.stlab.dto.bdd;
 
 public class InputBlockDto {
     String description;

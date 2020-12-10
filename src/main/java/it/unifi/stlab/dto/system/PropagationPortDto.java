@@ -1,4 +1,4 @@
-package it.unifi.stlab.DTO.system;
+package it.unifi.stlab.dto.system;
 
 public class PropagationPortDto {
     private String propagatedFailureMode;

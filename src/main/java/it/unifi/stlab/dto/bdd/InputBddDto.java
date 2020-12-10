@@ -1,4 +1,4 @@
-package it.unifi.stlab.DTO.BDD;
+package it.unifi.stlab.dto.bdd;
 
 import java.util.List;
 

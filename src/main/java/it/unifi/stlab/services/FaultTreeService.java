@@ -1,7 +1,6 @@
 package it.unifi.stlab.services;
 
-import it.unifi.stlab.DTO.faultTree.*;
-import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
+import it.unifi.stlab.dto.faulttree.*;
 import it.unifi.stlab.mapper.FaultTreeMapper;
 
 import javax.ws.rs.Consumes;
@@ -20,7 +19,7 @@ public class FaultTreeService {
 	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSomething(InputFaultTreeDto inputFaultTreeDto) throws JAXBException, FileNotFoundException {
+	public Response getSystem(InputFaultTreeDto inputFaultTreeDto) throws JAXBException, FileNotFoundException {
 		//PetriNetTranslator pnt = new PetriNetTranslator();
 		//pnt.translate(FaultTreeMapper.generateSystemFromFaultTree(inputFaultTreeDto));
 		//return Response.ok(FaultTreeMapper.petriNetToJSON(pnt.getPetriNet())).build();
