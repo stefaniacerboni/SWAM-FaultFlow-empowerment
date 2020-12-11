@@ -27,6 +27,9 @@ public class PDFParser {
             case "erlang":
                 args = arguments.split(",");
                 return StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
+            case "gaussian"://TODO
+                args = arguments.split(",");
+                return StochasticTransitionFeature.newUniformInstance(args[0], args[1]);
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -51,6 +54,9 @@ public class PDFParser {
                 args = arguments.split(",");
                 //assuming args[1] is integer TODO correct
                 return new GammaDistribution(Double.parseDouble(args[0]), (int)(Double.parseDouble(args[1])));
+            case "gaussian":
+                args = arguments.split(",");
+                return new NormalDistribution(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -83,7 +89,7 @@ public class PDFParser {
             //if (((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE)
             return StochasticTransitionFeature.newDeterministicInstance(String.valueOf(((NormalDistribution) realDistribution).getMean()));
         } else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
-            return StochasticTransitionFeature.newExponentialInstance(String.valueOf(((ExponentialDistribution) realDistribution).getMean()));
+            return StochasticTransitionFeature.newExponentialInstance(String.valueOf((int)(1/(((ExponentialDistribution) realDistribution).getMean()))));
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
             return StochasticTransitionFeature.newErlangInstance(((int) ((GammaDistribution) realDistribution).getShape()), String.valueOf(((GammaDistribution) realDistribution).getScale()));
         } else
@@ -108,15 +114,22 @@ public class PDFParser {
     }
 
     public static String parseRealDistributionToString(RealDistribution realDistribution) {
-        if (realDistribution.getClass().equals(NormalDistribution.class))
-            return "dirac(" +(int) ((NormalDistribution) realDistribution).getMean() + ")";
+        if (realDistribution.getClass().equals(NormalDistribution.class)){
+            if(((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE){
+                return "dirac(" +(int) ((NormalDistribution) realDistribution).getMean() + ")";
+            }
+            else{
+                return "gaussian("+(int)((NormalDistribution) realDistribution).getMean()+","+(int)((NormalDistribution)realDistribution).getStandardDeviation()+")";
+            }
+        }
         else if(realDistribution.getClass().equals(UniformRealDistribution.class))
             return "uniform("+ (int)realDistribution.getSupportLowerBound()+","+ (int)realDistribution.getSupportUpperBound()+")";
         else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
             return "exp("+ (int) (1 /(((ExponentialDistribution) realDistribution).getMean()))+")";
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
             return "erlang("+(int)((GammaDistribution) realDistribution).getShape()+","+(int)((GammaDistribution) realDistribution).getScale()+")";
-        } else
+        }
+        else
             throw new UnsupportedOperationException("This type of RealDistribution is unsupported");
     }
 

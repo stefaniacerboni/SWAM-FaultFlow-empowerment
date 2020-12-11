@@ -1,4 +1,4 @@
-package it.unifi.stlab.dto.faulttree;
+package it.unifi.stlab.dto.inputsystemdto.faulttree;
 
 import java.util.List;
 
@@ -7,7 +7,9 @@ public class InputFaultTreeDto {
 	private List<InputNodeDto> nodes;
 	private List<InputParentingDto> parentings;
 	private String rootId;
-	
+	private List<String> topEvents;
+
+
 	public List<InputNodeDto> getNodes() {
 		return nodes;
 	}
@@ -27,4 +29,11 @@ public class InputFaultTreeDto {
 		this.rootId = rootId;
 	}
 
+	public List<String> getTopEvents() {
+		return topEvents;
+	}
+
+	public void setTopEvents(List<String> topEvents) {
+		this.topEvents = topEvents;
+	}
 }

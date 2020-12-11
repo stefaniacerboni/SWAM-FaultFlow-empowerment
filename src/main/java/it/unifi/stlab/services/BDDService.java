@@ -1,6 +1,6 @@
 package it.unifi.stlab.services;
 
-import it.unifi.stlab.dto.bdd.InputBddDto;
+import it.unifi.stlab.dto.inputsystemdto.bdd.InputBddDto;
 import it.unifi.stlab.mapper.SystemMapper;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 

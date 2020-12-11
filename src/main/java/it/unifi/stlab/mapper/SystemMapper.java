@@ -1,7 +1,7 @@
 package it.unifi.stlab.mapper;
 
-import it.unifi.stlab.dto.bdd.InputBddDto;
-import it.unifi.stlab.dto.bdd.InputParentingDto;
+import it.unifi.stlab.dto.inputsystemdto.bdd.InputBddDto;
+import it.unifi.stlab.dto.inputsystemdto.bdd.InputParentingDto;
 import it.unifi.stlab.dto.system.CompositionPortDto;
 import it.unifi.stlab.dto.system.MetaComponentDto;
 import it.unifi.stlab.dto.system.OutputSystemDto;

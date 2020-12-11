@@ -1,4 +1,4 @@
-package it.unifi.stlab.dto.bdd;
+package it.unifi.stlab.dto.inputsystemdto.bdd;
 
 public class InputParentingDto {
     private String parentId;

@@ -63,5 +63,8 @@ public class MetaComponent {
         this.propagationPort.addAll(propagationPorts);
     }
 
+    public boolean isErrorModeNamePresent(String errorModeName){
+        return errorModes.stream().filter(x-> x.getName().equalsIgnoreCase(errorModeName)).findAny().isPresent();
+    }
 
 }

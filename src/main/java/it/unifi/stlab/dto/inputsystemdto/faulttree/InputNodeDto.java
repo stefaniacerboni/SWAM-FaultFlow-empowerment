@@ -1,6 +1,7 @@
-package it.unifi.stlab.dto.faulttree;
+package it.unifi.stlab.dto.inputsystemdto.faulttree;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class InputNodeDto {
 
@@ -9,12 +10,14 @@ public class InputNodeDto {
 	
 	private NodeType nodeType;
 	
-	private PDFDto pdf;
+	private String pdf;
 	
 	private GateType gateType;
 	private Integer k;
 	private Integer n; 
 	private BigDecimal delay;
+
+	private List<AliasDTO> aliases;
 	
 	public String getExternalId() {
 		return externalId;
@@ -34,10 +37,10 @@ public class InputNodeDto {
 	public void setNodeType(NodeType nodeType) {
 		this.nodeType = nodeType;
 	}
-	public PDFDto getPdf() {
+	public String getPdf() {
 		return pdf;
 	}
-	public void setPdf(PDFDto pdf) {
+	public void setPdf(String pdf) {
 		this.pdf = pdf;
 	}
 	public GateType getGateType() {
@@ -64,5 +67,11 @@ public class InputNodeDto {
 	public void setDelay(BigDecimal delay) {
 		this.delay = delay;
 	}
-	
+	public List<AliasDTO> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<AliasDTO> aliases) {
+		this.aliases = aliases;
+	}
 }

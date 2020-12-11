@@ -1,4 +1,4 @@
-package it.unifi.stlab.dto.faulttree;
+package it.unifi.stlab.dto.inputsystemdto.faulttree;
 
 public class InputParentingDto {
 
