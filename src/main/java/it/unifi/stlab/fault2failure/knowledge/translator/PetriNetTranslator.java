@@ -81,18 +81,21 @@ public class PetriNetTranslator implements Translator {
                     }
                 }
             }
-            //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultMode
+            //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultModeS
             if (!metaComponent.getPropagationPort().isEmpty()) {
                 for (PropagationPort pp : metaComponent.getPropagationPort()) {
                     a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
                     b = net.addPlace(pp.getExogenousFaultMode().getName());
-                    t = net.addTransition(getTransitionName(b.getName()));
-                    TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
-                    if (tf == null) {
-                        t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
-                        t.addFeature(new Priority(0));
+                    t = net.getTransition(a.getName()+"toFaults");
+                    if(t==null) {
+                        t = net.addTransition(a.getName() + "toFaults");
+                        TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
+                        if (tf == null) {
+                            t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+                            t.addFeature(new Priority(0));
+                        }
+                        net.addPrecondition(a, t);
                     }
-                    net.addPrecondition(a, t);
                     net.addPostcondition(t, b);
                 }
             }

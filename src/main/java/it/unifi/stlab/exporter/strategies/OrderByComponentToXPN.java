@@ -96,7 +96,7 @@ public class OrderByComponentToXPN implements ExportToXPN {
                 if (!propagationPorts.isEmpty()) {
                     for (PropagationPort propagationPort : propagationPorts) {
                         FaultMode exoFault = propagationPort.getExogenousFaultMode();
-                        Transition t = addTransition(tpnEntities, petriNet.getTransition(PetriNetTranslator.getTransitionName(exoFault.getName())), next.getX() + 70, next.getY());
+                        Transition t = addTransition(tpnEntities, petriNet.getTransition(propagationPort.getPropagatedFailureMode().getDescription()+"toFaults"), next.getX() + 70, next.getY());
                         addArc(tpnEntities, next.getUuid(), t.getUuid());
                         //addArc(tpnEntities, PetriNetTranslator.getTransitionName(em.getOutgoingFailure().getDescription()), exoFault.getName());
                         Place b = getPlace(tpnEntities, exoFault.getName());

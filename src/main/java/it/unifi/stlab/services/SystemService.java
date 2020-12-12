@@ -32,7 +32,7 @@ public class SystemService {
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         pnt.translate(sys);
         File out = new File("prova.xpn");
-        XPNExporter.export(out, new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
         return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
     }
 
