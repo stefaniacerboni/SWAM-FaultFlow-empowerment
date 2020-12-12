@@ -30,9 +30,13 @@ public class DecemberModelExample {
         scenario.propagate();
         scenario.printReport();
 
+        java.lang.System.out.println("Failures Occurred With Times");
         java.lang.System.out.println(scenario.getFailuresOccurredWithTimes().toString());
+        java.lang.System.out.println("Multiple Failure List");
+        java.lang.System.out.println(scenario.getMultiFailuresList().toString());
+
         XPNExporter.export(new File("DecemberModel_Fault2Failure.xpn"),
-                            new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
+                           new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("DecemberModel_Fault2Failure_Basic.xpn"),
                             new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
