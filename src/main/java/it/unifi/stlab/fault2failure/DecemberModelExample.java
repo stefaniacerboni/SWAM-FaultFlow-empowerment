@@ -23,6 +23,11 @@ public class DecemberModelExample {
         PetriNetTranslator pnt = new PetriNetTranslator();
         pnt.translate(s);
 
+        XPNExporter.export(new File("DecemberModel_Fault2Failure.xpn"),
+                new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(new File("DecemberModel_Fault2Failure_Basic.xpn"),
+                new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
+
         Scenario scenario = new Scenario();
         DecemberModelBuilder.createBaseDigitalTwin(scenario, s, "_Serial");
         DecemberModelBuilder.injectFaultsIntoScenario(scenario, "_Serial");
@@ -35,9 +40,5 @@ public class DecemberModelExample {
         java.lang.System.out.println("Multiple Failure List");
         java.lang.System.out.println(scenario.getMultiFailuresList().toString());
 
-        XPNExporter.export(new File("DecemberModel_Fault2Failure.xpn"),
-                           new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
-        XPNExporter.export(new File("DecemberModel_Fault2Failure_Basic.xpn"),
-                            new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
 }

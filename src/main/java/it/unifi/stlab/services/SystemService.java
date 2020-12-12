@@ -3,6 +3,7 @@ package it.unifi.stlab.services;
 import it.unifi.stlab.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.dto.inputsystemdto.faulttree.InputFaultTreeDto;
 import it.unifi.stlab.exporter.XPNExporter;
+import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
 import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
@@ -31,7 +32,7 @@ public class SystemService {
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         pnt.translate(sys);
         File out = new File("prova.xpn");
-        XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
+        XPNExporter.export(out, new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
         return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
     }
 

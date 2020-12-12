@@ -92,23 +92,26 @@ public class OrderByComponentToXPN implements ExportToXPN {
 
                 Place next = addPlace(tpnEntities, petriNet.getPlace(em.getOutgoingFailure().getDescription()), marking, x, y);
                 addArc(tpnEntities, transition.getName(), em.getOutgoingFailure().getDescription());
-                Optional<PropagationPort> propagationPort = metaComponent.getPropagationPort().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).findAny();
-                if (propagationPort.isPresent()) {
-                    FaultMode exoFault = propagationPort.get().getExogenousFaultMode();
-                    Transition t = addTransition(tpnEntities, petriNet.getTransition(PetriNetTranslator.getTransitionName(exoFault.getName())), next.getX() + 70, next.getY());
-                    addArc(tpnEntities, next.getUuid(), t.getUuid());
-                    //addArc(tpnEntities, PetriNetTranslator.getTransitionName(em.getOutgoingFailure().getDescription()), exoFault.getName());
-                    Place b = getPlace(tpnEntities, exoFault.getName());
-                    if (!isPlaceInXML(tpnEntities, exoFault.getName()))
-                        b = addPlace(tpnEntities, petriNet.getPlace(exoFault.getName()), marking, t.getX() + 180, t.getY());
-                    else {
-                        if (b.getY() != fault.getY()) {
-                            adjustPlacePosition(b, t.getX() + 180, fault.getY());
+                List<PropagationPort> propagationPorts = metaComponent.getPropagationPort().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).collect(Collectors.toList());
+                if (!propagationPorts.isEmpty()) {
+                    for (PropagationPort propagationPort : propagationPorts) {
+                        FaultMode exoFault = propagationPort.getExogenousFaultMode();
+                        Transition t = addTransition(tpnEntities, petriNet.getTransition(PetriNetTranslator.getTransitionName(exoFault.getName())), next.getX() + 70, next.getY());
+                        addArc(tpnEntities, next.getUuid(), t.getUuid());
+                        //addArc(tpnEntities, PetriNetTranslator.getTransitionName(em.getOutgoingFailure().getDescription()), exoFault.getName());
+                        Place b = getPlace(tpnEntities, exoFault.getName());
+                        if (!isPlaceInXML(tpnEntities, exoFault.getName()))
+                            b = addPlace(tpnEntities, petriNet.getPlace(exoFault.getName()), marking, t.getX() + 180, t.getY());
+                        else {
+                            if (b.getY() != fault.getY()) {
+                                adjustPlacePosition(b, t.getX() + 180, fault.getY());
+                            }
                         }
+                        addArc(tpnEntities, t.getUuid(), b.getUuid());
+                        if (!getErrorModesFromFault(b, propagationPort.getAffectedComponent()).isEmpty())
+                            propagateTranslate(tpnEntities, propagationPort.getAffectedComponent(), petriNet, marking, b);
+
                     }
-                    addArc(tpnEntities, t.getUuid(), b.getUuid());
-                    if (!getErrorModesFromFault(b, propagationPort.get().getAffectedComponent()).isEmpty())
-                        propagateTranslate(tpnEntities, propagationPort.get().getAffectedComponent(), petriNet, marking, b);
                 }
                 //propagateTranslate(tpnEntities, failConnections, errorModes,petriNet, marking, next);
                 y += Y_SPACING;
