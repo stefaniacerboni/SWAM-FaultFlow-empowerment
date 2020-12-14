@@ -46,16 +46,4 @@ public class SystemService {
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
     }
 
-    @POST
-    @Path("/petrinet")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPetriNet(InputSystemDto inputSystemDto){
-        PetriNetTranslator pnt = new PetriNetTranslator();
-        System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
-        FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
-        pnt.translate(sys);
-        return Response.ok(FaultTreeMapper.petriNetToJSON(pnt.getPetriNet())).build();
-    }
-
 }
