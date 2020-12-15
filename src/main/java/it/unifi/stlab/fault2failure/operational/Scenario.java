@@ -114,7 +114,7 @@ public class Scenario {
 					failuresOccurredTimes.put(em.getOutgoingFailure().getDescription(),
                                               BigDecimal.valueOf(occurredTime));
                 List<PropagationPort> propagationPorts =
-                        affectedComponent.getComponentType().getPropagationPort().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).collect(Collectors.toList());
+                        affectedComponent.getComponentType().getPropagationPorts().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).collect(Collectors.toList());
                 for (PropagationPort propagationPort : propagationPorts) {
 					FaultMode exoFault = propagationPort.getExogenousFaultMode();
 					next = new Fault(exoFault.getName(), exoFault);

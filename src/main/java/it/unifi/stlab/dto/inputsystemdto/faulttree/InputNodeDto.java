@@ -17,7 +17,7 @@ public class InputNodeDto {
 	private Integer n; 
 	private BigDecimal delay;
 
-	private List<AliasDTO> aliases;
+	private List<AliasDto> aliases;
 	
 	public String getExternalId() {
 		return externalId;
@@ -67,11 +67,11 @@ public class InputNodeDto {
 	public void setDelay(BigDecimal delay) {
 		this.delay = delay;
 	}
-	public List<AliasDTO> getAliases() {
+	public List<AliasDto> getAliases() {
 		return aliases;
 	}
 
-	public void setAliases(List<AliasDTO> aliases) {
+	public void setAliases(List<AliasDto> aliases) {
 		this.aliases = aliases;
 	}
 }

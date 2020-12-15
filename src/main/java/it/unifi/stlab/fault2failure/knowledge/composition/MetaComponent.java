@@ -11,7 +11,7 @@ public class MetaComponent {
     private final String name;
     private CompositionPort compositionPort;
     private final List<ErrorMode> errorModes;
-    private final List<PropagationPort> propagationPort;
+    private final List<PropagationPort> propagationPorts;
 
     /**
      * Create a MetaComponent by setting its name to the String passed in input and its CompositionPort to null
@@ -22,7 +22,7 @@ public class MetaComponent {
         this.name = name;
         this.compositionPort = null;
         this.errorModes = new ArrayList<>();
-        this.propagationPort = new ArrayList<>();
+        this.propagationPorts = new ArrayList<>();
     }
 
     public String getName() {
@@ -47,8 +47,8 @@ public class MetaComponent {
         return errorModes;
     }
 
-    public List<PropagationPort> getPropagationPort() {
-        return propagationPort;
+    public List<PropagationPort> getPropagationPorts() {
+        return propagationPorts;
     }
 
     public void addErrorMode(ErrorMode... errorMode) {
@@ -56,11 +56,11 @@ public class MetaComponent {
     }
 
     public void addPropagationPort(PropagationPort... propagationPort) {
-        this.propagationPort.addAll(Arrays.asList(propagationPort));
+        this.propagationPorts.addAll(Arrays.asList(propagationPort));
     }
 
-    public void addPropagationPort(List<PropagationPort> propagationPorts) {
-        this.propagationPort.addAll(propagationPorts);
+    public void addPropagationPorts(List<PropagationPort> propagationPorts) {
+        this.propagationPorts.addAll(propagationPorts);
     }
 
     public boolean isErrorModeNamePresent(String errorModeName){

@@ -1,6 +1,6 @@
 package it.unifi.stlab.dto.inputsystemdto.faulttree;
 
-public class AliasDTO {
+public class AliasDto {
     private String gate;
     private String faultName;
     //private double prob;

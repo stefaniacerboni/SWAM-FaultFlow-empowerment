@@ -27,6 +27,9 @@ public class SampleGenerator {
                 args = arguments.split(",");
                 //assuming args[1] is integer TODO correct
                 return new GammaDistribution(Double.parseDouble(args[0]), Double.parseDouble(args[1])).sample();
+            case "gaussian":
+                args = arguments.split(",");
+                return new NormalDistribution(Double.parseDouble(args[0]), Double.parseDouble(args[1])).sample();
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }

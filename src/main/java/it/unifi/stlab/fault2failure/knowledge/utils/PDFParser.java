@@ -14,6 +14,8 @@ public class PDFParser {
         String arguments = arisingPDF.substring(typePDF.length() + 1, arisingPDF.length() - 1);
         String[] args;
         switch (typePDF) {
+            case "": //assume dirac(0)
+                return StochasticTransitionFeature.newDeterministicInstance("0");
             case "uniform":
                 //two arguments
                 args = arguments.split(",");
@@ -27,9 +29,12 @@ public class PDFParser {
             case "erlang":
                 args = arguments.split(",");
                 return StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
-            case "gaussian"://TODO
+            case "gaussian"://a=μ-radq(3*σ); b=μ+radq(3*σ)
                 args = arguments.split(",");
-                return StochasticTransitionFeature.newUniformInstance(args[0], args[1]);
+                double factor = Math.sqrt(Double.parseDouble(args[1])*3);
+                String a = ""+(Double.parseDouble(args[0])-factor);
+                String b = ""+(Double.parseDouble(args[0])+factor);
+                return StochasticTransitionFeature.newUniformInstance(a,b);
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -40,6 +45,8 @@ public class PDFParser {
         String arguments = arisingPDF.substring(typePDF.length() + 1, arisingPDF.length() - 1);
         String[] args;
         switch (typePDF) {
+            case"": //assume dirac(0)
+                return new NormalDistribution(0.0, Double.MIN_VALUE);
             case "uniform":
                 //two arguments
                 args = arguments.split(",");

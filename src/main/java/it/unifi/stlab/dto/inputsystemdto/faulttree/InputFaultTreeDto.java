@@ -6,7 +6,6 @@ public class InputFaultTreeDto {
 
 	private List<InputNodeDto> nodes;
 	private List<InputParentingDto> parentings;
-	private String rootId;
 	private List<String> topEvents;
 
 
@@ -21,12 +20,6 @@ public class InputFaultTreeDto {
 	}
 	public void setParentings(List<InputParentingDto> parentings) {
 		this.parentings = parentings;
-	}
-	public String getRootId() {
-		return rootId;
-	}
-	public void setRootId(String rootId) {
-		this.rootId = rootId;
 	}
 
 	public List<String> getTopEvents() {

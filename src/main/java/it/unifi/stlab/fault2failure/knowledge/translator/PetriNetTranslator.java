@@ -7,7 +7,6 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
-import it.unifi.stlab.fault2failure.operational.Component;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.pn.Priority;
 import org.oristool.models.stpn.MarkingExpr;
@@ -15,7 +14,6 @@ import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -82,8 +80,8 @@ public class PetriNetTranslator implements Translator {
                 }
             }
             //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultModeS
-            if (!metaComponent.getPropagationPort().isEmpty()) {
-                for (PropagationPort pp : metaComponent.getPropagationPort()) {
+            if (!metaComponent.getPropagationPorts().isEmpty()) {
+                for (PropagationPort pp : metaComponent.getPropagationPorts()) {
                     a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
                     b = net.addPlace(pp.getExogenousFaultMode().getName());
                     t = net.getTransition(a.getName()+"toFaults");

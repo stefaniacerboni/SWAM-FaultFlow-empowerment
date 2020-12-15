@@ -92,7 +92,7 @@ public class OrderByComponentToXPN implements ExportToXPN {
 
                 Place next = addPlace(tpnEntities, petriNet.getPlace(em.getOutgoingFailure().getDescription()), marking, x, y);
                 addArc(tpnEntities, transition.getName(), em.getOutgoingFailure().getDescription());
-                List<PropagationPort> propagationPorts = metaComponent.getPropagationPort().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).collect(Collectors.toList());
+                List<PropagationPort> propagationPorts = metaComponent.getPropagationPorts().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).collect(Collectors.toList());
                 if (!propagationPorts.isEmpty()) {
                     for (PropagationPort propagationPort : propagationPorts) {
                         FaultMode exoFault = propagationPort.getExogenousFaultMode();
