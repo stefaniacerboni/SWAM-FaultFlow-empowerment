@@ -1,16 +1,16 @@
 package it.unifi.stlab.dto.inputsystemdto.faulttree;
 
 public class AliasDto {
-    private String gate;
+    private String componentId;
     private String faultName;
     //private double prob;
 
-    public String getGate() {
-        return gate;
+    public String getComponentId() {
+        return componentId;
     }
 
-    public void setGate(String gate) {
-        this.gate = gate;
+    public void setComponentId(String componentId) {
+        this.componentId = componentId;
     }
 
     public String getFaultName() {

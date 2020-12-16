@@ -33,7 +33,6 @@ public class FaultTreeMapper {
         Queue<InputNodeDto> nodeToVisit = new LinkedList<>();
         HashMap<String, FaultMode> faultModes = new HashMap<>();
         HashMap<String, FailureMode> failureModes = new HashMap<>();
-        String[] nodeNameSplitted;
         for (String topEvent : inputFaultTreeDto.getTopEvents()) {
             nodeToVisit.add(getNodeFromID(inputFaultTreeDto, topEvent));
         }
@@ -44,9 +43,7 @@ public class FaultTreeMapper {
                 InputNodeDto currentNode = getNodeFromID(inputFaultTreeDto, parenting.getChildId());
 
                 if (currentNode.getNodeType() == NodeType.GATE) {
-
-                    nodeNameSplitted = currentNode.getLabel().split("_");
-                    MetaComponent mc = getComponentInSystem(system, nodeNameSplitted[0]);
+                    MetaComponent mc = getComponentInSystem(system, currentNode.getComponentId());
                     if (!mc.isErrorModeNamePresent(currentNode.getExternalId())) {
                         ErrorMode errorMode = new ErrorMode(currentNode.getExternalId());
                         FailureMode fm = failureModes.get(parent.getExternalId());
@@ -71,12 +68,11 @@ public class FaultTreeMapper {
     }
 
     public static System generateSystemFromFaultTree(InputFaultTreeDto inputFaultTreeDto) {
-        String[] nodeNameSplitted;
         System system=null;
         for(String topEvent : inputFaultTreeDto.getTopEvents()){
-            nodeNameSplitted = topEvent.split("_");
-            MetaComponent topComponent = new MetaComponent(nodeNameSplitted[0]);
-            system = new System(nodeNameSplitted[0] + "_SYS");
+            InputNodeDto rootNode = getNodeFromID(inputFaultTreeDto, topEvent);
+            MetaComponent topComponent = new MetaComponent(rootNode.getComponentId());
+            system = new System(rootNode.getComponentId() + "_SYS");
             system.addComponent(topComponent);
             system.setTopLevelComponent(topComponent);
         }
@@ -112,18 +108,16 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getExternalId());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getExternalId());
+                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
                             faultModes.put(faultname, exogenousFaultMode);
                             be.append(faultname).append("||");
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            String[] nodeNameSplitted;
-                            nodeNameSplitted = failureMode.getDescription().split("_");
-                            MetaComponent mc = getComponentInSystem(system, nodeNameSplitted[0]);
-                            String currentComponent = currentNode.substring(0, currentNode.indexOf("_"));
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, getComponentInSystem(system, currentComponent)));
+                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
+                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
                             be.append(child.getExternalId()).append("||");
@@ -145,18 +139,16 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getExternalId());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getExternalId());
+                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
                             faultModes.put(faultname, exogenousFaultMode);
                             be.append(faultname).append("&&");
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            String[] nodeNameSplitted;
-                            nodeNameSplitted = failureMode.getDescription().split("_");
-                            MetaComponent mc = getComponentInSystem(system, nodeNameSplitted[0]);
-                            String currentComponent = currentNode.substring(0, currentNode.indexOf("_"));
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, getComponentInSystem(system, currentComponent)));
+                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
+                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
                             be.append(child.getExternalId()).append("&&");
@@ -177,18 +169,16 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getExternalId());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getExternalId());
+                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             be.append(faultname).append(",");
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
                             faultModes.put(faultname, exogenousFaultMode);
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            String[] nodeNameSplitted;
-                            nodeNameSplitted = faultname.split("_");
-                            MetaComponent mc = getComponentInSystem(system, nodeNameSplitted[0]);
-                            String currentComponent = currentNode.substring(0, currentNode.indexOf("_"));
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, getComponentInSystem(system, currentComponent)));
+                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
+                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
                             be.append(child.getExternalId()).append(",");
@@ -309,9 +299,9 @@ public class FaultTreeMapper {
 
     private static String generateFailuresFaultName(InputNodeDto failure, String gate) {
 
-        if (!failure.getAliases().isEmpty()) {
-            for (AliasDto alias : failure.getAliases()) {
-                if (alias.getGate().equalsIgnoreCase(gate))
+        if (!failure.getActsAs().isEmpty()) {
+            for (AliasDto alias : failure.getActsAs()) {
+                if (alias.getComponentId().equalsIgnoreCase(gate))
                     return alias.getFaultName();
             }
         }

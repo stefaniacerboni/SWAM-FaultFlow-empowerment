@@ -93,8 +93,14 @@ public class PDFParser {
             return StochasticTransitionFeature.newUniformInstance(String.valueOf(realDistribution.getSupportLowerBound()),
                     String.valueOf(realDistribution.getSupportUpperBound()));
         } else if (realDistribution.getClass().equals(NormalDistribution.class)) {
-            //if (((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE)
-            return StochasticTransitionFeature.newDeterministicInstance(String.valueOf(((NormalDistribution) realDistribution).getMean()));
+            if (((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE)
+                return StochasticTransitionFeature.newDeterministicInstance(String.valueOf(((NormalDistribution) realDistribution).getMean()));
+            else {
+                double factor = Math.sqrt(((NormalDistribution) realDistribution).getStandardDeviation()*3);
+                String a = ""+(((NormalDistribution) realDistribution).getMean()-factor);
+                String b = ""+(((NormalDistribution) realDistribution).getMean()+factor);
+                return StochasticTransitionFeature.newUniformInstance(a,b);
+            }
         } else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
             return StochasticTransitionFeature.newExponentialInstance(String.valueOf((int)(1/(((ExponentialDistribution) realDistribution).getMean()))));
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {

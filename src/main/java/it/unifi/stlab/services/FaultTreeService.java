@@ -14,8 +14,9 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-@Path("/ft")
+//@Path("/ft")
 public class FaultTreeService {
+/*
 
 	@POST
 	@Path("")
@@ -58,5 +59,6 @@ public class FaultTreeService {
 			throw new InternalServerErrorException("Unexpected Server Problem");
 		}
 	}
+*/
 
 }

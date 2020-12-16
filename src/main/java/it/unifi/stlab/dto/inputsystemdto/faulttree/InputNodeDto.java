@@ -6,6 +6,7 @@ import java.util.List;
 public class InputNodeDto {
 
 	private String externalId;
+	private String componentId;
 	private String label;
 	
 	private NodeType nodeType;
@@ -17,13 +18,21 @@ public class InputNodeDto {
 	private Integer n; 
 	private BigDecimal delay;
 
-	private List<AliasDto> aliases;
+	private List<AliasDto> actsAs;
 	
 	public String getExternalId() {
 		return externalId;
 	}
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
+	}
+
+	public String getComponentId() {
+		return componentId;
+	}
+
+	public void setComponentId(String componentId) {
+		this.componentId = componentId;
 	}
 	public String getLabel() {
 		return label;
@@ -67,11 +76,12 @@ public class InputNodeDto {
 	public void setDelay(BigDecimal delay) {
 		this.delay = delay;
 	}
-	public List<AliasDto> getAliases() {
-		return aliases;
+
+	public List<AliasDto> getActsAs() {
+		return actsAs;
 	}
 
-	public void setAliases(List<AliasDto> aliases) {
-		this.aliases = aliases;
+	public void setActsAs(List<AliasDto> actsAs) {
+		this.actsAs = actsAs;
 	}
 }
