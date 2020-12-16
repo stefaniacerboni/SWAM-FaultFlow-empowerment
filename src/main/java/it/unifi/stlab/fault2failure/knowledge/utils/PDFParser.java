@@ -29,9 +29,9 @@ public class PDFParser {
             case "erlang":
                 args = arguments.split(",");
                 return StochasticTransitionFeature.newErlangInstance(Integer.parseInt(args[0]), args[1]);
-            case "gaussian"://a=μ-radq(3*σ); b=μ+radq(3*σ)
+            case "gaussian"://a=μ-radq(3)*(σ); b=μ+radq(3)*(σ)
                 args = arguments.split(",");
-                double factor = Math.sqrt(Double.parseDouble(args[1])*3);
+                double factor = Math.sqrt(3)*Double.parseDouble(args[1]);
                 String a = ""+(Double.parseDouble(args[0])-factor);
                 String b = ""+(Double.parseDouble(args[0])+factor);
                 return StochasticTransitionFeature.newUniformInstance(a,b);
@@ -62,7 +62,7 @@ public class PDFParser {
                 //assuming args[1] is integer TODO correct
                 return new GammaDistribution(Double.parseDouble(args[0]), (int)(Double.parseDouble(args[1])));
             case "gaussian":
-                args = arguments.split(",");
+                args = arguments.split(",");//args[0] is the mean, args[1] is the Standard Deviation
                 return new NormalDistribution(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
             default:
                 throw new UnsupportedOperationException("PDF not supported");
@@ -94,11 +94,11 @@ public class PDFParser {
                     String.valueOf(realDistribution.getSupportUpperBound()));
         } else if (realDistribution.getClass().equals(NormalDistribution.class)) {
             if (((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE)
-                return StochasticTransitionFeature.newDeterministicInstance(String.valueOf(((NormalDistribution) realDistribution).getMean()));
+                return StochasticTransitionFeature.newDeterministicInstance(String.valueOf(realDistribution.getNumericalMean()));
             else {
-                double factor = Math.sqrt(((NormalDistribution) realDistribution).getStandardDeviation()*3);
-                String a = ""+(((NormalDistribution) realDistribution).getMean()-factor);
-                String b = ""+(((NormalDistribution) realDistribution).getMean()+factor);
+                double factor = Math.sqrt(realDistribution.getNumericalVariance()*3);
+                String a = ""+(realDistribution.getNumericalMean()-factor);
+                String b = ""+(realDistribution.getNumericalMean()+factor);
                 return StochasticTransitionFeature.newUniformInstance(a,b);
             }
         } else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
