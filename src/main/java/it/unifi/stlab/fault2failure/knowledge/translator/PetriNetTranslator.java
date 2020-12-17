@@ -1,5 +1,6 @@
 package it.unifi.stlab.fault2failure.knowledge.translator;
 
+import it.unifi.stlab.exporter.PetriNetExportMethod;
 import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
@@ -7,6 +8,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
+import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import org.oristool.models.pn.Priority;
 import org.oristool.models.stpn.MarkingExpr;
@@ -41,7 +43,8 @@ public class PetriNetTranslator implements Translator {
         return Character.toString(placeName.charAt(0)).toLowerCase() + placeName.substring(1);
     }
 
-    public void translate(System system) {
+    public void translate(System system, PetriNetExportMethod method){
+
         //First add ErrorModes to the net, thus the ErrorMode and its outgoing failure become places and
         //between them there's a transition with the ErrorMode's enabling function
         Place a, b;
@@ -68,8 +71,15 @@ public class PetriNetTranslator implements Translator {
                         if (fault instanceof EndogenousFaultMode) {
                             a = net.addPlace(fault.getName() + "Occurrence");
                             t = net.addTransition(getTransitionName(a.getName()));
-                            if (((EndogenousFaultMode) fault).getArisingPDF() != null)
-                                t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDF()));
+                            if (((EndogenousFaultMode) fault).getArisingPDF() != null) {
+                                if(method == PetriNetExportMethod.FAULT_INJECTION) {
+                                    Double sample = SampleGenerator.generate(((EndogenousFaultMode) fault).getArisingPDFToString());
+                                    t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal(""+sample), MarkingExpr.from("1", net)));
+                                    marking.setTokens(a, 1);
+                                }
+                                else
+                                    t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDF()));
+                            }
                             else
                                 t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
                             t.addFeature(new Priority(0));
@@ -98,6 +108,10 @@ public class PetriNetTranslator implements Translator {
                 }
             }
         }
+    }
+
+    public void translate(System system) {
+        translate(system, PetriNetExportMethod.FAULT_ANALYSIS);
     }
 
     /**

@@ -2,6 +2,7 @@ package it.unifi.stlab.services;
 
 import it.unifi.stlab.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.dto.inputsystemdto.faulttree.InputFaultTreeDto;
+import it.unifi.stlab.exporter.PetriNetExportMethod;
 import it.unifi.stlab.exporter.XPNExporter;
 import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
 import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
@@ -20,16 +21,16 @@ import java.io.FileNotFoundException;
 @Path("/system")
 public class SystemService {
     @POST
-    @Path("/xpn")
+    @Path("/xpn/{method}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPetriNetXPN(InputSystemDto inputSystemDto) {
+    public Response getPetriNetXPN(InputSystemDto inputSystemDto, @PathParam("method") String method) {
         PetriNetTranslator pnt = new PetriNetTranslator();
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
-        pnt.translate(sys);
         File out = new File("prova.xpn");
         try {
+            pnt.translate(sys, PetriNetExportMethod.fromString(method));
             XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
             return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
         }

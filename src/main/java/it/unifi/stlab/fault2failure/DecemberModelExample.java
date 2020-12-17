@@ -1,5 +1,7 @@
 package it.unifi.stlab.fault2failure;
 
+import it.unifi.stlab.exporter.PetriNetExportMethod;
+import it.unifi.stlab.exporter.PetriNetExporter;
 import it.unifi.stlab.exporter.XPNExporter;
 import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
 import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
@@ -20,13 +22,7 @@ public class DecemberModelExample {
 
         HashMap<String, FaultMode> faultModes = DecemberModelBuilder.getInstance().getFaultModes();
         System s = DecemberModelBuilder.getInstance().getSystem();
-        PetriNetTranslator pnt = new PetriNetTranslator();
-        pnt.translate(s);
-
-        XPNExporter.export(new File("DecemberModel_Fault2Failure.xpn"),
-                new OrderByComponentToXPN(s, pnt.getPetriNet(), pnt.getMarking()));
-        XPNExporter.export(new File("DecemberModel_Fault2Failure_Basic.xpn"),
-                new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
+        PetriNetTranslator pnt = PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_ANALYSIS);
 
         Scenario scenario = new Scenario();
         DecemberModelBuilder.createBaseDigitalTwin(scenario, s, "_Serial");
@@ -39,6 +35,7 @@ public class DecemberModelExample {
         java.lang.System.out.println(scenario.getFailuresOccurredWithTimes().toString());
         java.lang.System.out.println("Multiple Failure List");
         java.lang.System.out.println(scenario.getMultiFailuresList().toString());
+
 
     }
 }
