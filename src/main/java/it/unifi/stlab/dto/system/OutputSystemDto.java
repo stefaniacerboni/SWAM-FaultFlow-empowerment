@@ -9,7 +9,6 @@ public class OutputSystemDto {
     private String model;
     private List<MetaComponentDto> components;
     private String topLevelComponent;
-    private List<CompositionPortDto> compositionPorts;
 
     public String getName() {
         return name;
@@ -51,11 +50,4 @@ public class OutputSystemDto {
         this.topLevelComponent = topLevelComponent;
     }
 
-    public List<CompositionPortDto> getCompositionPorts() {
-        return compositionPorts;
-    }
-
-    public void setCompositionPorts(List<CompositionPortDto> compositionPorts) {
-        this.compositionPorts = compositionPorts;
-    }
 }
