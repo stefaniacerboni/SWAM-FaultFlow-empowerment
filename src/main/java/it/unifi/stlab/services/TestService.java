@@ -1,6 +1,7 @@
 package it.unifi.stlab.services;
 
 import it.unifi.stlab.fault2failure.knowledge.utils.BasicModelBuilder;
+import it.unifi.stlab.fault2failure.knowledge.utils.DecemberModelBuilder;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,7 +16,7 @@ public class TestService {
 	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response restTest() {
-		return Response.ok(BasicModelBuilder.getInstance().getSystem()).build();
+		return Response.ok(DecemberModelBuilder.getInstance().getSystem()).build();
 	}
 
 }

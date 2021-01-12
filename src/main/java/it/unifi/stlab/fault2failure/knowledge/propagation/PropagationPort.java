@@ -1,11 +1,11 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 
 public class PropagationPort {
     private final FailureMode propagatedFailureMode;
     private final ExogenousFaultMode exogenousFaultMode;
-    private final MetaComponent affectedComponent;
+    private final Component affectedComponent;
 
     /**
      * Add a propagationPort by specifying four parameters: the inputFail already happened, the outputFault in which
@@ -16,7 +16,7 @@ public class PropagationPort {
      * @param affectedComponent the MetaComponent affected by the propagation. This means that the outputFault specified
      *                          is one of the FailureModes that could happen inside this metaComponent.
      */
-    public PropagationPort(FailureMode inFail, ExogenousFaultMode outFault, MetaComponent affectedComponent) {
+    public PropagationPort(FailureMode inFail, ExogenousFaultMode outFault, Component affectedComponent) {
         this.propagatedFailureMode = inFail;
         this.exogenousFaultMode = outFault;
         this.affectedComponent = affectedComponent;
@@ -30,7 +30,7 @@ public class PropagationPort {
         return exogenousFaultMode;
     }
 
-    public MetaComponent getAffectedComponent() {
+    public Component getAffectedComponent() {
         return affectedComponent;
     }
 }

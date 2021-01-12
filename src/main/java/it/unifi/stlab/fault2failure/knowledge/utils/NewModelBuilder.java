@@ -1,10 +1,10 @@
 package it.unifi.stlab.fault2failure.knowledge.utils;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.ConcreteComponent;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
@@ -15,6 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class NewModelBuilder {
+    /*
     private static NewModelBuilder single_instance;
     private static System system;
     private static HashMap<String, FaultMode> faultModes;
@@ -23,9 +24,9 @@ public class NewModelBuilder {
         faultModes = new HashMap<>();
 
         system = new System("S");
-        MetaComponent a = new MetaComponent("A");
-        MetaComponent b = new MetaComponent("B");
-        MetaComponent c = new MetaComponent("C");
+        Component a = new Component("A");
+        Component b = new Component("B");
+        Component c = new Component("C");
         system.addComponent(a, b, c);
         system.setTopLevelComponent(c);
         CompositionPort abc = new CompositionPort(c);
@@ -116,8 +117,8 @@ public class NewModelBuilder {
         return single_instance;
     }
 
-    public Map<String, MetaComponent> getMetaComponents() {
-        return system.getComponents().stream().collect(Collectors.toMap(MetaComponent::getName, Function.identity()));
+    public Map<String, Component> getMetaComponents() {
+        return system.getComponents().stream().collect(Collectors.toMap(Component::getName, Function.identity()));
     }
 
     public System getSystem() {
@@ -132,7 +133,7 @@ public class NewModelBuilder {
 
     public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
         scenario.setSystem(system.getComponents().stream()
-                .map(c -> new Component(c.getName() + serial, c))
+                .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
 
@@ -145,7 +146,7 @@ public class NewModelBuilder {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
         Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
 
-        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
         /*
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("A"+serial));
         scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), currentSystem.get("A"+serial));
@@ -155,6 +156,7 @@ public class NewModelBuilder {
         scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(17), currentSystem.get("C"+serial));
 
          */
+    /*
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault1Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
         scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault2Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
         scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)A_fault3Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("A"+serial));
@@ -162,6 +164,6 @@ public class NewModelBuilder {
         scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)B_fault2Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("B"+serial));
         scenario.addFault(C_fault4Occurred, BigDecimal.valueOf(SampleGenerator.generate(((EndogenousFaultMode)C_fault4Occurred.getFaultMode()).getArisingPDFToString())), currentSystem.get("C"+serial));
     }
-
+*/
 
 }

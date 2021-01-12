@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class SteamBoilerExample {
+    /*
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         System system = SteamBoilerModelBuilder.getInstance().getSystem();
         HashMap<String, FaultMode> faultModes = SteamBoilerModelBuilder.getInstance().getFaultModes();
@@ -38,4 +39,6 @@ public class SteamBoilerExample {
         XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentToXPN(system, pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
+
+     */
 }

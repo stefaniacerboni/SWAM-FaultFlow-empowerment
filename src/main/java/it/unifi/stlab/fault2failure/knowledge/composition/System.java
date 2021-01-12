@@ -8,8 +8,8 @@ public class System {
     private final String name;
     private String manufacturer;
     private String model;
-    private List<MetaComponent> components;
-    private MetaComponent topLevelComponent;
+    private List<Component> components;
+    private Component topLevelComponent;
 
     public System(String name) {
         this.name = name;
@@ -42,31 +42,31 @@ public class System {
         this.model = model;
     }
 
-    public List<MetaComponent> getComponents() {
+    public List<Component> getComponents() {
         return components;
     }
 
-    public void setComponents(List<MetaComponent> components) {
+    public void setComponents(List<Component> components) {
         this.components = components;
     }
 
-    public MetaComponent getTopLevelComponent() {
+    public Component getTopLevelComponent() {
         return topLevelComponent;
     }
 
-    public void setTopLevelComponent(MetaComponent metaComponent) throws IllegalArgumentException {
+    public void setTopLevelComponent(Component component) throws IllegalArgumentException {
         //assure that top level component it's inside the list of components that make up the system
-        if (components.contains(metaComponent))
-            this.topLevelComponent = metaComponent;
+        if (components.contains(component))
+            this.topLevelComponent = component;
         else
             throw new IllegalArgumentException("Top level component must be inside the system");
     }
 
-    public void addComponent(MetaComponent... c) {
+    public void addComponent(Component... c) {
         this.components.addAll(Arrays.asList(c));
     }
 
-    public MetaComponent getComponent(String componentID){
+    public Component getComponent(String componentID){
         return components.stream().filter(x-> x.getName().equals(componentID)).findFirst().get();
     }
 }

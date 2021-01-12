@@ -436,7 +436,7 @@
   <xs:complexType name="tExtensibleElements">
     <xs:annotation>
       <xs:documentation>
-        This type is extended by other component types to allow elements and attributes from
+        This type is extended by other concreteComponent types to allow elements and attributes from
         other namespaces to be added at the modeled places.
       </xs:documentation>
     </xs:annotation>

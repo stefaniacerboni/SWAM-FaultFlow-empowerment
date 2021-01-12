@@ -1,9 +1,8 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import org.apache.commons.math3.distribution.RealDistribution;
-import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,11 +52,11 @@ public class ErrorMode {
         setPDF(timetofailurePDF);
     }
 
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF, MetaComponent metaComponent) {
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF, Component component) {
         this(name, function, outgoingFailure, timetofailurePDF);
     }
 
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF, MetaComponent metaComponent) {
+    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF, Component component) {
         this(name, function, outgoingFailure, timetofailurePDF);
     }
 

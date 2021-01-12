@@ -1,17 +1,15 @@
 package it.unifi.stlab.fault2failure.knowledge.utils;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.ConcreteComponent;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -26,7 +24,8 @@ import java.util.stream.Collectors;
  * as well as their ErrorMode, MetaComponents
  */
 public class BasicModelBuilder {
-    private static BasicModelBuilder singleInstance = new BasicModelBuilder();
+
+    private static BasicModelBuilder singleInstance;
     private static HashMap<String, FaultMode> faultModes;
     private static System system;
 
@@ -35,17 +34,14 @@ public class BasicModelBuilder {
 
         //Defines the System at Meta Level
         system = new System("S");
-        MetaComponent a = new MetaComponent("Leaf_A");
-        MetaComponent b = new MetaComponent("Leaf_B");
-        MetaComponent c = new MetaComponent("Root_C");
-        system.addComponent(a);
-        system.addComponent(b);
-        system.addComponent(c);
+        Component a = new Component("Leaf_A");
+        Component b = new Component("Leaf_B");
+        Component c = new Component("Root_C");
+        system.addComponent(a, b, c);
         system.setTopLevelComponent(c);
-        CompositionPort abc = new CompositionPort(c);
-        abc.addChild(a);
-        abc.addChild(b);
-
+        CompositionPort ac = new CompositionPort(a, c);
+        CompositionPort bc = new CompositionPort(b, c);
+        c.addCompositionPorts(ac,bc);
         //Defines the Failure Modes and Fault Modes at Meta Level
 
 
@@ -171,7 +167,7 @@ public class BasicModelBuilder {
 
     public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
         scenario.setSystem(system.getComponents().stream()
-                .map(c -> new Component(c.getName() + serial, c))
+                .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
 
@@ -184,7 +180,7 @@ public class BasicModelBuilder {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
         Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"));
 
-        Map<String, Component> current_system = scenario.getCurrentSystemMap();
+        Map<String, ConcreteComponent> current_system = scenario.getCurrentSystemMap();
 
         scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")), current_system.get("Leaf_A"+serial));
         scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(13)")), current_system.get("Leaf_A"+serial));
@@ -194,5 +190,7 @@ public class BasicModelBuilder {
         scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(SampleGenerator.generate("dirac(17)")), current_system.get("Root_C"+serial));
 
     }
+
+
 
 }

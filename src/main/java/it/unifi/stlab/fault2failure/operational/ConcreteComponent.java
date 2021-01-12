@@ -1,13 +1,11 @@
 package it.unifi.stlab.fault2failure.operational;
 
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Component {
+public class ConcreteComponent {
     private final String serial;
-    private MetaComponent componentType;
+    private it.unifi.stlab.fault2failure.knowledge.composition.Component componentType;
     private final List<Fault> faultList;
 
     /**
@@ -16,7 +14,7 @@ public class Component {
      * @param serial        a string that describes the serial number of the component.
      * @param componentType a reference to MetaComponent that expresses the object's Component type.
      */
-    public Component(String serial, MetaComponent componentType) {
+    public ConcreteComponent(String serial, it.unifi.stlab.fault2failure.knowledge.composition.Component componentType) {
         this.serial = serial;
         this.componentType = componentType;
         faultList = new ArrayList<>();
@@ -26,11 +24,11 @@ public class Component {
         return this.serial;
     }
 
-    public MetaComponent getComponentType() {
+    public it.unifi.stlab.fault2failure.knowledge.composition.Component getComponentType() {
         return this.componentType;
     }
 
-    public void setComponentType(MetaComponent componentType) {
+    public void setComponentType(it.unifi.stlab.fault2failure.knowledge.composition.Component componentType) {
         this.componentType = componentType;
     }
 

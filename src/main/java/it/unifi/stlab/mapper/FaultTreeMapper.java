@@ -3,7 +3,8 @@ package it.unifi.stlab.mapper;
 import it.unifi.stlab.dto.inputsystemdto.faulttree.*;
 import it.unifi.stlab.dto.petrinet.*;
 import it.unifi.stlab.dto.system.*;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
+import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
@@ -18,14 +19,14 @@ public class FaultTreeMapper {
         return system.getComponents().stream().filter(x -> x.getName().equalsIgnoreCase(name)).findAny().isPresent();
     }
 
-    private static MetaComponent getComponentInSystem(System system, String name) {
-        Optional<MetaComponent> mc = system.getComponents().stream().filter(x -> x.getName().equalsIgnoreCase(name)).findAny();
+    private static Component getComponentInSystem(System system, String name) {
+        Optional<Component> mc = system.getComponents().stream().filter(x -> x.getName().equalsIgnoreCase(name)).findAny();
         if (mc.isPresent())
             return mc.get();
         else {
-            MetaComponent metaComponent = new MetaComponent(name);
-            system.addComponent(metaComponent);
-            return metaComponent;
+            Component component = new Component(name);
+            system.addComponent(component);
+            return component;
         }
     }
 
@@ -43,7 +44,7 @@ public class FaultTreeMapper {
                 InputNodeDto currentNode = getNodeFromID(inputFaultTreeDto, parenting.getChildId());
 
                 if (currentNode.getNodeType() == NodeType.GATE) {
-                    MetaComponent mc = getComponentInSystem(system, currentNode.getComponentId());
+                    Component mc = getComponentInSystem(system, currentNode.getComponentId());
                     if (!mc.isErrorModeNamePresent(currentNode.getExternalId())) {
                         ErrorMode errorMode = new ErrorMode(currentNode.getExternalId());
                         FailureMode fm = failureModes.get(parent.getExternalId());
@@ -71,7 +72,7 @@ public class FaultTreeMapper {
         System system=null;
         for(String topEvent : inputFaultTreeDto.getTopEvents()){
             InputNodeDto rootNode = getNodeFromID(inputFaultTreeDto, topEvent);
-            MetaComponent topComponent = new MetaComponent(rootNode.getComponentId());
+            Component topComponent = new Component(rootNode.getComponentId());
             system = new System(rootNode.getComponentId() + "_SYS");
             system.addComponent(topComponent);
             system.setTopLevelComponent(topComponent);
@@ -115,8 +116,8 @@ public class FaultTreeMapper {
                             be.append(faultname).append("||");
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
-                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            Component mc = getComponentInSystem(system, child.getComponentId());
+                            Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
@@ -146,8 +147,8 @@ public class FaultTreeMapper {
                             be.append(faultname).append("&&");
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
-                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            Component mc = getComponentInSystem(system, child.getComponentId());
+                            Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
@@ -176,8 +177,8 @@ public class FaultTreeMapper {
                             faultModes.put(faultname, exogenousFaultMode);
                             if (!nodeToVisit.contains(child))
                                 nodeToVisit.add(child);
-                            MetaComponent mc = getComponentInSystem(system, child.getComponentId());
-                            MetaComponent affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
+                            Component mc = getComponentInSystem(system, child.getComponentId());
+                            Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
@@ -249,13 +250,13 @@ public class FaultTreeMapper {
         OutputSystemDto outputSystemDto = new OutputSystemDto();
         outputSystemDto.setName(system.getName());
         List<MetaComponentDto> outputMetaComponents = new ArrayList<>();
-        for (MetaComponent metaComponent : system.getComponents()) {
+        for (Component component : system.getComponents()) {
             MetaComponentDto outputMetaComponent = new MetaComponentDto();
-            outputMetaComponent.setName(metaComponent.getName());
+            outputMetaComponent.setName(component.getName());
             List<CompositionPortDto> outputCompositionPorts = new ArrayList<>();
             List<ErrorModeDto> outputErrorModes = new ArrayList<>();
             List<PropagationPortDto> outputPropagationPorts = new ArrayList<>();
-            for (ErrorMode errorMode : metaComponent.getErrorModes()) {
+            for (ErrorMode errorMode : component.getErrorModes()) {
                 ErrorModeDto outputErrorMode = new ErrorModeDto();
                 outputErrorMode.setName(errorMode.getName());
                 outputErrorMode.setActivationFunction(errorMode.getActivationFunction());
@@ -275,22 +276,22 @@ public class FaultTreeMapper {
                 outputErrorMode.setInputFaultModes(outputFaultModes);
                 outputErrorModes.add(outputErrorMode);
             }
-            for (PropagationPort propagationPort : metaComponent.getPropagationPorts()) {
+            for (PropagationPort propagationPort : component.getPropagationPorts()) {
                 PropagationPortDto outputPropagationPort = new PropagationPortDto();
                 outputPropagationPort.setAffectedComponent(propagationPort.getAffectedComponent().getName());
                 outputPropagationPort.setExogenousFaultMode(propagationPort.getExogenousFaultMode().getName());
                 outputPropagationPort.setPropagatedFailureMode(propagationPort.getPropagatedFailureMode().getDescription());
                 outputPropagationPorts.add(outputPropagationPort);
             }
-            if (metaComponent.getCompositionPort() != null) {
+            for (CompositionPort compositionPort : component.getCompositionPorts()) {
                 CompositionPortDto outputCompositionPort = new CompositionPortDto();
-                outputCompositionPort.setParent(metaComponent.getCompositionPort().getParent().getName());
-                List<String> children = metaComponent.getCompositionPort().getChildren().stream().map(MetaComponent::getName).collect(Collectors.toList());
-                outputCompositionPort.setChildren(children);
-                outputMetaComponent.setCompositionPort(outputCompositionPort);
+                outputCompositionPort.setParent(compositionPort.getParent().getName());
+                outputCompositionPort.setChild(compositionPort.getChild().getName());
+                outputCompositionPorts.add(outputCompositionPort);
             }
             outputMetaComponent.setErrorModes(outputErrorModes);
             outputMetaComponent.setPropagationPorts(outputPropagationPorts);
+            outputMetaComponent.setCompositionPort(outputCompositionPorts);
             outputMetaComponents.add(outputMetaComponent);
         }
         outputSystemDto.setComponents(outputMetaComponents);

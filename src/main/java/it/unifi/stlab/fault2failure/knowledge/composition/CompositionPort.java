@@ -5,36 +5,38 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompositionPort {
-    private final MetaComponent parent;
-    private final List<MetaComponent> children;
+    private final Component parent;
+    private final Component child;
 
     /**
      * Create a CompositionPort by passing the parent of the hierarchical structure
      *
-     * @param parent reference of this MetaComponent in the hierarchical structure of the system
+     * @param parent reference of the Component in the hierarchical structure of the system that acts as the parent
+     * @param child reference of the Component in the hierarchical structure of the system that acts as the child
      */
-    public CompositionPort(MetaComponent parent) {
+    public CompositionPort(Component child, Component parent) {
         this.parent = parent;
-        this.children = new ArrayList<>();
-        parent.setCompositionPort(this);
+        this.child = child;
     }
 
-    public MetaComponent getParent() {
+    public Component getParent() {
         return this.parent;
     }
 
-    public List<MetaComponent> getChildren() {
-        return this.children;
+    public Component getChild() {
+        return this.child;
     }
 
-    /**
+    /*
      * Add a child to the hierarchical structure represented and set its CompositionPort to this.
      *
-     * @param metaComponent An instance of MetaComponent to be added as a child of the parent in the hierarchy
-     */
-    public void addChild(MetaComponent... metaComponent) {
-        this.children.addAll(Arrays.asList(metaComponent));
-        for (MetaComponent mc : metaComponent)
-            mc.setCompositionPort(this);
+     * @param component An instance of MetaComponent to be added as a child of the parent in the hierarchy
+
+    public void addChild(Component... component) {
+        this.children.addAll(Arrays.asList(component));
+        for (Component mc : component)
+            mc.setCompositionPorts(this);
     }
+
+     */
 }

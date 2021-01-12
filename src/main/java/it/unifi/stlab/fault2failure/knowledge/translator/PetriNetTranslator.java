@@ -1,7 +1,7 @@
 package it.unifi.stlab.fault2failure.knowledge.translator;
 
 import it.unifi.stlab.exporter.PetriNetExportMethod;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
@@ -49,8 +49,8 @@ public class PetriNetTranslator implements Translator {
         //between them there's a transition with the ErrorMode's enabling function
         Place a, b;
         Transition t;
-        for (MetaComponent metaComponent : system.getComponents()) {
-            for (ErrorMode e : metaComponent.getErrorModes()) {
+        for (Component component : system.getComponents()) {
+            for (ErrorMode e : component.getErrorModes()) {
                 //add ErrorMode and its failureMode
                 a = net.addPlace(e.getName());
                 b = net.addPlace(e.getOutgoingFailure().getDescription());
@@ -90,8 +90,8 @@ public class PetriNetTranslator implements Translator {
                 }
             }
             //cycle through propPorts to connect propagatedFailureMode to its exogenousFaultModeS
-            if (!metaComponent.getPropagationPorts().isEmpty()) {
-                for (PropagationPort pp : metaComponent.getPropagationPorts()) {
+            if (!component.getPropagationPorts().isEmpty()) {
+                for (PropagationPort pp : component.getPropagationPorts()) {
                     a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
                     b = net.addPlace(pp.getExogenousFaultMode().getName());
                     t = net.getTransition(a.getName()+"toFaults");

@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class BasicModelExample {
+
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         HashMap<String, FaultMode> faultModes = BasicModelBuilder.getInstance().getFaultModes();
         System sys = BasicModelBuilder.getInstance().getSystem();
@@ -34,4 +35,6 @@ public class BasicModelExample {
         XPNExporter.export(new File("Fault2Failure.xpn"), new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
         XPNExporter.export(new File("Fault2Failure_Basic.xpn"), new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
+
+
 }

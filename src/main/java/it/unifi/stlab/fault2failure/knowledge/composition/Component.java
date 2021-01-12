@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MetaComponent {
+public class Component {
     private final String name;
-    private CompositionPort compositionPort;
+    private List<CompositionPort> children;
     private final List<ErrorMode> errorModes;
     private final List<PropagationPort> propagationPorts;
 
@@ -18,9 +18,9 @@ public class MetaComponent {
      *
      * @param name It's the name of the ComponentType we want to describe through a MetaComponent.
      */
-    public MetaComponent(String name) {
+    public Component(String name) {
         this.name = name;
-        this.compositionPort = null;
+        this.children = new ArrayList<>();
         this.errorModes = new ArrayList<>();
         this.propagationPorts = new ArrayList<>();
     }
@@ -29,8 +29,8 @@ public class MetaComponent {
         return this.name;
     }
 
-    public CompositionPort getCompositionPort() {
-        return this.compositionPort;
+    public List<CompositionPort> getCompositionPorts() {
+        return this.children;
     }
 
     /**
@@ -39,8 +39,8 @@ public class MetaComponent {
      *
      * @param cp This MetaComponent's CompositionPort.
      */
-    protected void setCompositionPort(CompositionPort cp) {
-        this.compositionPort = cp;
+    protected void setCompositionPorts(List<CompositionPort> cp) {
+        this.children = cp;
     }
 
     public List<ErrorMode> getErrorModes() {
@@ -65,6 +65,10 @@ public class MetaComponent {
 
     public boolean isErrorModeNamePresent(String errorModeName){
         return errorModes.stream().filter(x-> x.getName().equalsIgnoreCase(errorModeName)).findAny().isPresent();
+    }
+
+    public void addCompositionPorts(CompositionPort... compositionPort){
+        this.children.addAll(Arrays.asList(compositionPort));
     }
 
 }

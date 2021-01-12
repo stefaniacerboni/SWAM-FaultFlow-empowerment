@@ -46,10 +46,15 @@ public class BasicExportToXPN implements ExportToXPN {
                 }
                 addArc(tpnEntities, from.getUuid(), t.getUuid());
             }
+            int i=0;
             for (Postcondition postcondition : petriNet.getPostconditions(transition)) {
                 Place to;
                 if (!isPlaceInXML(tpnEntities, postcondition.getPlace().getName())) {
-                    to = addPlace(tpnEntities, postcondition.getPlace(), marking, t.getX() + 150, t.getY());
+                    //yPos, calculated with index i to prevent overlapping of multiple places coming out from the same transition
+                    int yPos = t.getY()+(((-1)^i)*30*((i+1)/2));
+                    to = addPlace(tpnEntities, postcondition.getPlace(), marking, t.getX() + 150,
+                            yPos);
+                    i++;
 
                 } else {
                     to = getPlace(tpnEntities, postcondition.getPlace().getName());

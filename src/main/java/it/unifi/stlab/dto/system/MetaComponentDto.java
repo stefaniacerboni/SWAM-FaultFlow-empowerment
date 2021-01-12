@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MetaComponentDto {
     private String name;
-    private CompositionPortDto compositionPort;
+    private List<CompositionPortDto> compositionPort;
     private List<ErrorModeDto> errorModes;
     private List<PropagationPortDto> propagationPorts;
 
@@ -16,11 +16,11 @@ public class MetaComponentDto {
         this.name = name;
     }
 
-    public CompositionPortDto getCompositionPort() {
+    public List<CompositionPortDto> getCompositionPort() {
         return compositionPort;
     }
 
-    public void setCompositionPort(CompositionPortDto compositionPort) {
+    public void setCompositionPort(List<CompositionPortDto> compositionPort) {
         this.compositionPort = compositionPort;
     }
 

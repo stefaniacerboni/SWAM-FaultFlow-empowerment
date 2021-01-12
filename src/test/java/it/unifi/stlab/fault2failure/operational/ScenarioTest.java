@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ScenarioTest {
     private Scenario scenario;
-    private Map<String, Component> currentSystem;
+    private Map<String, ConcreteComponent> currentSystem;
 
     @Before
     public void setup() {

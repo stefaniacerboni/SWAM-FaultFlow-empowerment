@@ -22,6 +22,9 @@ public class DecemberModelExample {
 
         HashMap<String, FaultMode> faultModes = DecemberModelBuilder.getInstance().getFaultModes();
         System s = DecemberModelBuilder.getInstance().getSystem();
+        //Exporting petri net as fault injection -faults with deterministic occurrence
+        PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_INJECTION);
+        //Exporting petri net as fault analysis -faults with their original pdf
         PetriNetTranslator pnt = PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_ANALYSIS);
 
         Scenario scenario = new Scenario();

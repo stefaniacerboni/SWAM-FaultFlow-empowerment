@@ -1,6 +1,6 @@
 package it.unifi.stlab.fault2failure.operational;
 
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
@@ -21,10 +21,10 @@ public class Scenario {
 	private final List<Fault> incomingFaults;
 	private final List<Fault> failuresOccurred;
 	private final HashMap<String, BigDecimal> failuresOccurredTimes;
-	private final HashMap<String, Component> failureComponents;
+	private final HashMap<String, ConcreteComponent> failureComponents;
 	private final HashMap<String, List<BigDecimal>> multiFailuresList;
 
-	private List<Component> system;
+	private List<ConcreteComponent> system;
 
 	public Scenario() {
 		incomingFaults = new ArrayList<>(); //List of failures in the scenario
@@ -37,17 +37,17 @@ public class Scenario {
 	public Scenario(System system) {
 		this();
 		this.system = system.getComponents().stream()
-		                    .map(c -> new Component(c.getName() + "_Base", c))
+		                    .map(c -> new ConcreteComponent(c.getName() + "_Base", c))
 		                    .collect(Collectors.toList());
 	}
 
-	public void addFault(Fault fail, BigDecimal timestamp, Component component) {
+	public void addFault(Fault fail, BigDecimal timestamp, ConcreteComponent concreteComponent) {
 		//Add the fault to the incomingFault list
 		fail.occurred(timestamp);
 		if (!incomingFaults.contains(fail))
 			incomingFaults.add(fail);
-		component.addFailure(fail);
-		failureComponents.put(fail.getDescription(), component);
+		concreteComponent.addFailure(fail);
+		failureComponents.put(fail.getDescription(), concreteComponent);
 	}
 
 	public void removeFailure(Fault fail) {
@@ -73,11 +73,11 @@ public class Scenario {
 		return sortedMap;
 	}
 
-	public Map<String, Component> getCurrentSystemMap() {
-		return this.system.stream().collect(Collectors.toMap(Component::getSerial, Function.identity()));
+	public Map<String, ConcreteComponent> getCurrentSystemMap() {
+		return this.system.stream().collect(Collectors.toMap(ConcreteComponent::getSerial, Function.identity()));
 	}
 
-	public void setSystem(List<Component> system) {
+	public void setSystem(List<ConcreteComponent> system) {
 		this.system = system;
 	}
 
@@ -89,16 +89,16 @@ public class Scenario {
 		List<Fault> orderedList =
 				incomingFaults.stream().sorted(Comparator.comparing(Fault::getTimestamp)).collect(Collectors.toList());
 		for (Fault fault : orderedList) {
-			Component affectedComponent = failureComponents.get(fault.getDescription());
-			propagate(fault, affectedComponent);
+			ConcreteComponent affectedConcreteComponent = failureComponents.get(fault.getDescription());
+			propagate(fault, affectedConcreteComponent);
 		}
 	}
 
-	private void propagate(Fault fault, Component affectedComponent) {
+	private void propagate(Fault fault, ConcreteComponent affectedConcreteComponent) {
 		Fault next;
 		fault.getFaultMode().setState(true);
 		double occurredTime;
-		for (ErrorMode em : getErrorModesFromFault(fault, affectedComponent.getComponentType())) {
+		for (ErrorMode em : getErrorModesFromFault(fault, affectedConcreteComponent.getComponentType())) {
 			if (em.checkActivationFunction()) {
 				occurredTime = fault.getTimestamp().doubleValue() + em.getTimetofailurePDF().sample();
 				if (failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()) != null) {
@@ -114,28 +114,28 @@ public class Scenario {
 					failuresOccurredTimes.put(em.getOutgoingFailure().getDescription(),
                                               BigDecimal.valueOf(occurredTime));
                 List<PropagationPort> propagationPorts =
-                        affectedComponent.getComponentType().getPropagationPorts().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).collect(Collectors.toList());
+                        affectedConcreteComponent.getComponentType().getPropagationPorts().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).collect(Collectors.toList());
                 for (PropagationPort propagationPort : propagationPorts) {
 					FaultMode exoFault = propagationPort.getExogenousFaultMode();
 					next = new Fault(exoFault.getName(), exoFault);
-					Component failedComponent = system.stream()
+					ConcreteComponent failedConcreteComponent = system.stream()
 					                                  .filter(component -> propagationPort.getAffectedComponent().equals(component.getComponentType()))
 					                                  .findAny()
 					                                  .orElse(null);
-					if (!failedComponent.isFailureAlreadyOccurred(next.getDescription())) {
-						failedComponent.addFailure(next);
+					if (!failedConcreteComponent.isFailureAlreadyOccurred(next.getDescription())) {
+						failedConcreteComponent.addFailure(next);
 						next.occurred(BigDecimal.valueOf(occurredTime));
 						failuresOccurredTimes.put(next.getDescription(), next.getTimestamp());
 						failuresOccurred.add(next);
-						propagate(next, failedComponent);
+						propagate(next, failedConcreteComponent);
 					}
 				}
 			}
 		}
 	}
 
-	private List<ErrorMode> getErrorModesFromFault(Fault fault, MetaComponent metaComponent) {
-		return metaComponent.getErrorModes().stream().filter(x -> x.checkFaultIsPresent(fault.getFaultMode().getName())).collect(Collectors.toList());
+	private List<ErrorMode> getErrorModesFromFault(Fault fault, Component component) {
+		return component.getErrorModes().stream().filter(x -> x.checkFaultIsPresent(fault.getFaultMode().getName())).collect(Collectors.toList());
 	}
 
 	/**
@@ -153,12 +153,12 @@ public class Scenario {
 	}
 
 	public void printReport() {
-		for (Component component : system) {
+		for (ConcreteComponent concreteComponent : system) {
 			java.lang.System.out.println(
-					"Component: " + component.getSerial() +
-							" of Type: " + component.getComponentType().getName() +
+					"Component: " + concreteComponent.getSerial() +
+							" of Type: " + concreteComponent.getComponentType().getName() +
 							" has Faults:");
-			for (Fault fault : component.getFaultList()) {
+			for (Fault fault : concreteComponent.getFaultList()) {
 				java.lang.System.out.println(fault.getDescription() + " Occurred at time: " + fault.getTimestamp());
 			}
 			java.lang.System.out.println();

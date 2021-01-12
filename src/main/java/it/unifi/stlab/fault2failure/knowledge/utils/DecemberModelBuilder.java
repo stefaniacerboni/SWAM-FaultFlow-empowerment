@@ -1,10 +1,10 @@
 package it.unifi.stlab.fault2failure.knowledge.utils;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.ConcreteComponent;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
 
@@ -25,14 +25,14 @@ public class DecemberModelBuilder {
         // Definizione composizione del sistema
 
         system = new System("S");
-        MetaComponent a = new MetaComponent("A");
-        MetaComponent b = new MetaComponent("B");
-        MetaComponent c = new MetaComponent("C");
+        Component a = new Component("A");
+        Component b = new Component("B");
+        Component c = new Component("C");
         system.addComponent(a, b, c);
         system.setTopLevelComponent(c);
-        CompositionPort abc = new CompositionPort(c);
-        abc.addChild(a);
-        abc.addChild(b);
+        CompositionPort ac = new CompositionPort(a, c);
+        CompositionPort bc = new CompositionPort(b, c);
+        c.addCompositionPorts(ac, bc);
 
         // Definizione di Fault Mode Endogeni
 
@@ -133,8 +133,8 @@ public class DecemberModelBuilder {
         return single_instance;
     }
 
-    public Map<String, MetaComponent> getMetaComponents() {
-        return system.getComponents().stream().collect(Collectors.toMap(MetaComponent::getName, Function.identity()));
+    public Map<String, Component> getMetaComponents() {
+        return system.getComponents().stream().collect(Collectors.toMap(Component::getName, Function.identity()));
     }
 
     public System getSystem() {
@@ -149,7 +149,7 @@ public class DecemberModelBuilder {
 
     public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
         scenario.setSystem(system.getComponents().stream()
-                .map(c -> new Component(c.getName() + serial, c))
+                .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
 
@@ -163,7 +163,7 @@ public class DecemberModelBuilder {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
         Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
 
-        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
         scenario.addFault(A_fault1Occurred,
                           BigDecimal.valueOf(
                                   SampleGenerator.generate(((EndogenousFaultMode)A_fault1Occurred.getFaultMode()).getArisingPDFToString())),

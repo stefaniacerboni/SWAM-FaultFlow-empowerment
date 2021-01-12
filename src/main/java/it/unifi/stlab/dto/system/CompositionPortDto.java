@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CompositionPortDto {
     private String parent;
-    private List<String> children;
+    private String child;
 
     public String getParent() {
         return parent;
@@ -14,11 +14,11 @@ public class CompositionPortDto {
         this.parent = parent;
     }
 
-    public List<String> getChildren() {
-        return children;
+    public String getChild() {
+        return child;
     }
 
-    public void setChildren(List<String> children) {
-        this.children = children;
+    public void setChild(String child) {
+        this.child = child;
     }
 }

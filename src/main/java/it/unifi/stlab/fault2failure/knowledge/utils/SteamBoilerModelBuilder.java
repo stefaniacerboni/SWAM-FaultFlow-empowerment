@@ -1,19 +1,15 @@
 package it.unifi.stlab.fault2failure.knowledge.utils;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
-import it.unifi.stlab.fault2failure.knowledge.composition.MetaComponent;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.operational.Component;
+import it.unifi.stlab.fault2failure.operational.ConcreteComponent;
 import it.unifi.stlab.fault2failure.operational.Fault;
 import it.unifi.stlab.fault2failure.operational.Scenario;
-import org.apache.commons.math3.distribution.RealDistribution;
-import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -28,20 +24,22 @@ import java.util.stream.Collectors;
  * as well as their ErrorMode, MetaComponents
  */
 public class SteamBoilerModelBuilder {
+    /*
     private static SteamBoilerModelBuilder single_instance = null;
     private static HashMap<String, FaultMode> faultModes;
     private static System system;
 
     private SteamBoilerModelBuilder() {
+
         faultModes = new HashMap<>();
 
-        MetaComponent steamBoilerMC = new MetaComponent("SteamBoiler");
-        MetaComponent valve1MC = new MetaComponent("Valve1");
-        MetaComponent valve2MC = new MetaComponent("Valve2");
-        MetaComponent controllerMC = new MetaComponent("Controller");
-        MetaComponent sensor1MC = new MetaComponent("Sensor1");
-        MetaComponent sensor2MC = new MetaComponent("Sensor2");
-        MetaComponent sensor3MC = new MetaComponent("Sensor3");
+        Component steamBoilerMC = new Component("SteamBoiler");
+        Component valve1MC = new Component("Valve1");
+        Component valve2MC = new Component("Valve2");
+        Component controllerMC = new Component("Controller");
+        Component sensor1MC = new Component("Sensor1");
+        Component sensor2MC = new Component("Sensor2");
+        Component sensor3MC = new Component("Sensor3");
 
         CompositionPort steamBoiler = new CompositionPort(steamBoilerMC);
         steamBoiler.addChild(controllerMC);
@@ -181,7 +179,7 @@ public class SteamBoilerModelBuilder {
 
     public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
         scenario.setSystem(system.getComponents().stream()
-                .map(c -> new Component(c.getName() + serial, c))
+                .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
 
@@ -190,9 +188,13 @@ public class SteamBoilerModelBuilder {
         Fault sensor2_MD = new Fault("sensor2_MD", faultModes.get("Sensor2_MD"));
         Fault valve1_MD = new Fault("valve1_MD", faultModes.get("Valve1_MD"));
 
-        Map<String, Component> currentSystem = scenario.getCurrentSystemMap();
+        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
         scenario.addFault(sensor1_ED, BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")), currentSystem.get("Sensor1"+serial));
         scenario.addFault(sensor2_MD, BigDecimal.valueOf(SampleGenerator.generate("dirac(14)")), currentSystem.get("Sensor2"+serial));
         scenario.addFault(valve1_MD, BigDecimal.valueOf(SampleGenerator.generate("dirac(14)")), currentSystem.get("Valve1"+serial));
+
     }
+
+     */
+
 }

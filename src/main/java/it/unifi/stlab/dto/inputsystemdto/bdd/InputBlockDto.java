@@ -1,8 +1,8 @@
 package it.unifi.stlab.dto.inputsystemdto.bdd;
 
 public class InputBlockDto {
-    String externalId;
-    String description;
+    private String externalId;
+    private String description;
 
     public String getExternalId() {
         return externalId;
