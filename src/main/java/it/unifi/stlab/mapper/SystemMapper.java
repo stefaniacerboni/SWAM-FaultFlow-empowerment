@@ -50,7 +50,7 @@ public class SystemMapper {
                 compositionPortDto.setChild(compositionPort.getChild().getName());
                 compositionPortDtos.add(compositionPortDto);
             }
-            metaComponentDto.setCompositionPort(compositionPortDtos);
+            metaComponentDto.setCompositionPorts(compositionPortDtos);
             componentDtos.add(metaComponentDto);
         }
         outputSystemDto.setComponents(componentDtos);

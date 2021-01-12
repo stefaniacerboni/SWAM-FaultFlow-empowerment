@@ -291,7 +291,7 @@ public class FaultTreeMapper {
             }
             outputMetaComponent.setErrorModes(outputErrorModes);
             outputMetaComponent.setPropagationPorts(outputPropagationPorts);
-            outputMetaComponent.setCompositionPort(outputCompositionPorts);
+            outputMetaComponent.setCompositionPorts(outputCompositionPorts);
             outputMetaComponents.add(outputMetaComponent);
         }
         outputSystemDto.setComponents(outputMetaComponents);
