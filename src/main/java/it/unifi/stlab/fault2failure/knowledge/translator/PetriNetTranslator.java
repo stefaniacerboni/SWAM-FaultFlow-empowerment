@@ -9,7 +9,10 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
+import it.unifi.stlab.fault2failure.operational.Event;
+import it.unifi.stlab.fault2failure.operational.Failure;
 import it.unifi.stlab.fault2failure.operational.Fault;
+import it.unifi.stlab.fault2failure.operational.Error;
 import org.oristool.models.pn.Priority;
 import org.oristool.models.stpn.MarkingExpr;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
@@ -129,8 +132,55 @@ public class PetriNetTranslator implements Translator {
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
         if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
-        t.addFeature(StochasticTransitionFeature.newDeterministicInstance(timestamp, MarkingExpr.from("1", net)));
+        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
     }
+
+    public void decorateFailure(Failure failure, BigDecimal timestamp){
+        Place b = net.getPlace(failure.getFailureMode().getDescription());
+        Place a = net.addPlace(b.getName()+"Occurrence");
+        marking.setTokens(a, 1);
+        Transition errorModeTransition = net.getTransition(getTransitionName(b.getName()));
+        Transition t = net.addTransition(getTransitionName(a.getName()));
+        String enablingFunction = createEnablingFunctionToAppend(b);
+        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
+        t.addFeature(new EnablingFunction(enablingFunction));
+        String newEnablingFunction = errorModeTransition.getFeature(EnablingFunction.class).toString()+"&&"+enablingFunction;
+        errorModeTransition.removeFeature(EnablingFunction.class);
+        errorModeTransition.addFeature(new EnablingFunction(newEnablingFunction));
+        net.addPrecondition(a, t);
+        net.addPostcondition(t,b);
+    }
+
+    private String createEnablingFunctionToAppend(Place failure){
+        StringBuilder enablingFunction = new StringBuilder("!((" + failure.getName() + ">0)");
+        Transition t = net.getTransition(failure.getName()+"toFaults");
+        for(Postcondition pc: net.getPostconditions(t)){
+            enablingFunction.append("||(").append(pc.getPlace().getName()).append(">0)");
+        }
+        enablingFunction.append(")");
+        return enablingFunction.toString();
+    }
+
+    public void decorateError(Error error, BigDecimal timestamp){
+        Transition t = net.getTransition(getTransitionName(error.getErrorMode().getOutgoingFailure().getDescription()));
+        TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
+        if (tf != null)
+            t.removeFeature(StochasticTransitionFeature.class);
+        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
+    }
+
+    public void decorate(Event event, BigDecimal timestamp){
+        switch(event.getClass().getSimpleName()){
+            case "Error":
+                decorateError((Error) event, timestamp);
+                break;
+            case "Failure":
+                decorateFailure((Failure) event, timestamp);
+                break;
+            default: decorateOccurrence((Fault) event, timestamp); //per ora funziona solo con basic event fault
+        }
+    }
+
 
     public PetriNet getPetriNet() {
         return net;

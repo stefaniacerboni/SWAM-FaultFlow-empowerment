@@ -7,6 +7,7 @@ import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 
+import javax.ejb.DuplicateKeyException;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
@@ -18,19 +19,24 @@ import java.util.stream.Collectors;
  */
 public class Scenario {
 
-	private final List<Fault> incomingFaults;
+	private final List<Event> incomingEvents;
+	private final HashMap<String, ConcreteComponent> eventComponents;
+	private final HashMap<String, BigDecimal> errorDelays;
+
+
 	private final List<Fault> failuresOccurred;
 	private final HashMap<String, BigDecimal> failuresOccurredTimes;
-	private final HashMap<String, ConcreteComponent> failureComponents;
 	private final HashMap<String, List<BigDecimal>> multiFailuresList;
 
 	private List<ConcreteComponent> system;
 
 	public Scenario() {
-		incomingFaults = new ArrayList<>(); //List of failures in the scenario
+		incomingEvents = new ArrayList<>();
+		eventComponents = new HashMap<>();
+		errorDelays = new HashMap<>();
+
 		failuresOccurred = new ArrayList<>(); //List of failures occurred after the propagation
 		failuresOccurredTimes = new HashMap<>(); //Map with occurred Failures linked to their occurrence time
-		failureComponents = new HashMap<>();
 		multiFailuresList = new HashMap<>();
 	}
 
@@ -40,22 +46,43 @@ public class Scenario {
 		                    .map(c -> new ConcreteComponent(c.getName() + "_Base", c))
 		                    .collect(Collectors.toList());
 	}
-
-	public void addFault(Fault fail, BigDecimal timestamp, ConcreteComponent concreteComponent) {
+/*
+	public void addFault(Fault fault, BigDecimal timestamp, ConcreteComponent concreteComponent) {
 		//Add the fault to the incomingFault list
-		fail.occurred(timestamp);
-		if (!incomingFaults.contains(fail))
-			incomingFaults.add(fail);
-		concreteComponent.addFailure(fail);
-		failureComponents.put(fail.getDescription(), concreteComponent);
+		fault.occurred(timestamp);
+		if (!incomingFaults.contains(fault))
+			incomingFaults.add(fault);
+		concreteComponent.addFailure(fault);
+		failureComponents.put(fault.getDescription(), concreteComponent);
+
+		incomingEvents.add(fault);
 	}
 
-	public void removeFailure(Fault fail) {
-		incomingFaults.remove(fail);
+ */
+
+	public void addCustomErrorDelay(Error error) {
+		errorDelays.computeIfAbsent(error.getErrorMode().getName(), k -> error.getTimestamp());
 	}
 
-	public List<Fault> getIncomingFaults() {
-		return this.incomingFaults;
+	public void addEvent(Event event, ConcreteComponent concreteComponent){
+		if(event.getClass().getSimpleName().equals("Error")){
+			addCustomErrorDelay((Error)event);
+		}
+		else {
+			incomingEvents.add(event);
+			eventComponents.put(event.getDescription(), concreteComponent);
+			if(event.getClass().getSimpleName().equals("Fault")){
+				concreteComponent.addFailure((Fault)event);
+			}
+		}
+	}
+
+	public void removeEvent(Event event){
+		incomingEvents.remove(event);
+	}
+
+	public List<Event> getIncomingEvents() {
+		return incomingEvents;
 	}
 
 	public List<Fault> getFailuresOccurred() {
@@ -85,7 +112,8 @@ public class Scenario {
 	 * Method propagate orders the Faults inside the incomingFaultTimes map by Timestamp, then iteratively calls the
 	 * method propagate(Failure, Component) in a chronological way.
 	 */
-	public void propagate() {
+	/*
+	public void propagate2() {
 		List<Fault> orderedList =
 				incomingFaults.stream().sorted(Comparator.comparing(Fault::getTimestamp)).collect(Collectors.toList());
 		for (Fault fault : orderedList) {
@@ -94,45 +122,73 @@ public class Scenario {
 		}
 	}
 
+	 */
+
+	public void propagate(){
+		List<Event> orderedList =
+				incomingEvents.stream().sorted(Comparator.comparing(Event::getTimestamp)).collect(Collectors.toList());
+		for(Event event: orderedList){
+			ConcreteComponent affectedConcreteComponent = eventComponents.get(event.getDescription());
+			if(event.getClass().getSimpleName().equals("Fault")){
+				propagate((Fault) event, affectedConcreteComponent);
+			}
+			if(event.getClass().getSimpleName().equals("Failure")){
+				propagateFailure((Failure) event, affectedConcreteComponent);
+			}
+		}
+
+	}
+
 	private void propagate(Fault fault, ConcreteComponent affectedConcreteComponent) {
-		Fault next;
-		fault.getFaultMode().setState(true);
+		fault.occurred();
 		double occurredTime;
 		for (ErrorMode em : getErrorModesFromFault(fault, affectedConcreteComponent.getComponentType())) {
 			if (em.checkActivationFunction()) {
-				occurredTime = fault.getTimestamp().doubleValue() + em.getTimetofailurePDF().sample();
-				if (failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()) != null) {
-					double currentTime = failuresOccurredTimes.get(em.getOutgoingFailure().getDescription()).doubleValue();
-					if (currentTime > occurredTime) //se è già avvenuto con tempo > rispetto ad adesso, aggiorna i
-					    // minimal cutset
-						failuresOccurredTimes.replace(em.getOutgoingFailure().getDescription(),
-                                                      BigDecimal.valueOf(occurredTime));
-					multiFailuresList.computeIfAbsent(em.getOutgoingFailure().getDescription(),
-                                                      f -> new ArrayList<>()).add(BigDecimal.valueOf(currentTime));
-					multiFailuresList.get(em.getOutgoingFailure().getDescription()).add(BigDecimal.valueOf(occurredTime));
-				} else
-					failuresOccurredTimes.put(em.getOutgoingFailure().getDescription(),
-                                              BigDecimal.valueOf(occurredTime));
-                List<PropagationPort> propagationPorts =
-                        affectedConcreteComponent.getComponentType().getPropagationPorts().stream().filter(x -> x.getPropagatedFailureMode().equals(em.getOutgoingFailure())).collect(Collectors.toList());
-                for (PropagationPort propagationPort : propagationPorts) {
-					FaultMode exoFault = propagationPort.getExogenousFaultMode();
-					next = new Fault(exoFault.getName(), exoFault);
-					ConcreteComponent failedConcreteComponent = system.stream()
-					                                  .filter(component -> propagationPort.getAffectedComponent().equals(component.getComponentType()))
-					                                  .findAny()
-					                                  .orElse(null);
-					if (!failedConcreteComponent.isFailureAlreadyOccurred(next.getDescription())) {
-						failedConcreteComponent.addFailure(next);
-						next.occurred(BigDecimal.valueOf(occurredTime));
-						failuresOccurredTimes.put(next.getDescription(), next.getTimestamp());
-						failuresOccurred.add(next);
-						propagate(next, failedConcreteComponent);
-					}
-				}
+				if(errorDelays.get(em.getName())==null)
+					occurredTime = fault.getTimestamp().doubleValue() + em.getTimetofailurePDF().sample();
+				else
+					occurredTime = fault.getTimestamp().doubleValue() + errorDelays.get(em.getName()).doubleValue();
+				//modifica considerando anche se il delay dell'errorMode è stato specificato deterministico
+				Failure failure = new Failure(em.getOutgoingFailure().getDescription()+"Occurrence", em.getOutgoingFailure(), BigDecimal.valueOf(occurredTime));
+				propagateFailure(failure, affectedConcreteComponent);
 			}
 		}
 	}
+
+
+	private void propagateFailure(Failure failure, ConcreteComponent affectedConcreteComponent) {
+		if (failuresOccurredTimes.get(failure.getFailureMode().getDescription()) != null) {
+			double currentTime = failuresOccurredTimes.get(failure.getFailureMode().getDescription()).doubleValue();
+			if (failure.getTimestamp().doubleValue() < currentTime ) //se è già avvenuto con tempo > rispetto ad adesso, aggiorna i
+				// minimal cutset
+				failuresOccurredTimes.replace(failure.getFailureMode().getDescription(),
+						failure.getTimestamp());
+			multiFailuresList.computeIfAbsent(failure.getFailureMode().getDescription(),
+					f -> new ArrayList<>()).add(BigDecimal.valueOf(currentTime));
+			multiFailuresList.get(failure.getFailureMode().getDescription()).add(failure.getTimestamp());
+		} else
+			failuresOccurredTimes.put(failure.getFailureMode().getDescription(),
+					failure.getTimestamp());
+		Fault next;
+		List<PropagationPort> propagationPorts =
+				affectedConcreteComponent.getComponentType().getPropagationPorts().stream().filter(x -> x.getPropagatedFailureMode().equals(failure.getFailureMode())).collect(Collectors.toList());
+		for (PropagationPort propagationPort : propagationPorts) {
+			FaultMode exoFault = propagationPort.getExogenousFaultMode();
+			ConcreteComponent failedConcreteComponent = system.stream()
+					.filter(component -> propagationPort.getAffectedComponent().equals(component.getComponentType()))
+					.findAny()
+					.orElse(null);
+			if (!failedConcreteComponent.isFailureAlreadyOccurred(exoFault.getName())) {
+				next = new Fault(exoFault.getName(), exoFault, failure.getTimestamp());
+				failedConcreteComponent.addFailure(next);
+				next.occurred();
+				failuresOccurredTimes.put(next.getDescription(), next.getTimestamp());
+				failuresOccurred.add(next);
+				propagate(next, failedConcreteComponent);
+			}
+		}
+	}
+
 
 	private List<ErrorMode> getErrorModesFromFault(Fault fault, Component component) {
 		return component.getErrorModes().stream().filter(x -> x.checkFaultIsPresent(fault.getFaultMode().getName())).collect(Collectors.toList());
@@ -145,11 +201,19 @@ public class Scenario {
 	 *
 	 * @param pnt a PetriNetTranslator instance
 	 */
-	public void accept(PetriNetTranslator pnt) {
+	/*
+	public void accept2(PetriNetTranslator pnt) {
 		for (Fault f : this.incomingFaults) {
 			pnt.decorateOccurrence(f, f.getTimestamp());
 		}
+	}
 
+	 */
+
+	public void accept(PetriNetTranslator pnt){
+		for(Event e: this.incomingEvents){
+			pnt.decorate(e, e.getTimestamp());
+		}
 	}
 
 	public void printReport() {

@@ -19,4 +19,8 @@ public class PetriNetExporter {
                 new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
         return pnt;
     }
+    public static void exportPetriNet(PetriNetTranslator pnt) throws JAXBException, FileNotFoundException{
+        XPNExporter.export(new File("PetriNet_Fault2Failure.xpn"),
+                new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
+    }
 }

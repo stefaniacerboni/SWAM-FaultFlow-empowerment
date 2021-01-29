@@ -32,22 +32,22 @@ public class ScenarioTest {
 
         HashMap<String, FaultMode> faultModes = BasicModelBuilder.getInstance().getFaultModes();
         //instantiate 6 occurrences
-        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
-        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
-        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(10));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"), BigDecimal.valueOf(13));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(16));
 
-        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
-        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
-        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"));
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"), BigDecimal.valueOf(12));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), BigDecimal.valueOf(18));
+        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"), BigDecimal.valueOf(17));
         //add 6 occurrences
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), currentSystem.get("Leaf_B_Test"));
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), currentSystem.get("Leaf_B_Test"));
-        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(17), currentSystem.get("Root_C_Test"));
+        scenario.addEvent(A_fault1Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(A_fault2Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(A_fault3Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(B_fault1Occurred, currentSystem.get("Leaf_B_Test"));
+        scenario.addEvent(B_fault2Occurred, currentSystem.get("Leaf_B_Test"));
+        scenario.addEvent(C_fault6Occurred, currentSystem.get("Root_C_Test"));
         //check if they're all there
-        assertEquals(6, scenario.getIncomingFaults().size());
+        assertEquals(6, scenario.getIncomingEvents().size());
     }
 
     @Test
@@ -57,25 +57,25 @@ public class ScenarioTest {
 
         HashMap<String, FaultMode> faultModes = BasicModelBuilder.getInstance().getFaultModes();
         //instantiate 6 occurrences
-        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
-        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"));
-        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(10));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"), BigDecimal.valueOf(13));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(16));
 
-        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
-        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
-        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"));
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"), BigDecimal.valueOf(12));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), BigDecimal.valueOf(18));
+        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"), BigDecimal.valueOf(17));
         //add 6 occurrences
-        scenario.addFault(A_fault1Occurred, BigDecimal.valueOf(10), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(A_fault2Occurred, BigDecimal.valueOf(13), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(A_fault3Occurred, BigDecimal.valueOf(16), currentSystem.get("Leaf_A_Test"));
-        scenario.addFault(B_fault1Occurred, BigDecimal.valueOf(12), currentSystem.get("Leaf_B_Test"));
-        scenario.addFault(B_fault2Occurred, BigDecimal.valueOf(18), currentSystem.get("Leaf_B_Test"));
-        scenario.addFault(C_fault6Occurred, BigDecimal.valueOf(17), currentSystem.get("Root_C_Test"));
+        scenario.addEvent(A_fault1Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(A_fault2Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(A_fault3Occurred, currentSystem.get("Leaf_A_Test"));
+        scenario.addEvent(B_fault1Occurred, currentSystem.get("Leaf_B_Test"));
+        scenario.addEvent(B_fault2Occurred, currentSystem.get("Leaf_B_Test"));
+        scenario.addEvent(C_fault6Occurred, currentSystem.get("Root_C_Test"));
         //check if they're all there
-        assertEquals(6, scenario.getIncomingFaults().size());
+        assertEquals(6, scenario.getIncomingEvents().size());
         //remove one
-        scenario.removeFailure(A_fault1Occurred);
+        scenario.removeEvent(A_fault1Occurred);
         //check if they're all there
-        assertEquals(5, scenario.getIncomingFaults().size());
+        assertEquals(5, scenario.getIncomingEvents().size());
     }
 }

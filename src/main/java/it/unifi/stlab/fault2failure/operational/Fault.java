@@ -1,14 +1,14 @@
 package it.unifi.stlab.fault2failure.operational;
 
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
+import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
 
 import java.math.BigDecimal;
 
-public class Fault {
-    private final String description;
+public class Fault extends Event{
     private final FaultMode faultMode;
-    private BigDecimal timestamp;
-    private boolean isActive;
+    boolean isActive;
 
     /**
      * Create a Failure from its description and FailureMode.
@@ -18,34 +18,24 @@ public class Fault {
      * @param description a string which must be unique.
      * @param faultMode   the type of the Failure.
      */
-    public Fault(String description, FaultMode faultMode) {
+    public Fault(String description, FaultMode faultMode, BigDecimal timestamp) {
         this.description = description;
         this.faultMode = faultMode;
-        this.isActive = false;
-        this.timestamp = BigDecimal.valueOf(-1);
+        this.timestamp = timestamp;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public FaultMode getFaultMode() {
-        return this.faultMode;
-    }
-
-    public boolean isActive() {
-        return isActive;
+    public Fault(String description, EndogenousFaultMode faultMode) {
+        this.description = description;
+        this.faultMode = faultMode;
+        this.timestamp = BigDecimal.valueOf(SampleGenerator.generate(faultMode.getArisingPDFToString()));
     }
 
     /**
      * Method occurred specifies when a Failure is expected to occur. Set the FailureMode state to true as a consequence.
      *
-     * @param timestamp gives the time of the failure occurrence
      */
-    public void occurred(BigDecimal timestamp) {
-        this.isActive = true;
-        //this.failureMode.setState(true);
-        this.timestamp = timestamp;
+    public void occurred() {
+        this.faultMode.setState(true);
     }
 
     /**
@@ -55,13 +45,9 @@ public class Fault {
         this.isActive = false;
         //this.failureMode.setState(false);
     }
-
-    public BigDecimal getTimestamp() {
-        return this.timestamp;
+    public FaultMode getFaultMode() {
+        return this.faultMode;
     }
 
-    public String toString() {
-        return this.getDescription() + " = " + this.getTimestamp();
-    }
 
 }

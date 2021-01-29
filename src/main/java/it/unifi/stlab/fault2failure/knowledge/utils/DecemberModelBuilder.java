@@ -4,9 +4,8 @@ import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 import it.unifi.stlab.fault2failure.knowledge.propagation.*;
-import it.unifi.stlab.fault2failure.operational.ConcreteComponent;
-import it.unifi.stlab.fault2failure.operational.Fault;
-import it.unifi.stlab.fault2failure.operational.Scenario;
+import it.unifi.stlab.fault2failure.operational.Error;
+import it.unifi.stlab.fault2failure.operational.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -18,9 +17,13 @@ public class DecemberModelBuilder {
     private static DecemberModelBuilder single_instance;
     private static System system;
     private static HashMap<String, FaultMode> faultModes;
+    private static HashMap<String, FailureMode> failureModes;
+    private static HashMap<String, ErrorMode> errorModes;
 
     private DecemberModelBuilder() {
         faultModes = new HashMap<>();
+        failureModes = new HashMap<>();
+        errorModes = new HashMap<>();
 
         // Definizione composizione del sistema
 
@@ -79,6 +82,8 @@ public class DecemberModelBuilder {
         eM_A1.addOutputFailureMode(fM_A1);
         eM_A1.setEnablingCondition("A_Fault1 && (A_Fault2 || A_Fault3)", faultModes);
         eM_A1.setPDF("erlang(1,5)");
+        errorModes.put(eM_A1.getName(), eM_A1);
+        failureModes.put(fM_A1.getDescription(), fM_A1);
 
         FailureMode fM_A2 = new FailureMode("A_Failure2");
         ErrorMode eM_A2 = new ErrorMode("A_ToFailure2");
@@ -86,6 +91,9 @@ public class DecemberModelBuilder {
         eM_A2.addOutputFailureMode(fM_A2);
         eM_A2.setEnablingCondition("A_Fault4 && A_Fault5", faultModes);
         eM_A2.setPDF("exp(5)");
+        errorModes.put(eM_A2.getName(), eM_A2);
+        failureModes.put(fM_A2.getDescription(), fM_A2);
+
 
         a.addErrorMode(eM_A1, eM_A2);
 
@@ -95,6 +103,9 @@ public class DecemberModelBuilder {
         eM_B1.addOutputFailureMode(fM_B1);
         eM_B1.setEnablingCondition("B_Fault1 && B_Fault2", faultModes);
         eM_B1.setPDF("exp(3)");
+        errorModes.put(eM_B1.getName(), eM_B1);
+        failureModes.put(fM_B1.getDescription(), fM_B1);
+
 
         b.addErrorMode(eM_B1);
 
@@ -106,7 +117,7 @@ public class DecemberModelBuilder {
         b.addPropagationPort(
                 new PropagationPort(fM_B1, exFM_A2, a),
                 new PropagationPort(fM_B1, exFM_C3, c)
-                );
+        );
 
         // Definizione delle Failure Mode per C
 
@@ -116,6 +127,9 @@ public class DecemberModelBuilder {
         eM_C1.addOutputFailureMode(fM_C1);
         eM_C1.setEnablingCondition("C_Fault1 && C_Fault2", faultModes);
         eM_C1.setPDF("dirac(0)");
+        errorModes.put(eM_C1.getName(), eM_C1);
+        failureModes.put(fM_C1.getDescription(), fM_C1);
+
 
         FailureMode fM_C2 = new FailureMode("C_Failure2");
         ErrorMode eM_C2 = new ErrorMode("C_ToFailure2");
@@ -123,6 +137,9 @@ public class DecemberModelBuilder {
         eM_C2.addOutputFailureMode(fM_C2);
         eM_C2.setEnablingCondition("C_Fault3 && C_Fault4", faultModes);
         eM_C2.setPDF("dirac(0)");
+        errorModes.put(eM_C1.getName(), eM_C1);
+        failureModes.put(fM_C2.getDescription(), fM_C2);
+
 
         c.addErrorMode(eM_C1, eM_C2);
     }
@@ -133,9 +150,77 @@ public class DecemberModelBuilder {
         return single_instance;
     }
 
+    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial) {
+        scenario.setSystem(system.getComponents().stream()
+                .map(c -> new ConcreteComponent(c.getName() + serial, c))
+                .collect(Collectors.toList()));
+    }
+    public static void injectFaultsIntoScenarioBySample(Scenario scenario, String serial) {
+        //Occorrenze campionate sulla pdf
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", (EndogenousFaultMode) faultModes.get("A_Fault1"));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", (EndogenousFaultMode) faultModes.get("A_Fault3"));
+        Fault A_fault4Occurred = new Fault("A_fault4Occurred", (EndogenousFaultMode) faultModes.get("A_Fault4"));
+        Fault A_fault5Occurred = new Fault("A_fault5Occurred", (EndogenousFaultMode) faultModes.get("A_Fault5"));
+
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", (EndogenousFaultMode) faultModes.get("B_Fault1"));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", (EndogenousFaultMode) faultModes.get("B_Fault2"));
+        Fault C_fault4Occurred = new Fault("C_fault4Occurred", (EndogenousFaultMode) faultModes.get("C_Fault4"));
+
+        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
+
+        scenario.addEvent(A_fault1Occurred,
+                          currentSystem.get("A"+serial));
+        scenario.addEvent(A_fault3Occurred,
+                          currentSystem.get("A"+serial));
+        scenario.addEvent(A_fault4Occurred,
+                          currentSystem.get("A"+serial));
+        scenario.addEvent(A_fault5Occurred,
+                          currentSystem.get("A"+serial));
+
+        scenario.addEvent(B_fault1Occurred,
+                          currentSystem.get("B"+serial));
+        scenario.addEvent(B_fault2Occurred,
+                          currentSystem.get("B"+serial));
+
+        scenario.addEvent(C_fault4Occurred,
+                          currentSystem.get("C"+serial));
+    }
+
+        public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
+        //Tempi di occorrenza specificati formalmente
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(10.0));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(12.0));
+        Fault A_fault4Occurred = new Fault("A_fault4Occurred", faultModes.get("A_Fault4"), BigDecimal.valueOf(13.0));
+        Fault A_fault5Occurred = new Fault("A_fault5Occurred", faultModes.get("A_Fault5"), BigDecimal.valueOf(2.0));
+
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"), BigDecimal.valueOf(20.0));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), BigDecimal.valueOf(20.0));
+        Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"), BigDecimal.valueOf(30.0));
+
+        Failure A_Failure2 = new Failure("A_failure2Occurred", failureModes.get("A_Failure2"), BigDecimal.TEN);
+        Error errorModeA = new it.unifi.stlab.fault2failure.operational.Error("errorModea", errorModes.get("A_ToFailure1"), BigDecimal.TEN);
+
+        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
+
+
+        scenario.addEvent(A_fault1Occurred, currentSystem.get("A" + serial));
+        scenario.addEvent(A_fault3Occurred, currentSystem.get("A" + serial));
+        scenario.addEvent(A_fault4Occurred, currentSystem.get("A" + serial));
+        scenario.addEvent(A_fault5Occurred, currentSystem.get("A" + serial));
+        scenario.addEvent(B_fault1Occurred, currentSystem.get("B" + serial));
+        scenario.addEvent(B_fault2Occurred, currentSystem.get("B" + serial));
+        scenario.addEvent(C_fault4Occurred, currentSystem.get("C" + serial));
+
+        //prova su failure e error
+        scenario.addEvent(A_Failure2, currentSystem.get("A" + serial));
+        scenario.addCustomErrorDelay(errorModeA);
+    }
+
     public Map<String, Component> getMetaComponents() {
         return system.getComponents().stream().collect(Collectors.toMap(Component::getName, Function.identity()));
     }
+
+    //Base Level Methods: Create a Scenario, Sets its Base System and Injects faults into that
 
     public System getSystem() {
         return system;
@@ -143,57 +228,6 @@ public class DecemberModelBuilder {
 
     public HashMap<String, FaultMode> getFaultModes() {
         return faultModes;
-    }
-
-    //Base Level Methods: Create a Scenario, Sets its Base System and Injects faults into that
-
-    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
-        scenario.setSystem(system.getComponents().stream()
-                .map(c -> new ConcreteComponent(c.getName() + serial, c))
-                .collect(Collectors.toList()));
-    }
-
-    public static void injectFaultsIntoScenario(Scenario scenario, String serial){
-        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"));
-        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"));
-        Fault A_fault4Occurred = new Fault("A_fault4Occurred", faultModes.get("A_Fault4"));
-        Fault A_fault5Occurred = new Fault("A_fault5Occurred", faultModes.get("A_Fault5"));
-
-        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"));
-        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"));
-        Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"));
-
-        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
-        scenario.addFault(A_fault1Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)A_fault1Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("A"+serial));
-        scenario.addFault(A_fault3Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)A_fault3Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("A"+serial));
-        scenario.addFault(A_fault4Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)A_fault4Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("A"+serial));
-        scenario.addFault(A_fault5Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)A_fault5Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("A"+serial));
-
-        scenario.addFault(B_fault1Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)B_fault1Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("B"+serial));
-        scenario.addFault(B_fault2Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)B_fault2Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("B"+serial));
-
-        scenario.addFault(C_fault4Occurred,
-                          BigDecimal.valueOf(
-                                  SampleGenerator.generate(((EndogenousFaultMode)C_fault4Occurred.getFaultMode()).getArisingPDFToString())),
-                          currentSystem.get("C"+serial));
     }
 
 

@@ -31,6 +31,7 @@ public class DecemberModelExample {
         DecemberModelBuilder.createBaseDigitalTwin(scenario, s, "_Serial");
         DecemberModelBuilder.injectFaultsIntoScenario(scenario, "_Serial");
         scenario.accept(pnt);
+        PetriNetExporter.exportPetriNet(pnt);
         scenario.propagate();
         scenario.printReport();
 
