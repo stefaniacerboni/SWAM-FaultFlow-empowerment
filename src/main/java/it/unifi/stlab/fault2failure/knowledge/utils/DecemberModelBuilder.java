@@ -198,7 +198,8 @@ public class DecemberModelBuilder {
         Fault C_fault4Occurred = new Fault("C_fault4Occurred", faultModes.get("C_Fault4"), BigDecimal.valueOf(30.0));
 
         Failure A_Failure2 = new Failure("A_failure2Occurred", failureModes.get("A_Failure2"), BigDecimal.TEN);
-        Error errorModeA = new it.unifi.stlab.fault2failure.operational.Error("errorModea", errorModes.get("A_ToFailure1"), BigDecimal.TEN);
+        Error errorModeA = new it.unifi.stlab.fault2failure.operational.Error("errorModeA", errorModes.get("A_ToFailure1"), BigDecimal.TEN);
+        Fault C_Fault3 = new Fault("C_Fault3", faultModes.get("C_Fault3"), BigDecimal.TEN);
 
         Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
 
@@ -214,6 +215,8 @@ public class DecemberModelBuilder {
         //prova su failure e error
         scenario.addEvent(A_Failure2, currentSystem.get("A" + serial));
         scenario.addCustomErrorDelay(errorModeA);
+        //prova su exo fault
+        scenario.addEvent(C_Fault3, currentSystem.get("C" + serial));
     }
 
     public Map<String, Component> getMetaComponents() {

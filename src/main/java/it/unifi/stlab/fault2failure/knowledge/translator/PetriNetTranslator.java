@@ -3,10 +3,7 @@ package it.unifi.stlab.fault2failure.knowledge.translator;
 import it.unifi.stlab.exporter.PetriNetExportMethod;
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
-import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
+import it.unifi.stlab.fault2failure.knowledge.propagation.*;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
 import it.unifi.stlab.fault2failure.operational.Event;
@@ -19,6 +16,7 @@ import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -126,6 +124,9 @@ public class PetriNetTranslator implements Translator {
      *              into a Place in the PetriNet.
      */
     public void decorateOccurrence(Fault fault, BigDecimal timestamp) {
+        if(fault.getFaultMode() instanceof ExogenousFaultMode) {
+            decorateExogenousFaultOccurrence(fault);
+        }
         Place a = net.getPlace((fault.getFaultMode().getName() + "Occurrence"));
         marking.setTokens(a, 1);
         Transition t = net.getTransition(getTransitionName(a.getName()));
@@ -133,6 +134,37 @@ public class PetriNetTranslator implements Translator {
         if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
         t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
+    }
+
+    public void decorateExogenousFaultOccurrence(Fault fault){
+        Place a = net.addPlace(fault.getFaultMode().getName() + "Occurrence");
+        Transition t = net.addTransition(getTransitionName(a.getName()));
+        Place b = net.getPlace(fault.getFaultMode().getName());
+        List<Transition> transitionsToEdit = new ArrayList<>();
+        for(Transition transition: net.getTransitions()){
+            Postcondition pc = net.getPostcondition(transition, b);
+            if( pc != null) {
+                transitionsToEdit.add(pc.getTransition());
+            }
+        }
+        for(Transition transition: transitionsToEdit){
+            if(net.getPostconditions(transition).size()>1) {
+                net.removePostcondition(net.getPostcondition(transition,b));
+                Place a1 = net.addPlace("To" + fault.getFaultMode().getName());
+                net.addPostcondition(transition, a1);
+                Transition t1 = net.addTransition(getTransitionName(fault.getFaultMode().getName()));
+                net.addPrecondition(a1, t1);
+                net.addPostcondition(t1, b);
+                t1.addFeature(new EnablingFunction("(" + b.getName() + "==0)"));
+                t1.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+            }
+            else{
+                transition.addFeature(new EnablingFunction("(" + b.getName() + "==0)"));
+            }
+        }
+        net.addPrecondition(a, t);
+        net.addPostcondition(t,b);
+        t.addFeature(new EnablingFunction("("+b.getName()+"==0)"));
     }
 
     public void decorateFailure(Failure failure, BigDecimal timestamp){
@@ -152,10 +184,10 @@ public class PetriNetTranslator implements Translator {
     }
 
     private String createEnablingFunctionToAppend(Place failure){
-        StringBuilder enablingFunction = new StringBuilder("!((" + failure.getName() + ">0)");
+        StringBuilder enablingFunction = new StringBuilder("((" + failure.getName() + "==0)");
         Transition t = net.getTransition(failure.getName()+"toFaults");
         for(Postcondition pc: net.getPostconditions(t)){
-            enablingFunction.append("||(").append(pc.getPlace().getName()).append(">0)");
+            enablingFunction.append("&&(").append(pc.getPlace().getName()).append("==0)");
         }
         enablingFunction.append(")");
         return enablingFunction.toString();
