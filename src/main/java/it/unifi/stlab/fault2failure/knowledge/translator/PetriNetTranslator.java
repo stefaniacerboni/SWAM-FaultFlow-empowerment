@@ -117,12 +117,27 @@ public class PetriNetTranslator implements Translator {
 
     /**
      * Decorate the already instanced petri net with information coming at the Operational Level: this includes
-     * -adding timestamp to failure occurrences' transitions
-     * -decorate failure occurrence's places with tokens if they're active
+     * -the event (which can be an Error, Fault or Failure) and its timestamp
+     * This method adds the timestamp to Fault/Failure occurrences' transitions and
+     * decorates Fault/Failure occurrence's places with tokens if they're active.
+     * Changes the ErroMode's transition with a deterministic transition if specified.
      *
-     * @param fault the instance of Failure created at Operational Level in a Scenario, that has to be translated
-     *              into a Place in the PetriNet.
+     * @param event the instance of an event created at Operational Level in a Scenario, that has to be translated
+     *              into a Place in the PetriNet. This can be a Fault, Error or Failure
+     * @param timestamp the moment in which the event is expected to occur. For an error, this parameter specifies
+     *                  a different delay (deterministic) in the propagation of the failure.
      */
+    public void decorate(Event event, BigDecimal timestamp){
+        switch(event.getClass().getSimpleName()){
+            case "Error":
+                decorateError((Error) event, timestamp);
+                break;
+            case "Failure":
+                decorateFailure((Failure) event, timestamp);
+                break;
+            default: decorateOccurrence((Fault) event, timestamp); //per ora funziona solo con basic event fault
+        }
+    }
     public void decorateOccurrence(Fault fault, BigDecimal timestamp) {
         if(fault.getFaultMode() instanceof ExogenousFaultMode) {
             decorateExogenousFaultOccurrence(fault);
@@ -199,18 +214,6 @@ public class PetriNetTranslator implements Translator {
         if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
         t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
-    }
-
-    public void decorate(Event event, BigDecimal timestamp){
-        switch(event.getClass().getSimpleName()){
-            case "Error":
-                decorateError((Error) event, timestamp);
-                break;
-            case "Failure":
-                decorateFailure((Failure) event, timestamp);
-                break;
-            default: decorateOccurrence((Fault) event, timestamp); //per ora funziona solo con basic event fault
-        }
     }
 
 

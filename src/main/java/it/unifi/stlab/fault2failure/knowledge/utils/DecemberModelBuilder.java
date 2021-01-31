@@ -155,7 +155,7 @@ public class DecemberModelBuilder {
                 .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
-    public static void injectFaultsIntoScenarioBySample(Scenario scenario, String serial) {
+    public static void injectFaultsIntoScenarioBySampling(Scenario scenario, String serial) {
         //Occorrenze campionate sulla pdf
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", (EndogenousFaultMode) faultModes.get("A_Fault1"));
         Fault A_fault3Occurred = new Fault("A_fault3Occurred", (EndogenousFaultMode) faultModes.get("A_Fault3"));
@@ -222,8 +222,6 @@ public class DecemberModelBuilder {
     public Map<String, Component> getMetaComponents() {
         return system.getComponents().stream().collect(Collectors.toMap(Component::getName, Function.identity()));
     }
-
-    //Base Level Methods: Create a Scenario, Sets its Base System and Injects faults into that
 
     public System getSystem() {
         return system;

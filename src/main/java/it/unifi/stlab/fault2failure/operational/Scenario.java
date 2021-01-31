@@ -46,32 +46,19 @@ public class Scenario {
 		                    .map(c -> new ConcreteComponent(c.getName() + "_Base", c))
 		                    .collect(Collectors.toList());
 	}
-/*
-	public void addFault(Fault fault, BigDecimal timestamp, ConcreteComponent concreteComponent) {
-		//Add the fault to the incomingFault list
-		fault.occurred(timestamp);
-		if (!incomingFaults.contains(fault))
-			incomingFaults.add(fault);
-		concreteComponent.addFailure(fault);
-		failureComponents.put(fault.getDescription(), concreteComponent);
-
-		incomingEvents.add(fault);
-	}
-
- */
 
 	public void addCustomErrorDelay(Error error) {
 		errorDelays.computeIfAbsent(error.getErrorMode().getName(), k -> error.getTimestamp());
 	}
 
 	public void addEvent(Event event, ConcreteComponent concreteComponent){
-		if(event.getClass().getSimpleName().equals("Error")){
+		if(event instanceof Error){
 			addCustomErrorDelay((Error)event);
 		}
 		else {
 			incomingEvents.add(event);
 			eventComponents.put(event.getDescription(), concreteComponent);
-			if(event.getClass().getSimpleName().equals("Fault")){
+			if(event instanceof Fault){
 				concreteComponent.addFailure((Fault)event);
 			}
 		}
@@ -110,18 +97,7 @@ public class Scenario {
 
 	/**
 	 * Method propagate orders the Faults inside the incomingFaultTimes map by Timestamp, then iteratively calls the
-	 * method propagate(Failure, Component) in a chronological way.
-	 */
-	/*
-	public void propagate2() {
-		List<Fault> orderedList =
-				incomingFaults.stream().sorted(Comparator.comparing(Fault::getTimestamp)).collect(Collectors.toList());
-		for (Fault fault : orderedList) {
-			ConcreteComponent affectedConcreteComponent = failureComponents.get(fault.getDescription());
-			propagate(fault, affectedConcreteComponent);
-		}
-	}
-
+	 * method propagate(Fault, Component) in a chronological way.
 	 */
 
 	public void propagate(){
@@ -129,10 +105,10 @@ public class Scenario {
 				incomingEvents.stream().sorted(Comparator.comparing(Event::getTimestamp)).collect(Collectors.toList());
 		for(Event event: orderedList){
 			ConcreteComponent affectedConcreteComponent = eventComponents.get(event.getDescription());
-			if(event.getClass().getSimpleName().equals("Fault")){
+			if(event instanceof Fault){
 				propagate((Fault) event, affectedConcreteComponent);
 			}
-			if(event.getClass().getSimpleName().equals("Failure")){
+			if(event instanceof Failure){
 				propagateFailure((Failure) event, affectedConcreteComponent);
 			}
 		}
@@ -196,18 +172,10 @@ public class Scenario {
 
 	/**
 	 * In a visitor design pattern way, the Scenario Class accepts a Visit from the PetriNetTranslator class
-	 * to translate all the information concerning failure occurrences and their timestamps into petriNet places
+	 * to translate all the information concerning Fault and Failure occurrences and their timestamps into petriNet places
 	 * and markings
 	 *
 	 * @param pnt a PetriNetTranslator instance
-	 */
-	/*
-	public void accept2(PetriNetTranslator pnt) {
-		for (Fault f : this.incomingFaults) {
-			pnt.decorateOccurrence(f, f.getTimestamp());
-		}
-	}
-
 	 */
 
 	public void accept(PetriNetTranslator pnt){

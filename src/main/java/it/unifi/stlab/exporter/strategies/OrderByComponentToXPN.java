@@ -3,7 +3,6 @@ package it.unifi.stlab.exporter.strategies;
 import it.unifi.stlab.exporter.jaxb.*;
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
-import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
@@ -12,7 +11,10 @@ import org.oristool.petrinet.Marking;
 import org.oristool.petrinet.PetriNet;
 import org.oristool.petrinet.Postcondition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -130,14 +132,24 @@ public class OrderByComponentToXPN implements ExportToXPN {
         for (Component component : system.getComponents()) {
             for (ErrorMode errorMode : component.getErrorModes()) {
                 for (FaultMode faultMode : errorMode.getInputFaultModes()) {
-                    if (faultMode instanceof EndogenousFaultMode) {
-                        org.oristool.petrinet.Place place = petrinet.getPlace(faultMode.getName() + "Occurrence");
+                    org.oristool.petrinet.Place place = petrinet.getPlace(faultMode.getName() + "Occurrence");
+                    if (place != null) {
                         if (componentPlaces.get(component) == null)
                             componentPlaces.computeIfAbsent(component, k -> new ArrayList<>()).add(place);
                         else {
                             if (!componentPlaces.get(component).contains(place))
                                 componentPlaces.get(component).add(place);
                         }
+                    }
+                }
+                //check failures too
+                org.oristool.petrinet.Place place = petrinet.getPlace(errorMode.getOutgoingFailure().getDescription() + "Occurrence");
+                if (place != null) {
+                    if (componentPlaces.get(component) == null)
+                        componentPlaces.computeIfAbsent(component, k -> new ArrayList<>()).add(place);
+                    else {
+                        if (!componentPlaces.get(component).contains(place))
+                            componentPlaces.get(component).add(place);
                     }
                 }
             }

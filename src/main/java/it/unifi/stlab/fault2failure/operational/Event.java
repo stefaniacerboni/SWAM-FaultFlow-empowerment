@@ -1,7 +1,5 @@
 package it.unifi.stlab.fault2failure.operational;
 
-import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
-
 import java.math.BigDecimal;
 
 public abstract class Event {
