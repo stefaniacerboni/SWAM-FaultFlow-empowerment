@@ -137,10 +137,6 @@ public class Scenario {
 		this.system = system;
 	}
 
-	public void addComponent(ConcreteComponent... components){
-		this.system.addAll(Arrays.asList(components));
-	}
-
 	/**
 	 * Method propagate orders the Faults inside the incomingFaultTimes map by Timestamp, then iteratively calls the
 	 * method propagate(Fault, Component) in a chronological way.
