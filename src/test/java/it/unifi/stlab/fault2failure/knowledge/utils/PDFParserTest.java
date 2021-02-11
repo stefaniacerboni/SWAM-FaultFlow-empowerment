@@ -114,13 +114,13 @@ public class PDFParserTest {
 
         input = new ExponentialDistribution(3);
         actual = PDFParser.parseRealDistributionToStochasticTransitionFeature(input);
-        expected = StochasticTransitionFeature.newExponentialInstance(BigDecimal.valueOf(3));
+        expected = StochasticTransitionFeature.newExponentialInstance(BigDecimal.valueOf(1/3.0));
         assert(actual.density().equals(expected.density()));
 
         input = new GammaDistribution(3,4);
         actual = PDFParser.parseRealDistributionToStochasticTransitionFeature(input);
         expected = StochasticTransitionFeature.newErlangInstance(3, BigDecimal.valueOf(4));
-        //assertEquals(expected.density().toMathematicaString(), actual.density().toMathematicaString());
+        assertEquals(expected.density().toMathematicaString(), actual.density().toMathematicaString());
     }
 
     @Test

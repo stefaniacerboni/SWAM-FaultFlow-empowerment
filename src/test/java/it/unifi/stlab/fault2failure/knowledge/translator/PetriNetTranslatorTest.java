@@ -205,11 +205,11 @@ public class PetriNetTranslatorTest {
         B_Failure2toFaults.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", expectedPN)));
         B_Failure2toFaults.addFeature(new Priority(0));
         a_Failure1.addFeature(new EnablingFunction("(A_Fault1>0)&&((A_Fault2>0)||(A_Fault3>0))"));
-        a_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("5"), new BigDecimal("1")));
+        a_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("5"), new BigDecimal("1")));
         a_Failure2.addFeature(new EnablingFunction("(A_Fault3>0)&&((A_Fault4>0)||(A_Fault5>0))"));
-        a_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("7"), new BigDecimal("1")));
+        a_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("7"), new BigDecimal("1")));
         a_Failure3.addFeature(new EnablingFunction("(A_Fault2>0)||(A_Fault5>0)"));
-        a_Failure3.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("9"), new BigDecimal("1")));
+        a_Failure3.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("9"), new BigDecimal("1")));
         a_Fault1Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("10"), MarkingExpr.from("1", expectedPN)));
         a_Fault1Occurrence.addFeature(new Priority(0));
         a_Fault2Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("13"), MarkingExpr.from("1", expectedPN)));
@@ -221,9 +221,9 @@ public class PetriNetTranslatorTest {
         a_Fault5Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", expectedPN)));
         a_Fault5Occurrence.addFeature(new Priority(0));
         b_Failure1.addFeature(new EnablingFunction("(B_Fault1>0)&&(B_Fault2>0)"));
-        b_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("6"), new BigDecimal("1")));
+        b_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("6"), new BigDecimal("1")));
         b_Failure2.addFeature(new EnablingFunction("(B_Fault1>0)&&(B_Fault3>0)"));
-        b_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("2"), new BigDecimal("1")));
+        b_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")));
         b_Fault1Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("12"), MarkingExpr.from("1", expectedPN)));
         b_Fault1Occurrence.addFeature(new Priority(0));
         b_Fault2Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("18"), MarkingExpr.from("1", expectedPN)));
@@ -231,11 +231,11 @@ public class PetriNetTranslatorTest {
         b_Fault3Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", expectedPN)));
         b_Fault3Occurrence.addFeature(new Priority(0));
         c_Failure1.addFeature(new EnablingFunction("(C_Fault2>0)&&(C_Fault3>0)"));
-        c_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("2"), new BigDecimal("1")));
+        c_Failure1.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")));
         c_Failure2.addFeature(new EnablingFunction("(C_Fault6>0)&&(C_Fault4>0)"));
-        c_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("2"), new BigDecimal("1")));
+        c_Failure2.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")));
         c_Failure3.addFeature(new EnablingFunction("(C_Fault5>0)&&(C_Fault6>0)"));
-        c_Failure3.addFeature(StochasticTransitionFeature.newErlangInstance(new Integer("2"), new BigDecimal("1")));
+        c_Failure3.addFeature(StochasticTransitionFeature.newErlangInstance(Integer.parseInt("2"), new BigDecimal("1")));
         c_Fault6Occurrence.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("17"), MarkingExpr.from("1", expectedPN)));
         c_Fault6Occurrence.addFeature(new Priority(0));
     }
@@ -270,8 +270,8 @@ public class PetriNetTranslatorTest {
         // BEGIN : solo per trovare il problema
 
 
-        List<String> exptrnas = new ArrayList<String>(expectedPN.getTransitionNames());
-        List<String> acttrnas = new ArrayList<String>(actualPN.getTransitionNames());
+        List<String> exptrnas = new ArrayList<>(expectedPN.getTransitionNames());
+        List<String> acttrnas = new ArrayList<>(actualPN.getTransitionNames());
         Collections.sort(exptrnas);
         Collections.sort(acttrnas);
         java.lang.System.out.println(acttrnas);
@@ -339,12 +339,12 @@ public class PetriNetTranslatorTest {
         Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), BigDecimal.valueOf(18));
         Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"), BigDecimal.valueOf(17));
         //add 6 occurrences
-        scenario.addEvent(A_fault1Occurred, currentSystem.get("Leaf_A_Test"));
-        scenario.addEvent(A_fault2Occurred, currentSystem.get("Leaf_A_Test"));
-        scenario.addEvent(A_fault3Occurred, currentSystem.get("Leaf_A_Test"));
-        scenario.addEvent(B_fault1Occurred, currentSystem.get("Leaf_B_Test"));
-        scenario.addEvent(B_fault2Occurred, currentSystem.get("Leaf_B_Test"));
-        scenario.addEvent(C_fault6Occurred, currentSystem.get("Root_C_Test"));
+        scenario.addEvent(A_fault1Occurred, currentSystem.get("Leaf_A_Base"));
+        scenario.addEvent(A_fault2Occurred, currentSystem.get("Leaf_A_Base"));
+        scenario.addEvent(A_fault3Occurred, currentSystem.get("Leaf_A_Base"));
+        scenario.addEvent(B_fault1Occurred, currentSystem.get("Leaf_B_Base"));
+        scenario.addEvent(B_fault2Occurred, currentSystem.get("Leaf_B_Base"));
+        scenario.addEvent(C_fault6Occurred, currentSystem.get("Root_C_Base"));
         scenario.propagate();
         scenario.accept(pnt);
 

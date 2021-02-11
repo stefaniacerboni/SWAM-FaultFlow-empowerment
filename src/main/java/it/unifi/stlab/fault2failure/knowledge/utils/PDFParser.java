@@ -6,7 +6,6 @@ import org.oristool.math.function.Erlang;
 import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
-import java.math.BigDecimal;
 
 public class PDFParser {
     public static StochasticTransitionFeature parseStringToStochasticTransitionFeature(String arisingPDF) {
@@ -102,7 +101,7 @@ public class PDFParser {
                 return StochasticTransitionFeature.newUniformInstance(a,b);
             }
         } else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
-            return StochasticTransitionFeature.newExponentialInstance(String.valueOf((int)(1/(((ExponentialDistribution) realDistribution).getMean()))));
+            return StochasticTransitionFeature.newExponentialInstance(String.valueOf((1/(((ExponentialDistribution) realDistribution).getMean()))));
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
             return StochasticTransitionFeature.newErlangInstance(((int) ((GammaDistribution) realDistribution).getShape()), String.valueOf((int)((GammaDistribution) realDistribution).getScale()));
         } else
