@@ -8,9 +8,9 @@ public class Error extends Event{
     private final ErrorMode errorMode;
 
     public Error(String description, ErrorMode errorMode, BigDecimal timestamp){
-        this.description = description;
+        super.setDescription(description);
         this.errorMode=errorMode;
-        this.timestamp = timestamp;
+        super.setTimestamp(timestamp);
     }
 
     public ErrorMode getErrorMode() {

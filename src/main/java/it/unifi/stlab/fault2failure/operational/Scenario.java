@@ -2,12 +2,12 @@ package it.unifi.stlab.fault2failure.operational;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
+import it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
 
-import javax.ejb.DuplicateKeyException;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
@@ -31,6 +31,8 @@ public class Scenario {
 	private List<ConcreteComponent> system;
 
 	public Scenario() {
+		system= new ArrayList<>();
+
 		incomingEvents = new ArrayList<>();
 		eventComponents = new HashMap<>();
 		errorDelays = new HashMap<>();
@@ -41,10 +43,42 @@ public class Scenario {
 	}
 
 	public Scenario(System system) {
+		this(system, "_Base");
+	}
+
+	public Scenario(System system, String serial){
 		this();
 		this.system = system.getComponents().stream()
-		                    .map(c -> new ConcreteComponent(c.getName() + "_Base", c))
-		                    .collect(Collectors.toList());
+				.map(c -> new ConcreteComponent(c.getName() + serial, c))
+				.collect(Collectors.toList());
+	}
+
+	public void InitializeScenarioFromSystem() {
+		if (this.system != null) {
+			for (ConcreteComponent concreteComponent : this.system) {
+				for (ErrorMode errorMode : concreteComponent.getComponentType().getErrorModes()) {
+					for (FaultMode faultMode : errorMode.getInputFaultModes()) {
+						if (faultMode instanceof EndogenousFaultMode) {
+							Fault basicEvent = new Fault(faultMode.getName() + "Occurred", (EndogenousFaultMode) faultMode);
+							addEvent(basicEvent, concreteComponent);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void InitializeScenarioFromSystem(System system, String serial){
+		if(this.system == null) {
+			this.system = system.getComponents().stream()
+					.map(c -> new ConcreteComponent(c.getName() + serial, c))
+					.collect(Collectors.toList());
+		}
+		InitializeScenarioFromSystem();
+	}
+
+	public void InitializeScenarioFromSystem(System system){
+		InitializeScenarioFromSystem(system, "_Base");
 	}
 
 	public void addCustomErrorDelay(Error error) {
@@ -56,6 +90,14 @@ public class Scenario {
 			addCustomErrorDelay((Error)event);
 		}
 		else {
+			if(eventComponents.get(event.getDescription()) != null) {
+				Optional<Event> oldEvent = incomingEvents.stream().filter(x -> x.getDescription().equalsIgnoreCase(event.getDescription())).findAny();
+				if (oldEvent.isPresent()) {
+					incomingEvents.remove(oldEvent.get());
+					if (oldEvent.get() instanceof Fault)
+						concreteComponent.removeFailure((Fault) oldEvent.get());
+				}
+			}
 			incomingEvents.add(event);
 			eventComponents.put(event.getDescription(), concreteComponent);
 			if(event instanceof Fault){
@@ -93,6 +135,10 @@ public class Scenario {
 
 	public void setSystem(List<ConcreteComponent> system) {
 		this.system = system;
+	}
+
+	public void addComponent(ConcreteComponent... components){
+		this.system.addAll(Arrays.asList(components));
 	}
 
 	/**

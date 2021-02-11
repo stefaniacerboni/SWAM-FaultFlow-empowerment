@@ -8,7 +8,9 @@ import it.unifi.stlab.fault2failure.operational.Error;
 import it.unifi.stlab.fault2failure.operational.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -155,6 +157,7 @@ public class DecemberModelBuilder {
                 .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
+
     public static void injectFaultsIntoScenarioBySampling(Scenario scenario, String serial) {
         //Occorrenze campionate sulla pdf
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", (EndogenousFaultMode) faultModes.get("A_Fault1"));
@@ -200,6 +203,7 @@ public class DecemberModelBuilder {
         Failure A_Failure2 = new Failure("A_failure2Occurred", failureModes.get("A_Failure2"), BigDecimal.TEN);
         Error errorModeA = new it.unifi.stlab.fault2failure.operational.Error("errorModeA", errorModes.get("A_ToFailure1"), BigDecimal.TEN);
         Fault C_Fault3 = new Fault("C_Fault3", faultModes.get("C_Fault3"), BigDecimal.TEN);
+        Fault C_Fault2 = new Fault("C_Fault2", faultModes.get("C_Fault2"), BigDecimal.ONE);
 
         Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
 
@@ -217,6 +221,8 @@ public class DecemberModelBuilder {
         scenario.addCustomErrorDelay(errorModeA);
         //prova su exo fault
         scenario.addEvent(C_Fault3, currentSystem.get("C" + serial));
+        scenario.addEvent(C_Fault2, currentSystem.get("C" + serial));
+
     }
 
     public Map<String, Component> getMetaComponents() {

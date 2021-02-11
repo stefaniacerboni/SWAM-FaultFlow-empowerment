@@ -16,9 +16,9 @@ public class Fault extends Event{
      * @param timestamp the moment in which the Fault it's expected to occur
      */
     public Fault(String description, FaultMode faultMode, BigDecimal timestamp) {
-        this.description = description;
+        super.setDescription(description);
         this.faultMode = faultMode;
-        this.timestamp = timestamp;
+        super.setTimestamp(timestamp);
     }
 
     /**
@@ -30,9 +30,11 @@ public class Fault extends Event{
      */
 
     public Fault(String description, EndogenousFaultMode faultMode) {
-        this.description = description;
+        super.setDescription(description);
+        BigDecimal timestamp = BigDecimal.valueOf(SampleGenerator.generate(faultMode.getArisingPDFToString()));
+        super.setTimestamp(timestamp);
         this.faultMode = faultMode;
-        this.timestamp = BigDecimal.valueOf(SampleGenerator.generate(faultMode.getArisingPDFToString()));
+
     }
 
     /**

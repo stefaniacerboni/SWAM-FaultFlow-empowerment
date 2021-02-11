@@ -135,7 +135,7 @@ public class PetriNetTranslator implements Translator {
             case "Failure":
                 decorateFailure((Failure) event, timestamp);
                 break;
-            default: decorateOccurrence((Fault) event, timestamp); //per ora funziona solo con basic event fault
+            default: decorateOccurrence((Fault) event, timestamp);
         }
     }
     public void decorateOccurrence(Fault fault, BigDecimal timestamp) {

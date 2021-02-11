@@ -1,11 +1,13 @@
 package it.unifi.stlab.fault2failure.operational;
 
+import it.unifi.stlab.fault2failure.knowledge.composition.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConcreteComponent {
     private final String serial;
-    private it.unifi.stlab.fault2failure.knowledge.composition.Component componentType;
+    private Component componentType;
     private final List<Fault> faultList;
 
     /**

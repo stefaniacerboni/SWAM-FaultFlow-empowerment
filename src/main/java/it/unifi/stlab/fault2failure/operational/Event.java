@@ -3,8 +3,8 @@ package it.unifi.stlab.fault2failure.operational;
 import java.math.BigDecimal;
 
 public abstract class Event {
-    String description;
-    BigDecimal timestamp;
+    private String description;
+    private BigDecimal timestamp;
 
     public String getDescription() {
         return description;
@@ -12,6 +12,14 @@ public abstract class Event {
 
     public BigDecimal getTimestamp() {
         return this.timestamp;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    protected void setTimestamp(BigDecimal timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String toString() {

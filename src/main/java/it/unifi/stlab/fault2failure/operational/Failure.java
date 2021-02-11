@@ -8,9 +8,9 @@ public class Failure extends Event{
     private FailureMode failureMode;
 
     public Failure(String description, FailureMode failureMode, BigDecimal timestamp){
-        this.description = description;
+        super.setDescription(description);
         this.failureMode = failureMode;
-        this.timestamp = timestamp;
+        super.setTimestamp(timestamp);
     }
 
     public FailureMode getFailureMode() {
