@@ -159,34 +159,8 @@ public class DecemberModelBuilder {
     }
 
     public static void injectFaultsIntoScenarioBySampling(Scenario scenario, String serial) {
-        //Occorrenze campionate sulla pdf
-        Fault A_fault1Occurred = new Fault("A_fault1Occurred", (EndogenousFaultMode) faultModes.get("A_Fault1"));
-        Fault A_fault3Occurred = new Fault("A_fault3Occurred", (EndogenousFaultMode) faultModes.get("A_Fault3"));
-        Fault A_fault4Occurred = new Fault("A_fault4Occurred", (EndogenousFaultMode) faultModes.get("A_Fault4"));
-        Fault A_fault5Occurred = new Fault("A_fault5Occurred", (EndogenousFaultMode) faultModes.get("A_Fault5"));
-
-        Fault B_fault1Occurred = new Fault("B_fault1Occurred", (EndogenousFaultMode) faultModes.get("B_Fault1"));
-        Fault B_fault2Occurred = new Fault("B_fault2Occurred", (EndogenousFaultMode) faultModes.get("B_Fault2"));
-        Fault C_fault4Occurred = new Fault("C_fault4Occurred", (EndogenousFaultMode) faultModes.get("C_Fault4"));
-
-        Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
-
-        scenario.addEvent(A_fault1Occurred,
-                          currentSystem.get("A"+serial));
-        scenario.addEvent(A_fault3Occurred,
-                          currentSystem.get("A"+serial));
-        scenario.addEvent(A_fault4Occurred,
-                          currentSystem.get("A"+serial));
-        scenario.addEvent(A_fault5Occurred,
-                          currentSystem.get("A"+serial));
-
-        scenario.addEvent(B_fault1Occurred,
-                          currentSystem.get("B"+serial));
-        scenario.addEvent(B_fault2Occurred,
-                          currentSystem.get("B"+serial));
-
-        scenario.addEvent(C_fault4Occurred,
-                          currentSystem.get("C"+serial));
+        //Tutte le occorrenze dei Fault vengono campionate sulle relative pdf
+        scenario.InitializeScenarioFromSystem();
     }
 
         public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
@@ -207,7 +181,6 @@ public class DecemberModelBuilder {
 
         Map<String, ConcreteComponent> currentSystem = scenario.getCurrentSystemMap();
 
-
         scenario.addEvent(A_fault1Occurred, currentSystem.get("A" + serial));
         scenario.addEvent(A_fault3Occurred, currentSystem.get("A" + serial));
         scenario.addEvent(A_fault4Occurred, currentSystem.get("A" + serial));
@@ -216,17 +189,14 @@ public class DecemberModelBuilder {
         scenario.addEvent(B_fault2Occurred, currentSystem.get("B" + serial));
         scenario.addEvent(C_fault4Occurred, currentSystem.get("C" + serial));
 
-        //prova su failure e error
+        //ADD Failure e error
         scenario.addEvent(A_Failure2, currentSystem.get("A" + serial));
         scenario.addCustomErrorDelay(errorModeA);
-        //prova su exo fault
+
+        //ADD Exo fault
         scenario.addEvent(C_Fault3, currentSystem.get("C" + serial));
         scenario.addEvent(C_Fault2, currentSystem.get("C" + serial));
 
-    }
-
-    public Map<String, Component> getMetaComponents() {
-        return system.getComponents().stream().collect(Collectors.toMap(Component::getName, Function.identity()));
     }
 
     public System getSystem() {
