@@ -5,11 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class System {
-    private final String name;
+    private String name;
     private String manufacturer;
     private String model;
     private List<Component> components;
     private Component topLevelComponent;
+
+    public System(){
+        this.name="";
+        this.components = new ArrayList<>();
+    }
 
     public System(String name) {
         this.name = name;
@@ -24,6 +29,10 @@ public class System {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name){
+        this.name=name;
     }
 
     public String getManufacturer() {
