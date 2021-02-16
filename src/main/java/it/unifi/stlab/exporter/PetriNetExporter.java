@@ -20,7 +20,7 @@ public class PetriNetExporter {
         return pnt;
     }
     public static void exportPetriNet(PetriNetTranslator pnt) throws JAXBException, FileNotFoundException{
-        XPNExporter.export(new File("src/main/java/it/unifi/stlab/exporter/files/PetriNet_Fault2Failure.xpn"),
+        XPNExporter.export(new File("export/PetriNet_Fault2Failure.xpn"),
                 new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
 }
