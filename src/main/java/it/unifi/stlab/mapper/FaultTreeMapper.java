@@ -45,16 +45,15 @@ public class FaultTreeMapper {
 
                 if (currentNode.getNodeType() == NodeType.GATE) {
                     Component mc = getComponentInSystem(system, currentNode.getComponentId());
-                    if (!mc.isErrorModeNamePresent(currentNode.getExternalId())) {
-                        ErrorMode errorMode = new ErrorMode(currentNode.getExternalId());
-                        FailureMode fm = failureModes.get(parent.getExternalId());
+                    if (!mc.isErrorModeNamePresent(currentNode.getLabel())) {
+                        ErrorMode errorMode = new ErrorMode(currentNode.getLabel());
+                        FailureMode fm = failureModes.get(parent.getLabel());
                         if (fm != null)
                             errorMode.setOutGoingFailure(fm);
                         else {
-                            errorMode.setOutGoingFailure(new FailureMode(parent.getExternalId()));
+                            errorMode.setOutGoingFailure(new FailureMode(parent.getLabel()));
                             failureModes.put(errorMode.getOutgoingFailure().getDescription(), errorMode.getOutgoingFailure());
                         }
-                        //errorMode.setOutGoingFailure(new FailureMode(parent.getExternalId()));
                         errorMode.setPDF(parent.getPdf());
                         getEnablingFunctionByNavigatingTree(inputFaultTreeDto, currentNode.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system);
                         mc.addErrorMode(errorMode);
@@ -93,6 +92,10 @@ public class FaultTreeMapper {
         return faultTree.getNodes().stream().filter(x -> x.getExternalId().equalsIgnoreCase(nodeID)).findFirst().get();
     }
 
+    public static InputNodeDto getNodeFromLabel(InputFaultTreeDto faultTree, String label) {
+        return faultTree.getNodes().stream().filter(x -> x.getLabel().equalsIgnoreCase(label)).findFirst().get();
+    }
+
     public static String getEnablingFunctionByNavigatingTree(InputFaultTreeDto faultTreeDto, String currentNode, ErrorMode errorMode,
                                                              HashMap<String, FaultMode> faultModes, HashMap<String, FailureMode> failureModes,
                                                              Queue<InputNodeDto> nodeToVisit, System system) {
@@ -107,7 +110,7 @@ public class FaultTreeMapper {
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")||");
                             break;
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getExternalId());
+                            FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
                             String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
@@ -121,8 +124,8 @@ public class FaultTreeMapper {
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
-                            be.append(child.getExternalId()).append("||");
-                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getExternalId());
+                            be.append(child.getLabel()).append("||");
+                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getLabel());
                             endogenousFaultMode.setArisingPDF(child.getPdf());
                             errorMode.addInputFaultMode(endogenousFaultMode);
                             faultModes.put(child.getExternalId(), endogenousFaultMode);
@@ -138,7 +141,7 @@ public class FaultTreeMapper {
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")&&");
                             break;
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getExternalId());
+                            FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
                             String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
@@ -152,11 +155,11 @@ public class FaultTreeMapper {
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
-                            be.append(child.getExternalId()).append("&&");
-                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getExternalId());
+                            be.append(child.getLabel()).append("&&");
+                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getLabel());
                             endogenousFaultMode.setArisingPDF(child.getPdf());
                             errorMode.addInputFaultMode(endogenousFaultMode);
-                            faultModes.put(child.getExternalId(), endogenousFaultMode);
+                            faultModes.put(child.getLabel(), endogenousFaultMode);
                     }
                 }
                 be.delete(be.length() - 2, be.length());
@@ -168,7 +171,7 @@ public class FaultTreeMapper {
                     //hope they're all basic or failures
                     switch (child.getNodeType()) {
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getExternalId());
+                            FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
                             String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
                             be.append(faultname).append(",");
@@ -182,11 +185,11 @@ public class FaultTreeMapper {
                             mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
                             break;
                         default:
-                            be.append(child.getExternalId()).append(",");
-                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getExternalId());
+                            be.append(child.getLabel()).append(",");
+                            EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getLabel());
                             endogenousFaultMode.setArisingPDF(child.getPdf());
                             errorMode.addInputFaultMode(endogenousFaultMode);
-                            faultModes.put(child.getExternalId(), endogenousFaultMode);
+                            faultModes.put(child.getLabel(), endogenousFaultMode);
                     }
                 }
                 be.delete(be.length() - 1, be.length());
@@ -306,7 +309,7 @@ public class FaultTreeMapper {
                     return alias.getFaultName();
             }
         }
-        return failure.getExternalId().replace("Failure", "Fault");
+        return failure.getLabel().replace("Failure", "Fault");
     }
 
 }

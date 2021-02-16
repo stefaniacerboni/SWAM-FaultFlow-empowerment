@@ -1,6 +1,7 @@
 package it.unifi.stlab.mapper;
 
 import it.unifi.stlab.dto.inputsystemdto.bdd.InputBddDto;
+import it.unifi.stlab.dto.inputsystemdto.bdd.InputBlockDto;
 import it.unifi.stlab.dto.inputsystemdto.bdd.InputParentingDto;
 import it.unifi.stlab.dto.system.CompositionPortDto;
 import it.unifi.stlab.dto.system.MetaComponentDto;
@@ -10,27 +11,30 @@ import it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort;
 import it.unifi.stlab.fault2failure.knowledge.composition.System;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SystemMapper {
     public static System BddToSystem(InputBddDto inputBddDto){
-        System bddSystem = new System(inputBddDto.getRootId()+"_System");
-        Component topLevelComponent = new Component(inputBddDto.getRootId());
-        bddSystem.addComponent(topLevelComponent);
-        bddSystem.setTopLevelComponent(topLevelComponent);
-        for(InputParentingDto parenting: inputBddDto.getParentings()){
-            Component component = new Component(parenting.getLabel());
+        System bddSystem = new System();
+        Map<String, String> idToNames = new HashMap<>();
+        for(InputBlockDto block: inputBddDto.getBlocks()){
+            Component component = new Component(block.getName());
             bddSystem.addComponent(component);
+            idToNames.put(block.getExternalId(), block.getName());
         }
+        Component topLevelComponent = bddSystem.getComponent(idToNames.get(inputBddDto.getRootId()));
+        bddSystem.setTopLevelComponent(topLevelComponent);
+        bddSystem.setName(topLevelComponent.getName()+"_System");
         Map<String, List<InputParentingDto>> orderByParent = inputBddDto.getParentings().stream()
                 .collect(Collectors.groupingBy(InputParentingDto::getParentId));
         for(Map.Entry<String, List<InputParentingDto>> entry : orderByParent.entrySet()){
-            Component mainComponent = bddSystem.getComponent(entry.getKey());
+            Component mainComponent = bddSystem.getComponent(idToNames.get(entry.getKey()));
             for(InputParentingDto inputParentingDto: entry.getValue()){
-                CompositionPort compositionPort = new CompositionPort(bddSystem.getComponent(inputParentingDto.getLabel()),
-                        mainComponent);
+                Component child = bddSystem.getComponent(idToNames.get(inputParentingDto.getChildId()));
+                CompositionPort compositionPort = new CompositionPort(child, mainComponent);
                 mainComponent.addCompositionPorts(compositionPort);
             }
         }
