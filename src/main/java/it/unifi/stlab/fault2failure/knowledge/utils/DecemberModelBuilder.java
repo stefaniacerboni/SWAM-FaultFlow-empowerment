@@ -30,11 +30,14 @@ public class DecemberModelBuilder {
         Component a = new Component("A");
         Component b = new Component("B");
         Component c = new Component("C");
-        system.addComponent(a, b, c);
-        system.setTopLevelComponent(c);
+        Component s = new Component("S");
+        system.addComponent(a, b, c, s);
+        system.setTopLevelComponent(s);
         CompositionPort ac = new CompositionPort(a, c);
         CompositionPort bc = new CompositionPort(b, c);
         c.addCompositionPorts(ac, bc);
+        CompositionPort cs = new CompositionPort(c, s);
+        s.addCompositionPorts(cs);
 
         // Definizione di Fault Mode Endogeni
 
