@@ -8,11 +8,8 @@ import it.unifi.stlab.fault2failure.operational.Error;
 import it.unifi.stlab.fault2failure.operational.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DecemberModelBuilder {
@@ -139,7 +136,7 @@ public class DecemberModelBuilder {
         eM_C2.addOutputFailureMode(fM_C2);
         eM_C2.setEnablingCondition("C_Fault3 && C_Fault4", faultModes);
         eM_C2.setPDF("dirac(0)");
-        errorModes.put(eM_C1.getName(), eM_C1);
+        errorModes.put(eM_C2.getName(), eM_C2);
         failureModes.put(fM_C2.getDescription(), fM_C2);
 
 
