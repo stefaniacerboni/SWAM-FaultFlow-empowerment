@@ -48,27 +48,27 @@ public class SteamBoilerModelBuilder {
         // Definizione di Fault Mode Endogeni
 
         EndogenousFaultMode enFM_S1MD = new EndogenousFaultMode("Sensor1_MD");
-        enFM_S1MD.setArisingPDF("dirac(3)");
+        enFM_S1MD.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_S1ED = new EndogenousFaultMode("Sensor1_ED");
-        enFM_S1ED.setArisingPDF("dirac(3)");
+        enFM_S1ED.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_S2MD = new EndogenousFaultMode("Sensor2_MD");
-        enFM_S2MD.setArisingPDF("dirac(3)");
+        enFM_S2MD.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_S2ED = new EndogenousFaultMode("Sensor2_ED");
-        enFM_S2ED.setArisingPDF("dirac(3)");
+        enFM_S2ED.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_S3MD = new EndogenousFaultMode("Sensor3_MD");
-        enFM_S3MD.setArisingPDF("dirac(3)");
+        enFM_S3MD.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_S3ED = new EndogenousFaultMode("Sensor3_ED");
-        enFM_S3ED.setArisingPDF("dirac(3)");
+        enFM_S3ED.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_CHF = new EndogenousFaultMode("Controller_HF");
         enFM_CHF.setArisingPDF("exp(10)");
         EndogenousFaultMode enFM_V1ED = new EndogenousFaultMode("Valve1_ED");
-        enFM_V1ED.setArisingPDF("dirac(3)");
+        enFM_V1ED.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_V1HF = new EndogenousFaultMode("Valve1_HF");
-        enFM_V1HF.setArisingPDF("dirac(3)");
+        enFM_V1HF.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_V2ED = new EndogenousFaultMode("Valve2_ED");
-        enFM_V2ED.setArisingPDF("dirac(3)");
+        enFM_V2ED.setArisingPDF("dirac(1)");
         EndogenousFaultMode enFM_V2HF = new EndogenousFaultMode("Valve2_HF");
-        enFM_V2HF.setArisingPDF("dirac(3)");
+        enFM_V2HF.setArisingPDF("dirac(1)");
 
         faultModes.put(enFM_S1MD.getName(), enFM_S1MD);
         faultModes.put(enFM_S1ED.getName(), enFM_S1ED);
@@ -152,7 +152,7 @@ public class SteamBoilerModelBuilder {
                 "2/3(Controller_PressureValueFault1, " +
                 "Controller_PressureValueFault2, " +
                 "Controller_PressureValueFault3) || Controller_HF", faultModes);
-        eM_C.setPDF("dirac(0)");
+        eM_C.setPDF("erlang(1,7)");
         errorModes.put(eM_C.getName(), eM_C);
         failureModes.put(fM_C.getDescription(), fM_C);
 
@@ -170,7 +170,7 @@ public class SteamBoilerModelBuilder {
         eM_V1.addInputFaultMode(exFM_VCOF, enFM_V1ED, enFM_V1HF);
         eM_V1.addOutputFailureMode(fM_V1);
         eM_V1.setEnablingCondition("Valve1_HF || Valve1_ED || Valve_CommandOmissionFault", faultModes);
-        eM_V1.setPDF("dirac(0)");
+        eM_V1.setPDF("erlang(2,1)");
         errorModes.put(eM_V1.getName(), eM_V1);
         failureModes.put(fM_V1.getDescription(), fM_V1);
 
@@ -181,7 +181,7 @@ public class SteamBoilerModelBuilder {
         eM_V2.addInputFaultMode(exFM_VCOF, enFM_V2ED, enFM_V2HF);
         eM_V2.addOutputFailureMode(fM_V2);
         eM_V2.setEnablingCondition("Valve2_HF || Valve2_ED || Valve_CommandOmissionFault", faultModes);
-        eM_V2.setPDF("dirac(0)");
+        eM_V2.setPDF("erlang(2,1)");
         errorModes.put(eM_V2.getName(), eM_V2);
         failureModes.put(fM_V2.getDescription(), fM_V2);
 
