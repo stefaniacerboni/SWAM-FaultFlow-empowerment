@@ -6,14 +6,15 @@ import it.unifi.stlab.fault2failure.knowledge.utils.SampleGenerator;
 
 import java.math.BigDecimal;
 
-public class Fault extends Event{
+public class Fault extends Event {
     private final FaultMode faultMode;
 
     /**
      * Create a Fault from its description and FaultMode and the moment in which it's expected to occur.
+     *
      * @param description a string which must be unique.
-     * @param faultMode the type of the Failure.
-     * @param timestamp the moment in which the Fault it's expected to occur
+     * @param faultMode   the type of the Failure.
+     * @param timestamp   the moment in which the Fault it's expected to occur
      */
     public Fault(String description, FaultMode faultMode, BigDecimal timestamp) {
         super.setDescription(description);
@@ -22,11 +23,12 @@ public class Fault extends Event{
     }
 
     /**
-     *  Create a Fault just from its description and FaultMode. This can be done only for endogenousFaults
-     *  (which means, basic events in the FaultTree). By doing so, the timestamp is automatically generated
-     *  by sampling the faultMode's PDF.
+     * Create a Fault just from its description and FaultMode. This can be done only for endogenousFaults
+     * (which means, basic events in the FaultTree). By doing so, the timestamp is automatically generated
+     * by sampling the faultMode's PDF.
+     *
      * @param description a string which must be unique.
-     * @param faultMode the type of the Failure.
+     * @param faultMode   the type of the Failure.
      */
 
     public Fault(String description, EndogenousFaultMode faultMode) {

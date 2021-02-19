@@ -10,12 +10,12 @@ public abstract class Event {
         return description;
     }
 
-    public BigDecimal getTimestamp() {
-        return this.timestamp;
-    }
-
     protected void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getTimestamp() {
+        return this.timestamp;
     }
 
     protected void setTimestamp(BigDecimal timestamp) {

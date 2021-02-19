@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ConcreteComponent {
     private final String serial;
-    private Component componentType;
     private final List<Fault> faultList;
+    private Component componentType;
 
     /**
      * Create a Component by giving its serial number (which must be unique) and its component type.
