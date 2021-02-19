@@ -26,7 +26,7 @@ public class DecemberModelBuilder {
 
         // Definizione composizione del sistema
 
-        system = new System("S");
+        system = new System("S_System", "sys_manufacturer", "sys_model");
         Component a = new Component("A");
         Component b = new Component("B");
         Component c = new Component("C");
@@ -158,12 +158,7 @@ public class DecemberModelBuilder {
                 .collect(Collectors.toList()));
     }
 
-    public static void injectFaultsIntoScenarioBySampling(Scenario scenario, String serial) {
-        //Tutte le occorrenze dei Fault vengono campionate sulle relative pdf
-        scenario.InitializeScenarioFromSystem();
-    }
-
-        public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
+    public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
         //Tempi di occorrenza specificati formalmente
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(10.0));
         Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(12.0));
@@ -207,5 +202,7 @@ public class DecemberModelBuilder {
         return faultModes;
     }
 
-
+    public static HashMap<String, FailureMode> getFailureModes() {
+        return failureModes;
+    }
 }

@@ -5,10 +5,9 @@ import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
-import java.math.BigDecimal;
 
 public class SampleGenerator {
-    public static double generate(String pdf){
+    public static double generate(String pdf) {
         String typePDF = pdf.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
         String arguments = pdf.substring(typePDF.length() + 1, pdf.length() - 1);
         String[] args;

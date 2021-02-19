@@ -1,0 +1,262 @@
+{
+"bdd":{
+    "blocks":   [
+        {
+            "externalId": "PollutionMonitorSystem_id",
+            "name": "PollutionMonitorSystem",
+            "description": "PollutionMonitorSystem_descr"
+        },
+        {
+            "externalId":"PersistenceSubsystem_id",
+            "name": "PersistenceSubsystem",
+            "description": "PersistenceSubsystem_descr"
+        },
+        {
+            "externalId":"SmartAgent_id",
+            "name": "SmartAgent",
+            "description":"SmartAgent_descr"
+        },
+        {
+            "externalId":"DataStorage_id",
+            "name": "DataStorage",
+            "description":"DataStorage_descr"
+        },
+        {
+            "externalId":"IngestionSubsystem_id",
+            "name": "IngestionSubsystem",
+            "description":"IngestionSubsystem_descr"
+        },
+        {
+            "externalId":"IOTBroker_id",
+            "name": "IOTBroker",
+            "description":"IOTBroker_descr"
+        },
+        {
+            "externalId":"FieldDeviceSubsystem_id",
+            "name": "FieldDeviceSubsystem",
+            "description":"FieldDeviceSubsystem_descr"
+        },
+        {
+            "externalId":"MapReduceProcessor_id",
+            "name": "MapReduceProcessor",
+            "description":"MapReduceProcessor_descr"
+        },
+        {
+            "externalId":"PollutantSensor_id",
+            "name": "PollutantSensor",
+            "description":"PollutantSensor_descr"
+        }
+        ],
+    "parentings": [
+        {
+            "parentId": "PollutionMonitorSystem_id",
+            "childId":"PersistenceSubsystem_id",
+            "label":"PMS1"
+        },
+        {
+            "parentId": "PollutionMonitorSystem_id",
+            "childId":"SmartAgent_id",
+            "label":"PMS2"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"DataStorage_id",
+            "label":"PS1"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"IngestionSubsystem_id",
+            "label":"PS2"
+        },
+        {
+            "parentId": "IngestionSubsystem_id",
+            "childId":"IOTBroker_id",
+            "label":"IS1"
+        },
+        {
+            "parentId": "IngestionSubsystem_id",
+            "childId":"FieldDeviceSubsystem_id",
+            "label":"IS2"
+        },
+        {
+            "parentId": "IngestionSubsystem_id",
+            "childId":"MapReduceProcessor_id",
+            "label":"IS2"
+        },
+        {
+            "parentId": "FieldDeviceSubsystem_id",
+            "childId":"PollutantSensor_id",
+            "label":"FDS1"
+        }
+        ],
+        "rootId":"PollutionMonitorSystem_id"
+},
+"faultTree": {
+    "nodes": [
+            {
+            "externalId": "IOTBroker_BufferOverflow_id",
+            "componentId": "IOTBroker",
+            "label": "IOTBroker_BufferOverflow",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(120)"
+        },
+            {
+            "externalId": "IOTBroker_UnavailableBroker_id",
+            "componentId": "IOTBroker",
+            "label": "IOTBroker_UnavailableBroker",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(730)"
+        },
+        {
+            "externalId": "ingestionsubsystem_prop_id",
+            "componentId": "IngestionSubsystem",
+            "label": "ingestionsubsystem_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "IngestionFailure_id",
+            "componentId": "IngestionSubsystem",
+            "label": "IngestionFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)",
+            "actsAs": [
+                    {
+                        "componentId":"SmartAgent_id",
+                        "faultName":"ex5"
+                    }
+            ]
+        },
+        {
+            "externalId": "DataStorage_HDDIssue_id",
+            "componentId": "DataStorage",
+            "label": "DataStorage_HDDIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1825)"
+        },
+        {
+            "externalId": "PersistenceSubsystem_DBMSIssue_id",
+            "componentId": "PersistenceSubsystem",
+            "label": "PersistenceSubsystem_DBMSIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(180)"
+        },
+        {
+            "externalId": "persistenceSubsystem_prop_id",
+            "componentId": "PersistenceSubsystem",
+            "label": "persistenceSubsystem_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "Storage_Failure_id",
+            "componentId": "PersistenceSubsystem",
+            "label": "StorageFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)",
+            "actsAs": [
+                    {
+                        "componentId":"SmartAgent_id",
+                        "faultName":"ex4"
+                    }
+            ]
+
+        },
+        {
+            "externalId": "smartagent_prop1_id",
+            "componentId": "SmartAgent",
+            "label": "smartagent_prop1",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "smartagent_prop_id",
+            "componentId": "SmartAgent",
+            "label": "smartagent_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "SmartAgent_Unavailable_id",
+            "componentId": "SmartAgent",
+            "label": "SmartAgent_Unavailable",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(60)"
+        },
+        {
+            "externalId": "NoSuggestion_Failure_id",
+            "componentId": "SmartAgent",
+            "label": "NoSuggestion_Failure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+
+        },
+        {
+            "externalId": "NoAnalysisData_Failure_id",
+            "componentId": "SmartAgent",
+            "label": "NoAnalysisData_Failure",
+            "nodeType": "FAILURE",
+            "pdf": "exp(4)",
+            "actsAs": [
+                    {
+                        "componentId":"SmartAgent_id",
+                        "faultName":"ex6"
+                    }
+            ]
+
+        }
+    ],
+    "parentings": [
+        {
+            "parentId": "NoSuggestion_Failure_id",
+            "childId": "smartagent_prop_id"
+        },
+        {
+            "parentId": "smartagent_prop_id",
+            "childId": "SmartAgent_Unavailable_id"
+        },
+        {
+            "parentId": "smartagent_prop_id",
+            "childId": "NoAnalysisData_Failure_id"
+        },
+        {
+            "parentId": "NoAnalysisData_Failure_id",
+            "childId": "smartagent_prop1_id"
+        },
+        {
+            "parentId": "smartagent_prop1_id",
+            "childId": "IngestionFailure_id"
+        },
+        {
+            "parentId": "smartagent_prop1_id",
+            "childId": "Storage_Failure_id"
+        },
+        {
+            "parentId": "Storage_Failure_id",
+            "childId": "persistenceSubsystem_prop_id"
+        },
+        {
+            "parentId": "IngestionFailure_id",
+            "childId": "ingestionsubsystem_prop_id"
+        },
+        {
+            "parentId": "ingestionsubsystem_prop_id",
+            "childId": "IOTBroker_BufferOverflow_id"
+        },
+        {
+            "parentId": "ingestionsubsystem_prop_id",
+            "childId": "IOTBroker_UnavailableBroker_id"
+        },
+        {
+            "parentId": "persistenceSubsystem_prop_id",
+            "childId": "DataStorage_HDDIssue_id"
+        },
+        {
+            "parentId": "persistenceSubsystem_prop_id",
+            "childId": "PersistenceSubsystem_DBMSIssue_id"
+        }
+    ],
+    "topEvents": ["NoSuggestion_Failure_id"]
+}
+}
+

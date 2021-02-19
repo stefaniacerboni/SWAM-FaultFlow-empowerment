@@ -1,0 +1,133 @@
+{
+"bdd":{
+    "blocks":   [
+        {
+            "externalId": "S_id",
+            "name": "S",
+            "description": "System"
+        },
+        {
+            "externalId":"C_id",
+            "name": "C",
+            "description": "Comp"
+        },
+        {
+            "externalId":"B_id",
+            "name": "B",
+            "description":"BComp"
+        },
+        {
+            "externalId":"A_id",
+            "name": "A",
+            "description":"AComp"
+        }
+        ],
+    "parentings": [
+        {
+            "parentId": "S_id",
+            "childId":"C_id",
+            "label":"SC"
+        },
+        {
+            "parentId": "C_id",
+            "childId":"A_id",
+            "label":"CA"
+        },
+        {
+            "parentId": "C_id",
+            "childId":"B_id",
+            "label":"CB"
+        }
+        ],
+        "rootId":"S_id"
+},
+"faultTree": {
+    "nodes": [
+            {
+            "externalId": "B_Fault1_id",
+            "componentId": "B",
+            "label": "B_Fault1",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "dirac(3)"
+        },
+            {
+            "externalId": "B_Fault2_id",
+            "componentId": "B",
+            "label": "B_Fault2",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "gaussian(10,5)"
+        },
+        {
+            "externalId": "b_prop1_id",
+            "componentId": "B",
+            "label": "b_prop1",
+            "nodeType": "GATE",
+            "gateType": "AND"
+        },
+        {
+            "externalId": "B_Failure1_id",
+            "componentId": "B",
+            "label": "B_Failure1",
+            "nodeType": "FAILURE",
+            "pdf": "exp(3)",
+            "actsAs": [
+                    {
+                        "componentId":"C",
+                        "faultName":"C_Fault3"
+                    }
+            ]
+        },
+        
+            {
+            "externalId": "C_Fault4_id",
+            "componentId": "C",
+            "label": "C_Fault4",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "uniform(20,40)"
+        },
+        {
+            "externalId": "c_prop2_id",
+            "componentId": "C",
+            "label": "c_prop2",
+            "nodeType": "GATE",
+            "gateType": "AND"
+        },
+        {
+            "externalId": "C_Failure2_id",
+            "componentId": "C",
+            "label": "C_Failure2",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+
+        }
+    ],
+    "parentings": [
+        {
+            "parentId": "C_Failure2_id",
+            "childId": "c_prop2_id"
+        },
+        {
+            "parentId": "c_prop2_id",
+            "childId": "B_Failure1_id"
+        },
+        {
+            "parentId": "c_prop2_id",
+            "childId": "C_Fault4_id"
+        },
+        {
+            "parentId": "B_Failure1_id",
+            "childId": "b_prop1_id"
+        },
+        {
+            "parentId": "b_prop1_id",
+            "childId": "B_Fault1_id"
+        },
+        {
+            "parentId": "b_prop1_id",
+            "childId": "B_Fault2_id"
+        }
+    ],
+    "topEvents": ["C_Failure2_id"]
+}
+}
+

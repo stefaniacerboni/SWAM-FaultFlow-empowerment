@@ -14,7 +14,7 @@ public class PollutionMonitorModelBuilder {
     private static HashMap<String, FailureMode> failureModes;
     private static HashMap<String, ErrorMode> errorModes;
 
-    private PollutionMonitorModelBuilder(){
+    private PollutionMonitorModelBuilder() {
         faultModes = new HashMap<>();
         failureModes = new HashMap<>();
         errorModes = new HashMap<>();
@@ -153,7 +153,6 @@ public class PollutionMonitorModelBuilder {
 
         smartAgent.addPropagationPort(
                 new PropagationPort(fM_NADF, exFM_6, smartAgent));
-
 
 
     }

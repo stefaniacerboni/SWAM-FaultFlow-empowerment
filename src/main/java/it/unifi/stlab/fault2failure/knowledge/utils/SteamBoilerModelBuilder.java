@@ -150,8 +150,8 @@ public class SteamBoilerModelBuilder {
         eM_C.addOutputFailureMode(fM_C);
         eM_C.setEnablingCondition(
                 "2/3(Controller_PressureValueFault1, " +
-                "Controller_PressureValueFault2, " +
-                "Controller_PressureValueFault3) || Controller_HF", faultModes);
+                        "Controller_PressureValueFault2, " +
+                        "Controller_PressureValueFault3) || Controller_HF", faultModes);
         eM_C.setPDF("erlang(1,7)");
         errorModes.put(eM_C.getName(), eM_C);
         failureModes.put(fM_C.getDescription(), fM_C);

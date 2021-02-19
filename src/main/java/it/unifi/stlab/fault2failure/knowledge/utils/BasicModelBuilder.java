@@ -41,7 +41,7 @@ public class BasicModelBuilder {
         system.setTopLevelComponent(c);
         CompositionPort ac = new CompositionPort(a, c);
         CompositionPort bc = new CompositionPort(b, c);
-        c.addCompositionPorts(ac,bc);
+        c.addCompositionPorts(ac, bc);
         //Defines the Failure Modes and Fault Modes at Meta Level
 
 
@@ -78,7 +78,7 @@ public class BasicModelBuilder {
         eM_A3.setEnablingCondition("A_Fault2 || A_Fault5", faultModes);
         eM_A3.setPDF("erlang(9,1)");
 
-        a.addErrorMode(eM_A1,eM_A2,eM_A3);
+        a.addErrorMode(eM_A1, eM_A2, eM_A3);
 
         EndogenousFaultMode enFM_B1 = new EndogenousFaultMode("B_Fault1");
         EndogenousFaultMode enFM_B2 = new EndogenousFaultMode("B_Fault2");
@@ -148,7 +148,7 @@ public class BasicModelBuilder {
         eM_C3.setEnablingCondition("C_Fault5 && C_Fault6", faultModes);
         eM_C3.setPDF("erlang(2,1)");
 
-        c.addErrorMode(eM_C1,  eM_C2, eM_C3);
+        c.addErrorMode(eM_C1, eM_C2, eM_C3);
     }
 
     public static BasicModelBuilder getInstance() {
@@ -157,21 +157,13 @@ public class BasicModelBuilder {
         return singleInstance;
     }
 
-    public HashMap<String, FaultMode> getFaultModes() {
-        return faultModes;
-    }
-
-    public System getSystem() {
-        return system;
-    }
-
-    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial){
+    public static void createBaseDigitalTwin(Scenario scenario, System system, String serial) {
         scenario.setSystem(system.getComponents().stream()
                 .map(c -> new ConcreteComponent(c.getName() + serial, c))
                 .collect(Collectors.toList()));
     }
 
-    public static void injectFaultsIntoScenario(Scenario scenario, String serial){
+    public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
         Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")));
         Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"), BigDecimal.valueOf(SampleGenerator.generate("dirac(13)")));
         Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(SampleGenerator.generate("dirac(16)")));
@@ -182,15 +174,22 @@ public class BasicModelBuilder {
 
         Map<String, ConcreteComponent> current_system = scenario.getCurrentSystemMap();
 
-        scenario.addEvent(A_fault1Occurred, current_system.get("Leaf_A"+serial));
-        scenario.addEvent(A_fault2Occurred, current_system.get("Leaf_A"+serial));
-        scenario.addEvent(A_fault3Occurred, current_system.get("Leaf_A"+serial));
-        scenario.addEvent(B_fault1Occurred, current_system.get("Leaf_B"+serial));
-        scenario.addEvent(B_fault2Occurred, current_system.get("Leaf_B"+serial));
-        scenario.addEvent(C_fault6Occurred, current_system.get("Root_C"+serial));
+        scenario.addEvent(A_fault1Occurred, current_system.get("Leaf_A" + serial));
+        scenario.addEvent(A_fault2Occurred, current_system.get("Leaf_A" + serial));
+        scenario.addEvent(A_fault3Occurred, current_system.get("Leaf_A" + serial));
+        scenario.addEvent(B_fault1Occurred, current_system.get("Leaf_B" + serial));
+        scenario.addEvent(B_fault2Occurred, current_system.get("Leaf_B" + serial));
+        scenario.addEvent(C_fault6Occurred, current_system.get("Root_C" + serial));
 
     }
 
+    public HashMap<String, FaultMode> getFaultModes() {
+        return faultModes;
+    }
+
+    public System getSystem() {
+        return system;
+    }
 
 
 }
