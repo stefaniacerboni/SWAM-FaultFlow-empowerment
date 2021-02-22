@@ -38,7 +38,7 @@ public class DecemberModelExample {
         Fault C_fault2Occurred = new Fault("C_Fault2Occurred", faultModes.get("C_Fault2"), BigDecimal.valueOf(20.0));
         scenario.addEvent(C_fault2Occurred, scenario.getCurrentSystemMap().get("C_Serial"));
 
-        scenario.accept(pnt, PetriNetTranslatorMethod.DETERMINISTIC);
+        scenario.accept(pnt, PetriNetTranslatorMethod.CONCURRENT);
         PetriNetExporter.exportPetriNet(pnt);
         scenario.propagate();
         scenario.printReport();

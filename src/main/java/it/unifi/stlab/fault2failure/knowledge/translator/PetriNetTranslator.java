@@ -206,7 +206,7 @@ public class PetriNetTranslator implements Translator {
             if (t != null) {
                 navigateBackAndRemove(t);
             }
-            //check if it's been declared a failure occurrence before and fix that
+            //check if it's been declared a failure occurrence before and delete it
             t = net.getTransition(getTransitionName(precondition.getPlace().getName()+"Occurrence"));
             if (t != null) {
                 navigateBackAndRemove(t);
@@ -235,8 +235,10 @@ public class PetriNetTranslator implements Translator {
                     break;
                 case DETERMINISTIC:
                     //DeterministicMode: deletes the errorMode and add FailureOccurrence
-                    for (Precondition precondition : net.getPreconditions(errorModeTransition))
+                    for (Precondition precondition : net.getPreconditions(errorModeTransition)) {
                         net.removePrecondition(precondition);
+                        net.removePlace(precondition.getPlace());
+                    }
                     net.removeTransition(errorModeTransition);
                     break;
             }

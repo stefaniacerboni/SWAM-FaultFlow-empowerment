@@ -60,7 +60,7 @@
         {
             "externalId": "b_prop1_id",
             "componentId": "B",
-            "label": "b_prop1",
+            "label": "B_ToFailure1",
             "nodeType": "GATE",
             "gateType": "AND"
         },
@@ -88,7 +88,7 @@
         {
             "externalId": "c_prop2_id",
             "componentId": "C",
-            "label": "c_prop2",
+            "label": "C_ToFailure2",
             "nodeType": "GATE",
             "gateType": "AND"
         },

@@ -60,7 +60,7 @@
         {
             "externalId": "b_prop1_id",
             "componentId": "B",
-            "label": "b_prop1",
+            "label": "B_ToFailure1",
             "nodeType": "GATE",
             "gateType": "AND"
         },
@@ -92,7 +92,7 @@
         {
             "externalId": "c_prop2_id",
             "componentId": "C",
-            "label": "c_prop2",
+            "label": "C_ToFailure2",
             "nodeType": "GATE",
             "gateType": "AND"
         },
@@ -114,7 +114,7 @@
         {
             "externalId": "a_prop1_id",
             "componentId": "A",
-            "label": "a_prop1",
+            "label": "A_ToFailure1",
             "nodeType": "GATE",
             "gateType": "AND"
         },
@@ -128,7 +128,7 @@
         {
             "externalId": "a_prop_id",
             "componentId": "A",
-            "label": "a_prop",
+            "label": "A_ToFailure1",
             "nodeType": "GATE",
             "gateType": "OR"
         },
@@ -162,7 +162,7 @@
         {
             "externalId": "a_prop2_id",
             "componentId": "A",
-            "label": "a_prop2",
+            "label": "A_ToFailure2",
             "nodeType": "GATE",
             "gateType": "AND"
         },
@@ -182,7 +182,7 @@
         {
             "externalId": "c_prop1_id",
             "componentId": "C",
-            "label": "c_prop1",
+            "label": "C_ToFailure1",
             "nodeType": "GATE",
             "gateType": "AND"
         },

@@ -52,7 +52,7 @@ public class DecemberModelBuilder {
         EndogenousFaultMode enFM_B1 = new EndogenousFaultMode("B_Fault1");
         enFM_B1.setArisingPDF("dirac(3)");
         EndogenousFaultMode enFM_B2 = new EndogenousFaultMode("B_Fault2");
-        enFM_B2.setArisingPDF("erlang(10,5)");
+        enFM_B2.setArisingPDF("gaussian(10,5)");
         EndogenousFaultMode enFM_C4 = new EndogenousFaultMode("C_Fault4");
         enFM_C4.setArisingPDF("uniform(20,40)");
 
