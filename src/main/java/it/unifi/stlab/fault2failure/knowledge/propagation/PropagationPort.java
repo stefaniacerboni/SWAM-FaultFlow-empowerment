@@ -2,10 +2,17 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 
+import javax.persistence.*;
+import java.util.UUID;
+
+@Entity
+@Table(name = "propagationPorts")
 public class PropagationPort {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final FailureMode propagatedFailureMode;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final ExogenousFaultMode exogenousFaultMode;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final Component affectedComponent;
     @Id
     private final UUID uuid = UUID.randomUUID();

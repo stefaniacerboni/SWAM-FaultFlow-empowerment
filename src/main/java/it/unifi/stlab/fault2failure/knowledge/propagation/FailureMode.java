@@ -1,9 +1,21 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.UUID;
+
+@Entity
+@Table(name = "failureModes")
 public class FailureMode {
     private final String description;
     @Id
     private final UUID uuid = UUID.randomUUID();
+
+
+    public FailureMode() {
+        this.description = "";
+    }
 
     /**
      * Create a FailureMode by saying its description

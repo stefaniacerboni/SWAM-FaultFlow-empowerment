@@ -1,6 +1,17 @@
 package it.unifi.stlab.fault2failure.knowledge.propagation;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import java.util.UUID;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class FaultMode implements BooleanExpression {
+
+    @Id
+    protected UUID uuid = UUID.randomUUID();
 
     protected String name;
 

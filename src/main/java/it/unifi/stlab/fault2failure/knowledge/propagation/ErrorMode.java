@@ -4,17 +4,35 @@ import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import org.apache.commons.math3.distribution.RealDistribution;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
+@Entity
+@Table(name = "errorModes")
 public class ErrorMode {
     private final String name;
-    private BooleanExpression activationFunction;
-    private FailureMode outgoingFailure;
+    @OneToMany(cascade = CascadeType.PERSIST)
     private final List<FaultMode> inputFaultModes;
+    @Id
+    private final UUID uuid = UUID.randomUUID();
+    @Transient
+    private BooleanExpression activationFunction;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "outgoingFailure")
+    private FailureMode outgoingFailure;
+    @Transient
     private RealDistribution timetofailurePDF;
+
+    @Column(name = "enablingFunction")
+    private String boolexprString;
+
+    @Column(name = "timetofailurePDF")
+    private String timetofailurePDFstring;
+
+    public ErrorMode() {
+        this.name = "";
+        this.inputFaultModes = new ArrayList<>();
+    }
 
     /**
      * Create and ErrorMode by saying its name and its EnablingFunction (or ActivationFunction).
@@ -29,6 +47,8 @@ public class ErrorMode {
         this.activationFunction = function;
         this.inputFaultModes = activationFunction.extractIncomingFaults();
         this.outgoingFailure = null;
+
+        this.boolexprString = function.toString();
     }
 
     public ErrorMode(String name) {
@@ -82,6 +102,7 @@ public class ErrorMode {
 
     public void setPDF(String timetofailurePDF) {
         this.timetofailurePDF = PDFParser.parseStringToRealDistribution(timetofailurePDF);
+        this.timetofailurePDFstring = timetofailurePDF;
     }
 
     public void setOutGoingFailure(FailureMode fm) {
@@ -106,5 +127,6 @@ public class ErrorMode {
 
     public void setEnablingCondition(String booleanExpression, HashMap<String, FaultMode> faultModes) {
         this.activationFunction = BooleanExpression.config(booleanExpression, faultModes);
+        this.boolexprString = booleanExpression;
     }
 }
