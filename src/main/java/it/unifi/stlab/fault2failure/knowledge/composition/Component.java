@@ -3,19 +3,31 @@ package it.unifi.stlab.fault2failure.knowledge.composition;
 import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
+@Entity
+@Table(name = "components")
 public class Component {
     private final String name;
-    private List<CompositionPort> children;
+    @OneToMany(cascade = CascadeType.PERSIST)
     private final List<ErrorMode> errorModes;
+    @OneToMany(cascade = CascadeType.PERSIST)
     private final List<PropagationPort> propagationPorts;
     @Id
     private final UUID uuid = UUID.randomUUID();
     @Transient
     private List<CompositionPort> children;
+
+    public Component() {
+        this.name = "";
+        this.children = new ArrayList<>();
+        this.errorModes = new ArrayList<>();
+        this.propagationPorts = new ArrayList<>();
+    }
 
     /**
      * Create a MetaComponent by setting its name to the String passed in input and its CompositionPort to null

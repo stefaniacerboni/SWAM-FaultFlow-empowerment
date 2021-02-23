@@ -1,18 +1,27 @@
 package it.unifi.stlab.fault2failure.knowledge.composition;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
+@Entity
+@Table(name = "systems")
 public class System {
+    private final UUID uuid = UUID.randomUUID();
+    @Id
     private String name;
     private String manufacturer;
     private String model;
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Component> components;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "topLevelComponent")
     private Component topLevelComponent;
 
-    public System(){
-        this.name="";
+    public System() {
+        this.name = "nd";
         this.components = new ArrayList<>();
     }
 
