@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- Define persistence unit -->
+    <persistence-unit name="faultflow" transaction-type="JTA">
+        <jta-data-source>faultflowDS</jta-data-source>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.ExogenousFaultMode</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.composition.Component</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort</class>
+        <class>it.unifi.stlab.fault2failure.knowledge.composition.System</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true" />
+            <property name="hibernate.default_batch_fetch_size" value="16" />
+            <property name="hibernate.jdbc.batch_size" value="100" />
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/faultflow"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>
