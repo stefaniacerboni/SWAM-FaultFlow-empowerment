@@ -21,12 +21,12 @@ public class EndogenousFaultMode extends FaultMode {
         return arisingPDF;
     }
 
-    public String getArisingPDFToString(){
-        return PDFParser.parseRealDistributionToString(this.arisingPDF);
-    }
-
     public void setArisingPDF(String arisingPDF) {
         this.arisingPDF = PDFParser.parseStringToRealDistribution(arisingPDF);
+    }
+
+    public String getArisingPDFToString() {
+        return PDFParser.parseRealDistributionToString(this.arisingPDF);
     }
 }
 

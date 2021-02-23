@@ -2,6 +2,8 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 public class FailureMode {
     private final String description;
+    @Id
+    private final UUID uuid = UUID.randomUUID();
 
     /**
      * Create a FailureMode by saying its description

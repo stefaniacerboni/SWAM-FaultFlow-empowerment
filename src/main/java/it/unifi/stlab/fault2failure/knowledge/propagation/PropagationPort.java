@@ -3,9 +3,18 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 
 public class PropagationPort {
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final FailureMode propagatedFailureMode;
     private final ExogenousFaultMode exogenousFaultMode;
     private final Component affectedComponent;
+    @Id
+    private final UUID uuid = UUID.randomUUID();
+
+    public PropagationPort() {
+        this.propagatedFailureMode = null;
+        this.exogenousFaultMode = null;
+        this.affectedComponent = null;
+    }
 
     /**
      * Add a propagationPort by specifying four parameters: the inputFail already happened, the outputFault in which

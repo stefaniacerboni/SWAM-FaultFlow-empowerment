@@ -31,8 +31,8 @@ public class System {
         return name;
     }
 
-    public void setName(String name){
-        this.name=name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getManufacturer() {
@@ -75,7 +75,7 @@ public class System {
         this.components.addAll(Arrays.asList(c));
     }
 
-    public Component getComponent(String componentID){
-        return components.stream().filter(x-> x.getName().equals(componentID)).findFirst().get();
+    public Component getComponent(String componentID) {
+        return components.stream().filter(x -> x.getName().equals(componentID)).findFirst().get();
     }
 }

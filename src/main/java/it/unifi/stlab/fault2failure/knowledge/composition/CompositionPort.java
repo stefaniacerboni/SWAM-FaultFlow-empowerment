@@ -7,6 +7,8 @@ import java.util.List;
 public class CompositionPort {
     private final Component parent;
     private final Component child;
+    @Id
+    private final UUID uuid = UUID.randomUUID();
 
     /**
      * Create a CompositionPort by passing the parent of the hierarchical structure
@@ -27,16 +29,4 @@ public class CompositionPort {
         return this.child;
     }
 
-    /*
-     * Add a child to the hierarchical structure represented and set its CompositionPort to this.
-     *
-     * @param component An instance of MetaComponent to be added as a child of the parent in the hierarchy
-
-    public void addChild(Component... component) {
-        this.children.addAll(Arrays.asList(component));
-        for (Component mc : component)
-            mc.setCompositionPorts(this);
-    }
-
-     */
 }

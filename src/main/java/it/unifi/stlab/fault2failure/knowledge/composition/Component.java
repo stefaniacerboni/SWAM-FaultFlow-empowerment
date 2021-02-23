@@ -12,6 +12,10 @@ public class Component {
     private List<CompositionPort> children;
     private final List<ErrorMode> errorModes;
     private final List<PropagationPort> propagationPorts;
+    @Id
+    private final UUID uuid = UUID.randomUUID();
+    @Transient
+    private List<CompositionPort> children;
 
     /**
      * Create a MetaComponent by setting its name to the String passed in input and its CompositionPort to null
@@ -63,11 +67,11 @@ public class Component {
         this.propagationPorts.addAll(propagationPorts);
     }
 
-    public boolean isErrorModeNamePresent(String errorModeName){
-        return errorModes.stream().filter(x-> x.getName().equalsIgnoreCase(errorModeName)).findAny().isPresent();
+    public boolean isErrorModeNamePresent(String errorModeName) {
+        return errorModes.stream().filter(x -> x.getName().equalsIgnoreCase(errorModeName)).findAny().isPresent();
     }
 
-    public void addCompositionPorts(CompositionPort... compositionPort){
+    public void addCompositionPorts(CompositionPort... compositionPort) {
         this.children.addAll(Arrays.asList(compositionPort));
     }
 
