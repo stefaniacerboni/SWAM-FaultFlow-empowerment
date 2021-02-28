@@ -127,7 +127,7 @@ public interface ExportToXPN extends ExportStrategy {
         StochasticTransitionFeature stochasticTransitionFeature = petriNetTransition.getFeature(StochasticTransitionFeature.class);
         if (Erlang.class.equals(stochasticTransitionFeature.density().getClass())) {
             stochastic.setK(((Erlang) stochasticTransitionFeature.density()).getShape());
-            stochastic.setLambda(((Erlang) stochasticTransitionFeature.density()).getLambda().intValue());
+            stochastic.setLambda(((Erlang) stochasticTransitionFeature.density()).getLambda());
             stochastic.setPropertyDataType("4.type.erlang");
         } else if (GEN.class.equals(stochasticTransitionFeature.density().getClass())) {
             String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
@@ -146,7 +146,7 @@ public interface ExportToXPN extends ExportStrategy {
             }
             stochastic.setWeight(1);
         } else if (EXP.class.equals(stochasticTransitionFeature.density().getClass())) {
-            stochastic.setLambda(((EXP) stochasticTransitionFeature.density()).getLambda().intValue());
+            stochastic.setLambda(((EXP) stochasticTransitionFeature.density()).getLambda());
             stochastic.setPropertyDataType("3.type.exponential");
         } else
             throw new UnsupportedOperationException("This type of StochasticTransitionFeature is unsupported");

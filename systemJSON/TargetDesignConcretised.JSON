@@ -1,0 +1,612 @@
+{
+"bdd":{
+    "blocks":   [
+        {
+            "externalId": "PollutionMonitorSystem_id",
+            "name": "PollutionMonitorSystem",
+            "description": "PollutionMonitorSystem_descr"
+        },
+        {
+            "externalId":"PersistenceSubsystem_id",
+            "name": "PersistenceSubsystem",
+            "description": "PersistenceSubsystem_descr"
+        },
+        {
+            "externalId":"SmartAgent_id",
+            "name": "SmartAgent",
+            "description":"SmartAgent_descr"
+        },
+        {
+            "externalId":"DataStorage_id",
+            "name": "DataStorage",
+            "description":"DataStorage_descr"
+        },
+        {
+            "externalId":"IngestionSubsystemOzone_id",
+            "name": "IngestionSubsystemOzone",
+            "description":"IngestionSubsystemOzone_descr"
+        },
+        {
+            "externalId":"IngestionSubsystem1PM10_id",
+            "name": "IngestionSubsystem1PM10",
+            "description":"IIngestionSubsystem1PM10_descr"
+        },
+        {
+            "externalId":"IngestionSubsystem2PM10_id",
+            "name": "IngestionSubsystem2PM10",
+            "description":"IIngestionSubsystem2PM10_descr"
+        },
+        {
+            "externalId":"IngestionSubsystem3PM10_id",
+            "name": "IngestionSubsystem3PM10",
+            "description":"IIngestionSubsystem3PM10_descr"
+        },
+        {
+            "externalId":"IOTBroker_id",
+            "name": "IOTBroker",
+            "description":"IOTBroker_descr"
+        },
+        {
+            "externalId":"FieldDeviceSubsystemOzone_id",
+            "name": "FieldDeviceSubsystemOzone",
+            "description":"FieldDeviceSubsystemOzone_descr"
+        },
+        {
+            "externalId":"FieldDeviceSubsystem1PM10_id",
+            "name": "FieldDeviceSubsystem1PM10",
+            "description":"FieldDeviceSubsystem1PM10_descr"
+        },
+        {
+            "externalId":"FieldDeviceSubsystem2PM10_id",
+            "name": "FieldDeviceSubsystem2PM10",
+            "description":"FieldDeviceSubsystem2PM10_descr"
+        },
+        {
+            "externalId":"FieldDeviceSubsystem3PM10_id",
+            "name": "FieldDeviceSubsystem3PM10",
+            "description":"FieldDeviceSubsystem3PM10_descr"
+        },
+        {
+            "externalId":"MapReduceProcessorOzone_id",
+            "name": "MapReduceProcessorOzone",
+            "description":"MapReduceProcessorOzone_descr"
+        },
+
+        {
+            "externalId":"MapReduceProcessorPM10_id",
+            "name": "MapReduceProcessorPM10",
+            "description":"MapReduceProcessorPM10_descr"
+        },
+        {
+            "externalId":"OzoneSensor_id",
+            "name": "OzoneSensor",
+            "description":"OzoneSensor_descr"
+        },
+        {
+            "externalId":"PM10Sensor1_id",
+            "name": "PM10Sensor1",
+            "description":"PM10Sensor1_descr"
+        },
+        {
+            "externalId":"PM10Sensor2_id",
+            "name": "PM10Sensor2",
+            "description":"PM10Sensor2_descr"
+        },
+        {
+            "externalId":"PM10Sensor3_id",
+            "name": "PM10Sensor3",
+            "description":"PM10Sensor3_descr"
+        }
+        ],
+    "parentings": [
+        {
+            "parentId": "PollutionMonitorSystem_id",
+            "childId":"PersistenceSubsystem_id",
+            "label":"PMS1"
+        },
+        {
+            "parentId": "PollutionMonitorSystem_id",
+            "childId":"SmartAgent_id",
+            "label":"PMS2"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"DataStorage_id",
+            "label":"PS1"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"IngestionSubsystemOzone_id",
+            "label":"PS2"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"IngestionSubsystem1PM10_id",
+            "label":"PS3"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"IngestionSubsystem2PM10_id",
+            "label":"PS4"
+        },
+        {
+            "parentId": "PersistenceSubsystem_id",
+            "childId":"IngestionSubsystem3PM10_id",
+            "label":"PS5"
+        },
+        {
+            "parentId": "IngestionSubsystemOzone_id",
+            "childId":"IOTBroker_id",
+            "label":"ISO1"
+        },
+        {
+            "parentId": "IngestionSubsystemOzone_id",
+            "childId":"FieldDeviceSubsystemOzone_id",
+            "label":"ISO2"
+        },
+        {
+            "parentId": "IngestionSubsystemOzone_id",
+            "childId":"MapReduceProcessorOzone_id",
+            "label":"ISO3"
+        },
+        {
+            "parentId": "IngestionSubsystem1PM10_id",
+            "childId":"FieldDeviceSubsystem1PM10_id",
+            "label":"IS1PM101"
+        },
+        {
+            "parentId": "IngestionSubsystem1PM10_id",
+            "childId":"MapReduceProcessorPM10_id",
+            "label":"IS1PM102"
+        },
+        {
+            "parentId": "IngestionSubsystem2PM10_id",
+            "childId":"FieldDeviceSubsystem2PM10_id",
+            "label":"IS2PM101"
+        },
+        {
+            "parentId": "IngestionSubsystem2PM10_id",
+            "childId":"MapReduceProcessorPM10_id",
+            "label":"IS2PM102"
+        },
+        {
+            "parentId": "IngestionSubsystem3PM10_id",
+            "childId":"FieldDeviceSubsystem3PM10_id",
+            "label":"IS3PM101"
+        },
+        {
+            "parentId": "IngestionSubsystem3PM10_id",
+            "childId":"MapReduceProcessorPM10_id",
+            "label":"IS3PM102"
+        },
+        {
+            "parentId": "FieldDeviceSubsystemOzone_id",
+            "childId":"OzoneSensor_id",
+            "label":"FDSO"
+        },
+        {
+            "parentId": "FieldDeviceSubsystem1PM10_id",
+            "childId":"PM10Sensor1_id",
+            "label":"FDS1PM10"
+	},
+        {
+            "parentId": "FieldDeviceSubsystem2PM10_id",
+            "childId":"PM10Sensor2_id",
+            "label":"FDS2PM10"
+	},
+        {
+            "parentId": "FieldDeviceSubsystem3PM10_id",
+            "childId":"PM10Sensor3_id",
+            "label":"FDS3PM10"
+	}
+        ],
+        "rootId":"PollutionMonitorSystem_id"
+},
+"faultTree": {
+    "nodes": [
+        {
+            "externalId": "DefectiveOzoneSensorIssue_id",
+            "componentId": "OzoneSensor",
+            "label": "DefectiveOzoneSensorIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/365)"
+        },
+        {
+            "externalId": "PublisherOzoneTopicIssue_id",
+            "componentId": "FieldDeviceSubsystemOzone",
+            "label": "PublisherOzoneTopicIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "ingestionSubsystem_prop_id",
+            "componentId": "IngestionSubsystemOzone",
+            "label": "ingestionSubsystem_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "OzoneDataSensorFailure_id",
+            "componentId": "IngestionSubsystemOzone",
+            "label": "OzoneDataSensorFailure",
+            "nodeType": "FAILURE",
+            "pdf": "exp(48)",
+            "actsAs": [
+                    {
+                        "componentId":"MapReduceProcessorOzone",
+                        "faultName":"OzoneDataSensorFault"
+                    }
+            ]
+        },
+        {
+            "externalId": "OzoneDataSynthesis_prop_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "OzoneDataSynthesis_prop",
+            "nodeType": "GATE",
+            "gateType": "KOUTOFN",
+            "k": 1,
+            "n": 1
+        },
+        {
+            "externalId": "OzoneDataSynthesisFailure_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "OzoneDataSynthesisFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+        },
+        {
+            "externalId": "SubscriberOzoneTopicIssue_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "SubscriberOzoneTopicIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "OzoneSWMRBugIssue_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "OzoneSWMRBugIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/540)"
+        },
+        {
+            "externalId": "mapreduceprocessorOzone_prop_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "mapreduceprocessorOzone_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "OzoneDataRefinementFailure_id",
+            "componentId": "MapReduceProcessorOzone",
+            "label": "OzoneDataRefinementFailure",
+            "nodeType": "FAILURE",
+            "pdf": "erlang(5,1/2)",
+            "actsAs": [
+                    {
+                        "componentId":"SmartAgent",
+                        "faultName":"OzoneDataRefinementFault"
+                    }
+            ]
+        },
+        {
+            "externalId": "DefectivePM10Sensor1Issue_id",
+            "componentId": "PM10Sensor1",
+            "label": "DefectivePM10Sensor1Issue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/365)"
+        },
+        {
+            "externalId": "DefectivePM10Sensor2Issue_id",
+            "componentId": "PM10Sensor2",
+            "label": "DefectivePM10Sensor2Issue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/365)"
+        },
+        {
+            "externalId": "DefectivePM10Sensor3Issue_id",
+            "componentId": "PM10Sensor3",
+            "label": "DefectivePM10Sensor3Issue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/365)"
+        },
+        {
+            "externalId": "PublisherPM10TopicIssue1_id",
+            "componentId": "FieldDeviceSubsystem1PM10",
+            "label": "PublisherPM10TopicIssue1",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "PublisherPM10TopicIssue2_id",
+            "componentId": "FieldDeviceSubsystem2PM10",
+            "label": "PublisherPM10TopicIssue2",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "PublisherPM10TopicIssue3_id",
+            "componentId": "FieldDeviceSubsystem3PM10",
+            "label": "PublisherPM10TopicIssue3",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "ingestionSubsystem1_prop_id",
+            "componentId": "IngestionSubsystem1PM10",
+            "label": "ingestionSubsystem1_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "ingestionSubsystem2_prop_id",
+            "componentId": "IngestionSubsystem2PM10",
+            "label": "ingestionSubsystem2_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "ingestionSubsystem3_prop_id",
+            "componentId": "IngestionSubsystem3PM10",
+            "label": "ingestionSubsystem3_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "PM10DataSensor1Failure_id",
+            "componentId": "IngestionSubsystem1PM10",
+            "label": "PM10DataSensor1Failure",
+            "nodeType": "FAILURE",
+            "pdf": "exp(48)",
+            "actsAs": [
+                    {
+                        "componentId":"MapReduceProcessorPM10",
+                        "faultName":"PM10DataSensor1Fault"
+                    }
+            ]
+        },
+        {
+            "externalId": "PM10DataSensor2Failure_id",
+            "componentId": "IngestionSubsystem2PM10",
+            "label": "PM10DataSensor2Failure",
+            "nodeType": "FAILURE",
+            "pdf": "exp(48)",
+            "actsAs": [
+                    {
+                        "componentId":"MapReduceProcessorPM10",
+                        "faultName":"PM10DataSensor2Fault"
+                    }
+            ]
+        },
+        {
+            "externalId": "PM10DataSensor3Failure_id",
+            "componentId": "IngestionSubsystem3PM10",
+            "label": "PM10DataSensor3Failure",
+            "nodeType": "FAILURE",
+            "pdf": "exp(48)",
+            "actsAs": [
+                    {
+                        "componentId":"MapReduceProcessorPM10",
+                        "faultName":"PM10DataSensor3Fault"
+                    }
+            ]
+        },
+        {
+            "externalId": "PM10DataSynthesisFailure_prop_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "PM10DataSynthesisFailure_prop",
+            "nodeType": "GATE",
+            "gateType": "KOUTOFN",
+            "k": 2,
+            "n": 3
+        },
+        {
+            "externalId": "PM10DataSynthesisFailure_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "PM10DataSynthesisFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+        },
+        {
+            "externalId": "SubscriberPM10TopicIssue_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "SubscriberPM10TopicIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/180)"
+        },
+        {
+            "externalId": "PM10SWMRBugIssue_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "PM10SWMRBugIssue",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/540)"
+        },
+        {
+            "externalId": "mapreduceprocessorPM10_prop_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "mapreduceprocessorPM10_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "PM10DataRefinementFailure_id",
+            "componentId": "MapReduceProcessorPM10",
+            "label": "PM10DataRefinementFailure",
+            "nodeType": "FAILURE",
+            "pdf": "erlang(5,1/2)",
+            "actsAs": [
+                    {
+                        "componentId":"SmartAgent",
+                        "faultName":"PM10DataRefinementFault"
+                    }
+            ]
+        },
+        {
+            "externalId": "corruptedData_prop_id",
+            "componentId": "SmartAgent",
+            "label": "corruptedData_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "AnalysisCorruptedDataFailure_id",
+            "componentId": "SmartAgent",
+            "label": "AnalysisCorruptedDataFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+        },
+        {
+            "externalId": "SWBug_id",
+            "componentId": "SmartAgent",
+            "label": "SWBug",
+            "nodeType": "BASIC_EVENT",
+            "pdf": "exp(1/1080)"
+        },
+        {
+            "externalId": "wrongSuggestion_prop_id",
+            "componentId": "SmartAgent",
+            "label": "wrongSuggestion_prop",
+            "nodeType": "GATE",
+            "gateType": "OR"
+        },
+        {
+            "externalId": "WrongSuggestionFailure_id",
+            "componentId": "SmartAgent",
+            "label": "WrongSuggestionFailure",
+            "nodeType": "FAILURE",
+            "pdf": "dirac(0)"
+        }
+    ],
+    "parentings": [
+        {
+            "parentId": "WrongSuggestionFailure_id",
+            "childId": "wrongSuggestion_prop_id"
+        },
+        {
+            "parentId": "wrongSuggestion_prop_id",
+            "childId": "SWBug_id"
+        },
+        {
+            "parentId": "wrongSuggestion_prop_id",
+            "childId": "AnalysisCorruptedDataFailure_id"
+        },
+        {
+            "parentId": "AnalysisCorruptedDataFailure_id",
+            "childId": "corruptedData_prop_id"
+        },
+        {
+            "parentId": "corruptedData_prop_id",
+            "childId": "OzoneDataRefinementFailure_id"
+        },
+        {
+            "parentId": "corruptedData_prop_id",
+            "childId": "PM10DataRefinementFailure_id"
+        },
+        {
+            "parentId": "OzoneDataRefinementFailure_id",
+            "childId": "mapreduceprocessorOzone_prop_id"
+        },
+        {
+            "parentId": "mapreduceprocessorOzone_prop_id",
+            "childId": "OzoneSWMRBugIssue_id"
+        },
+        {
+            "parentId": "mapreduceprocessor_prop_id",
+            "childId": "SubscriberOzoneTopicIssue_id"
+        },
+        {
+            "parentId": "mapreduceprocessor_prop_id",
+            "childId": "OzoneDataSynthesisFailure_id"
+        },
+        {
+            "parentId": "OzoneDataSynthesisFailure_id",
+            "childId": "OzoneDataSynthesis_prop_id"
+        },
+        {
+            "parentId": "OzoneDataSynthesis_prop_id",
+            "childId": "OzoneDataSensorFailure_id"
+        },
+        {
+            "parentId": "OzoneDataSensorFailure_id",
+            "childId": "ingestionSubsystem_prop_id"
+        },
+        {
+            "parentId": "ingestionSubsystem_prop_id",
+            "childId": "PublisherOzoneTopicIssue_id"
+        },
+        {
+            "parentId": "ingestionSubsystem_prop_id",
+            "childId": "DefectiveOzoneSensorIssue_id"
+        },
+        {
+            "parentId": "PM10DataRefinementFailure_id",
+            "childId": "mapreduceprocessorPM10_prop_id"
+        },
+        {
+            "parentId": "mapreduceprocessorPM10_prop_id",
+            "childId": "PM10SWMRBugIssue_id"
+        },
+        {
+            "parentId": "mapreduceprocessorPM10_prop_id",
+            "childId": "SubscriberPM10TopicIssue_id"
+        },
+        {
+            "parentId": "mapreduceprocessorPM10_prop_id",
+            "childId": "PM10DataSynthesisFailure_id"
+        },
+        {
+            "parentId": "PM10DataSynthesisFailure_id",
+            "childId": "PM10DataSynthesisFailure_prop_id"
+        },
+        {
+            "parentId": "PM10DataSynthesisFailure_prop_id",
+            "childId": "PM10DataSensor3Failure_id"
+        },
+        {
+            "parentId": "PM10DataSynthesisFailure_prop_id",
+            "childId": "PM10DataSensor2Failure_id"
+        },
+        {
+            "parentId": "PM10DataSynthesisFailure_prop_id",
+            "childId": "PM10DataSensor1Failure_id"
+        },
+        {
+            "parentId": "PM10DataSensor1Failure_id",
+            "childId": "ingestionSubsystem1_prop_id"
+        },
+        {
+            "parentId": "PM10DataSensor2Failure_id",
+            "childId": "ingestionSubsystem2_prop_id"
+        },
+        {
+            "parentId": "PM10DataSensor3Failure_id",
+            "childId": "ingestionSubsystem3_prop_id"
+        },
+        {
+            "parentId": "ingestionSubsystem3_prop_id",
+            "childId": "PublisherPM10TopicIssue3_id"
+        },
+        {
+            "parentId": "ingestionSubsystem2_prop_id",
+            "childId": "PublisherPM10TopicIssue2_id"
+        },
+        {
+            "parentId": "ingestionSubsystem1_prop_id",
+            "childId": "PublisherPM10TopicIssue1_id"
+        },
+        {
+            "parentId": "ingestionSubsystem1_prop_id",
+            "childId": "DefectivePM10Sensor1Issue_id"
+        },
+        {
+            "parentId": "ingestionSubsystem2_prop_id",
+            "childId": "DefectivePM10Sensor2Issue_id"
+        },
+        {
+            "parentId": "ingestionSubsystem3_prop_id",
+            "childId": "DefectivePM10Sensor3Issue_id"
+        }
+    ],
+    "topEvents": ["WrongSuggestionFailure_id"]
+}
+}
+

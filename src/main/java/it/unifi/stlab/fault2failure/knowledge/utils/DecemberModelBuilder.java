@@ -118,7 +118,7 @@ public class DecemberModelBuilder {
                 new PropagationPort(fM_A2, exFM_C2, c));
         b.addPropagationPort(
                 new PropagationPort(fM_B1, exFM_A2, a),
-                new PropagationPort(fM_B1, exFM_C3, c)
+                new PropagationPort(fM_B1, exFM_C3, c, BigDecimal.valueOf(0.6))
         );
 
         // Definizione delle Failure Mode per C

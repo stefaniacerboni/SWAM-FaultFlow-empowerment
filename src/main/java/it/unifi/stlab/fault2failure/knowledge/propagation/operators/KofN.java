@@ -49,7 +49,7 @@ public class KofN extends Operator {
         StringBuilder res = new StringBuilder();
         if (k == 1) {
             res.append(this.elements.get(0).toString());
-            for (int i = 0; i < this.n; i++) {
+            for (int i = 1; i < this.n; i++) {
                 res.append("||").append(this.elements.get(i).toString()).append("||");
             }
         } else if (k == n) {
