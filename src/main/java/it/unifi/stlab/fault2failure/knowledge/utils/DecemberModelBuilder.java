@@ -115,7 +115,7 @@ public class DecemberModelBuilder {
 
         a.addPropagationPort(
                 new PropagationPort(fM_A1, exFM_C1, c),
-                new PropagationPort(fM_A2, exFM_C2, c));
+                new PropagationPort(fM_A2, exFM_C2, c, BigDecimal.valueOf(0.35)));
         b.addPropagationPort(
                 new PropagationPort(fM_B1, exFM_A2, a),
                 new PropagationPort(fM_B1, exFM_C3, c, BigDecimal.valueOf(0.6))
