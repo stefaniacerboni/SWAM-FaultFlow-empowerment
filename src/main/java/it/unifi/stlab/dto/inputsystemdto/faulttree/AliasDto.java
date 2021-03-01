@@ -3,7 +3,7 @@ package it.unifi.stlab.dto.inputsystemdto.faulttree;
 public class AliasDto {
     private String componentId;
     private String faultName;
-    //private double prob;
+    private Double routingProbability;
 
     public String getComponentId() {
         return componentId;
@@ -19,5 +19,13 @@ public class AliasDto {
 
     public void setFaultName(String faultName) {
         this.faultName = faultName;
+    }
+
+    public Double getRoutingProbability() {
+        return routingProbability;
+    }
+
+    public void setRoutingProbability(Double routingProbability) {
+        this.routingProbability = routingProbability;
     }
 }
