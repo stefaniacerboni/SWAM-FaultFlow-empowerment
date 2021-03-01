@@ -98,14 +98,14 @@
             "componentId": "IOTBroker",
             "label": "IOTBroker_BufferOverflow",
             "nodeType": "BASIC_EVENT",
-            "pdf": "exp(120)"
+            "pdf": "exp(1/120)"
         },
             {
             "externalId": "IOTBroker_UnavailableBroker_id",
             "componentId": "IOTBroker",
             "label": "IOTBroker_UnavailableBroker",
             "nodeType": "BASIC_EVENT",
-            "pdf": "exp(730)"
+            "pdf": "exp(1/730)"
         },
         {
             "externalId": "ingestionsubsystem_prop_id",
@@ -132,14 +132,14 @@
             "componentId": "DataStorage",
             "label": "DataStorage_HDDIssue",
             "nodeType": "BASIC_EVENT",
-            "pdf": "exp(1825)"
+            "pdf": "exp(1/1825)"
         },
         {
             "externalId": "PersistenceSubsystem_DBMSIssue_id",
             "componentId": "PersistenceSubsystem",
             "label": "PersistenceSubsystem_DBMSIssue",
             "nodeType": "BASIC_EVENT",
-            "pdf": "exp(180)"
+            "pdf": "exp(1/180)"
         },
         {
             "externalId": "persistenceSubsystem_prop_id",
@@ -181,7 +181,7 @@
             "componentId": "SmartAgent",
             "label": "SmartAgent_Unavailable",
             "nodeType": "BASIC_EVENT",
-            "pdf": "exp(60)"
+            "pdf": "exp(1/60)"
         },
         {
             "externalId": "NoSuggestion_Failure_id",
