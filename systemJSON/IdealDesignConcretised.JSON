@@ -259,7 +259,7 @@
             "componentId": "MapReduceProcessorOzone",
             "label": "OzoneDataRefinementFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(5,1/2)",
+            "pdf": "erlang(5,2)",
             "actsAs": [
                     {
                         "componentId":"SmartAgent",
@@ -376,7 +376,7 @@
             "componentId": "MapReduceProcessorPM10",
             "label": "PM10DataRefinementFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(5,1/2)",
+            "pdf": "erlang(5,2)",
             "actsAs": [
                     {
                         "componentId":"SmartAgent",
