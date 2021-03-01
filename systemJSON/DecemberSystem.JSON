@@ -73,7 +73,8 @@
             "actsAs": [
                     {
                         "componentId":"C",
-                        "faultName":"C_Fault3"
+                        "faultName":"C_Fault3",
+                        "routingProbability": 0.6
                     },
                     {
                         "componentId":"A",
@@ -175,7 +176,8 @@
             "actsAs": [
                     {
                         "componentId":"C",
-                        "faultName":"C_Fault2"
+                        "faultName":"C_Fault2",
+                        "routingProbability": 0.35
                     }
             ]
         },
