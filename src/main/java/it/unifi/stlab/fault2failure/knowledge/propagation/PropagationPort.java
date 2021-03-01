@@ -2,14 +2,17 @@ package it.unifi.stlab.fault2failure.knowledge.propagation;
 
 import it.unifi.stlab.fault2failure.knowledge.composition.Component;
 
+import java.math.BigDecimal;
+
 public class PropagationPort {
     private final FailureMode propagatedFailureMode;
     private final ExogenousFaultMode exogenousFaultMode;
     private final Component affectedComponent;
+    private final BigDecimal routingProbability;
 
     /**
      * Add a propagationPort by specifying four parameters: the inputFail already happened, the outputFault in which
-     * the inputFail propagates, the ErrorMode that handles this propagation and the MetaComponent affected by this propagation.
+     * the inputFail propagates, the MetaComponent affected by this propagation and (optional) the routing probability.
      *
      * @param inFail            the FailureMode that triggers the propagation.
      * @param outFault          the ExogenousFaultMode in which the inputFail propagates
@@ -20,6 +23,14 @@ public class PropagationPort {
         this.propagatedFailureMode = inFail;
         this.exogenousFaultMode = outFault;
         this.affectedComponent = affectedComponent;
+        this.routingProbability = BigDecimal.ONE;
+    }
+
+    public PropagationPort(FailureMode inFail, ExogenousFaultMode outFault, Component affectedComponent, BigDecimal routingProbability) {
+        this.propagatedFailureMode = inFail;
+        this.exogenousFaultMode = outFault;
+        this.affectedComponent = affectedComponent;
+        this.routingProbability = routingProbability;
     }
 
     public FailureMode getPropagatedFailureMode() {
@@ -32,5 +43,9 @@ public class PropagationPort {
 
     public Component getAffectedComponent() {
         return affectedComponent;
+    }
+
+    public BigDecimal getRoutingProbability() {
+        return routingProbability;
     }
 }
