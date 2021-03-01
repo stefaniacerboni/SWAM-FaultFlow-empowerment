@@ -99,7 +99,7 @@ public class TransitionProperty
     @XmlAttribute(name = "value")
     protected Integer value;
     @XmlAttribute(name = "lambda")
-    protected Integer lambda;
+    protected BigDecimal lambda;
     @XmlAttribute(name = "k")
     protected Integer k;
     @XmlAttribute(name = "efts")
@@ -379,7 +379,7 @@ public class TransitionProperty
      * @return possible object is
      * {@link Integer }
      */
-    public Integer getLambda() {
+    public BigDecimal getLambda() {
         return lambda;
     }
 
@@ -389,7 +389,7 @@ public class TransitionProperty
      * @param value allowed object is
      *              {@link Integer }
      */
-    public void setLambda(Integer value) {
+    public void setLambda(BigDecimal value) {
         this.lambda = value;
     }
 
