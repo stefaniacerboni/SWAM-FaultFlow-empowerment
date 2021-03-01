@@ -1,12 +1,12 @@
 package it.unifi.stlab.exporter.strategies;
 
 import it.unifi.stlab.exporter.jaxb.*;
-import it.unifi.stlab.fault2failure.knowledge.composition.Component;
-import it.unifi.stlab.fault2failure.knowledge.composition.System;
-import it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode;
-import it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort;
-import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
+import it.unifi.stlab.model.knowledge.composition.Component;
+import it.unifi.stlab.model.knowledge.composition.System;
+import it.unifi.stlab.model.knowledge.propagation.ErrorMode;
+import it.unifi.stlab.model.knowledge.propagation.FaultMode;
+import it.unifi.stlab.model.knowledge.propagation.PropagationPort;
+import it.unifi.stlab.translator.PetriNetTranslator;
 import org.oristool.petrinet.Marking;
 import org.oristool.petrinet.PetriNet;
 import org.oristool.petrinet.Postcondition;

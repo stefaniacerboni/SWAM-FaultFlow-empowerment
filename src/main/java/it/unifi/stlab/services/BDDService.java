@@ -1,8 +1,8 @@
 package it.unifi.stlab.services;
 
 import it.unifi.stlab.dto.inputsystemdto.bdd.InputBddDto;
-import it.unifi.stlab.mapper.SystemMapper;
-import it.unifi.stlab.fault2failure.knowledge.composition.System;
+import it.unifi.stlab.services.mapper.SystemMapper;
+import it.unifi.stlab.model.knowledge.composition.System;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

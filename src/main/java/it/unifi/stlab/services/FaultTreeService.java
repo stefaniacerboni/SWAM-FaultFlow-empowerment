@@ -1,19 +1,5 @@
 package it.unifi.stlab.services;
 
-import it.unifi.stlab.dto.inputsystemdto.faulttree.*;
-import it.unifi.stlab.exporter.XPNExporter;
-import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
-import it.unifi.stlab.fault2failure.knowledge.composition.System;
-import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
-import it.unifi.stlab.mapper.FaultTreeMapper;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
 //@Path("/ft")
 public class FaultTreeService {
 /*

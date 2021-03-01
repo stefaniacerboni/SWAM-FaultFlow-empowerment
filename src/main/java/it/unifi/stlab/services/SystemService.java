@@ -5,11 +5,11 @@ import it.unifi.stlab.dto.inputsystemdto.faulttree.InputFaultTreeDto;
 import it.unifi.stlab.exporter.PetriNetExportMethod;
 import it.unifi.stlab.exporter.XPNExporter;
 import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
-import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
-import it.unifi.stlab.fault2failure.knowledge.composition.System;
-import it.unifi.stlab.fault2failure.knowledge.translator.PetriNetTranslator;
-import it.unifi.stlab.mapper.FaultTreeMapper;
-import it.unifi.stlab.mapper.SystemMapper;
+import it.unifi.stlab.model.knowledge.composition.System;
+import it.unifi.stlab.translator.PetriNetTranslator;
+import it.unifi.stlab.utils.builder.SimpleSystem02Builder;
+import it.unifi.stlab.services.mapper.FaultTreeMapper;
+import it.unifi.stlab.services.mapper.SystemMapper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -52,6 +52,17 @@ public class SystemService {
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
+    }
+
+    @GET
+    @Path("/db")
+    public void db() throws Exception {
+        System s = SimpleSystem02Builder.getInstance().getSystem();
+        userTransaction.begin();
+        systemDao.save(s);
+        userTransaction.commit();
+
+
     }
 
 }
