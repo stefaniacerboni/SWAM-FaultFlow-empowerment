@@ -1,7 +1,9 @@
 package it.unifi.stlab.fault2failure.knowledge.utils;
 
+import org.apache.commons.math3.analysis.function.Exp;
 import org.apache.commons.math3.distribution.*;
 import org.junit.Test;
+import org.oristool.math.function.Erlang;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
@@ -26,12 +28,12 @@ public class PDFParserTest {
         expected = StochasticTransitionFeature.newDeterministicInstance(BigDecimal.valueOf(3));
         assertEquals(expected.density().toMathematicaString(), actual.density().toMathematicaString());
 
-        input = "Exp(1/3)";
+        input = "Exp(3)";
         actual = PDFParser.parseStringToStochasticTransitionFeature(input);
         expected = StochasticTransitionFeature.newExponentialInstance(BigDecimal.valueOf(3));
         assert(actual.density().equals(expected.density()));
 
-        input = "Erlang(3,1/4)";
+        input = "Erlang(3,4)";
         actual = PDFParser.parseStringToStochasticTransitionFeature(input);
         expected = StochasticTransitionFeature.newErlangInstance(3, BigDecimal.valueOf(4.0));
         assertEquals(actual.density().toMathematicaString(), expected.density().toMathematicaString());
@@ -53,21 +55,29 @@ public class PDFParserTest {
         actual = PDFParser.parseStringToRealDistribution(input);
         expected = new UniformRealDistribution(1,3);
         assertEquals(expected.getClass(), actual.getClass());
+        assertEquals(expected.getNumericalMean(), actual.getNumericalMean(), 0.0);
+        assertEquals(expected.getNumericalVariance(), actual.getNumericalVariance(), 0.0);
+
 
         input = "Dirac(3)";
         actual = PDFParser.parseStringToRealDistribution(input);
         expected = new NormalDistribution(3, Double.MIN_VALUE);
         assertEquals(expected.getClass(), actual.getClass());
+        assertEquals(expected.getNumericalMean(), actual.getNumericalMean(), 0.0);
+
 
         input = "Exp(3)";
         actual = PDFParser.parseStringToRealDistribution(input);
-        expected = new ExponentialDistribution(3);
+        expected = new ExponentialDistribution(1/3.0);
         assertEquals(expected.getClass(), actual.getClass());
+        assertEquals(((ExponentialDistribution)expected).getMean(), ((ExponentialDistribution)actual).getMean(), 0.0);
 
         input = "Erlang(3,4)";
         actual = PDFParser.parseStringToRealDistribution(input);
-        expected = new GammaDistribution(3,4);
+        expected = new GammaDistribution(3,1/4.0);
         assertEquals(expected.getClass(), actual.getClass());
+        assertEquals(((GammaDistribution)expected).getShape(), ((GammaDistribution)actual).getShape(), 0.0);
+        assertEquals(((GammaDistribution)expected).getScale(), ((GammaDistribution)actual).getScale(), 0.0);
     }
 
     @Test
@@ -141,12 +151,12 @@ public class PDFParserTest {
 
         input = StochasticTransitionFeature.newExponentialInstance(BigDecimal.valueOf(3));
         actual = PDFParser.parseStochasticTransitionFeatureToString(input);
-        expected = "exp("+1/3.0+")";
+        expected = "exp("+3.0+")";
         assertEquals(expected, actual);
 
         input = StochasticTransitionFeature.newErlangInstance(3, BigDecimal.valueOf(4));
         actual = PDFParser.parseStochasticTransitionFeatureToString(input);
-        expected = "erlang(3,"+1/4.0+")";
+        expected = "erlang(3,"+4.0+")";
         assertEquals(expected, actual);
     }
 
@@ -168,10 +178,10 @@ public class PDFParserTest {
 
         input = new ExponentialDistribution(1/3.0);
         actual = PDFParser.parseRealDistributionToString(input);
-        expected = "exp("+1/3.0+")";
+        expected = "exp(3)";
         assertEquals(expected, actual);
 
-        input = new GammaDistribution(3,4.0);
+        input = new GammaDistribution(3,1/4.0);
         actual = PDFParser.parseRealDistributionToString(input);
         expected = "erlang(3,4)";
         assertEquals(expected, actual);
