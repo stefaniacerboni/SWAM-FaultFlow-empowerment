@@ -11,6 +11,7 @@ import it.unifi.stlab.fault2failure.knowledge.utils.PDFParser;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -112,7 +113,9 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
+                            String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
+                            String faultname = faultNameAndProbability[0];
+                            BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
                             faultModes.put(faultname, exogenousFaultMode);
@@ -121,7 +124,7 @@ public class FaultTreeMapper {
                                 nodeToVisit.add(child);
                             Component mc = getComponentInSystem(system, child.getComponentId());
                             Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent, routingProbability));
                             break;
                         default:
                             be.append(child.getLabel()).append("||");
@@ -143,7 +146,9 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
+                            String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
+                            String faultname = faultNameAndProbability[0];
+                            BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
                             faultModes.put(faultname, exogenousFaultMode);
@@ -152,7 +157,7 @@ public class FaultTreeMapper {
                                 nodeToVisit.add(child);
                             Component mc = getComponentInSystem(system, child.getComponentId());
                             Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent, routingProbability));
                             break;
                         default:
                             be.append(child.getLabel()).append("&&");
@@ -173,7 +178,9 @@ public class FaultTreeMapper {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getLabel());
                             failureModes.put(failureMode.getDescription(), failureMode);
-                            String faultname = generateFailuresFaultName(child, nodeDto.getComponentId());
+                            String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
+                            String faultname = faultNameAndProbability[0];
+                            BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
                             be.append(faultname).append(",");
                             ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(faultname);
                             errorMode.addInputFaultMode(exogenousFaultMode);
@@ -182,7 +189,7 @@ public class FaultTreeMapper {
                                 nodeToVisit.add(child);
                             Component mc = getComponentInSystem(system, child.getComponentId());
                             Component affectedComponent = getComponentInSystem(system, nodeDto.getComponentId());
-                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent));
+                            mc.addPropagationPort(new PropagationPort(failureMode, exogenousFaultMode, affectedComponent, routingProbability));
                             break;
                         default:
                             be.append(child.getLabel()).append(",");
@@ -284,6 +291,8 @@ public class FaultTreeMapper {
                 outputPropagationPort.setAffectedComponent(propagationPort.getAffectedComponent().getName());
                 outputPropagationPort.setExogenousFaultMode(propagationPort.getExogenousFaultMode().getName());
                 outputPropagationPort.setPropagatedFailureMode(propagationPort.getPropagatedFailureMode().getDescription());
+                if(propagationPort.getRoutingProbability() != BigDecimal.ONE)
+                    outputPropagationPort.setRoutingProbability(propagationPort.getRoutingProbability().doubleValue());
                 outputPropagationPorts.add(outputPropagationPort);
             }
             for (CompositionPort compositionPort : component.getCompositionPorts()) {
@@ -301,15 +310,27 @@ public class FaultTreeMapper {
         return outputSystemDto;
     }
 
-    private static String generateFailuresFaultName(InputNodeDto failure, String gate) {
-
-        if (!failure.getActsAs().isEmpty()) {
+    private static String[] getFailuresFaultNameAndProbability(InputNodeDto failure, String gate) {
+        //first element is the fault's name, second element is fault routing probability
+        String[] res = new String[2];
+        if (failure.getActsAs()!=null) {
             for (AliasDto alias : failure.getActsAs()) {
-                if (alias.getComponentId().equalsIgnoreCase(gate))
-                    return alias.getFaultName();
+                if (alias.getComponentId().equalsIgnoreCase(gate)) {
+                    res[0] = alias.getFaultName();
+                    if(alias.getRoutingProbability() != null) {
+                        if (alias.getRoutingProbability() < 1)
+                            res[1] = "" + alias.getRoutingProbability();
+                    }
+                    else
+                        res[1] = "1";
+                }
             }
         }
-        return failure.getLabel().replace("Failure", "Fault");
+        else {
+            res[0] = failure.getLabel().replace("Failure", "Fault");
+            res[1] = "1";
+        }
+        return res;
     }
 
 }
