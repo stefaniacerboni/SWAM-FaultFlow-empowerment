@@ -54,15 +54,4 @@ public class SystemService {
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
     }
 
-    @GET
-    @Path("/db")
-    public void db() throws Exception {
-        System s = SimpleSystem02Builder.getInstance().getSystem();
-        userTransaction.begin();
-        systemDao.save(s);
-        userTransaction.commit();
-
-
-    }
-
 }
