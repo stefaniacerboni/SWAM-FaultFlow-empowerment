@@ -11,6 +11,7 @@ import org.oristool.petrinet.Marking;
 import org.oristool.petrinet.PetriNet;
 import org.oristool.petrinet.Postcondition;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,19 +97,32 @@ public class OrderByComponentToXPN implements ExportToXPN {
                 addArc(tpnEntities, transition.getName(), em.getOutgoingFailure().getDescription());
                 List<PropagationPort> propagationPorts = component.getPropagationPorts().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).collect(Collectors.toList());
                 if (!propagationPorts.isEmpty()) {
-                    int i = 0;
+                    int i = propagationPorts.size()==1?0:1;
                     for (PropagationPort propagationPort : propagationPorts) {
                         FaultMode exoFault = propagationPort.getExogenousFaultMode();
                         String transitionName = propagationPort.getPropagatedFailureMode().getDescription()+"toFaults";
                         Transition t = getTransition(tpnEntities, transitionName);
+
                         if(t==null) {
                             t = addTransition(tpnEntities, petriNet.getTransition(propagationPort.getPropagatedFailureMode().getDescription() + "toFaults"), next.getX() + 70, next.getY());
                             addArc(tpnEntities, next.getUuid(), t.getUuid());
                         }
+                        //routingProbability
+                        Transition p = null;
+                        if(!propagationPort.getRoutingProbability().equals(BigDecimal.ONE) && !propagationPort.getRoutingProbability().equals(BigDecimal.valueOf(1.0))){
+                            //create routerPlace
+                            Place router = addPlace(tpnEntities, petriNet.getPlace("Router"+exoFault.getName()), marking, t.getX()+180, t.getY());
+                            addArc(tpnEntities, t.getUuid(), router.getUuid());
+                            p = addTransition(tpnEntities, petriNet.getTransition(propagationPort.getRoutingProbability().toString()), router.getX()+180, router.getY());
+                            Transition minusp = addTransition(tpnEntities, petriNet.getTransition(""+(1- propagationPort.getRoutingProbability().doubleValue())), router.getX()+180, router.getY()+45);
+                            addArc(tpnEntities, router.getUuid(), p.getUuid());
+                            addArc(tpnEntities, router.getUuid(), minusp.getUuid());
+                        }
+
                         Place b = getPlace(tpnEntities, exoFault.getName());
                         if (!isPlaceInXML(tpnEntities, exoFault.getName())) {
                             b = addPlace(tpnEntities, petriNet.getPlace(exoFault.getName()), marking, t.getX() + 180,
-                                    (t.getY()+(((-1)^i)*30*((i+1)/2))));
+                                    (t.getY()+(((-1)^i)*45*((i+1)/2))));
                             i++;
                         }
                         else {
@@ -116,7 +130,12 @@ public class OrderByComponentToXPN implements ExportToXPN {
                                 adjustPlacePosition(b, t.getX() + 180, fault.getY());
                             }
                         }
-                        addArc(tpnEntities, t.getUuid(), b.getUuid());
+                        if(p == null)
+                            addArc(tpnEntities, t.getUuid(), b.getUuid());
+                        else {
+                            adjustPlacePosition(b, p.getX() + 180, p.getY());
+                            addArc(tpnEntities, p.getUuid(), b.getUuid());
+                        }
                         if (!getErrorModesFromFault(b, propagationPort.getAffectedComponent()).isEmpty())
                             propagateTranslate(tpnEntities, propagationPort.getAffectedComponent(), petriNet, marking, b);
 

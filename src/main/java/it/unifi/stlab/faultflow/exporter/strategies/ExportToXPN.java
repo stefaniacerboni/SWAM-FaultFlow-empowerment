@@ -12,7 +12,7 @@ import org.oristool.petrinet.Marking;
  * Interface that implements some useful methods to give a representation of the Model into an xml file that represent a PetriNet.
  */
 public interface ExportToXPN extends ExportStrategy {
-    int Y_SPACING = 75;
+    int Y_SPACING = 90;
     int X_SPACING = 180;
     int X_START = 75;
     int Y_START = 100;
@@ -150,7 +150,7 @@ public interface ExportToXPN extends ExportStrategy {
         } else
             throw new UnsupportedOperationException("This type of StochasticTransitionFeature is unsupported");
         stochastic.setSatelliteX(transition.getX() + 20);
-        stochastic.setSatelliteY(transition.getY() + 30);
+        stochastic.setSatelliteY(transition.getY() + 40);
         return stochastic;
     }
 
