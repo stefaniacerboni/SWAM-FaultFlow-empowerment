@@ -1,15 +1,13 @@
 package it.unifi.stlab.services;
 
 import it.unifi.stlab.dto.inputsystemdto.InputSystemDto;
-import it.unifi.stlab.dto.inputsystemdto.faulttree.InputFaultTreeDto;
 import it.unifi.stlab.exporter.PetriNetExportMethod;
 import it.unifi.stlab.exporter.XPNExporter;
-import it.unifi.stlab.exporter.strategies.BasicExportToXPN;
+import it.unifi.stlab.exporter.strategies.OrderByComponentToXPN;
 import it.unifi.stlab.model.knowledge.composition.System;
-import it.unifi.stlab.translator.PetriNetTranslator;
-import it.unifi.stlab.utils.builder.SimpleSystem02Builder;
 import it.unifi.stlab.services.mapper.FaultTreeMapper;
 import it.unifi.stlab.services.mapper.SystemMapper;
+import it.unifi.stlab.translator.PetriNetTranslator;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,7 +26,7 @@ public class SystemService {
         PetriNetTranslator pnt = new PetriNetTranslator();
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
-        File out = new File("prova.xpn");
+        File out = new File("PetriNet.xpn");
         try {
             pnt.translate(sys, PetriNetExportMethod.fromString(method));
             XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
