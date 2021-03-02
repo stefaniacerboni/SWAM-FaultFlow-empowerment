@@ -31,22 +31,20 @@ public class SystemService {
             pnt.translate(sys, PetriNetExportMethod.fromString(method));
             XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
             return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
-        }
-        catch (FileNotFoundException fnf ){
+        } catch (FileNotFoundException fnf) {
             throw new NotFoundException("File not Found");
-        }
-        catch(JAXBException e){
+        } catch (JAXBException e) {
             throw new BadRequestException("There's been a problem with the conversion to XPN");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new InternalServerErrorException("Unexpected Server Problem");
-        }    }
+        }
+    }
 
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSystem(InputSystemDto inputSystemDto){
+    public Response getSystem(InputSystemDto inputSystemDto) {
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
