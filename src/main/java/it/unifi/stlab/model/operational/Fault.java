@@ -2,7 +2,7 @@ package it.unifi.stlab.model.operational;
 
 import it.unifi.stlab.model.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.model.knowledge.propagation.FaultMode;
-import it.unifi.stlab.utils.SampleGenerator;
+import it.unifi.stlab.utils.PDFParser;
 
 import java.math.BigDecimal;
 
@@ -33,7 +33,7 @@ public class Fault extends Event {
 
     public Fault(String description, EndogenousFaultMode faultMode) {
         super.setDescription(description);
-        BigDecimal timestamp = BigDecimal.valueOf(SampleGenerator.generate(faultMode.getArisingPDFToString()));
+        BigDecimal timestamp = PDFParser.generateSample(faultMode.getArisingPDFToString());
         super.setTimestamp(timestamp);
         this.faultMode = faultMode;
 

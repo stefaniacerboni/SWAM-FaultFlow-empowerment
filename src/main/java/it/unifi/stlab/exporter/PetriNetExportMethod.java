@@ -9,6 +9,7 @@ public enum PetriNetExportMethod {
     public static PetriNetExportMethod fromString(String method ) {
         switch (method) {
             case "FI":
+            case "fi":
             case "FaultInjection":
                 return FAULT_INJECTION;
             default:

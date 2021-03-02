@@ -7,9 +7,8 @@ import it.unifi.stlab.model.knowledge.propagation.*;
 import it.unifi.stlab.model.operational.ConcreteComponent;
 import it.unifi.stlab.model.operational.Fault;
 import it.unifi.stlab.model.operational.Scenario;
-import it.unifi.stlab.utils.SampleGenerator;
+import it.unifi.stlab.utils.PDFParser;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -165,13 +164,13 @@ public class BasicModelBuilder {
     }
 
     public static void injectFaultsIntoScenario(Scenario scenario, String serial) {
-        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), BigDecimal.valueOf(SampleGenerator.generate("dirac(10)")));
-        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"), BigDecimal.valueOf(SampleGenerator.generate("dirac(13)")));
-        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), BigDecimal.valueOf(SampleGenerator.generate("dirac(16)")));
+        Fault A_fault1Occurred = new Fault("A_fault1Occurred", faultModes.get("A_Fault1"), PDFParser.generateSample("dirac(10)"));
+        Fault A_fault2Occurred = new Fault("A_fault2Occurred", faultModes.get("A_Fault2"), PDFParser.generateSample("dirac(13)"));
+        Fault A_fault3Occurred = new Fault("A_fault3Occurred", faultModes.get("A_Fault3"), PDFParser.generateSample("dirac(16)"));
 
-        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"), BigDecimal.valueOf(SampleGenerator.generate("dirac(12)")));
-        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), BigDecimal.valueOf(SampleGenerator.generate("dirac(18)")));
-        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"), BigDecimal.valueOf(SampleGenerator.generate("dirac(17)")));
+        Fault B_fault1Occurred = new Fault("B_fault1Occurred", faultModes.get("B_Fault1"), PDFParser.generateSample("dirac(12)"));
+        Fault B_fault2Occurred = new Fault("B_fault2Occurred", faultModes.get("B_Fault2"), PDFParser.generateSample("dirac(18)"));
+        Fault C_fault6Occurred = new Fault("C_fault6Occurred", faultModes.get("C_Fault6"), PDFParser.generateSample("dirac(17)"));
 
         Map<String, ConcreteComponent> current_system = scenario.getCurrentSystemMap();
 

@@ -5,7 +5,6 @@ import it.unifi.stlab.model.knowledge.composition.Component;
 import it.unifi.stlab.model.knowledge.composition.System;
 import it.unifi.stlab.model.knowledge.propagation.*;
 import it.unifi.stlab.utils.PDFParser;
-import it.unifi.stlab.utils.SampleGenerator;
 import it.unifi.stlab.model.operational.Error;
 import it.unifi.stlab.model.operational.Event;
 import it.unifi.stlab.model.operational.Failure;
@@ -75,7 +74,7 @@ public class PetriNetTranslator implements Translator {
                             t = net.addTransition(getTransitionName(a.getName()));
                             if (((EndogenousFaultMode) fault).getArisingPDF() != null) {
                                 if(method == PetriNetExportMethod.FAULT_INJECTION) {
-                                    Double sample = SampleGenerator.generate(((EndogenousFaultMode) fault).getArisingPDFToString());
+                                    BigDecimal sample = PDFParser.generateSample(((EndogenousFaultMode) fault).getArisingPDFToString());
                                     t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal(""+sample), MarkingExpr.from("1", net)));
                                     marking.setTokens(a, 1);
                                 }
