@@ -6,6 +6,8 @@ import org.oristool.math.function.Erlang;
 import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
+import java.math.BigDecimal;
+
 
 public class PDFParser {
     /*We assume
@@ -146,14 +148,14 @@ public class PDFParser {
             if (((NormalDistribution) realDistribution).getStandardDeviation() == Double.MIN_VALUE) {
                 return "dirac(" + (int) ((NormalDistribution) realDistribution).getMean() + ")";
             } else {
-                return "gaussian(" + (int) ((NormalDistribution) realDistribution).getMean() + "," + (int) ((NormalDistribution) realDistribution).getNumericalVariance() + ")";
+                return "gaussian(" + (int) ((NormalDistribution) realDistribution).getMean() + "," + (int) (realDistribution.getNumericalVariance()) + ")";
             }
         } else if (realDistribution.getClass().equals(UniformRealDistribution.class))
             return "uniform(" + (int) realDistribution.getSupportLowerBound() + "," + (int) realDistribution.getSupportUpperBound() + ")";
         else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
-            return "exp(" + (int) (1/(((ExponentialDistribution) realDistribution).getMean())) + ")";
+            return "exp(" + (1/(((ExponentialDistribution) realDistribution).getMean())) + ")";
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
-            return "erlang(" + (int) ((GammaDistribution) realDistribution).getShape() + "," + (int) (1/((GammaDistribution) realDistribution).getScale()) + ")";
+            return "erlang(" + (int) ((GammaDistribution) realDistribution).getShape() + "," + (1/((GammaDistribution) realDistribution).getScale()) + ")";
         } else
             throw new UnsupportedOperationException("This type of RealDistribution is unsupported");
     }
@@ -168,5 +170,9 @@ public class PDFParser {
         else{
             return Double.parseDouble(arg);
         }
+    }
+
+    public static BigDecimal generateSample(String pdf) {
+        return BigDecimal.valueOf(PDFParser.parseStringToRealDistribution(pdf).sample());
     }
 }
