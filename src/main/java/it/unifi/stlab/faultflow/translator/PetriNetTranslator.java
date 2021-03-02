@@ -71,12 +71,12 @@ public class PetriNetTranslator implements Translator {
                         b = net.addPlace(fault.getName());
                         if (fault instanceof EndogenousFaultMode) {
                             a = net.addPlace(fault.getName() + "Occurrence");
+                            marking.setTokens(a, 1);
                             t = net.addTransition(getTransitionName(a.getName()));
                             if (((EndogenousFaultMode) fault).getArisingPDF() != null) {
                                 if(method == PetriNetExportMethod.FAULT_INJECTION) {
                                     BigDecimal sample = PDFParser.generateSample(((EndogenousFaultMode) fault).getArisingPDFToString());
                                     t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal(""+sample), MarkingExpr.from("1", net)));
-                                    marking.setTokens(a, 1);
                                 }
                                 else
                                     t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDF()));
