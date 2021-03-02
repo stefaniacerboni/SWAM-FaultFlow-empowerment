@@ -78,42 +78,42 @@
             "componentId": "Sensor1",
             "label": "Sensor1_MD",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/365)"
         },
         {
             "externalId": "Sensor1_ED_id",
             "componentId": "Sensor1",
             "label": "Sensor1_ED",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/180)"
         },
         {
             "externalId": "Sensor2_MD_id",
             "componentId": "Sensor2",
             "label": "Sensor2_MD",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/365)"
         },
         {
             "externalId": "Sensor2_ED_id",
             "componentId": "Sensor2",
             "label": "Sensor2_ED",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/180)"
         },
         {
             "externalId": "Sensor3_MD_id",
             "componentId": "Sensor3",
             "label": "Sensor3_MD",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/365)"
         },
         {
             "externalId": "Sensor3_ED_id",
             "componentId": "Sensor3",
             "label": "Sensor3_ED",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/180)"
         },
         {
             "externalId": "Controller_HF_id",
@@ -148,7 +148,7 @@
             "componentId": "Sensor1",
             "label": "Sensor1_PressureValueFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(1,5)",
+            "pdf": "erlang(5,1)",
             "actsAs": [
                     {
                         "componentId":"Controller",
@@ -161,7 +161,7 @@
             "componentId": "Sensor2",
             "label": "Sensor2_PressureValueFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(1,5)",
+            "pdf": "erlang(5,1)",
             "actsAs": [
                     {
                         "componentId":"Controller",
@@ -174,7 +174,7 @@
             "componentId": "Sensor3",
             "label": "Sensor3_PressureValueFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(1,5)",
+            "pdf": "erlang(5,1)",
             "actsAs": [
                     {
                         "componentId":"Controller",
@@ -203,10 +203,14 @@
             "componentId": "Controller",
             "label": "Controller_CommandOmissionFailure",
             "nodeType": "FAILURE",
-            "pdf": "erlang(1,7)",
+            "pdf": "erlang(7,1)",
             "actsAs": [
                     {
-                        "componentId":"Controller",
+                        "componentId":"Valve1",
+                        "faultName":"Valve_CommandOmissionFault"
+                    },
+                    {
+                        "componentId":"Valve2",
                         "faultName":"Valve_CommandOmissionFault"
                     }
             ]
@@ -216,28 +220,28 @@
             "componentId": "Valve1",
             "label": "Valve1_ED",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/365)"
         },
         {
             "externalId": "Valve1_HF_id",
             "componentId": "Valve1",
             "label": "Valve1_HF",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/2500)"
         },
         {
             "externalId": "Valve2_ED_id",
             "componentId": "Valve2",
             "label": "Valve2_ED",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/365)"
         },
         {
             "externalId": "Valve2_HF_id",
             "componentId": "Valve2",
             "label": "Valve2_HF",
             "nodeType": "BASIC_EVENT",
-            "pdf": "dirac(1)"
+            "pdf": "exp(1/2500)"
         },
         {
             "externalId": "valve1_prop_id",
