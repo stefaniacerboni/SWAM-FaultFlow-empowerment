@@ -25,4 +25,9 @@ public class PetriNetExporter {
         XPNExporter.export(new File("export/PetriNet_"+pnt.getName()+".xpn"),
                 new BasicExportToXPN(pnt.getPetriNet(), pnt.getMarking()));
     }
+
+    public static void exportPetriNetOrderedByComponent(PetriNetTranslator pnt, System system) throws JAXBException, FileNotFoundException{
+        XPNExporter.export(new File("export/"+system.getName() +"_ByComponent_Fault2Failure.xpn"),
+                new OrderByComponentToXPN(system, pnt.getPetriNet(), pnt.getMarking()));
+    }
 }

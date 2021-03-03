@@ -96,6 +96,15 @@ public interface ExportToXPN extends ExportStrategy {
             transition.getProperties().getProperty().remove(name);
             transition.getProperties().getProperty().add(makeTransitionName(transition));
         }
+
+        TransitionProperty stochastic = transition.getProperties().getProperty().stream()
+                .filter(property -> property.getId().equals("transition.stochastic"))
+                .findAny()
+                .orElse(null);
+        if(stochastic != null){
+            stochastic.setSatelliteX(transition.getX() + 20);
+            stochastic.setSatelliteY(transition.getY() + 40);
+        }
     }
 
     default ListTransitionFeatures makeTransitionFeature(Transition transition) {

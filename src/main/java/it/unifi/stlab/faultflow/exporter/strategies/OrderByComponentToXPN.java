@@ -53,19 +53,27 @@ public class OrderByComponentToXPN implements ExportToXPN {
 
             for (org.oristool.petrinet.Place place : mapElement.getValue()) {
                 x = X_START;
-                addPlace(tpnEntities, place, marking, x, y);
+                Place occurrPlace = addPlace(tpnEntities, place, marking, x, y);
 
                 x += 70;
 
                 org.oristool.petrinet.Transition transition = petriNet.getTransition(PetriNetTranslator.getTransitionName(place.getName()));
-                addTransition(tpnEntities, transition, x, y);
+                Transition occurrTransit = addTransition(tpnEntities, transition, x, y);
 
                 addArc(tpnEntities, place.getName(), transition.getName());
 
                 x += X_SPACING;
 
                 Postcondition postcondition = petriNet.getPostconditions(transition).iterator().next();
-                Place fault = addPlace(tpnEntities, postcondition.getPlace(), marking, x, y);
+                Place fault = getPlace(tpnEntities, postcondition.getPlace().getName());
+                if(fault != null) {
+                    adjustTransitionPosition(occurrTransit, fault.getX()-100, fault.getY()-100);
+                    adjustPlacePosition(occurrPlace, occurrTransit.getX()-200, occurrTransit.getY());
+                }
+                else{
+                    if(postcondition.getPlace() != null)
+                        fault = addPlace(tpnEntities, postcondition.getPlace(), marking, x, y);
+                }
 
                 addArc(tpnEntities, transition.getName(), postcondition.getPlace().getName());
 
@@ -81,7 +89,7 @@ public class OrderByComponentToXPN implements ExportToXPN {
         int y = fault.getY();
         int xvalue = 200;
         for (ErrorMode em : getErrorModesFromFault(fault, component)) {
-            if (!isPlaceInXML(tpnEntities, em.getName())) {
+            if (!isPlaceInXML(tpnEntities, em.getName()) && petriNet.getPlace(em.getName()) != null) {
                 int x = fault.getX() + xvalue;
 
                 addPlace(tpnEntities, petriNet.getPlace(em.getName()), marking, x, y);
@@ -95,7 +103,7 @@ public class OrderByComponentToXPN implements ExportToXPN {
 
                 Place next = addPlace(tpnEntities, petriNet.getPlace(em.getOutgoingFailure().getDescription()), marking, x, y);
                 addArc(tpnEntities, transition.getName(), em.getOutgoingFailure().getDescription());
-                List<PropagationPort> propagationPorts = component.getPropagationPorts().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(next.getUuid())).collect(Collectors.toList());
+                List<PropagationPort> propagationPorts = component.getPropagationPorts().stream().filter(pp -> pp.getPropagatedFailureMode().getDescription().equals(em.getOutgoingFailure().getDescription())).collect(Collectors.toList());
                 if (!propagationPorts.isEmpty()) {
                     int i = propagationPorts.size()==1?0:1;
                     for (PropagationPort propagationPort : propagationPorts) {
@@ -109,9 +117,11 @@ public class OrderByComponentToXPN implements ExportToXPN {
                         }
                         //routingProbability
                         Transition p = null;
-                        if(!propagationPort.getRoutingProbability().equals(BigDecimal.ONE) && !propagationPort.getRoutingProbability().equals(BigDecimal.valueOf(1.0))){
+                        if(petriNet.getPlace("Router"+exoFault.getName()) != null)
+                        {
                             //create routerPlace
-                            Place router = addPlace(tpnEntities, petriNet.getPlace("Router"+exoFault.getName()), marking, t.getX()+180, t.getY());
+                            org.oristool.petrinet.Place routerPN = petriNet.getPlace("Router"+exoFault.getName());
+                            Place router = addPlace(tpnEntities, routerPN, marking, t.getX()+180, t.getY());
                             addArc(tpnEntities, t.getUuid(), router.getUuid());
                             p = addTransition(tpnEntities, petriNet.getTransition(propagationPort.getRoutingProbability().toString()), router.getX()+180, router.getY());
                             Transition minusp = addTransition(tpnEntities, petriNet.getTransition(""+(1- propagationPort.getRoutingProbability().doubleValue())), router.getX()+180, router.getY()+45);
@@ -120,14 +130,18 @@ public class OrderByComponentToXPN implements ExportToXPN {
                         }
 
                         Place b = getPlace(tpnEntities, exoFault.getName());
-                        if (!isPlaceInXML(tpnEntities, exoFault.getName())) {
+                        if (b == null) {
                             b = addPlace(tpnEntities, petriNet.getPlace(exoFault.getName()), marking, t.getX() + 180,
                                     (t.getY()+(((-1)^i)*45*((i+1)/2))));
                             i++;
                         }
                         else {
+                            Place occurPlace = getPlace(tpnEntities, exoFault.getName()+"Occurrence");
+                            if(occurPlace != null){
+                                adjustOccurrencePlaceTransition(tpnEntities, exoFault.getName(), t.getX()+80, t.getY()-100);
+                            }
                             if (b.getY() != fault.getY()) {
-                                adjustPlacePosition(b, t.getX() + 180, fault.getY());
+                                adjustPlacePosition(b, t.getX() + 180, t.getY());
                             }
                         }
                         if(p == null)
@@ -145,7 +159,6 @@ public class OrderByComponentToXPN implements ExportToXPN {
             }
         }
     }
-
     private HashMap<Component, List<org.oristool.petrinet.Place>> getOccurrencesOrderedByMetaComponent(System system, PetriNet petrinet) {
         HashMap<Component, List<org.oristool.petrinet.Place>> componentPlaces = new HashMap<>();
         for (Component component : system.getComponents()) {
@@ -175,19 +188,15 @@ public class OrderByComponentToXPN implements ExportToXPN {
         }
         return componentPlaces;
     }
+    private void adjustOccurrencePlaceTransition(TPNEntities tpnEntities, String placeToMove, int newX, int newY){
+        Transition occurrTransition = getTransition(tpnEntities, PetriNetTranslator.getTransitionName(placeToMove+"Occurrence"));
+        adjustTransitionPosition(occurrTransition, newX, newY);
+        Place occurrPlace = getPlace(tpnEntities, placeToMove+"Occurrence");
+        adjustPlacePosition(occurrPlace, occurrTransition.getX()-200, occurrTransition.getY());
+    }
 
     private List<ErrorMode> getErrorModesFromFault(Place fault, Component component) {
         return component.getErrorModes().stream().filter(x -> x.checkFaultIsPresent(fault.getUuid())).collect(Collectors.toList());
     }
-/*
-This was formerly used to prevent overlapping of transitions' and places' labels
-
-    int setSpacingToPreventOverlapping(HashMap<String, List<PropagationPort>> failconnections) {
-        Set<String> keyset = failconnections.keySet();
-        String maxstring = keyset.stream().max(Comparator.comparingInt(String::length)).toString();
-        return maxstring.length() * 5;
-    }
-
- */
 
 }

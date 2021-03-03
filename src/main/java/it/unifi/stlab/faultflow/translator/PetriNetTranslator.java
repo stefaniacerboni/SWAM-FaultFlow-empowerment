@@ -16,7 +16,9 @@ import org.oristool.petrinet.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class that implements the method translate that transforms the system OO into a petriNet model.
@@ -197,13 +199,18 @@ public class PetriNetTranslator implements Translator {
                 t.addFeature(new EnablingFunction("(" + b.getName() + "==0)"));
                 break;
             case DETERMINISTIC:
+                List<String> transitionsToDelete = new ArrayList<>();
                 for(Transition transition: transitionsToEdit) {
                     if (net.getPostconditions(transition).size() > 1) {
                         net.removePostcondition(net.getPostcondition(transition, b));
                     } else {
                         net.removePostcondition(net.getPostcondition(transition, b));
-                        navigateBackAndRemove(transition);
+                        transitionsToDelete.addAll(navigateBackAndRemove(transition));
                     }
+                }
+                for(String tName: transitionsToDelete){
+                    if(net.getTransition(tName)!= null)
+                        net.removeTransition(net.getTransition(tName));
                 }
                 net.addPrecondition(a, t);
                 net.addPostcondition(t, b);
@@ -211,21 +218,38 @@ public class PetriNetTranslator implements Translator {
         }
     }
 
-    private void navigateBackAndRemove(Transition transition){
-        net.removeTransition(transition);
+    private List<String> navigateBackAndRemove(Transition transition) {
+        List<String> transitionToDelete = new ArrayList<>();
+        transitionToDelete.add(transition.getName());
         for (Precondition precondition : net.getPreconditions(transition)) {
             net.removePlace(precondition.getPlace());
-            net.removePrecondition(precondition);
+            for (Transition t : net.getTransitions()) {
+                for (Postcondition pc : net.getPostconditions(t)) {
+                    if (pc.getPlace() == precondition.getPlace()) {
+                        transitionToDelete.addAll(navigateBackAndRemove(t));
+                    }
+                }
+            }
+
+
+         /*
+        for (Precondition precondition : net.getPreconditions(transition)) {
             Transition t = net.getTransition(getTransitionName(precondition.getPlace().getName()));
             if (t != null) {
                 navigateBackAndRemove(t);
             }
             //check if it's been declared a failure occurrence before and delete it
-            t = net.getTransition(getTransitionName(precondition.getPlace().getName()+"Occurrence"));
+            t = net.getTransition(getTransitionName(precondition.getPlace().getName() + "Occurrence"));
             if (t != null) {
                 navigateBackAndRemove(t);
             }
+            //check if it's a routing probability and delete the places before it
+
         }
+
+          */
+        }
+        return transitionToDelete;
     }
 
     private void decorateFailure(Failure failure, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod){
