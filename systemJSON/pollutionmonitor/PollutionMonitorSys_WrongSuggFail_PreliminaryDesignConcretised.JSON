@@ -269,9 +269,9 @@
             "pdf": "exp(1/180)"
         },
         {
-            "externalId": "mapreduceprocessorOzone_prop_id_id",
+            "externalId": "mapreduceprocessorOzone_prop_id",
             "componentId": "MapReduceProcessorOzone",
-            "label": "mapreduceprocessorOzone_prop_id",
+            "label": "mapreduceprocessorOzone_prop",
             "nodeType": "GATE",
             "gateType": "OR"
         },
@@ -457,7 +457,7 @@
         {
             "externalId": "SWBug_id",
             "componentId": "SmartAgent",
-            "label": "SWBug",
+            "label": "SmartAgent_SWBug",
             "nodeType": "BASIC_EVENT",
             "pdf": "exp(1/360)"
         },
@@ -503,18 +503,18 @@
         },
         {
             "parentId": "OzoneDataRefinementFailure_id",
-            "childId": "mapreduceprocessorOzone_prop_id_id"
+            "childId": "mapreduceprocessorOzone_prop_id"
         },
         {
-            "parentId": "mapreduceprocessorOzone_prop_id_id",
+            "parentId": "mapreduceprocessorOzone_prop_id",
             "childId": "OzoneSWMRBugIssue_id"
         },
         {
-            "parentId": "mapreduceprocessorOzone_prop_id_id",
+            "parentId": "mapreduceprocessorOzone_prop_id",
             "childId": "SubscriberOzoneTopicIssue_id"
         },
         {
-            "parentId": "mapreduceprocessorOzone_prop_id_id",
+            "parentId": "mapreduceprocessorOzone_prop_id",
             "childId": "OzoneDataSynthesisFailure_id"
         },
         {
