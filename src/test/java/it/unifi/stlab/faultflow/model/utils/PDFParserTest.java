@@ -176,12 +176,12 @@ public class PDFParserTest {
 
         input = new ExponentialDistribution(1/3.0);
         actual = PDFParser.parseRealDistributionToString(input);
-        expected = "exp(3)";
+        expected = "exp(3.0)";
         assertEquals(expected, actual);
 
         input = new GammaDistribution(3,1/4.0);
         actual = PDFParser.parseRealDistributionToString(input);
-        expected = "erlang(3,4)";
+        expected = "erlang(3,4.0)";
         assertEquals(expected, actual);
     }
 }

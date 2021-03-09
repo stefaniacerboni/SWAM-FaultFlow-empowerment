@@ -8,6 +8,7 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.mapper.FaultTreeMapper;
 import it.unifi.stlab.faultflow.mapper.SystemMapper;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
+import it.unifi.stlab.launcher.systembuilder.SimpleSystem02Builder;
 
 import javax.enterprise.inject.Default;
 import javax.ws.rs.*;
@@ -50,6 +51,12 @@ public class SystemEndpoint {
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
+    }
+
+    @GET
+    @Path("")
+    public Response restTest() {
+        return Response.ok().build();
     }
 
 }

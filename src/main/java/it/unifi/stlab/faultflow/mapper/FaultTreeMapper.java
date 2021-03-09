@@ -173,7 +173,6 @@ public class FaultTreeMapper {
                 be.append(nodeDto.getK()).append("/").append(nodeDto.getN()).append("(");
                 for (InputParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
                     InputNodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
-                    //hope they're all basic or failures
                     switch (child.getNodeType()) {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getLabel());
@@ -310,27 +309,34 @@ public class FaultTreeMapper {
         return outputSystemDto;
     }
 
-    private static String[] getFailuresFaultNameAndProbability(InputNodeDto failure, String gate) {
+    private static String[] getFailuresFaultNameAndProbability(InputNodeDto failure, String gateComponentID) {
         //first element is the fault's name, second element is fault routing probability
         String[] res = new String[2];
         if (failure.getActsAs()!=null) {
             for (AliasDto alias : failure.getActsAs()) {
-                if (alias.getComponentId().equalsIgnoreCase(gate)) {
+                if (alias.getComponentId().equalsIgnoreCase(gateComponentID)) {
                     res[0] = alias.getFaultName();
                     if(alias.getRoutingProbability() != null) {
-                        if (alias.getRoutingProbability() < 1)
+                        if (alias.getRoutingProbability() < 1) {
                             res[1] = "" + alias.getRoutingProbability();
+                            return res;
+                        }
+
                     }
-                    else
+                    else {
                         res[1] = "1";
+                        return res;
+                    }
                 }
             }
         }
         else {
             res[0] = failure.getLabel().replace("Failure", "Fault");
             res[1] = "1";
+            return res;
         }
-        return res;
+
+        throw new NullPointerException("There's no ActAs in"+ failure.getLabel()+" with the same ComponentID as the Gate's: "+ gateComponentID);
     }
 
 }
