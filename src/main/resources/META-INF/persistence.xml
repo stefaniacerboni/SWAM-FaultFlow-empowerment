@@ -5,15 +5,15 @@
     <!-- Define persistence unit -->
     <persistence-unit name="faultflow" transaction-type="JTA">
         <jta-data-source>faultflowDS</jta-data-source>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.FaultMode</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.ExogenousFaultMode</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.EndogenousFaultMode</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.PropagationPort</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.FailureMode</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.propagation.ErrorMode</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.composition.Component</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.composition.CompositionPort</class>
-        <class>it.unifi.stlab.fault2failure.knowledge.composition.System</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.ExogenousFaultMode</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.EndogenousFaultMode</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.FailureMode</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.composition.Component</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort</class>
+        <class>it.unifi.stlab.faultflow.model.knowledge.composition.System</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
