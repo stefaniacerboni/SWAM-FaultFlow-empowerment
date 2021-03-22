@@ -1,5 +1,9 @@
 package it.unifi.stlab.faultflow.endpoint;
 
+import it.unifi.stlab.dao.ErrorModeDao;
+import it.unifi.stlab.dao.FailureModeDao;
+import it.unifi.stlab.dao.FaultModeDao;
+import it.unifi.stlab.dao.SystemDao;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.exporter.XPNExporter;
@@ -7,10 +11,16 @@ import it.unifi.stlab.faultflow.exporter.strategies.OrderByComponentToXPN;
 import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.mapper.FaultTreeMapper;
 import it.unifi.stlab.faultflow.mapper.SystemMapper;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
+import it.unifi.stlab.launcher.systembuilder.PollutionMonitorTargetDesignBuilder;
 import it.unifi.stlab.launcher.systembuilder.SimpleSystem02Builder;
 
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.transaction.UserTransaction;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,6 +32,15 @@ import java.util.HashMap;
 @Stateless
 @Path("/system")
 public class SystemEndpoint {
+    @Inject
+    SystemDao systemDao = new SystemDao();
+    @Inject
+    ErrorModeDao errorModeDao = new ErrorModeDao();
+    @Inject
+    FaultModeDao faultModeDao = new FaultModeDao();
+    @Inject
+    FailureModeDao failureModeDao = new FailureModeDao();
+
     @POST
     @Path("/xpn")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -58,6 +77,8 @@ public class SystemEndpoint {
     @GET
     @Path("")
     public Response restTest() {
+        //System sys = PollutionMonitorTargetDesignBuilder.getInstance().getSystem();
+        //systemDao.save(sys);
         return Response.ok().build();
     }
 
