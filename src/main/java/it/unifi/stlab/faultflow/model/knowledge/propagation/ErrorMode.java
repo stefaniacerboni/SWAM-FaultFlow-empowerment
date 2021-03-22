@@ -10,8 +10,12 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "errorModes")
+@Table(name = "errormodes")
 public class ErrorMode {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID uuid;
+
     private final String name;
 
     @OneToMany
@@ -29,14 +33,9 @@ public class ErrorMode {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outgoing_failure_fk")
     private FailureMode outgoingFailure;
-    @Transient
-    private RealDistribution timetofailurePDF;
 
-    @Column(name = "enablingFunction")
-    private String boolexprString;
-
-    @Column(name = "timetofailurePDF")
-    private String timetofailurePDFstring;
+    @Column(name = "time_to_failure_pdf")
+    private String timetofailurePDF;
 
     public ErrorMode() {
         this.name = "";
@@ -74,7 +73,7 @@ public class ErrorMode {
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF) {
         this(name, function, outgoingFailure);
-        this.timetofailurePDF = timetofailurePDF;
+        this.timetofailurePDF = PDFParser.parseRealDistributionToString(timetofailurePDF);;
     }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF) {
@@ -114,13 +113,16 @@ public class ErrorMode {
         return this.outgoingFailure;
     }
 
+    public String getTimetofailurePDFToString() {
+        return timetofailurePDF;
+    }
+
     public RealDistribution getTimetofailurePDF() {
-        return this.timetofailurePDF;
+        return PDFParser.parseStringToRealDistribution(timetofailurePDF);
     }
 
     public void setPDF(String timetofailurePDF) {
-        this.timetofailurePDF = PDFParser.parseStringToRealDistribution(timetofailurePDF);
-        this.timetofailurePDFstring = timetofailurePDF;
+        this.timetofailurePDF = timetofailurePDF;
     }
 
     public void setOutGoingFailure(FailureMode fm) {

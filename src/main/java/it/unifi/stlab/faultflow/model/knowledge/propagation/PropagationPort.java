@@ -2,13 +2,32 @@ package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
+@Entity
+@Table(name = "propagationports")
 public class PropagationPort {
+    @Id
+    private final UUID uuid = UUID.randomUUID();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "failure_mode_fk")
     private final FailureMode propagatedFailureMode;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fault_mode_fk")
     private final ExogenousFaultMode exogenousFaultMode;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "component_fk")
     private final Component affectedComponent;
     private final BigDecimal routingProbability;
+
+    public PropagationPort(){
+        this.exogenousFaultMode = null;
+        this.affectedComponent = null;
+        this.propagatedFailureMode = null;
+        this.routingProbability = null;
+    }
 
     /**
      * Add a propagationPort by specifying four parameters: the inputFail already happened, the outputFault in which

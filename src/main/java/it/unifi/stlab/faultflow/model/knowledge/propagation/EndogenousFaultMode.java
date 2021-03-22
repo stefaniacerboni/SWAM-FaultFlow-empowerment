@@ -6,15 +6,12 @@ import org.apache.commons.math3.distribution.RealDistribution;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "endogenousFaultModes")
 public class EndogenousFaultMode extends FaultMode {
-    @Transient
-    private RealDistribution arisingPDF;
-    @Column(name = "arisingPDF")
-    private String arisingPDFString;
+    @Column(name = "arising_PDF")
+    private String arisingPDF;
 
     public EndogenousFaultMode() {
         super.name = "";
@@ -26,23 +23,22 @@ public class EndogenousFaultMode extends FaultMode {
         this.name = name;
     }
 
-    public EndogenousFaultMode(String name, RealDistribution arisingPDF) {
+    public EndogenousFaultMode(String name, String arisingPDF) {
         this(name);
         this.arisingPDF = arisingPDF;
-        this.arisingPDFString = PDFParser.parseRealDistributionToString(arisingPDF);
     }
 
     public RealDistribution getArisingPDF() {
-        return arisingPDF;
+        return PDFParser.parseStringToRealDistribution(arisingPDF);
     }
 
+
     public void setArisingPDF(String arisingPDF) {
-        this.arisingPDF = PDFParser.parseStringToRealDistribution(arisingPDF);
-        this.arisingPDFString = arisingPDF;
+        this.arisingPDF = arisingPDF;
     }
 
     public String getArisingPDFToString() {
-        return PDFParser.parseRealDistributionToString(this.arisingPDF);
+        return this.arisingPDF;
     }
 }
 
