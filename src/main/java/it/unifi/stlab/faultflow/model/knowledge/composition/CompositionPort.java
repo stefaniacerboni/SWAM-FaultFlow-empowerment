@@ -1,7 +1,18 @@
 package it.unifi.stlab.faultflow.model.knowledge.composition;
 
+import javax.persistence.*;
+import java.util.UUID;
+
+@Entity
+@Table(name = "compositionports")
 public class CompositionPort {
+    @Id
+    private final UUID uuid = UUID.randomUUID();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_fk")
     private final Component parent;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "child_fk")
     private final Component child;
 
     /**
@@ -13,6 +24,11 @@ public class CompositionPort {
     public CompositionPort(Component child, Component parent) {
         this.parent = parent;
         this.child = child;
+    }
+
+    public CompositionPort() {
+        this.parent = null;
+        this.child = null;
     }
 
     public Component getParent() {

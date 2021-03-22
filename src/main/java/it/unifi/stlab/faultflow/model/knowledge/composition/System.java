@@ -14,10 +14,15 @@ public class System {
     private String name;
     private String manufacturer;
     private String model;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
+    @JoinTable(
+            name="system_components",
+            joinColumns = @JoinColumn( name="system_uuid"),
+            inverseJoinColumns = @JoinColumn( name="component_fk")
+    )
     private List<Component> components;
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "topLevelComponent")
+    @JoinColumn(name = "top_level_component_fk")
     private Component topLevelComponent;
 
     public System() {
