@@ -11,13 +11,13 @@ import java.util.UUID;
 public class PropagationPort {
     @Id
     private final UUID uuid = UUID.randomUUID();
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "failure_mode_fk")
     private final FailureMode propagatedFailureMode;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fault_mode_fk")
     private final ExogenousFaultMode exogenousFaultMode;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "component_fk")
     private final Component affectedComponent;
     private final BigDecimal routingProbability;

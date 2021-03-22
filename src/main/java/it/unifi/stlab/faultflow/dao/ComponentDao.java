@@ -29,7 +29,7 @@ public class ComponentDao extends BaseDao<Component> {
 
     @Override
     public void save(Component component) {
-        executeInsideTransaction(entityManager -> entityManager.persist(component));
+        entityManager.persist(component);
     }
 
     @Override

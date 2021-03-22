@@ -25,7 +25,7 @@ public class ErrorMode {
             inverseJoinColumns = @JoinColumn( name="faultmode_fk")
     )
     private final List<FaultMode> inputFaultModes;
-
+    @Transient
     @Lob
     @Convert(converter = BooleanExpressionConverter.class)
     private BooleanExpression activationFunction;

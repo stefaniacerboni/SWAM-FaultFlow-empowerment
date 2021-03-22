@@ -9,8 +9,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "systems")
 public class System {
-    private final UUID uuid = UUID.randomUUID();
     @Id
+    private final UUID uuid = UUID.randomUUID();
     private String name;
     private String manufacturer;
     private String model;
@@ -21,7 +21,7 @@ public class System {
             inverseJoinColumns = @JoinColumn( name="component_fk")
     )
     private List<Component> components;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "top_level_component_fk")
     private Component topLevelComponent;
 

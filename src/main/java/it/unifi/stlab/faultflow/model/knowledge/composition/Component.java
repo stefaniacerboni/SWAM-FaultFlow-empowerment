@@ -13,14 +13,14 @@ import java.util.UUID;
 @Table(name = "components")
 public class Component {
     private final String name;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinTable(
             name="component_errormodes",
             joinColumns = @JoinColumn( name="component_uuid"),
             inverseJoinColumns = @JoinColumn( name="errormode_fk")
     )
     private final List<ErrorMode> errorModes;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinTable(
             name="component_propagationports",
             joinColumns = @JoinColumn( name="component_uuid"),
@@ -31,8 +31,7 @@ public class Component {
     private final UUID uuid = UUID.randomUUID();
     @OneToMany(mappedBy = "parent",
             orphanRemoval = true,
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
+            fetch = FetchType.LAZY)
     private List<CompositionPort> children;
 
     public Component() {

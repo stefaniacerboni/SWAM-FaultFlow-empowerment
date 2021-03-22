@@ -11,7 +11,7 @@ public class CompositionPort {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_fk")
     private final Component parent;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_fk")
     private final Component child;
 
