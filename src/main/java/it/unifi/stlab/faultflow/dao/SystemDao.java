@@ -1,4 +1,4 @@
-package it.unifi.stlab.dao;
+package it.unifi.stlab.faultflow.dao;
 
 import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 

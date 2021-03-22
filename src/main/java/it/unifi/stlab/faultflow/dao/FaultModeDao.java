@@ -1,6 +1,5 @@
-package it.unifi.stlab.dao;
+package it.unifi.stlab.faultflow.dao;
 
-import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 
 import javax.enterprise.context.Dependent;
