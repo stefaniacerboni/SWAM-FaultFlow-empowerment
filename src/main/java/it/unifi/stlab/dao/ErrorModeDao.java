@@ -30,20 +30,7 @@ public class ErrorModeDao extends BaseDao<ErrorMode> {
 
     @Override
     public void save(ErrorMode errorMode) {
-        /*
-        for(FaultMode faultMode: errorMode.getInputFaultModes()){
-            entityManager.persist(faultMode);
-        }
-        entityManager.getTransaction().begin();
-        entityManager.persist(errorMode.getOutgoingFailure());
-        entityManager.getTransaction().commit();
-        if(errorMode.getUuid()!=null)
-            entityManager.merge(errorMode);
-        entityManager.getTransaction().begin();
-
-         */
         entityManager.persist(errorMode);
-        //entityManager.getTransaction().commit();
     }
 
     @Override
