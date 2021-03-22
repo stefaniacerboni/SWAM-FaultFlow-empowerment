@@ -160,4 +160,8 @@ public interface BooleanExpression {
     boolean compute();
 
     String toString();
+
+    String toSimpleString();
+
+
 }

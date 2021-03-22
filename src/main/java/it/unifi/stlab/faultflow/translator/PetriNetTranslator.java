@@ -58,7 +58,7 @@ public class PetriNetTranslator implements Translator {
                 a = net.addPlace(e.getName());
                 b = net.addPlace(e.getOutgoingFailure().getDescription());
                 t = net.addTransition(getTransitionName(b.getName()));
-                t.addFeature(new EnablingFunction(e.getActivationFunction()));
+                t.addFeature(new EnablingFunction(e.getActivationFunction().toString()));
                 t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(e.getTimetofailurePDF()));
                 net.addPrecondition(a, t);
                 net.addPostcondition(t, b);

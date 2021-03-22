@@ -38,4 +38,9 @@ public class NOT extends Operator {
     public String toString() {
         return "!" + elements.get(0).toString();
     }
+
+    @Override
+    public String toSimpleString(){
+        return "!"+elements.get(0).toSimpleString();
+    }
 }

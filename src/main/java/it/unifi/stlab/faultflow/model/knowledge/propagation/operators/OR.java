@@ -38,4 +38,14 @@ public class OR extends Operator {
         }
         return sb.substring(0, sb.length() - 3);
     }
+
+    @Override
+    public String toSimpleString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        for (BooleanExpression be : elements) {
+            sb.append(be.toSimpleString()).append(")||(");
+        }
+        return sb.substring(0, sb.length() - 3);
+    }
 }

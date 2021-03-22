@@ -268,7 +268,7 @@ public class FaultTreeMapper {
             for (ErrorMode errorMode : component.getErrorModes()) {
                 ErrorModeDto outputErrorMode = new ErrorModeDto();
                 outputErrorMode.setName(errorMode.getName());
-                outputErrorMode.setActivationFunction(errorMode.getActivationFunction());
+                outputErrorMode.setActivationFunction(errorMode.getActivationFunction().toString());
                 outputErrorMode.setTimetofailurePDF(PDFParser.parseRealDistributionToString(errorMode.getTimetofailurePDF()));
                 outputErrorMode.setOutgoingFailure(errorMode.getOutgoingFailure().getDescription());
                 List<FaultModeDto> outputFaultModes = new ArrayList<>();

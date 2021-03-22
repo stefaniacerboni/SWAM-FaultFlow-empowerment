@@ -17,7 +17,9 @@ import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
+@Stateless
 @Path("/system")
 public class SystemEndpoint {
     @POST
@@ -56,6 +58,40 @@ public class SystemEndpoint {
     @GET
     @Path("")
     public Response restTest() {
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/db")
+    public Response db() throws Exception {
+        System s = SimpleSystem02Builder.getInstance().getSystem();
+        systemDao.save(s);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/em")
+    public Response em() throws Exception {
+        HashMap<String, FaultMode> faultModes = new HashMap<>();
+        EndogenousFaultMode enFM_A1 = new EndogenousFaultMode("A_Fault1");
+        enFM_A1.setArisingPDF("dirac(3)");
+        EndogenousFaultMode enFM_A3 = new EndogenousFaultMode("A_Fault3");
+        enFM_A3.setArisingPDF("exp(10)");
+        ExogenousFaultMode exFM_A2 = new ExogenousFaultMode("A_Fault2");
+        faultModes.put(enFM_A1.getName(), enFM_A1);
+        faultModes.put(enFM_A3.getName(), enFM_A3);
+        faultModes.put(exFM_A2.getName(), exFM_A2);
+        FailureMode fM_A1 = new FailureMode("A_Failure1");
+        ErrorMode eM_A1 = new ErrorMode("A_ToFailure1");
+        eM_A1.addInputFaultMode(enFM_A1, exFM_A2, enFM_A3);
+        eM_A1.addOutputFailureMode(fM_A1);
+        eM_A1.setEnablingCondition("A_Fault1 && (A_Fault2 || A_Fault3)", faultModes);
+        eM_A1.setPDF("erlang(5,1)");
+        failureModeDao.save(fM_A1);
+        faultModeDao.save(enFM_A1);
+        faultModeDao.save(enFM_A3);
+        faultModeDao.save(exFM_A2);
+        errorModeDao.save(eM_A1);
         return Response.ok().build();
     }
 

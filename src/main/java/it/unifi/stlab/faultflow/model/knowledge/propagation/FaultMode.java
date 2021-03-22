@@ -32,4 +32,16 @@ public abstract class FaultMode implements BooleanExpression {
     public String toString() {
         return this.name + ">0";
     }
+
+    public String toSimpleString(){
+        return this.name;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 }

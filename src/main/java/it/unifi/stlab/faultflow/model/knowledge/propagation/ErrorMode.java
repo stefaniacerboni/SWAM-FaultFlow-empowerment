@@ -1,8 +1,10 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
+import it.unifi.stlab.faultflow.model.utils.BooleanExpressionConverter;
 import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import org.apache.commons.math3.distribution.RealDistribution;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.*;
@@ -11,14 +13,21 @@ import java.util.*;
 @Table(name = "errorModes")
 public class ErrorMode {
     private final String name;
-    @OneToMany(cascade = CascadeType.PERSIST)
+
+    @OneToMany
+    @JoinTable(
+            name="errormode_faultmodes",
+            joinColumns = @JoinColumn( name="errormode_uuid"),
+            inverseJoinColumns = @JoinColumn( name="faultmode_fk")
+    )
     private final List<FaultMode> inputFaultModes;
-    @Id
-    private final UUID uuid = UUID.randomUUID();
-    @Transient
+
+    @Lob
+    @Convert(converter = BooleanExpressionConverter.class)
     private BooleanExpression activationFunction;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "outgoingFailure")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outgoing_failure_fk")
     private FailureMode outgoingFailure;
     @Transient
     private RealDistribution timetofailurePDF;
@@ -32,6 +41,9 @@ public class ErrorMode {
     public ErrorMode() {
         this.name = "";
         this.inputFaultModes = new ArrayList<>();
+        this.activationFunction=null;
+        this.outgoingFailure=null;
+        this.timetofailurePDF="";
     }
 
     /**
@@ -47,8 +59,6 @@ public class ErrorMode {
         this.activationFunction = function;
         this.inputFaultModes = activationFunction.extractIncomingFaults();
         this.outgoingFailure = null;
-
-        this.boolexprString = function.toString();
     }
 
     public ErrorMode(String name) {
@@ -80,12 +90,20 @@ public class ErrorMode {
         this(name, function, outgoingFailure, timetofailurePDF);
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public String getActivationFunction() {
-        return activationFunction.toString();
+    public BooleanExpression getActivationFunction() {
+        return activationFunction;
+    }
+
+    public void setActivationFunction(BooleanExpression activationFunction) {
+        this.activationFunction = activationFunction;
     }
 
     public List<FaultMode> getInputFaultModes() {
@@ -127,6 +145,5 @@ public class ErrorMode {
 
     public void setEnablingCondition(String booleanExpression, HashMap<String, FaultMode> faultModes) {
         this.activationFunction = BooleanExpression.config(booleanExpression, faultModes);
-        this.boolexprString = booleanExpression;
     }
 }
