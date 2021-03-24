@@ -5,6 +5,7 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract class
@@ -52,5 +53,18 @@ public abstract class Operator implements BooleanExpression {
 
     public List<BooleanExpression> getElements() {
         return elements;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Operator operator = (Operator) o;
+        return Objects.equals(elements, operator.elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 }

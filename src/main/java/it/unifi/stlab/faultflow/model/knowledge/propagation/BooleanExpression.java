@@ -153,15 +153,14 @@ public interface BooleanExpression {
         throw new IllegalArgumentException("Cannot remove in Leaf");
     }
 
-    default List<FaultMode> extractIncomingFaults() {
-        return null;
-    }
+    List<FaultMode> extractIncomingFaults();
 
     boolean compute();
 
     String toString();
 
     String toSimpleString();
+
 
 
 }

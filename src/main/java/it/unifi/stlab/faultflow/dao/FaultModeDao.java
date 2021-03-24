@@ -1,6 +1,7 @@
 package it.unifi.stlab.faultflow.dao;
 
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
+import it.unifi.stlab.faultflow.model.operational.Fault;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
@@ -34,5 +35,9 @@ public class FaultModeDao extends BaseDao<FaultMode>{
     @Override
     public void delete(FaultMode faultMode) {
         entityManager.remove(faultMode);
+    }
+
+    public FaultMode getReferenceById(UUID uuid){
+        return entityManager.getReference(FaultMode.class, uuid);
     }
 }

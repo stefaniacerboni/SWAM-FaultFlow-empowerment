@@ -18,14 +18,13 @@ public class ErrorMode {
 
     private final String name;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name="errormode_faultmodes",
             joinColumns = @JoinColumn( name="errormode_uuid"),
             inverseJoinColumns = @JoinColumn( name="faultmode_fk")
     )
     private final List<FaultMode> inputFaultModes;
-    @Transient
     @Lob
     @Convert(converter = BooleanExpressionConverter.class)
     private BooleanExpression activationFunction;
@@ -106,7 +105,7 @@ public class ErrorMode {
     }
 
     public List<FaultMode> getInputFaultModes() {
-        return inputFaultModes;
+        return activationFunction.extractIncomingFaults();
     }
 
     public FailureMode getOutgoingFailure() {

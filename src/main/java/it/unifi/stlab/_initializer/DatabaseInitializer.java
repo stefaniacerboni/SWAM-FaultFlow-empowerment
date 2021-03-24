@@ -7,7 +7,7 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
-import it.unifi.stlab.launcher.systembuilder.SimpleModelBuilder;
+import it.unifi.stlab.launcher.systembuilder.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -36,7 +36,16 @@ public class DatabaseInitializer {
 	@PostConstruct
 	public void initDB() {
 		// TODO definisci e salva da qui alcuni sistemi nel DB
-		System system = SimpleModelBuilder.getInstance().getSystem();
+		persistSystem(SimpleModelBuilder.getInstance().getSystem());
+		persistSystem(SimpleSystem02Builder.getInstance().getSystem());
+		persistSystem(SteamBoilerModelBuilder.getInstance().getSystem());
+		persistSystem(PollutionMonitorModelBuilder.getInstance().getSystem());
+		persistSystem(PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem());
+		persistSystem(PollutionMonitorTargetDesignBuilder.getInstance().getSystem());
+		persistSystem(PollutionMonitorIdealDesignBuilder.getInstance().getSystem());
+	}
+
+	private void persistSystem(System system){
 		for(Component component: system.getComponents()){
 			for(ErrorMode errorMode: component.getErrorModes()){
 				failureModeDao.save(errorMode.getOutgoingFailure());
@@ -56,7 +65,6 @@ public class DatabaseInitializer {
 			}
 		}
 		systemDao.save(system);
-
 	}
 
 }

@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -43,5 +46,27 @@ public abstract class FaultMode implements BooleanExpression {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FaultMode faultMode = (FaultMode) o;
+        return uuid.equals(faultMode.uuid) &&
+                name.equals(faultMode.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name);
+    }
+
+    @Override
+    public List<FaultMode> extractIncomingFaults(){
+        List<FaultMode> res = new ArrayList<>();
+        res.add(this);
+        return res;
     }
 }
