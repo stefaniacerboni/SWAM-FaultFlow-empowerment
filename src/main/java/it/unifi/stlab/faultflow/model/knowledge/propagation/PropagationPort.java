@@ -1,6 +1,7 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Table(name = "propagationports")
 public class PropagationPort {
     @Id
+    @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "failure_mode_fk")

@@ -1,5 +1,7 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -14,6 +16,7 @@ import java.util.UUID;
 public abstract class FaultMode implements BooleanExpression {
 
     @Id
+    @Type(type = "uuid-char")
     protected UUID uuid = UUID.randomUUID();
 
     protected String name;

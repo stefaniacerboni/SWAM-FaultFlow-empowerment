@@ -1,5 +1,7 @@
 package it.unifi.stlab.faultflow.model.knowledge.composition;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,7 @@ import java.util.UUID;
 @Table(name = "systems")
 public class System {
     @Id
+    @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
     private String name;
     private String manufacturer;

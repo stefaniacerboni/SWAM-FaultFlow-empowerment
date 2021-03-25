@@ -35,7 +35,6 @@ public class DatabaseInitializer {
 
 	@PostConstruct
 	public void initDB() {
-		// TODO definisci e salva da qui alcuni sistemi nel DB
 		persistSystem(SimpleModelBuilder.getInstance().getSystem());
 		persistSystem(SimpleSystem02Builder.getInstance().getSystem());
 		persistSystem(SteamBoilerModelBuilder.getInstance().getSystem());

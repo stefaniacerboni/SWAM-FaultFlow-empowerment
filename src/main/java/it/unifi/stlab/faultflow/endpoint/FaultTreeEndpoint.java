@@ -1,7 +1,139 @@
 package it.unifi.stlab.faultflow.endpoint;
 
-//@Path("/ft")
+import it.unifi.stlab.faultflow.dao.ErrorModeDao;
+import it.unifi.stlab.faultflow.dao.PropagationPortDao;
+import it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree.*;
+import it.unifi.stlab.faultflow.mapper.FaultTreeMapper;
+import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.KofN;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.Operator;
+import it.unifi.stlab.faultflow.model.operational.Error;
+import it.unifi.stlab.launcher.systembuilder.PollutionMonitorPreliminaryDesignBuiler;
+import it.unifi.stlab.launcher.systembuilder.SimpleSystem02Builder;
+
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Path("/ft")
 public class FaultTreeEndpoint {
+    @Inject
+    PropagationPortDao propagationPortDao = new PropagationPortDao();
+    @Inject
+    ErrorModeDao errorModeDao = new ErrorModeDao();
+
+    @POST
+    @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFaultTree(@QueryParam("errorMode_uuid") String errorModeuuid){
+//        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
+//        ErrorMode errorMode = component.getErrorModes().get(0);
+//        errorModeDao.getErrorModeById(errorMode.getUuid());
+        InputFaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid)));
+        return Response.ok(faultTreeDto).build();
+    }
+
+
+    private InputFaultTreeDto getFaultTreeFromErrorMode(ErrorMode errorMode){
+        InputFaultTreeDto inputFaultTreeDto = new InputFaultTreeDto();
+        List<String> topEvents = new ArrayList<>();
+        topEvents.add(errorMode.getOutgoingFailure().getUuid().toString());
+        List<InputNodeDto> nodes = new ArrayList<>();
+        List<InputParentingDto> parentings = new ArrayList<>();
+
+        //Create Failure Node
+        InputNodeDto topNode = new InputNodeDto();
+        topNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
+        topNode.setLabel(errorMode.getOutgoingFailure().getDescription());
+        topNode.setNodeType(NodeType.FAILURE);
+        topNode.setPdf(errorMode.getTimetofailurePDFToString());
+
+        nodes.add(topNode);
+
+        unfoldBooleanExpression(errorMode.getActivationFunction(), topNode.getExternalId(),
+                nodes, parentings, errorMode.getName());
+
+
+        inputFaultTreeDto.setNodes(nodes);
+        inputFaultTreeDto.setParentings(parentings);
+        inputFaultTreeDto.setTopEvents(topEvents);
+        return inputFaultTreeDto;
+    }
+
+    private void unfoldBooleanExpression(BooleanExpression booleanExpression, String parent,
+                                         List<InputNodeDto> nodes, List<InputParentingDto> parentings,
+                                         String label){
+        InputParentingDto parenting = new InputParentingDto();
+        parenting.setParentId(parent);
+        switch (booleanExpression.getClass().getSimpleName()){
+            case "EndogenousFaultMode":
+                InputNodeDto basicEndFault = new InputNodeDto();
+                EndogenousFaultMode endogenousFaultMode = (EndogenousFaultMode) booleanExpression;
+                basicEndFault.setExternalId(endogenousFaultMode.getUuid().toString());
+                basicEndFault.setLabel(endogenousFaultMode.getName());
+                basicEndFault.setNodeType(NodeType.BASIC_EVENT);
+                basicEndFault.setPdf(endogenousFaultMode.getArisingPDFToString());
+                nodes.add(basicEndFault);
+
+                parenting.setChildId(basicEndFault.getExternalId());
+                parentings.add(parenting);
+                break;
+            case "ExogenousFaultMode":
+                //non si fa un nodo ma si decora il failure sottostante:
+                // si deve andare a prendere il failure che lo propaga e creare un AliasDto
+                ExogenousFaultMode exogenousFaultMode = (ExogenousFaultMode) booleanExpression;
+                PropagationPort propagationPort = propagationPortDao.getPropagationPortByExoFaultMode(exogenousFaultMode.getUuid());
+                ErrorMode errorMode = errorModeDao.getErrorModeByFailureModeID(propagationPort.getPropagatedFailureMode().getUuid());
+                InputNodeDto failureModeNode = new InputNodeDto();
+                failureModeNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
+                failureModeNode.setLabel(errorMode.getOutgoingFailure().getDescription());
+                failureModeNode.setNodeType(NodeType.FAILURE);
+                failureModeNode.setPdf(errorMode.getTimetofailurePDFToString());
+                parenting.setChildId(failureModeNode.getExternalId());
+                parentings.add(parenting);
+
+                List<AliasDto> aliases = new ArrayList<>();
+                AliasDto aliasDto = new AliasDto();
+                aliasDto.setFaultName(exogenousFaultMode.getName());
+                aliasDto.setRoutingProbability(propagationPort.getRoutingProbability().doubleValue());
+                aliasDto.setComponentId(propagationPort.getAffectedComponent().getName());
+                aliases.add(aliasDto);
+                failureModeNode.setActsAs(aliases);
+
+                nodes.add(failureModeNode);
+
+                unfoldBooleanExpression(errorMode.getActivationFunction(), failureModeNode.getExternalId(),
+                        nodes, parentings, errorMode.getName());
+                break;
+
+            default:
+                //è un Operator
+                assert booleanExpression instanceof Operator;
+                Operator operator = (Operator) booleanExpression;
+                InputNodeDto gate = new InputNodeDto();
+                gate.setExternalId(parent+operator.getClass().getSimpleName()+operator.hashCode());
+                gate.setLabel(label);
+                gate.setNodeType(NodeType.GATE);
+                gate.setGateType(GateType.fromString(operator.getClass().getSimpleName()));
+                if(gate.getGateType()==GateType.KOUTOFN){
+                    gate.setK(((KofN)operator).getK());
+                    gate.setN(((KofN)operator).getN());
+                }
+                nodes.add(gate);
+
+                parenting.setChildId(gate.getExternalId());
+                parentings.add(parenting);
+                for(BooleanExpression element : operator.getElements()) {
+                    unfoldBooleanExpression(element, gate.getExternalId(), nodes, parentings, label);
+                }
+
+        }
+    }
 /*
 
 	@POST

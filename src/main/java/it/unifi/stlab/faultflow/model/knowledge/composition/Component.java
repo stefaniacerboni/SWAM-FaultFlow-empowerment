@@ -2,6 +2,7 @@ package it.unifi.stlab.faultflow.model.knowledge.composition;
 
 import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Component {
     )
     private final List<PropagationPort> propagationPorts;
     @Id
+    @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
     @OneToMany(mappedBy = "parent",
             orphanRemoval = true,

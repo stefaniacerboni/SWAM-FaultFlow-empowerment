@@ -5,6 +5,7 @@ import it.unifi.stlab.faultflow.model.utils.BooleanExpressionConverter;
 import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import org.apache.commons.math3.distribution.RealDistribution;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.*;
 @Table(name = "errormodes")
 public class ErrorMode {
     @Id
+    @Type(type = "uuid-char")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 

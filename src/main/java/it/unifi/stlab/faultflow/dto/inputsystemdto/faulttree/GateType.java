@@ -6,20 +6,22 @@ public enum GateType {
 	OR,
 	DELAY,
 	KOUTOFN;
-	
-	public static GateType fromString( String className ) {
+
+	public static GateType fromString(String className) {
 		switch (className) {
-		case "And":
-			return AND;
-		case "Or":
-			return OR;
-		case "Delay":
-			return DELAY;
-		case "KOutOfN":
-			return KOUTOFN;
-		default:
-			return null;
+			case "AND":
+			case "And":
+				return AND;
+			case "OR":
+			case "Or":
+				return OR;
+			case "Delay":
+				return DELAY;
+			case "KOutOfN":
+			case "KofN":
+				return KOUTOFN;
+			default:
+				return null;
 		}
 	}
-	
 }

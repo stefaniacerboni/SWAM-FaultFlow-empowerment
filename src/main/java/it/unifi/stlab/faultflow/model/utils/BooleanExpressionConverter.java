@@ -7,6 +7,8 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.ExogenousFaultMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 import org.json.JSONObject;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -14,11 +16,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
+@Dependent
+@Default
 @Converter(autoApply = true)
 public class BooleanExpressionConverter implements AttributeConverter<BooleanExpression, String> {
-
-    @Inject
-    FaultModeDao faultModeDao = new FaultModeDao();
 
     @Override
     public String convertToDatabaseColumn(BooleanExpression booleanExpression) {
@@ -29,7 +30,9 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
             dbDataObject.append("expression", booleanExpression.toSimpleString());
             HashMap<String, String> inputFaults = new HashMap<>();
             for (FaultMode faultMode : booleanExpression.extractIncomingFaults()) {
-                String keyValue = faultMode.getUuid().toString();
+                String keyValue = faultMode.getUuid().toString()+","+faultMode.getClass().getSimpleName();
+                if(faultMode.getClass().getSimpleName().equals("EndogenousFaultMode"))
+                    keyValue+=","+((EndogenousFaultMode)faultMode).getArisingPDFToString();
                 inputFaults.put(faultMode.getName(), keyValue);
             }
             dbDataObject.append("inputFaults", inputFaults);
@@ -50,9 +53,18 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
         Iterator<String> fault = inputFaults.keys();
         while (fault.hasNext()) {
             String key = fault.next();
-            String uuid = inputFaults.get(key).toString();
-            FaultMode faultMode = faultModeDao.getReferenceById(UUID.fromString(uuid));
-            faultmodes.put(key, faultMode);
+            String[] values = inputFaults.get(key).toString().split(",");
+            String uuid = values[0];
+            if(values[1].equals("EndogenousFaultMode")){
+                EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(key, values[2]);
+                endogenousFaultMode.setUuid(UUID.fromString(uuid));
+                faultmodes.put(key, endogenousFaultMode);
+            }
+            else{
+                ExogenousFaultMode exogenousFaultMode = new ExogenousFaultMode(key);
+                exogenousFaultMode.setUuid(UUID.fromString(uuid));
+                faultmodes.put(key, exogenousFaultMode);
+            }
         }
         be = BooleanExpression.config(expression, faultmodes);
         return be;

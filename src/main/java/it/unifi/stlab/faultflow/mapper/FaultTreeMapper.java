@@ -1,5 +1,7 @@
 package it.unifi.stlab.faultflow.mapper;
 
+import it.unifi.stlab.faultflow.dao.ErrorModeDao;
+import it.unifi.stlab.faultflow.dao.PropagationPortDao;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree.*;
 import it.unifi.stlab.faultflow.dto.petrinet.*;
 import it.unifi.stlab.faultflow.dto.system.*;
@@ -7,15 +9,23 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort;
 import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.KofN;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.Operator;
 import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class FaultTreeMapper {
+    @Inject
+    private PropagationPortDao propagationPortDao = new PropagationPortDao();
+    @Inject
+    private ErrorModeDao errorModeDao = new ErrorModeDao();
+
     private static boolean isComponentInSystem(System system, String name) {
         return system.getComponents().stream().filter(x -> x.getName().equalsIgnoreCase(name)).findAny().isPresent();
     }
@@ -338,5 +348,6 @@ public class FaultTreeMapper {
 
         throw new NullPointerException("There's no ActAs in"+ failure.getLabel()+" with the same ComponentID as the Gate's: "+ gateComponentID);
     }
+
 
 }

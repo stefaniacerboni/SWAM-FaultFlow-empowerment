@@ -172,7 +172,7 @@ public class PollutionMonitorPreliminaryDesignBuiler {
 
 
         FailureMode fM_pm10dsf = new FailureMode("PM10DataSynthesisFailure");
-        ErrorMode em_pm10dsfp = new ErrorMode("PM10DataSynthesisFailure_prop_id");
+        ErrorMode em_pm10dsfp = new ErrorMode("PM10DataSynthesisFailure_prop");
         em_pm10dsfp.addInputFaultMode(exFM_pm10ds1f, exFM_pm10ds2f, exFM_pm10ds3f);
         em_pm10dsfp.addOutputFailureMode(fM_pm10dsf);
         em_pm10dsfp.setEnablingCondition("2/3(PM10DataSensor1Fault, PM10DataSensor2Fault, PM10DataSensor3Fault)", faultModes);

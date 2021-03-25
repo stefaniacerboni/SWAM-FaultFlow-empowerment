@@ -15,4 +15,14 @@ public class ExogenousFaultMode extends FaultMode {
         this.name = name;
         super.setState(false);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -89,4 +89,12 @@ public class KofN extends Operator {
         res.append(")");
         return res.toString();
     }
+
+    public int getK() {
+        return k;
+    }
+
+    public int getN() {
+        return n;
+    }
 }
