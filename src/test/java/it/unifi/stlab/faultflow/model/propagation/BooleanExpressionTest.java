@@ -61,11 +61,6 @@ public class BooleanExpressionTest {
     }
 
     @Test
-    public void testExtractIncomingFails_NullInLeaf() {
-        assertNull(A_Fault1.extractIncomingFaults());
-    }
-
-    @Test
     public void testAddChild() {
         assertEquals(3, a_Failure1.extractIncomingFaults().size());
         a_Failure1.addChild(new EndogenousFaultMode("Temp"));

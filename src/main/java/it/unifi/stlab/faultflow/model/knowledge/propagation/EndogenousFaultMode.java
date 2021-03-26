@@ -30,7 +30,10 @@ public class EndogenousFaultMode extends FaultMode {
     }
 
     public RealDistribution getArisingPDF() {
-        return PDFParser.parseStringToRealDistribution(arisingPDF);
+        if(this.arisingPDF!=null)
+            return PDFParser.parseStringToRealDistribution(arisingPDF);
+        else
+            return null;
     }
 
 
