@@ -2,16 +2,13 @@ package it.unifi.stlab.faultflow.dao;
 
 
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 @Dependent
 @Default
@@ -24,8 +21,10 @@ public class ComponentDao extends BaseDao<Component> {
 
     @Override
     public List<Component> getAll() {
-        Query query = entityManager.createQuery("");
-        return query.getResultList();    }
+        return entityManager.createQuery("SELECT c FROM Component c " +
+                "JOIN FETCH Component.errorModes", Component.class)
+                .getResultList();
+    }
 
     @Override
     public void save(Component component) {
@@ -34,23 +33,19 @@ public class ComponentDao extends BaseDao<Component> {
 
     @Override
     public void update(Component component) {
+        entityManager.merge(component);
     }
 
     @Override
     public void delete(Component component) {
-        executeInsideTransaction(entityManager -> entityManager.remove(component));
+        entityManager.remove(component);
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        EntityTransaction tx = entityManager.getTransaction();
-        try {
-            tx.begin();
-            action.accept(entityManager);
-            tx.commit();
-        }
-        catch (RuntimeException e) {
-            tx.rollback();
-            throw e;
-        }
+    public Component getComponentByErrorModeUUID(ErrorMode errorMode) {
+        return entityManager.createQuery("SELECT c FROM Component c " +
+                "JOIN FETCH c.errorModes ce " +
+                "WHERE ce.uuid = :uuid", Component.class)
+                .setParameter("uuid", errorMode.getUuid())
+                .getSingleResult();
     }
 }

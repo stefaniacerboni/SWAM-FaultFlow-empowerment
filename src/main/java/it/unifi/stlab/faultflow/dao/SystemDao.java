@@ -23,8 +23,7 @@ public class SystemDao extends BaseDao<System> {
 
     @Override
     public List<System> getAll() {
-        Query query = entityManager.createQuery("");
-        return query.getResultList();
+        return entityManager.createQuery("SELECT s FROM System s", System.class).getResultList();
     }
 
     @Override
@@ -34,24 +33,11 @@ public class SystemDao extends BaseDao<System> {
 
     @Override
     public void update(System system) {
-
+        entityManager.merge(system);
     }
 
     @Override
     public void delete(System system) {
-        executeInsideTransaction(entityManager -> entityManager.remove(system));
-    }
-
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        EntityTransaction tx = entityManager.getTransaction();
-        try {
-            tx.begin();
-            action.accept(entityManager);
-            tx.commit();
-        }
-        catch (RuntimeException e) {
-            tx.rollback();
-            throw e;
-        }
+        entityManager.remove(system);
     }
 }

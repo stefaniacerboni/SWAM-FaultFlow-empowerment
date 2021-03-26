@@ -14,9 +14,13 @@ public class System {
     @Id
     @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
+
     private String name;
+
     private String manufacturer;
+
     private String model;
+
     @OneToMany
     @JoinTable(
             name="system_components",
@@ -24,6 +28,7 @@ public class System {
             inverseJoinColumns = @JoinColumn( name="component_fk")
     )
     private List<Component> components;
+
     @ManyToOne
     @JoinColumn(name = "top_level_component_fk")
     private Component topLevelComponent;

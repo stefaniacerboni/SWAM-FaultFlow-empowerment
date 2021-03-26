@@ -141,7 +141,7 @@ public class FaultTreeMapper {
                             EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(child.getLabel());
                             endogenousFaultMode.setArisingPDF(child.getPdf());
                             errorMode.addInputFaultMode(endogenousFaultMode);
-                            faultModes.put(child.getExternalId(), endogenousFaultMode);
+                            faultModes.put(child.getLabel(), endogenousFaultMode);
                     }
                 }
                 be.delete(be.length() - 2, be.length());
@@ -327,7 +327,7 @@ public class FaultTreeMapper {
                 if (alias.getComponentId().equalsIgnoreCase(gateComponentID)) {
                     res[0] = alias.getFaultName();
                     if(alias.getRoutingProbability() != null) {
-                        if (alias.getRoutingProbability() < 1) {
+                        if (alias.getRoutingProbability() <= 1) {
                             res[1] = "" + alias.getRoutingProbability();
                             return res;
                         }

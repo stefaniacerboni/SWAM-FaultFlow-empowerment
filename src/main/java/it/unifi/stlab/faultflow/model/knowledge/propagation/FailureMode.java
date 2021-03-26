@@ -10,11 +10,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "failuremodes")
 public class FailureMode {
-    private final String description;
     @Id
     @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
 
+    private final String description;
 
     public FailureMode() {
         this.description = "";

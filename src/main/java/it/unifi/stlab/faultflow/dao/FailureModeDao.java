@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Dependent
 @Default
-public class FailureModeDao extends BaseDao<FailureMode>{
+public class FailureModeDao extends BaseDao<FailureMode> {
     @Override
     public Optional<FailureMode> get(UUID uuid) {
         return Optional.ofNullable(entityManager.find(FailureMode.class, uuid));
@@ -18,7 +18,7 @@ public class FailureModeDao extends BaseDao<FailureMode>{
 
     @Override
     public List<FailureMode> getAll() {
-        return null;
+        return entityManager.createQuery("SELECT fm FROM FailureMode fm", FailureMode.class).getResultList();
     }
 
     @Override

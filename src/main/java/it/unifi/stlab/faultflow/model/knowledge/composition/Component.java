@@ -13,7 +13,17 @@ import java.util.UUID;
 @Entity
 @Table(name = "components")
 public class Component {
+    @Id
+    @Type(type = "uuid-char")
+    private final UUID uuid = UUID.randomUUID();
+
     private final String name;
+
+    @OneToMany(mappedBy = "parent",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<CompositionPort> children;
+
     @OneToMany
     @JoinTable(
             name="component_errormodes",
@@ -21,6 +31,7 @@ public class Component {
             inverseJoinColumns = @JoinColumn( name="errormode_fk")
     )
     private final List<ErrorMode> errorModes;
+
     @OneToMany
     @JoinTable(
             name="component_propagationports",
@@ -28,13 +39,6 @@ public class Component {
             inverseJoinColumns = @JoinColumn( name="propagationport_fk")
     )
     private final List<PropagationPort> propagationPorts;
-    @Id
-    @Type(type = "uuid-char")
-    private final UUID uuid = UUID.randomUUID();
-    @OneToMany(mappedBy = "parent",
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private List<CompositionPort> children;
 
     public Component() {
         this.name = "";

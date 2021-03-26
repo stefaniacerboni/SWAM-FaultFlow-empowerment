@@ -13,16 +13,21 @@ public class PropagationPort {
     @Id
     @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "failure_mode_fk")
     private final FailureMode propagatedFailureMode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fault_mode_fk")
     private final ExogenousFaultMode exogenousFaultMode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "component_fk")
     private final Component affectedComponent;
+
     private final BigDecimal routingProbability;
+
 
     public PropagationPort(){
         this.exogenousFaultMode = null;

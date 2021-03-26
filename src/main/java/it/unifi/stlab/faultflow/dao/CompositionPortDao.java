@@ -1,6 +1,5 @@
 package it.unifi.stlab.faultflow.dao;
 
-import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort;
 
 import javax.enterprise.context.Dependent;
@@ -11,7 +10,7 @@ import java.util.UUID;
 
 @Dependent
 @Default
-public class CompositionPortDao extends BaseDao<CompositionPort>{
+public class CompositionPortDao extends BaseDao<CompositionPort> {
     @Override
     public Optional<CompositionPort> get(UUID uuid) {
         return Optional.ofNullable(entityManager.find(CompositionPort.class, uuid));
@@ -19,7 +18,7 @@ public class CompositionPortDao extends BaseDao<CompositionPort>{
 
     @Override
     public List<CompositionPort> getAll() {
-        return null;
+        return entityManager.createQuery("SELECT cp FROM CompositionPort cp", CompositionPort.class).getResultList();
     }
 
     @Override

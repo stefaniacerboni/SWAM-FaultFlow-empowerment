@@ -11,9 +11,11 @@ public class CompositionPort {
     @Id
     @Type(type = "uuid-char")
     private final UUID uuid = UUID.randomUUID();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_fk")
     private final Component parent;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_fk")
     private final Component child;
