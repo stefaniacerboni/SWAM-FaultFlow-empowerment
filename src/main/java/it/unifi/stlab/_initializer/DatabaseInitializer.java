@@ -35,7 +35,7 @@ public class DatabaseInitializer {
 
 	@PostConstruct
 	public void initDB() {
-//		persistSystem(SimpleModelBuilder.getInstance().getSystem());
+		persistSystem(SimpleModelBuilder.getInstance().getSystem());
 		persistSystem(SimpleSystem02Builder.getInstance().getSystem());
 		persistSystem(SteamBoilerModelBuilder.getInstance().getSystem());
 		persistSystem(PollutionMonitorModelBuilder.getInstance().getSystem());
