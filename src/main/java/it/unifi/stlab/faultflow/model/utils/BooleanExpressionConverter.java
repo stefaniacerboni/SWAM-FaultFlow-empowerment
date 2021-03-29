@@ -30,9 +30,9 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
             dbDataObject.append("expression", booleanExpression.toSimpleString());
             HashMap<String, String> inputFaults = new HashMap<>();
             for (FaultMode faultMode : booleanExpression.extractIncomingFaults()) {
-                String keyValue = faultMode.getUuid().toString()+","+faultMode.getClass().getSimpleName();
+                String keyValue = faultMode.getUuid().toString()+"£"+faultMode.getClass().getSimpleName();
                 if(faultMode.getClass().getSimpleName().equals("EndogenousFaultMode"))
-                    keyValue+=","+((EndogenousFaultMode)faultMode).getArisingPDFToString();
+                    keyValue+="£"+((EndogenousFaultMode)faultMode).getArisingPDFToString();
                 inputFaults.put(faultMode.getName(), keyValue);
             }
             dbDataObject.append("inputFaults", inputFaults);
@@ -53,7 +53,7 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
         Iterator<String> fault = inputFaults.keys();
         while (fault.hasNext()) {
             String key = fault.next();
-            String[] values = inputFaults.get(key).toString().split(",");
+            String[] values = inputFaults.get(key).toString().split("£");
             String uuid = values[0];
             if(values[1].equals("EndogenousFaultMode")){
                 EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(key, values[2]);

@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Path("/ft")
@@ -42,9 +43,9 @@ public class FaultTreeEndpoint {
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFaultTreeFromErrorMode(@QueryParam("errorMode_uuid") String errorModeuuid){
-        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
-        ErrorMode errorMode = component.getErrorModes().get(0);
-        //ErrorMode errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
+//        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
+//        ErrorMode errorMode = component.getErrorModes().get(0);
+        ErrorMode errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
         try{
         InputFaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorModeDao.getErrorModeById(errorMode.getUuid()));
         return Response.ok(faultTreeDto).build();
@@ -60,8 +61,8 @@ public class FaultTreeEndpoint {
     @Path("component")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFaultTreeFromComponent(@QueryParam("component_uuid") String componentuuid){
-        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
-        //ErrorMode errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
+        //Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
+        Component component = componentDao.getComponentById(UUID.fromString(componentuuid));
         try{
             List<InputFaultTreeDto> faultTreeDtos = new ArrayList<>();
             for(ErrorMode errorMode: component.getErrorModes()) {
@@ -129,30 +130,45 @@ public class FaultTreeEndpoint {
                 //non si fa un nodo ma si decora il failure sottostante:
                 // si deve andare a prendere il failure che lo propaga e creare un AliasDto
                 ExogenousFaultMode exogenousFaultMode = (ExogenousFaultMode) booleanExpression;
-                PropagationPort propagationPort = propagationPortDao.getPropagationPortByExoFaultMode(exogenousFaultMode.getUuid());
-                ErrorMode errorMode = errorModeDao.getErrorModeByFailureModeID(propagationPort.getPropagatedFailureMode().getUuid());
-                Component newComponent = componentDao.getComponentByErrorModeUUID(errorMode);
-                InputNodeDto failureModeNode = new InputNodeDto();
-                failureModeNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
-                failureModeNode.setLabel(errorMode.getOutgoingFailure().getDescription());
-                failureModeNode.setNodeType(NodeType.FAILURE);
-                failureModeNode.setPdf(errorMode.getTimetofailurePDFToString());
-                failureModeNode.setComponentId(newComponent.getName());
-                parenting.setChildId(failureModeNode.getExternalId());
-                parentings.add(parenting);
+                //Estrae una lista di PropagationPort in cui compare il faultEsogeno. NB: uno stesso Fault Esogeno
+                //può comparire in più righe della tabella PropagationPorts, perché può andare in ingresso a due componenti
+                //diverse, ma sarà sempre propagato da uno ed un solo failure (il failure della lista di propagationPort
+                //estratte sarà lo stesso, così come il campo ExoFault, cambierà solamente il Component, che ci serve per
+                //creare gli AliasDTO
 
-                List<AliasDto> aliases = new ArrayList<>();
-                AliasDto aliasDto = new AliasDto();
-                aliasDto.setFaultName(exogenousFaultMode.getName());
-                aliasDto.setRoutingProbability(propagationPort.getRoutingProbability().doubleValue());
-                aliasDto.setComponentId(propagationPort.getAffectedComponent().getName());
-                aliases.add(aliasDto);
-                failureModeNode.setActsAs(aliases);
+                List<PropagationPort> propagationPorts = propagationPortDao.getPropagationPortsByExoFaultMode(exogenousFaultMode.getUuid());
+                ErrorMode errorMode = errorModeDao.getErrorModeByFailureModeID(propagationPorts.get(0).getPropagatedFailureMode().getUuid());
+                Optional<InputNodeDto> failurePresent = nodes.stream().filter(x-> x.getExternalId().equals(errorMode.getOutgoingFailure().getUuid().toString())).findFirst();
+                if(failurePresent.isPresent()){
+                    parenting.setChildId(failurePresent.get().getExternalId());
+                    parentings.add(parenting);
+                }
+                else {
+                    Component newComponent = componentDao.getComponentByErrorModeUUID(errorMode);
+                    InputNodeDto failureModeNode = new InputNodeDto();
+                    failureModeNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
+                    failureModeNode.setLabel(errorMode.getOutgoingFailure().getDescription());
+                    failureModeNode.setNodeType(NodeType.FAILURE);
+                    failureModeNode.setPdf(errorMode.getTimetofailurePDFToString());
+                    failureModeNode.setComponentId(newComponent.getName());
+                    parenting.setChildId(failureModeNode.getExternalId());
+                    parentings.add(parenting);
 
-                nodes.add(failureModeNode);
+                    List<AliasDto> aliases = new ArrayList<>();
+                    for(PropagationPort propagationPort: propagationPorts){
+                        AliasDto aliasDto = new AliasDto();
+                        aliasDto.setFaultName(exogenousFaultMode.getName());
+                        aliasDto.setRoutingProbability(propagationPort.getRoutingProbability().doubleValue());
+                        aliasDto.setComponentId(propagationPort.getAffectedComponent().getName());
+                        aliases.add(aliasDto);
+                    }
 
-                unfoldBooleanExpression(errorMode.getActivationFunction(), failureModeNode.getExternalId(),
-                        nodes, parentings, errorMode.getName(), newComponent.getName());
+                    failureModeNode.setActsAs(aliases);
+                    nodes.add(failureModeNode);
+
+                    unfoldBooleanExpression(errorMode.getActivationFunction(), failureModeNode.getExternalId(),
+                            nodes, parentings, errorMode.getName(), newComponent.getName());
+                }
                 break;
 
             default:

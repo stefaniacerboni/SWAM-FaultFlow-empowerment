@@ -48,4 +48,9 @@ public class ComponentDao extends BaseDao<Component> {
                 .setParameter("uuid", errorMode.getUuid())
                 .getSingleResult();
     }
+
+    public Component getComponentById(UUID componentUUID) {
+        return entityManager.createQuery("SELECT c FROM Component c JOIN FETCH c.errorModes WHERE c.uuid=:uuid", Component.class)
+                .setParameter("uuid", componentUUID).getSingleResult();
+    }
 }

@@ -265,10 +265,6 @@ public class PetriNetTranslatorTest {
 
     @Test
     public void testTransitions() {
-        //TODO verificare i nomi e poi rimuovere il blocco una volta risolto il problema
-        // BEGIN : solo per trovare il problema
-
-
         List<String> exptrnas = new ArrayList<>(expectedPN.getTransitionNames());
         List<String> acttrnas = new ArrayList<>(actualPN.getTransitionNames());
         Collections.sort(exptrnas);

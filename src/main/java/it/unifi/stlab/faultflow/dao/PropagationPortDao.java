@@ -36,12 +36,12 @@ public class PropagationPortDao extends BaseDao<PropagationPort> {
         entityManager.remove(propagationPort);
     }
 
-    public PropagationPort getPropagationPortByExoFaultMode(UUID exoFaultUUID) {
+    public List<PropagationPort> getPropagationPortsByExoFaultMode(UUID exoFaultUUID) {
         return entityManager.createQuery("SELECT pp FROM PropagationPort pp " +
                 "JOIN FETCH pp.exogenousFaultMode " +
                 "JOIN FETCH pp.propagatedFailureMode " +
                 "JOIN FETCH pp.affectedComponent " +
                 "WHERE pp.exogenousFaultMode.uuid=:uuid", PropagationPort.class)
-                .setParameter("uuid", exoFaultUUID).getSingleResult();
+                .setParameter("uuid", exoFaultUUID).getResultList();
     }
 }
