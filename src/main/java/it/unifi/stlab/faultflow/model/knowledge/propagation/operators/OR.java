@@ -3,6 +3,7 @@ package it.unifi.stlab.faultflow.model.knowledge.propagation.operators;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.BooleanExpression;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OR extends Operator {
 
@@ -47,5 +48,18 @@ public class OR extends Operator {
             sb.append(be.toSimpleString()).append(")||(");
         }
         return sb.substring(0, sb.length() - 3);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OR operator = (OR) o;
+        return Objects.equals(elements, operator.elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 }

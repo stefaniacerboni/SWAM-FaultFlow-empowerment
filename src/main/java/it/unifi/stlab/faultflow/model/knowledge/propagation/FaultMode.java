@@ -48,20 +48,6 @@ public abstract class FaultMode extends BaseEntity implements BooleanExpression{
         this.uuid = uuid;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FaultMode faultMode = (FaultMode) o;
-        return uuid.equals(faultMode.uuid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uuid, name);
-    }
-
     @Override
     public List<FaultMode> extractIncomingFaults(){
         List<FaultMode> res = new ArrayList<>();

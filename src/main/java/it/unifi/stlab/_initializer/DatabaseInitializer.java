@@ -7,7 +7,6 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
-import it.unifi.stlab.faultflow.model.utils.BooleanExpressionConverter;
 import it.unifi.stlab.launcher.systembuilder.*;
 
 import javax.annotation.PostConstruct;
@@ -33,8 +32,6 @@ public class DatabaseInitializer {
 	PropagationPortDao propagationPortDao = new PropagationPortDao();
 	@Inject
 	CompositionPortDao compositionPortDao = new CompositionPortDao();
-	@Inject
-	BooleanExpressionConverter booleanExpressionConverter = new BooleanExpressionConverter();
 
 	@PostConstruct
 	public void initDB() {

@@ -2,6 +2,7 @@ package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "exogenousFaultModes")
@@ -18,11 +19,14 @@ public class ExogenousFaultMode extends FaultMode {
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExogenousFaultMode faultMode = (ExogenousFaultMode) o;
+        return uuid.equals(faultMode.uuid);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(uuid, name);
     }
 }

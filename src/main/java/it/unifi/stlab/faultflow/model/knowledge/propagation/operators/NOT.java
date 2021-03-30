@@ -3,6 +3,7 @@ package it.unifi.stlab.faultflow.model.knowledge.propagation.operators;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.BooleanExpression;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NOT extends Operator {
     public NOT() {
@@ -42,5 +43,18 @@ public class NOT extends Operator {
     @Override
     public String toSimpleString(){
         return "!"+elements.get(0).toSimpleString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NOT operator = (NOT) o;
+        return Objects.equals(elements, operator.elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 }

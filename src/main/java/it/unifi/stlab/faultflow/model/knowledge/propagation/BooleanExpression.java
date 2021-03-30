@@ -7,6 +7,7 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.OR;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface BooleanExpression {
 
@@ -24,7 +25,7 @@ public interface BooleanExpression {
      *                          appear in the booleanExpression but are not in the hashmap yet.
      * @return an instance of BooleanExpression which could be described as a Tree composed of instances of Operator and FailureMode.
      */
-    static BooleanExpression config(String booleanExpression, HashMap<String, FaultMode> failModes) {
+    static BooleanExpression config(String booleanExpression, Map<String, FaultMode> failModes) {
         //Preprocess string because some regex operations escapes with particular characters
         String newString = booleanExpression;
         newString = newString.replaceAll("&&", "&");
@@ -33,7 +34,7 @@ public interface BooleanExpression {
 
     }
 
-    private static BooleanExpression _config(String booleanExpression, HashMap<String, FaultMode> failModes) {
+    private static BooleanExpression _config(String booleanExpression, Map<String, FaultMode> failModes) {
         BooleanExpression be;
         switch (findOuterOperator(booleanExpression)) {
             case '°':
@@ -69,7 +70,7 @@ public interface BooleanExpression {
      *                  expressed by @param literal
      * @return an instance of BooleanExpression to be added as a child in the composition pattern.
      */
-    private static BooleanExpression addFailure(String literal, HashMap<String, FaultMode> failModes) {
+    private static BooleanExpression addFailure(String literal, Map<String, FaultMode> failModes) {
         BooleanExpression be;
         String cleanName;
         //Se il literal contiene una negazione, va isolato il vero faultName:

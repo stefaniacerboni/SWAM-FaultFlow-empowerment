@@ -4,6 +4,7 @@ import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.UUID;
 
 public abstract class BaseDao<T extends BaseEntity> {
 
@@ -15,11 +16,11 @@ public abstract class BaseDao<T extends BaseEntity> {
         this.tClass = tClass;
     }
 
-    public T findById(Long id) {
+    public T findById(UUID id) {
         return entityManager.find(tClass, id);
     }
 
-    public T getReferenceById(Long id) {
+    public T getReferenceById(UUID id) {
         return entityManager.getReference(tClass, id);
     }
 

@@ -4,6 +4,7 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.BooleanExpression;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.EndogenousFaultMode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class KofN extends Operator {
     private final int k;
@@ -96,5 +97,18 @@ public class KofN extends Operator {
 
     public int getN() {
         return n;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        KofN operator = (KofN) o;
+        return Objects.equals(elements, operator.elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 }
