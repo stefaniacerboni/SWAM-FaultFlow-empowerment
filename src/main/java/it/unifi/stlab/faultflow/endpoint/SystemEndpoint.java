@@ -28,6 +28,7 @@ public class SystemEndpoint {
         PetriNetTranslator pnt = new PetriNetTranslator();
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
+        //TODO nome del file generatore casualmente + path configurabile in maniera più elegante attraverso un file di properties
         File out = new File("PetriNet.xpn");
         try {
             pnt.translate(sys, PetriNetExportMethod.fromString(method));
@@ -50,14 +51,6 @@ public class SystemEndpoint {
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
-    }
-
-    @GET
-    @Path("")
-    public Response restTest() {
-        //System sys = PollutionMonitorTargetDesignBuilder.getInstance().getSystem();
-        //systemDao.save(sys);
-        return Response.ok().build();
     }
 
 }

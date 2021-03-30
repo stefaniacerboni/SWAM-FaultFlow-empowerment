@@ -9,8 +9,6 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort;
 import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
-import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.KofN;
-import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.Operator;
 import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 import org.oristool.petrinet.*;
@@ -41,18 +39,18 @@ public class FaultTreeMapper {
         }
     }
 
-    public static void decorateSystem(InputFaultTreeDto inputFaultTreeDto, System system) {
-        Queue<InputNodeDto> nodeToVisit = new LinkedList<>();
+    public static void decorateSystem(FaultTreeDto faultTreeDto, System system) {
+        Queue<NodeDto> nodeToVisit = new LinkedList<>();
         HashMap<String, FaultMode> faultModes = new HashMap<>();
         HashMap<String, FailureMode> failureModes = new HashMap<>();
-        for (String topEvent : inputFaultTreeDto.getTopEvents()) {
-            nodeToVisit.add(getNodeFromID(inputFaultTreeDto, topEvent));
+        for (String topEvent : faultTreeDto.getTopEvents()) {
+            nodeToVisit.add(getNodeFromID(faultTreeDto, topEvent));
         }
         while (!nodeToVisit.isEmpty()) {
-            InputNodeDto parent = nodeToVisit.remove();
-            List<InputParentingDto> parentings = getChildrenFromNodeID(inputFaultTreeDto, parent.getExternalId());
-            for (InputParentingDto parenting : parentings) {
-                InputNodeDto currentNode = getNodeFromID(inputFaultTreeDto, parenting.getChildId());
+            NodeDto parent = nodeToVisit.remove();
+            List<ParentingDto> parentings = getChildrenFromNodeID(faultTreeDto, parent.getExternalId());
+            for (ParentingDto parenting : parentings) {
+                NodeDto currentNode = getNodeFromID(faultTreeDto, parenting.getChildId());
 
                 if (currentNode.getNodeType() == NodeType.GATE) {
                     Component mc = getComponentInSystem(system, currentNode.getComponentId());
@@ -66,7 +64,7 @@ public class FaultTreeMapper {
                             failureModes.put(errorMode.getOutgoingFailure().getDescription(), errorMode.getOutgoingFailure());
                         }
                         errorMode.setPDF(parent.getPdf());
-                        getEnablingFunctionByNavigatingTree(inputFaultTreeDto, currentNode.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system);
+                        getEnablingFunctionByNavigatingTree(faultTreeDto, currentNode.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system);
                         mc.addErrorMode(errorMode);
                     }
                 } else if (currentNode.getNodeType() == NodeType.FAILURE) {
@@ -78,44 +76,44 @@ public class FaultTreeMapper {
         }
     }
 
-    public static System generateSystemFromFaultTree(InputFaultTreeDto inputFaultTreeDto) {
+    public static System generateSystemFromFaultTree(FaultTreeDto faultTreeDto) {
         System system=null;
-        for(String topEvent : inputFaultTreeDto.getTopEvents()){
-            InputNodeDto rootNode = getNodeFromID(inputFaultTreeDto, topEvent);
+        for(String topEvent : faultTreeDto.getTopEvents()){
+            NodeDto rootNode = getNodeFromID(faultTreeDto, topEvent);
             Component topComponent = new Component(rootNode.getComponentId());
             system = new System(rootNode.getComponentId() + "_SYS");
             system.addComponent(topComponent);
             system.setTopLevelComponent(topComponent);
         }
-        decorateSystem(inputFaultTreeDto, system);
+        decorateSystem(faultTreeDto, system);
         return system;
     }
 
-    public static List<InputParentingDto> getChildrenFromNodeID(InputFaultTreeDto faultTree, String nodeID) {
+    public static List<ParentingDto> getChildrenFromNodeID(FaultTreeDto faultTree, String nodeID) {
         return faultTree.getParentings().stream().filter(x -> x.getParentId().equals(nodeID)).collect(Collectors.toList());
     }
 
-    public static List<InputParentingDto> getParentsFromNodeID(InputFaultTreeDto faultTree, String nodeID) {
+    public static List<ParentingDto> getParentsFromNodeID(FaultTreeDto faultTree, String nodeID) {
         return faultTree.getParentings().stream().filter(x -> x.getChildId().equals(nodeID)).collect(Collectors.toList());
     }
 
-    public static InputNodeDto getNodeFromID(InputFaultTreeDto faultTree, String nodeID) {
+    public static NodeDto getNodeFromID(FaultTreeDto faultTree, String nodeID) {
         return faultTree.getNodes().stream().filter(x -> x.getExternalId().equalsIgnoreCase(nodeID)).findFirst().get();
     }
 
-    public static InputNodeDto getNodeFromLabel(InputFaultTreeDto faultTree, String label) {
+    public static NodeDto getNodeFromLabel(FaultTreeDto faultTree, String label) {
         return faultTree.getNodes().stream().filter(x -> x.getLabel().equalsIgnoreCase(label)).findFirst().get();
     }
 
-    public static String getEnablingFunctionByNavigatingTree(InputFaultTreeDto faultTreeDto, String currentNode, ErrorMode errorMode,
+    public static String getEnablingFunctionByNavigatingTree(FaultTreeDto faultTreeDto, String currentNode, ErrorMode errorMode,
                                                              HashMap<String, FaultMode> faultModes, HashMap<String, FailureMode> failureModes,
-                                                             Queue<InputNodeDto> nodeToVisit, System system) {
+                                                             Queue<NodeDto> nodeToVisit, System system) {
         StringBuilder be = new StringBuilder();
-        InputNodeDto nodeDto = getNodeFromID(faultTreeDto, currentNode);
+        NodeDto nodeDto = getNodeFromID(faultTreeDto, currentNode);
         switch (nodeDto.getGateType()) {
             case OR:
-                for (InputParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
-                    InputNodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
+                for (ParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
+                    NodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
                     switch (child.getNodeType()) {
                         case GATE:
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")||");
@@ -147,8 +145,8 @@ public class FaultTreeMapper {
                 be.delete(be.length() - 2, be.length());
                 break;
             case AND:
-                for (InputParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
-                    InputNodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
+                for (ParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
+                    NodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
                     switch (child.getNodeType()) {
                         case GATE:
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")&&");
@@ -181,8 +179,8 @@ public class FaultTreeMapper {
                 break;
             case KOUTOFN:
                 be.append(nodeDto.getK()).append("/").append(nodeDto.getN()).append("(");
-                for (InputParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
-                    InputNodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
+                for (ParentingDto parentingDto : getChildrenFromNodeID(faultTreeDto, nodeDto.getExternalId())) {
+                    NodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
                     switch (child.getNodeType()) {
                         case FAILURE:
                             FailureMode failureMode = new FailureMode(child.getLabel());
@@ -319,7 +317,7 @@ public class FaultTreeMapper {
         return outputSystemDto;
     }
 
-    private static String[] getFailuresFaultNameAndProbability(InputNodeDto failure, String gateComponentID) {
+    private static String[] getFailuresFaultNameAndProbability(NodeDto failure, String gateComponentID) {
         //first element is the fault's name, second element is fault routing probability
         String[] res = new String[2];
         if (failure.getActsAs()!=null) {

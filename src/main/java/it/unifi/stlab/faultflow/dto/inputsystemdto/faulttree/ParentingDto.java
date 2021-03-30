@@ -1,6 +1,6 @@
 package it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree;
 
-public class InputParentingDto {
+public class ParentingDto {
 
 	private String parentId;
 	private String childId;

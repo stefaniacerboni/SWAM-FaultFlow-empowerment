@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import it.unifi.stlab.faultflow.model.utils.BooleanExpressionConverter;
 import it.unifi.stlab.faultflow.model.utils.PDFParser;
@@ -12,11 +13,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "errormodes")
-public class ErrorMode {
-    @Id
-    @Type(type = "uuid-char")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID uuid;
+public class ErrorMode extends BaseEntity {
 
     private final String name;
 

@@ -55,6 +55,7 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
             String key = fault.next();
             String[] values = inputFaults.get(key).toString().split("£");
             String uuid = values[0];
+
             if(values[1].equals("EndogenousFaultMode")){
                 EndogenousFaultMode endogenousFaultMode = new EndogenousFaultMode(key, values[2]);
                 endogenousFaultMode.setUuid(UUID.fromString(uuid));
@@ -65,6 +66,7 @@ public class BooleanExpressionConverter implements AttributeConverter<BooleanExp
                 exogenousFaultMode.setUuid(UUID.fromString(uuid));
                 faultmodes.put(key, exogenousFaultMode);
             }
+            //faultmodes.put(key, faultModeDao.get(UUID.fromString(uuid)).get());
         }
         be = BooleanExpression.config(expression, faultmodes);
         return be;

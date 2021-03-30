@@ -4,7 +4,6 @@ import it.unifi.stlab.faultflow.dao.ComponentDao;
 import it.unifi.stlab.faultflow.dao.ErrorModeDao;
 import it.unifi.stlab.faultflow.dao.PropagationPortDao;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree.*;
-import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.exporter.XPNExporter;
 import it.unifi.stlab.faultflow.exporter.strategies.OrderByComponentToXPN;
 import it.unifi.stlab.faultflow.mapper.FaultTreeMapper;
@@ -13,10 +12,7 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.KofN;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.Operator;
-import it.unifi.stlab.faultflow.model.operational.Error;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
-import it.unifi.stlab.launcher.systembuilder.PollutionMonitorPreliminaryDesignBuiler;
-import it.unifi.stlab.launcher.systembuilder.SimpleSystem02Builder;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -39,56 +35,87 @@ public class FaultTreeEndpoint {
     @Inject
     ComponentDao componentDao = new ComponentDao();
 
-    @POST
-    @Path("")
+    @GET
+    @Path("/from_error_mode={errorMode_uuid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFaultTreeFromErrorMode(@QueryParam("errorMode_uuid") String errorModeuuid){
+    public Response getFaultTreeFromErrorMode(@PathParam("errorMode_uuid") String errorModeuuid) {
 //        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
 //        ErrorMode errorMode = component.getErrorModes().get(0);
-        ErrorMode errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
-        try{
-        InputFaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorModeDao.getErrorModeById(errorMode.getUuid()));
-        return Response.ok(faultTreeDto).build();
-        }catch(NullPointerException exception){
-            if(errorModeuuid==null)
-                throw new IllegalArgumentException("Please, specify ErroreMode's UUID as query Parameter!");
+        ErrorMode errorMode;
+        if (errorModeuuid == null)
+            throw new IllegalArgumentException("Please, specify ErroreMode's UUID as query Parameter!");
+        else {
+            errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
+        }
+        try {
+            FaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorMode);
+            return Response.ok(faultTreeDto).build();
+        } catch (NullPointerException exception) {
             throw new IllegalArgumentException("Error!");
         }
 
     }
 
-    @POST
-    @Path("component")
+    @GET
+    @Path("/from_component={component_uuid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFaultTreeFromComponent(@QueryParam("component_uuid") String componentuuid){
+    public Response getFaultTreesFromComponent(@PathParam("component_uuid") String componentuuid) {
         //Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
-        Component component = componentDao.getComponentById(UUID.fromString(componentuuid));
-        try{
-            List<InputFaultTreeDto> faultTreeDtos = new ArrayList<>();
-            for(ErrorMode errorMode: component.getErrorModes()) {
-                InputFaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorModeDao.getErrorModeById(errorMode.getUuid()));
+        Component component;
+        if (componentuuid == null)
+            throw new IllegalArgumentException("Please, specify Component's UUID as query Parameter!");
+
+        else {
+            component = componentDao.getComponentById(UUID.fromString(componentuuid));
+        }
+        try {
+            List<FaultTreeDto> faultTreeDtos = new ArrayList<>();
+            for (ErrorMode errorMode : component.getErrorModes()) {
+                FaultTreeDto faultTreeDto = getFaultTreeFromErrorMode(errorModeDao.getErrorModeById(errorMode.getUuid()));
                 faultTreeDtos.add(faultTreeDto);
             }
             return Response.ok(faultTreeDtos).build();
-        }catch(NullPointerException exception){
-            if(componentuuid==null)
+        } catch (NullPointerException exception) {
+            if (componentuuid == null)
                 throw new IllegalArgumentException("Please, specify ErroreMode's UUID as query Parameter!");
             throw new IllegalArgumentException("Error!");
         }
 
     }
 
-    private InputFaultTreeDto getFaultTreeFromErrorMode(ErrorMode errorMode){
-        InputFaultTreeDto inputFaultTreeDto = new InputFaultTreeDto();
+    @POST
+    @Path("/petri")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPetriNet(FaultTreeDto faultTreeDto) {
+        PetriNetTranslator pnt = new PetriNetTranslator();
+        System sys = FaultTreeMapper.generateSystemFromFaultTree(faultTreeDto);
+        //TODO nome del file generatore casualmente + path configurabile in maniera più elegante attraverso un file di properties
+        File out = new File("PetriNet.xpn");
+        try {
+            pnt.translate(sys);
+            XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
+            return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
+        } catch (FileNotFoundException fnf) {
+            throw new NotFoundException("File not Found");
+        } catch (JAXBException e) {
+            throw new BadRequestException("There's been a problem with the conversion to XPN");
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Unexpected Server Problem");
+        }
+    }
+
+    private FaultTreeDto getFaultTreeFromErrorMode(ErrorMode errorMode) {
+        FaultTreeDto faultTreeDto = new FaultTreeDto();
         List<String> topEvents = new ArrayList<>();
         topEvents.add(errorMode.getOutgoingFailure().getUuid().toString());
-        List<InputNodeDto> nodes = new ArrayList<>();
-        List<InputParentingDto> parentings = new ArrayList<>();
+        List<NodeDto> nodes = new ArrayList<>();
+        List<ParentingDto> parentings = new ArrayList<>();
 
-       Component c = componentDao.getComponentByErrorModeUUID(errorMode);
+        Component c = componentDao.getComponentByErrorModeUUID(errorMode.getUuid());
 
         //Create Failure Node
-        InputNodeDto topNode = new InputNodeDto();
+        NodeDto topNode = new NodeDto();
         topNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
         topNode.setLabel(errorMode.getOutgoingFailure().getDescription());
         topNode.setNodeType(NodeType.FAILURE);
@@ -101,20 +128,20 @@ public class FaultTreeEndpoint {
                 nodes, parentings, errorMode.getName(), c.getName());
 
 
-        inputFaultTreeDto.setNodes(nodes);
-        inputFaultTreeDto.setParentings(parentings);
-        inputFaultTreeDto.setTopEvents(topEvents);
-        return inputFaultTreeDto;
+        faultTreeDto.setNodes(nodes);
+        faultTreeDto.setParentings(parentings);
+        faultTreeDto.setTopEvents(topEvents);
+        return faultTreeDto;
     }
 
     private void unfoldBooleanExpression(BooleanExpression booleanExpression, String parent,
-                                         List<InputNodeDto> nodes, List<InputParentingDto> parentings,
-                                         String label, String component){
-        InputParentingDto parenting = new InputParentingDto();
+                                         List<NodeDto> nodes, List<ParentingDto> parentings,
+                                         String label, String component) {
+        ParentingDto parenting = new ParentingDto();
         parenting.setParentId(parent);
-        switch (booleanExpression.getClass().getSimpleName()){
+        switch (booleanExpression.getClass().getSimpleName()) {
             case "EndogenousFaultMode":
-                InputNodeDto basicEndFault = new InputNodeDto();
+                NodeDto basicEndFault = new NodeDto();
                 EndogenousFaultMode endogenousFaultMode = (EndogenousFaultMode) booleanExpression;
                 basicEndFault.setExternalId(endogenousFaultMode.getUuid().toString());
                 basicEndFault.setLabel(endogenousFaultMode.getName());
@@ -138,14 +165,13 @@ public class FaultTreeEndpoint {
 
                 List<PropagationPort> propagationPorts = propagationPortDao.getPropagationPortsByExoFaultMode(exogenousFaultMode.getUuid());
                 ErrorMode errorMode = errorModeDao.getErrorModeByFailureModeID(propagationPorts.get(0).getPropagatedFailureMode().getUuid());
-                Optional<InputNodeDto> failurePresent = nodes.stream().filter(x-> x.getExternalId().equals(errorMode.getOutgoingFailure().getUuid().toString())).findFirst();
-                if(failurePresent.isPresent()){
+                Optional<NodeDto> failurePresent = nodes.stream().filter(x -> x.getExternalId().equals(errorMode.getOutgoingFailure().getUuid().toString())).findFirst();
+                if (failurePresent.isPresent()) {
                     parenting.setChildId(failurePresent.get().getExternalId());
                     parentings.add(parenting);
-                }
-                else {
-                    Component newComponent = componentDao.getComponentByErrorModeUUID(errorMode);
-                    InputNodeDto failureModeNode = new InputNodeDto();
+                } else {
+                    Component newComponent = componentDao.getComponentByErrorModeUUID(errorMode.getUuid());
+                    NodeDto failureModeNode = new NodeDto();
                     failureModeNode.setExternalId(errorMode.getOutgoingFailure().getUuid().toString());
                     failureModeNode.setLabel(errorMode.getOutgoingFailure().getDescription());
                     failureModeNode.setNodeType(NodeType.FAILURE);
@@ -155,7 +181,7 @@ public class FaultTreeEndpoint {
                     parentings.add(parenting);
 
                     List<AliasDto> aliases = new ArrayList<>();
-                    for(PropagationPort propagationPort: propagationPorts){
+                    for (PropagationPort propagationPort : propagationPorts) {
                         AliasDto aliasDto = new AliasDto();
                         aliasDto.setFaultName(exogenousFaultMode.getName());
                         aliasDto.setRoutingProbability(propagationPort.getRoutingProbability().doubleValue());
@@ -175,21 +201,21 @@ public class FaultTreeEndpoint {
                 //è un Operator
                 assert booleanExpression instanceof Operator;
                 Operator operator = (Operator) booleanExpression;
-                InputNodeDto gate = new InputNodeDto();
-                gate.setExternalId(parent+operator.getClass().getSimpleName()+operator.hashCode());
+                NodeDto gate = new NodeDto();
+                gate.setExternalId(parent + operator.getClass().getSimpleName() + operator.hashCode());
                 gate.setLabel(label);
                 gate.setNodeType(NodeType.GATE);
                 gate.setGateType(GateType.fromString(operator.getClass().getSimpleName()));
-                if(gate.getGateType()==GateType.KOUTOFN){
-                    gate.setK(((KofN)operator).getK());
-                    gate.setN(((KofN)operator).getN());
+                if (gate.getGateType() == GateType.KOUTOFN) {
+                    gate.setK(((KofN) operator).getK());
+                    gate.setN(((KofN) operator).getN());
                 }
                 gate.setComponentId(component);
                 nodes.add(gate);
 
                 parenting.setChildId(gate.getExternalId());
                 parentings.add(parenting);
-                for(BooleanExpression element : operator.getElements()) {
+                for (BooleanExpression element : operator.getElements()) {
                     unfoldBooleanExpression(element, gate.getExternalId(), nodes, parentings, label, component);
                 }
 
@@ -203,28 +229,8 @@ public class FaultTreeEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSystem(InputFaultTreeDto inputFaultTreeDto){
 		return Response.ok(FaultTreeMapper.systemToOutputSystem(FaultTreeMapper.generateSystemFromFaultTree(inputFaultTreeDto))).build();
-	}*/
+	}
 
-	@POST
-	@Path("/petri")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPetriNet(InputFaultTreeDto inputFaultTreeDto){
-		PetriNetTranslator pnt = new PetriNetTranslator();
-        System sys = FaultTreeMapper.generateSystemFromFaultTree(inputFaultTreeDto);
-        File out = new File("PetriNet.xpn");
-        try {
-            pnt.translate(sys);
-            XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
-            return Response.ok(out).header("Content-Disposition", "attachment; filename=" + "PetriNet.xpn").build();
-        } catch (FileNotFoundException fnf) {
-            throw new NotFoundException("File not Found");
-        } catch (JAXBException e) {
-            throw new BadRequestException("There's been a problem with the conversion to XPN");
-        } catch (Exception e) {
-            throw new InternalServerErrorException("Unexpected Server Problem");
-        }	}
-    /*
 	@POST
 	@Path("/xpn")
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.composition;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -10,11 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "systems")
-public class System {
-    @Id
-    @Type(type = "uuid-char")
-    private final UUID uuid = UUID.randomUUID();
-
+public class System extends BaseEntity {
     private String name;
 
     private String manufacturer;

@@ -1,11 +1,11 @@
 package it.unifi.stlab.faultflow.dto.inputsystemdto;
 
 import it.unifi.stlab.faultflow.dto.inputsystemdto.bdd.InputBddDto;
-import it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree.InputFaultTreeDto;
+import it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree.FaultTreeDto;
 
 public class InputSystemDto {
     private InputBddDto bdd;
-    private InputFaultTreeDto faultTree;
+    private FaultTreeDto faultTree;
 
     public InputBddDto getBdd() {
         return bdd;
@@ -15,11 +15,11 @@ public class InputSystemDto {
         this.bdd = bdd;
     }
 
-    public InputFaultTreeDto getFaultTree() {
+    public FaultTreeDto getFaultTree() {
         return faultTree;
     }
 
-    public void setFaultTree(InputFaultTreeDto faultTree) {
+    public void setFaultTree(FaultTreeDto faultTree) {
         this.faultTree = faultTree;
     }
 }

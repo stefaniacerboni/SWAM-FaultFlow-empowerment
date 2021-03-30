@@ -1,27 +1,43 @@
 package it.unifi.stlab.faultflow.dao;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-public abstract class BaseDao<T> {
+public abstract class BaseDao<T extends BaseEntity> {
 
+    private final Class<T> tClass;
     @PersistenceContext
-    EntityManager entityManager;
+    protected EntityManager entityManager;
 
-    abstract Optional<T> get(UUID uuid);
+    protected BaseDao(Class<T> tClass) {
+        this.tClass = tClass;
+    }
 
-    abstract List<T> getAll();
+    public T findById(Long id) {
+        return entityManager.find(tClass, id);
+    }
 
-    abstract void save(T t);
+    public T getReferenceById(Long id) {
+        return entityManager.getReference(tClass, id);
+    }
 
-    abstract void update(T t);
+    public void save(T entity) {
+        this.entityManager.persist(entity);
+    }
 
-    abstract void delete(T t);
+    public void update(T entity) {
+        this.entityManager.merge(entity);
+    }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
+    public boolean remove(T entity) {
+        try {
+            this.entityManager.remove(entity);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
+

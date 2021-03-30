@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.composition;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -7,10 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "compositionports")
-public class CompositionPort {
-    @Id
-    @Type(type = "uuid-char")
-    private final UUID uuid = UUID.randomUUID();
+public class CompositionPort extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_fk")

@@ -3,7 +3,7 @@ package it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class InputNodeDto {
+public class NodeDto {
 
 	private String externalId;
 	private String componentId;

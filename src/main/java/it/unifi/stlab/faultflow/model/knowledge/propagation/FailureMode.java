@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
@@ -9,11 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "failuremodes")
-public class FailureMode {
-    @Id
-    @Type(type = "uuid-char")
-    private final UUID uuid = UUID.randomUUID();
-
+public class FailureMode extends BaseEntity {
     private final String description;
 
     public FailureMode() {

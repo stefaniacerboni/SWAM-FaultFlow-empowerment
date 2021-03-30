@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import org.hibernate.annotations.Type;
 
@@ -9,11 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "propagationports")
-public class PropagationPort {
-    @Id
-    @Type(type = "uuid-char")
-    private final UUID uuid = UUID.randomUUID();
-
+public class PropagationPort extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "failure_mode_fk")
     private final FailureMode propagatedFailureMode;

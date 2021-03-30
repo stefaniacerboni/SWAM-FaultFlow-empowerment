@@ -2,23 +2,23 @@ package it.unifi.stlab.faultflow.dto.inputsystemdto.faulttree;
 
 import java.util.List;
 
-public class InputFaultTreeDto {
+public class FaultTreeDto {
 
-	private List<InputNodeDto> nodes;
-	private List<InputParentingDto> parentings;
+	private List<NodeDto> nodes;
+	private List<ParentingDto> parentings;
 	private List<String> topEvents;
 
 
-	public List<InputNodeDto> getNodes() {
+	public List<NodeDto> getNodes() {
 		return nodes;
 	}
-	public void setNodes(List<InputNodeDto> nodes) {
+	public void setNodes(List<NodeDto> nodes) {
 		this.nodes = nodes;
 	}
-	public List<InputParentingDto> getParentings() {
+	public List<ParentingDto> getParentings() {
 		return parentings;
 	}
-	public void setParentings(List<InputParentingDto> parentings) {
+	public void setParentings(List<ParentingDto> parentings) {
 		this.parentings = parentings;
 	}
 

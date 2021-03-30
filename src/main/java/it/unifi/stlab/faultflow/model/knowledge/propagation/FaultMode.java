@@ -1,5 +1,6 @@
 package it.unifi.stlab.faultflow.model.knowledge.propagation;
 
+import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
@@ -13,11 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class FaultMode implements BooleanExpression {
-
-    @Id
-    @Type(type = "uuid-char")
-    protected UUID uuid = UUID.randomUUID();
+public abstract class FaultMode extends BaseEntity implements BooleanExpression{
 
     protected String name;
 
@@ -57,8 +54,7 @@ public abstract class FaultMode implements BooleanExpression {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FaultMode faultMode = (FaultMode) o;
-        return uuid.equals(faultMode.uuid) &&
-                name.equals(faultMode.name);
+        return uuid.equals(faultMode.uuid);
     }
 
     @Override

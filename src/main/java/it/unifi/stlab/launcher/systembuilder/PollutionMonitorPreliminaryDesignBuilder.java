@@ -7,15 +7,15 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
 
 import java.util.HashMap;
 
-public class PollutionMonitorPreliminaryDesignBuiler {
+public class PollutionMonitorPreliminaryDesignBuilder {
 
-    private static PollutionMonitorPreliminaryDesignBuiler single_instance;
+    private static PollutionMonitorPreliminaryDesignBuilder single_instance;
     private static System system;
     private static HashMap<String, FaultMode> faultModes;
     private static HashMap<String, FailureMode> failureModes;
     private static HashMap<String, ErrorMode> errorModes;
 
-    private PollutionMonitorPreliminaryDesignBuiler() {
+    private PollutionMonitorPreliminaryDesignBuilder() {
         faultModes = new HashMap<>();
         failureModes = new HashMap<>();
         errorModes = new HashMap<>();
@@ -219,9 +219,9 @@ public class PollutionMonitorPreliminaryDesignBuiler {
         smartAgent.addErrorMode(em_cdp, em_wsp);
     }
 
-    public static PollutionMonitorPreliminaryDesignBuiler getInstance(){
+    public static PollutionMonitorPreliminaryDesignBuilder getInstance(){
         if (single_instance == null)
-            single_instance = new PollutionMonitorPreliminaryDesignBuiler();
+            single_instance = new PollutionMonitorPreliminaryDesignBuilder();
         return single_instance;
     }
 

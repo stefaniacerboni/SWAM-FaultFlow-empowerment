@@ -8,14 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/test")
+@Path("/system")
 public class TestEndpoint {
-
 	@GET
 	@Path("")
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Response restTest() {
-		return Response.ok(SimpleSystem02Builder.getInstance().getSystem()).build();
+		return Response.ok().build();
 	}
-
 }
+
