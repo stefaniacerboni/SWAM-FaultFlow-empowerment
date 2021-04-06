@@ -1,12 +1,6 @@
 package it.unifi.stlab._initializer;
 
-import it.unifi.stlab.faultflow.dao.*;
-import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
-import it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort;
-import it.unifi.stlab.faultflow.model.knowledge.composition.System;
-import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
-import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
-import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
+import it.unifi.stlab.faultflow.businessLogic.AddSystemController;
 import it.unifi.stlab.launcher.systembuilder.*;
 
 import javax.annotation.PostConstruct;
@@ -18,52 +12,18 @@ import javax.inject.Inject;
 @Startup
 public class DatabaseInitializer {
 
-	@Inject
-	SystemDao systemDao = new SystemDao();
-	@Inject
-	ComponentDao componentDao = new ComponentDao();
-	@Inject
-	ErrorModeDao errorModeDao = new ErrorModeDao();
-	@Inject
-	FaultModeDao faultModeDao = new FaultModeDao();
-	@Inject
-	FailureModeDao failureModeDao = new FailureModeDao();
-	@Inject
-	PropagationPortDao propagationPortDao = new PropagationPortDao();
-	@Inject
-	CompositionPortDao compositionPortDao = new CompositionPortDao();
+    @Inject
+    AddSystemController addSystemController = new AddSystemController();
 
-	@PostConstruct
-	public void initDB() {
-		persistSystem(SimpleModelBuilder.getInstance().getSystem());
-		persistSystem(SimpleSystem02Builder.getInstance().getSystem());
-		persistSystem(SteamBoilerModelBuilder.getInstance().getSystem());
-		persistSystem(PollutionMonitorModelBuilder.getInstance().getSystem());
-		persistSystem(PollutionMonitorPreliminaryDesignBuilder.getInstance().getSystem());
-		persistSystem(PollutionMonitorTargetDesignBuilder.getInstance().getSystem());
-		persistSystem(PollutionMonitorIdealDesignBuilder.getInstance().getSystem());
-	}
-
-	private void persistSystem(System system){
-		for(Component component: system.getComponents()){
-			for(ErrorMode errorMode: component.getErrorModes()){
-				failureModeDao.save(errorMode.getOutgoingFailure());
-				for(FaultMode faultMode: errorMode.getInputFaultModes()){
-					faultModeDao.save(faultMode);
-				}
-				errorModeDao.save(errorMode);
-			}
-			componentDao.save(component);
-		}
-		for(Component component: system.getComponents()){
-			for(CompositionPort compositionPort: component.getCompositionPorts()){
-				compositionPortDao.save(compositionPort);
-			}
-			for(PropagationPort propagationPort: component.getPropagationPorts()){
-				propagationPortDao.save(propagationPort);
-			}
-		}
-		systemDao.save(system);
-	}
+    @PostConstruct
+    public void initDB() {
+        addSystemController.persistSystem(SimpleModelBuilder.getInstance().getSystem());
+        addSystemController.persistSystem(SimpleSystem02Builder.getInstance().getSystem());
+        addSystemController.persistSystem(SteamBoilerModelBuilder.getInstance().getSystem());
+        addSystemController.persistSystem(PollutionMonitorModelBuilder.getInstance().getSystem());
+        addSystemController.persistSystem(PollutionMonitorPreliminaryDesignBuilder.getInstance().getSystem());
+        addSystemController.persistSystem(PollutionMonitorTargetDesignBuilder.getInstance().getSystem());
+        addSystemController.persistSystem(PollutionMonitorIdealDesignBuilder.getInstance().getSystem());
+    }
 
 }

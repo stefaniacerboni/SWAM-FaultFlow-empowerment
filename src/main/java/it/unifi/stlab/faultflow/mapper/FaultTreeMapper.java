@@ -119,8 +119,11 @@ public class FaultTreeMapper {
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")||");
                             break;
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getLabel());
-                            failureModes.put(failureMode.getDescription(), failureMode);
+                            FailureMode failureMode = failureModes.get(child.getLabel());
+                            if(failureMode == null) {
+                                failureMode = new FailureMode(child.getLabel());
+                                failureModes.put(child.getLabel(), failureMode);
+                            }
                             String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
                             String faultname = faultNameAndProbability[0];
                             BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
@@ -152,8 +155,11 @@ public class FaultTreeMapper {
                             be.append("(" + getEnablingFunctionByNavigatingTree(faultTreeDto, child.getExternalId(), errorMode, faultModes, failureModes, nodeToVisit, system)).append(")&&");
                             break;
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getLabel());
-                            failureModes.put(failureMode.getDescription(), failureMode);
+                            FailureMode failureMode = failureModes.get(child.getLabel());
+                            if(failureMode == null) {
+                                failureMode = new FailureMode(child.getLabel());
+                                failureModes.put(child.getLabel(), failureMode);
+                            }
                             String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
                             String faultname = faultNameAndProbability[0];
                             BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
@@ -183,8 +189,11 @@ public class FaultTreeMapper {
                     NodeDto child = getNodeFromID(faultTreeDto, parentingDto.getChildId());
                     switch (child.getNodeType()) {
                         case FAILURE:
-                            FailureMode failureMode = new FailureMode(child.getLabel());
-                            failureModes.put(failureMode.getDescription(), failureMode);
+                            FailureMode failureMode = failureModes.get(child.getLabel());
+                            if(failureMode == null) {
+                                failureMode = new FailureMode(child.getLabel());
+                                failureModes.put(child.getLabel(), failureMode);
+                            }
                             String[] faultNameAndProbability = getFailuresFaultNameAndProbability(child, nodeDto.getComponentId());
                             String faultname = faultNameAndProbability[0];
                             BigDecimal routingProbability = BigDecimal.valueOf(Double.parseDouble(faultNameAndProbability[1]));
