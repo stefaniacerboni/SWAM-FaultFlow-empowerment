@@ -71,7 +71,7 @@ public class ErrorMode extends BaseEntity {
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF) {
         this(name, function, outgoingFailure);
-        this.timetofailurePDF = PDFParser.parseRealDistributionToString(timetofailurePDF);;
+        this.timetofailurePDF = PDFParser.parseRealDistributionToString(timetofailurePDF);
     }
 
     public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF) {

@@ -286,7 +286,7 @@ public class FaultTreeMapper {
                 ErrorModeDto outputErrorMode = new ErrorModeDto();
                 outputErrorMode.setName(errorMode.getName());
                 outputErrorMode.setActivationFunction(errorMode.getActivationFunction().toString());
-                outputErrorMode.setTimetofailurePDF(PDFParser.parseRealDistributionToString(errorMode.getTimetofailurePDF()));
+                outputErrorMode.setTimetofailurePDF(errorMode.getTimetofailurePDFToString());
                 outputErrorMode.setOutgoingFailure(errorMode.getOutgoingFailure().getDescription());
                 List<FaultModeDto> outputFaultModes = new ArrayList<>();
                 for (FaultMode faultMode : errorMode.getInputFaultModes()) {

@@ -6,6 +6,7 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.EndogenousFaultMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.FaultMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
+import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslatorMethod;
 
@@ -163,7 +164,7 @@ public class Scenario {
         for (ErrorMode em : getErrorModesFromFault(fault, affectedConcreteComponent.getComponentType())) {
             if (em.checkActivationFunction()) {
                 if (errorDelays.get(em.getName()) == null)
-                    occurredTime = fault.getTimestamp().doubleValue() + em.getTimetofailurePDF().sample();
+                    occurredTime = fault.getTimestamp().doubleValue() + PDFParser.generateSample(em.getTimetofailurePDFToString()).doubleValue();
                 else
                     occurredTime = fault.getTimestamp().doubleValue() + errorDelays.get(em.getName()).doubleValue();
                 //modifica considerando anche se il delay dell'errorMode è stato specificato deterministico

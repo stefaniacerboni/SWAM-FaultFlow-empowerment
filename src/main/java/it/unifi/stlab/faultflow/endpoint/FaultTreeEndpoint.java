@@ -36,7 +36,7 @@ public class FaultTreeEndpoint {
     ComponentDao componentDao = new ComponentDao();
 
     @GET
-    @Path("/from_error_mode={errorMode_uuid}")
+    @Path("/from_error_mode/{errorMode_uuid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFaultTreeFromErrorMode(@PathParam("errorMode_uuid") String errorModeuuid) {
 //        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
@@ -57,7 +57,7 @@ public class FaultTreeEndpoint {
     }
 
     @GET
-    @Path("/from_component={component_uuid}")
+    @Path("/from_component/{component_uuid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFaultTreesFromComponent(@PathParam("component_uuid") String componentuuid) {
         //Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");

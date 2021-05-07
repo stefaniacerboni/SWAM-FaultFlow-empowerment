@@ -59,7 +59,7 @@ public class PetriNetTranslator implements Translator {
                 b = net.addPlace(e.getOutgoingFailure().getDescription());
                 t = net.addTransition(getTransitionName(b.getName()));
                 t.addFeature(new EnablingFunction(e.getActivationFunction().toString()));
-                t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(e.getTimetofailurePDF()));
+                t.addFeature(PDFParser.parseStringToStochasticTransitionFeature(e.getTimetofailurePDFToString()));
                 net.addPrecondition(a, t);
                 net.addPostcondition(t, b);
                 marking.setTokens(a, 1);
@@ -75,13 +75,13 @@ public class PetriNetTranslator implements Translator {
                             a = net.addPlace(fault.getName() + "Occurrence");
                             marking.setTokens(a, 1);
                             t = net.addTransition(getTransitionName(a.getName()));
-                            if (((EndogenousFaultMode) fault).getArisingPDF() != null) {
+                            if (((EndogenousFaultMode) fault).getArisingPDFToString() != null) {
                                 if(method == PetriNetExportMethod.FAULT_INJECTION) {
                                     BigDecimal sample = PDFParser.generateSample(((EndogenousFaultMode) fault).getArisingPDFToString());
                                     t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal(""+sample), MarkingExpr.from("1", net)));
                                 }
                                 else
-                                    t.addFeature(PDFParser.parseRealDistributionToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDF()));
+                                    t.addFeature(PDFParser.parseStringToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDFToString()));
                             }
                             else
                                 t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));

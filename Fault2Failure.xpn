@@ -1,503 +1,674 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<tpn-editor xmlns="http://www.oris-tool.org">
-    <tpn-entities>
-        <place uuid="B_Fault1Occurrence" y="100" x="75">
-            <properties>
-                <property id="0.default.name" name="B_Fault1Occurrence" satellite-x="85" satellite-y="125"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="B_Fault1" y="100" x="325">
-            <properties>
-                <property id="0.default.name" name="B_Fault1" satellite-x="335" satellite-y="125"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="B_Propagation1" y="100" x="525">
-            <properties>
-                <property id="0.default.name" name="B_Propagation1" satellite-x="535" satellite-y="125"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="B_Failure1" y="100" x="925">
-            <properties>
-                <property id="0.default.name" name="B_Failure1" satellite-x="935" satellite-y="125"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault4" y="100" x="1175">
-            <properties>
-                <property id="0.default.name" name="C_Fault4" satellite-x="1185" satellite-y="125"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Propagation2" y="100" x="1375">
-            <properties>
-                <property id="0.default.name" name="C_Propagation2" satellite-x="1385" satellite-y="125"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="C_Failure2" y="100" x="1775">
-            <properties>
-                <property id="0.default.name" name="C_Failure2" satellite-x="1785" satellite-y="125"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="B_Propagation2" y="175" x="525">
-            <properties>
-                <property id="0.default.name" name="B_Propagation2" satellite-x="535" satellite-y="200"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="B_Failure2" y="175" x="925">
-            <properties>
-                <property id="0.default.name" name="B_Failure2" satellite-x="935" satellite-y="200"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault5" y="175" x="1175">
-            <properties>
-                <property id="0.default.name" name="C_Fault5" satellite-x="1185" satellite-y="200"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Propagation3" y="175" x="1375">
-            <properties>
-                <property id="0.default.name" name="C_Propagation3" satellite-x="1385" satellite-y="200"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="C_Failure3" y="175" x="1775">
-            <properties>
-                <property id="0.default.name" name="C_Failure3" satellite-x="1785" satellite-y="200"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="B_Fault2Occurrence" y="175" x="75">
-            <properties>
-                <property id="0.default.name" name="B_Fault2Occurrence" satellite-x="85" satellite-y="200"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="B_Fault2" y="175" x="325">
-            <properties>
-                <property id="0.default.name" name="B_Fault2" satellite-x="335" satellite-y="200"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="B_Fault3Occurrence" y="250" x="75">
-            <properties>
-                <property id="0.default.name" name="B_Fault3Occurrence" satellite-x="85" satellite-y="275"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="B_Fault3" y="250" x="325">
-            <properties>
-                <property id="0.default.name" name="B_Fault3" satellite-x="335" satellite-y="275"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault6Occurrence" y="425" x="75">
-            <properties>
-                <property id="0.default.name" name="C_Fault6Occurrence" satellite-x="85" satellite-y="450"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault6" y="425" x="325">
-            <properties>
-                <property id="0.default.name" name="C_Fault6" satellite-x="335" satellite-y="450"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault1Occurrence" y="600" x="75">
-            <properties>
-                <property id="0.default.name" name="A_Fault1Occurrence" satellite-x="85" satellite-y="625"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault1" y="600" x="325">
-            <properties>
-                <property id="0.default.name" name="A_Fault1" satellite-x="335" satellite-y="625"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Propagation1" y="600" x="525">
-            <properties>
-                <property id="0.default.name" name="A_Propagation1" satellite-x="535" satellite-y="625"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Failure1" y="600" x="925">
-            <properties>
-                <property id="0.default.name" name="A_Failure1" satellite-x="935" satellite-y="625"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault1" y="600" x="1175">
-            <properties>
-                <property id="0.default.name" name="C_Fault1" satellite-x="1185" satellite-y="625"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault2Occurrence" y="675" x="75">
-            <properties>
-                <property id="0.default.name" name="A_Fault2Occurrence" satellite-x="85" satellite-y="700"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault2" y="675" x="325">
-            <properties>
-                <property id="0.default.name" name="A_Fault2" satellite-x="335" satellite-y="700"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Propagation3" y="675" x="525">
-            <properties>
-                <property id="0.default.name" name="A_Propagation3" satellite-x="535" satellite-y="700"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Failure3" y="675" x="925">
-            <properties>
-                <property id="0.default.name" name="A_Failure3" satellite-x="935" satellite-y="700"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault3" y="675" x="1175">
-            <properties>
-                <property id="0.default.name" name="C_Fault3" satellite-x="1185" satellite-y="700"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Propagation1" y="675" x="1375">
-            <properties>
-                <property id="0.default.name" name="C_Propagation1" satellite-x="1385" satellite-y="700"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="C_Failure1" y="675" x="1775">
-            <properties>
-                <property id="0.default.name" name="C_Failure1" satellite-x="1785" satellite-y="700"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault3Occurrence" y="750" x="75">
-            <properties>
-                <property id="0.default.name" name="A_Fault3Occurrence" satellite-x="85" satellite-y="775"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault3" y="750" x="325">
-            <properties>
-                <property id="0.default.name" name="A_Fault3" satellite-x="335" satellite-y="775"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Propagation2" y="750" x="525">
-            <properties>
-                <property id="0.default.name" name="A_Propagation2" satellite-x="535" satellite-y="775"/>
-                <property id="default.marking" marking="1"/>
-            </properties>
-        </place>
-        <place uuid="A_Failure2" y="750" x="925">
-            <properties>
-                <property id="0.default.name" name="A_Failure2" satellite-x="935" satellite-y="775"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="C_Fault2" y="750" x="1175">
-            <properties>
-                <property id="0.default.name" name="C_Fault2" satellite-x="1185" satellite-y="775"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault4Occurrence" y="825" x="75">
-            <properties>
-                <property id="0.default.name" name="A_Fault4Occurrence" satellite-x="85" satellite-y="850"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault4" y="825" x="325">
-            <properties>
-                <property id="0.default.name" name="A_Fault4" satellite-x="335" satellite-y="850"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault5Occurrence" y="900" x="75">
-            <properties>
-                <property id="0.default.name" name="A_Fault5Occurrence" satellite-x="85" satellite-y="925"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <place uuid="A_Fault5" y="900" x="325">
-            <properties>
-                <property id="0.default.name" name="A_Fault5" satellite-x="335" satellite-y="925"/>
-                <property id="default.marking" marking="0"/>
-            </properties>
-        </place>
-        <transition rotation-angle="0.0" uuid="b_Fault1Occurrence" y="100" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="b_Fault1Occurrence" satellite-x="215" satellite-y="75"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="130" property-data-type="2.type.deterministic" weight="1" value="12"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="b_Failure1" y="100" x="725">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="b_Failure1" satellite-x="795" satellite-y="75"/>
-                <property id="10.default.enablingFunction" enabling-function="(B_Fault1&gt;0)&amp;&amp;(B_Fault2&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="745" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="6"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="B_Failure1toFaults" y="100" x="995">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="B_Failure1toFaults" satellite-x="1065" satellite-y="75"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="1015" satellite-y="130" property-data-type="0.type.immediate" weight="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="c_Failure2" y="100" x="1575">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="c_Failure2" satellite-x="1645" satellite-y="75"/>
-                <property id="10.default.enablingFunction" enabling-function="(C_Fault6&gt;0)&amp;&amp;(C_Fault4&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="1595" satellite-y="130" property-data-type="4.type.erlang" lambda="1" k="2"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="b_Failure2" y="175" x="725">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="b_Failure2" satellite-x="795" satellite-y="150"/>
-                <property id="10.default.enablingFunction" enabling-function="(B_Fault1&gt;0)&amp;&amp;(B_Fault3&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="745" satellite-y="205" property-data-type="4.type.erlang" lambda="1" k="2"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="B_Failure2toFaults" y="175" x="995">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="B_Failure2toFaults" satellite-x="1065" satellite-y="150"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="1015" satellite-y="205" property-data-type="0.type.immediate" weight="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="c_Failure3" y="175" x="1575">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="c_Failure3" satellite-x="1645" satellite-y="150"/>
-                <property id="10.default.enablingFunction" enabling-function="(C_Fault5&gt;0)&amp;&amp;(C_Fault6&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="1595" satellite-y="205" property-data-type="4.type.erlang" lambda="1" k="2"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="b_Fault2Occurrence" y="175" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="b_Fault2Occurrence" satellite-x="215" satellite-y="150"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="205" property-data-type="2.type.deterministic" weight="1" value="18"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="b_Fault3Occurrence" y="250" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="b_Fault3Occurrence" satellite-x="215" satellite-y="225"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="280" property-data-type="2.type.deterministic" weight="1" value="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="c_Fault6Occurrence" y="425" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="c_Fault6Occurrence" satellite-x="215" satellite-y="400"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="455" property-data-type="2.type.deterministic" weight="1" value="17"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Fault1Occurrence" y="600" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Fault1Occurrence" satellite-x="215" satellite-y="575"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="630" property-data-type="2.type.deterministic" weight="1" value="10"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Failure1" y="600" x="725">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Failure1" satellite-x="795" satellite-y="575"/>
-                <property id="10.default.enablingFunction" enabling-function="(A_Fault1&gt;0)&amp;&amp;((A_Fault2&gt;0)||(A_Fault3&gt;0))"/>
-                <property id="transition.stochastic" satellite-x="745" satellite-y="630" property-data-type="4.type.erlang" lambda="1" k="5"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="A_Failure1toFaults" y="600" x="995">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="A_Failure1toFaults" satellite-x="1065" satellite-y="575"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="1015" satellite-y="630" property-data-type="0.type.immediate" weight="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Fault2Occurrence" y="675" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Fault2Occurrence" satellite-x="215" satellite-y="650"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="705" property-data-type="2.type.deterministic" weight="1" value="13"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Failure3" y="675" x="725">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Failure3" satellite-x="795" satellite-y="650"/>
-                <property id="10.default.enablingFunction" enabling-function="(A_Fault2&gt;0)||(A_Fault5&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="745" satellite-y="705" property-data-type="4.type.erlang" lambda="1" k="9"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="A_Failure3toFaults" y="675" x="995">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="A_Failure3toFaults" satellite-x="1065" satellite-y="650"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="1015" satellite-y="705" property-data-type="0.type.immediate" weight="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="c_Failure1" y="675" x="1575">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="c_Failure1" satellite-x="1645" satellite-y="650"/>
-                <property id="10.default.enablingFunction" enabling-function="(C_Fault2&gt;0)&amp;&amp;(C_Fault3&gt;0)"/>
-                <property id="transition.stochastic" satellite-x="1595" satellite-y="705" property-data-type="4.type.erlang" lambda="1" k="2"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Fault3Occurrence" y="750" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Fault3Occurrence" satellite-x="215" satellite-y="725"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="780" property-data-type="2.type.deterministic" weight="1" value="16"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Failure2" y="750" x="725">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Failure2" satellite-x="795" satellite-y="725"/>
-                <property id="10.default.enablingFunction" enabling-function="(A_Fault3&gt;0)&amp;&amp;((A_Fault4&gt;0)||(A_Fault5&gt;0))"/>
-                <property id="transition.stochastic" satellite-x="745" satellite-y="780" property-data-type="4.type.erlang" lambda="1" k="7"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="A_Failure2toFaults" y="750" x="995">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="A_Failure2toFaults" satellite-x="1065" satellite-y="725"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="1015" satellite-y="780" property-data-type="0.type.immediate" weight="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Fault4Occurrence" y="825" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Fault4Occurrence" satellite-x="215" satellite-y="800"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="855" property-data-type="2.type.deterministic" weight="1" value="1"/>
-            </properties>
-        </transition>
-        <transition rotation-angle="0.0" uuid="a_Fault5Occurrence" y="900" x="145">
-            <features>
-                <feature id="transition.stochastic"/>
-            </features>
-            <properties>
-                <property id="0.default.name" name="a_Fault5Occurrence" satellite-x="215" satellite-y="875"/>
-                <property id="10.default.enablingFunction"/>
-                <property id="transition.stochastic" satellite-x="165" satellite-y="930" property-data-type="2.type.deterministic" weight="1" value="1"/>
-            </properties>
-        </transition>
-        <arc from="B_Fault1Occurrence" to="b_Fault1Occurrence"/>
-        <arc from="b_Fault1Occurrence" to="B_Fault1"/>
-        <arc from="B_Propagation1" to="b_Failure1"/>
-        <arc from="b_Failure1" to="B_Failure1"/>
-        <arc from="B_Failure1" to="B_Failure1toFaults"/>
-        <arc from="B_Failure1toFaults" to="C_Fault4"/>
-        <arc from="C_Propagation2" to="c_Failure2"/>
-        <arc from="c_Failure2" to="C_Failure2"/>
-        <arc from="B_Propagation2" to="b_Failure2"/>
-        <arc from="b_Failure2" to="B_Failure2"/>
-        <arc from="B_Failure2" to="B_Failure2toFaults"/>
-        <arc from="B_Failure2toFaults" to="C_Fault5"/>
-        <arc from="C_Propagation3" to="c_Failure3"/>
-        <arc from="c_Failure3" to="C_Failure3"/>
-        <arc from="B_Fault2Occurrence" to="b_Fault2Occurrence"/>
-        <arc from="b_Fault2Occurrence" to="B_Fault2"/>
-        <arc from="B_Fault3Occurrence" to="b_Fault3Occurrence"/>
-        <arc from="b_Fault3Occurrence" to="B_Fault3"/>
-        <arc from="C_Fault6Occurrence" to="c_Fault6Occurrence"/>
-        <arc from="c_Fault6Occurrence" to="C_Fault6"/>
-        <arc from="A_Fault1Occurrence" to="a_Fault1Occurrence"/>
-        <arc from="a_Fault1Occurrence" to="A_Fault1"/>
-        <arc from="A_Propagation1" to="a_Failure1"/>
-        <arc from="a_Failure1" to="A_Failure1"/>
-        <arc from="A_Failure1" to="A_Failure1toFaults"/>
-        <arc from="A_Failure1toFaults" to="C_Fault1"/>
-        <arc from="A_Fault2Occurrence" to="a_Fault2Occurrence"/>
-        <arc from="a_Fault2Occurrence" to="A_Fault2"/>
-        <arc from="A_Propagation3" to="a_Failure3"/>
-        <arc from="a_Failure3" to="A_Failure3"/>
-        <arc from="A_Failure3" to="A_Failure3toFaults"/>
-        <arc from="A_Failure3toFaults" to="C_Fault3"/>
-        <arc from="C_Propagation1" to="c_Failure1"/>
-        <arc from="c_Failure1" to="C_Failure1"/>
-        <arc from="A_Fault3Occurrence" to="a_Fault3Occurrence"/>
-        <arc from="a_Fault3Occurrence" to="A_Fault3"/>
-        <arc from="A_Propagation2" to="a_Failure2"/>
-        <arc from="a_Failure2" to="A_Failure2"/>
-        <arc from="A_Failure2" to="A_Failure2toFaults"/>
-        <arc from="A_Failure2toFaults" to="C_Fault2"/>
-        <arc from="A_Fault4Occurrence" to="a_Fault4Occurrence"/>
-        <arc from="a_Fault4Occurrence" to="A_Fault4"/>
-        <arc from="A_Fault5Occurrence" to="a_Fault5Occurrence"/>
-        <arc from="a_Fault5Occurrence" to="A_Fault5"/>
-    </tpn-entities>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tpn-editor>
+  <tpn-entities>
+    <place uuid="A_Failure1" x="925" y="600">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Failure1" satellite-x="935" satellite-y="625"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Failure2" x="925" y="750">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Failure2" satellite-x="935" satellite-y="775"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Failure3" x="925" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Failure3" satellite-x="935" satellite-y="700"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault1" x="325" y="600">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault1" satellite-x="335" satellite-y="625"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault1Occurrence" x="75" y="600">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault1Occurrence" satellite-x="85" satellite-y="625"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault2" x="325" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault2" satellite-x="335" satellite-y="700"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault2Occurrence" x="75" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault2Occurrence" satellite-x="85" satellite-y="700"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault3" x="325" y="750">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault3" satellite-x="335" satellite-y="775"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault3Occurrence" x="75" y="750">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault3Occurrence" satellite-x="85" satellite-y="775"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault4" x="325" y="825">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault4" satellite-x="335" satellite-y="850"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault4Occurrence" x="75" y="825">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault4Occurrence" satellite-x="85" satellite-y="850"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault5" x="325" y="900">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault5" satellite-x="335" satellite-y="925"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Fault5Occurrence" x="75" y="900">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Fault5Occurrence" satellite-x="85" satellite-y="925"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="A_Propagation1" x="525" y="600">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Propagation1" satellite-x="535" satellite-y="625"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="A_Propagation2" x="525" y="750">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Propagation2" satellite-x="535" satellite-y="775"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="A_Propagation3" x="525" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="A_Propagation3" satellite-x="535" satellite-y="700"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="B_Failure1" x="925" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Failure1" satellite-x="935" satellite-y="125"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Failure2" x="925" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Failure2" satellite-x="935" satellite-y="200"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault1" x="325" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault1" satellite-x="335" satellite-y="125"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault1Occurrence" x="75" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault1Occurrence" satellite-x="85" satellite-y="125"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault2" x="325" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault2" satellite-x="335" satellite-y="200"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault2Occurrence" x="75" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault2Occurrence" satellite-x="85" satellite-y="200"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault3" x="325" y="250">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault3" satellite-x="335" satellite-y="275"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Fault3Occurrence" x="75" y="250">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Fault3Occurrence" satellite-x="85" satellite-y="275"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="B_Propagation1" x="525" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Propagation1" satellite-x="535" satellite-y="125"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="B_Propagation2" x="525" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="B_Propagation2" satellite-x="535" satellite-y="200"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="C_Failure1" x="1775" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Failure1" satellite-x="1785" satellite-y="700"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Failure2" x="1775" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Failure2" satellite-x="1785" satellite-y="125"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Failure3" x="1775" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Failure3" satellite-x="1785" satellite-y="200"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault1" x="1175" y="600">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault1" satellite-x="1185" satellite-y="625"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault2" x="1175" y="750">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault2" satellite-x="1185" satellite-y="775"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault3" x="1175" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault3" satellite-x="1185" satellite-y="700"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault4" x="1175" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault4" satellite-x="1185" satellite-y="125"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault5" x="1175" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault5" satellite-x="1185" satellite-y="200"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault6" x="325" y="425">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault6" satellite-x="335" satellite-y="450"/>
+        <property id="default.marking" marking="0"/>
+      </properties>
+    </place>
+    <place uuid="C_Fault6Occurrence" x="75" y="425">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Fault6Occurrence" satellite-x="85" satellite-y="450"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="C_Propagation1" x="1375" y="675">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Propagation1" satellite-x="1385" satellite-y="700"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="C_Propagation2" x="1375" y="100">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Propagation2" satellite-x="1385" satellite-y="125"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <place uuid="C_Propagation3" x="1375" y="175">
+      <features/>
+      <properties>
+        <property id="0.default.name" name="C_Propagation3" satellite-x="1385" satellite-y="200"/>
+        <property id="default.marking" marking="1"/>
+      </properties>
+    </place>
+    <transition rotation-angle="0.0" uuid="A_Failure1toFaults" x="995" y="600">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="A_Failure1toFaults" satellite-x="1065" satellite-y="575"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="0.type.immediate" satellite-x="1015" satellite-y="630" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="A_Failure2toFaults" x="995" y="750">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="A_Failure2toFaults" satellite-x="1065" satellite-y="725"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="0.type.immediate" satellite-x="1015" satellite-y="780" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="A_Failure3toFaults" x="995" y="675">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="A_Failure3toFaults" satellite-x="1065" satellite-y="650"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="0.type.immediate" satellite-x="1015" satellite-y="705" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="B_Failure1toFaults" x="995" y="100">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="B_Failure1toFaults" satellite-x="1065" satellite-y="75"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="0.type.immediate" satellite-x="1015" satellite-y="130" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="B_Failure2toFaults" x="995" y="175">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="B_Failure2toFaults" satellite-x="1065" satellite-y="150"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="0.type.immediate" satellite-x="1015" satellite-y="205" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Failure1" x="725" y="600">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Failure1" satellite-x="795" satellite-y="575"/>
+        <property enabling-function="(A_Fault1&gt;0)&amp;&amp;((A_Fault2&gt;0)||(A_Fault3&gt;0))" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="5" lambda="1" property-data-type="4.type.erlang" satellite-x="745" satellite-y="630"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Failure2" x="725" y="750">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Failure2" satellite-x="795" satellite-y="725"/>
+        <property enabling-function="(A_Fault3&gt;0)&amp;&amp;((A_Fault4&gt;0)||(A_Fault5&gt;0))" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="7" lambda="1" property-data-type="4.type.erlang" satellite-x="745" satellite-y="780"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Failure3" x="725" y="675">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Failure3" satellite-x="795" satellite-y="650"/>
+        <property enabling-function="(A_Fault2&gt;0)||(A_Fault5&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="9" lambda="1" property-data-type="4.type.erlang" satellite-x="745" satellite-y="705"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Fault1Occurrence" x="145" y="600">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Fault1Occurrence" satellite-x="215" satellite-y="575"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="630" value="10" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Fault2Occurrence" x="145" y="675">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Fault2Occurrence" satellite-x="215" satellite-y="650"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="705" value="13" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Fault3Occurrence" x="145" y="750">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Fault3Occurrence" satellite-x="215" satellite-y="725"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="780" value="16" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Fault4Occurrence" x="145" y="825">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Fault4Occurrence" satellite-x="215" satellite-y="800"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="855" value="1" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="a_Fault5Occurrence" x="145" y="900">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="a_Fault5Occurrence" satellite-x="215" satellite-y="875"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="930" value="1" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="b_Failure1" x="725" y="100">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="b_Failure1" satellite-x="795" satellite-y="75"/>
+        <property enabling-function="(B_Fault1&gt;0)&amp;&amp;(B_Fault2&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="6" lambda="1" property-data-type="4.type.erlang" satellite-x="745" satellite-y="130"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="b_Failure2" x="725" y="175">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="b_Failure2" satellite-x="795" satellite-y="150"/>
+        <property enabling-function="(B_Fault1&gt;0)&amp;&amp;(B_Fault3&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="2" lambda="1" property-data-type="4.type.erlang" satellite-x="745" satellite-y="205"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="b_Fault1Occurrence" x="145" y="100">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="b_Fault1Occurrence" satellite-x="215" satellite-y="75"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="130" value="12" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="b_Fault2Occurrence" x="145" y="175">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="b_Fault2Occurrence" satellite-x="215" satellite-y="150"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="205" value="18" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="b_Fault3Occurrence" x="145" y="250">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="b_Fault3Occurrence" satellite-x="215" satellite-y="225"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" priority="0" property-data-type="2.type.deterministic" satellite-x="165" satellite-y="280" value="1" weight="1"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="c_Failure1" x="1575" y="675">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="c_Failure1" satellite-x="1645" satellite-y="650"/>
+        <property enabling-function="(C_Fault2&gt;0)&amp;&amp;(C_Fault3&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="2" lambda="1" property-data-type="4.type.erlang" satellite-x="1595" satellite-y="705"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="c_Failure2" x="1575" y="100">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="c_Failure2" satellite-x="1645" satellite-y="75"/>
+        <property enabling-function="(C_Fault6&gt;0)&amp;&amp;(C_Fault4&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="2" lambda="1" property-data-type="4.type.erlang" satellite-x="1595" satellite-y="130"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="c_Failure3" x="1575" y="175">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="c_Failure3" satellite-x="1645" satellite-y="150"/>
+        <property enabling-function="(C_Fault5&gt;0)&amp;&amp;(C_Fault6&gt;0)" id="10.default.enablingFunction"/>
+        <property id="transition.stochastic" k="2" lambda="1" property-data-type="4.type.erlang" satellite-x="1595" satellite-y="205"/>
+      </properties>
+    </transition>
+    <transition rotation-angle="0.0" uuid="c_Fault6Occurrence" x="145" y="425">
+      <features>
+        <feature id="transition.stochastic"/>
+      </features>
+      <properties>
+        <property id="0.default.name" name="c_Fault6Occurrence" satellite-x="215" satellite-y="400"/>
+        <property enabling-function="" id="10.default.enablingFunction"/>
+        <property efts="0;4" expressions="3 * Exp[-4 x] + x^1 * Exp[-2 x];3 * Exp[-4 x] + x^1 * Exp[-1 x]" id="transition.stochastic" lfts="4;INF" normalizationFactor="1.0" property-data-type="5.type.expolynomial" satellite-x="193" satellite-y="475"/>
+      </properties>
+    </transition>
+    <arc from="B_Failure1" to="B_Failure1toFaults" uuid="064f2a2d-1bff-4878-a5f7-5d2a24f118e8">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure2" to="A_Failure2toFaults" uuid="15238f11-bc4b-49f0-b5a2-e99a3fbe6d81">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Failure1toFaults" to="C_Fault4" uuid="15711adb-d286-4ca2-b7f7-8b4fa39fa8d8">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Fault5Occurrence" to="a_Fault5Occurrence" uuid="15cff112-2968-43ea-9ae5-dbcf3128bed4">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="C_Propagation3" to="c_Failure3" uuid="15f97042-4bbf-45ff-946c-228de3d2ec15">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="b_Fault2Occurrence" to="B_Fault2" uuid="182a11c2-cc9a-4920-86b4-500bdaaec92b">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Failure2toFaults" to="C_Fault5" uuid="19b11c26-d0ca-4be5-bb25-8e50a98a581d">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="c_Failure2" to="C_Failure2" uuid="1d45b308-8ddf-403d-807d-2e461add55ba">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Fault1Occurrence" to="a_Fault1Occurrence" uuid="1d5c928d-7b97-4863-b618-c7b2ad254ea4">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="b_Fault1Occurrence" to="B_Fault1" uuid="329864d9-f959-4a54-aa1d-54724a81dcfd">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Failure3" to="A_Failure3" uuid="368b4dac-5a01-465a-93a8-fb5c36822f41">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Fault3Occurrence" to="b_Fault3Occurrence" uuid="3fb1cef2-f9d4-42c0-ae0f-c1f1bdc9ba32">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Failure1" to="A_Failure1" uuid="47dac7ee-2858-4663-aa57-4d8c4aa2c57b">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Failure2" to="B_Failure2toFaults" uuid="498a4821-e375-479d-8b2d-b82484fac001">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Fault2Occurrence" to="A_Fault2" uuid="4b1cc3e7-8efb-4460-b845-ff0169fce149">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Propagation1" to="a_Failure1" uuid="4e42a926-3c4d-4806-af90-23bfccc550f6">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Fault3Occurrence" to="A_Fault3" uuid="51f99ef1-38db-463b-ae27-80141b373754">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="b_Failure1" to="B_Failure1" uuid="5378db08-444a-4d1b-bc1f-1bd63141b1a6">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="b_Failure2" to="B_Failure2" uuid="56d69346-d5e6-4ff7-b572-1785ff07280e">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Failure2" to="A_Failure2" uuid="58278e05-5cdb-4679-8429-896d29a8dee9">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Fault5Occurrence" to="A_Fault5" uuid="5d5fa1bb-339e-458f-a0e5-c200010ec312">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="C_Propagation1" to="c_Failure1" uuid="65a011fa-cdc9-4e88-8d24-127a7136cc1d">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Fault4Occurrence" to="a_Fault4Occurrence" uuid="68a21eeb-dd4a-4ddc-bc9a-d2bb214a7504">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Propagation3" to="a_Failure3" uuid="72d60609-60a7-4c76-8a51-09a50cd9e512">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="c_Failure3" to="C_Failure3" uuid="7719476c-3379-4a49-b907-dec941e28d7a">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure1toFaults" to="C_Fault1" uuid="7e1192d3-5266-48c1-9dd6-29a95be68445">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Propagation2" to="a_Failure2" uuid="80a497ec-1612-42cb-adda-de1e520d5ace">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Propagation1" to="b_Failure1" uuid="83fb542d-d97f-4144-843e-d2bc987b818a">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="C_Propagation2" to="c_Failure2" uuid="97fe10e4-a424-404c-90e6-b842e6b78216">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure2toFaults" to="C_Fault2" uuid="9df1f722-9dfd-42e7-8729-effd1e599163">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Propagation2" to="b_Failure2" uuid="abc4614c-e181-4ad7-9488-2c0917375758">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="b_Fault3Occurrence" to="B_Fault3" uuid="b5e4af6e-a76e-4240-9f52-89edce78ce75">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Fault1Occurrence" to="b_Fault1Occurrence" uuid="bf1acf30-ebdc-43fe-aaa0-ac5b23befef7">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure3" to="A_Failure3toFaults" uuid="cfc2272e-4d97-456e-983a-da6d64daa08a">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Fault1Occurrence" to="A_Fault1" uuid="d4089cf5-9d95-463e-a73c-697b68dd0c5c">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="C_Fault6Occurrence" to="c_Fault6Occurrence" uuid="dc9b8703-c4a9-4cbf-9049-8687f680eaeb">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Fault2Occurrence" to="a_Fault2Occurrence" uuid="ddfa16e4-12ff-4ead-b69e-d522c2a3da50">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure1" to="A_Failure1toFaults" uuid="e26fed9a-2e0e-4975-b55f-a3518cf8ea29">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="c_Fault6Occurrence" to="C_Fault6" uuid="e33fe254-96a4-4a03-96a2-2070a48052ac">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="a_Fault4Occurrence" to="A_Fault4" uuid="f3fc3c5b-134a-4e50-9a23-d7b28c1c3a7f">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Failure3toFaults" to="C_Fault3" uuid="f512b294-d5c7-48f4-a93c-9e2780fc2394">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="c_Failure1" to="C_Failure1" uuid="f78809d4-41dd-4920-ae5d-dcc1887461da">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="B_Fault2Occurrence" to="b_Fault2Occurrence" uuid="faae97d4-8c52-4be3-8c7e-c232869b3f71">
+      <features/>
+      <properties/>
+    </arc>
+    <arc from="A_Fault3Occurrence" to="a_Fault3Occurrence" uuid="fde556dc-58f2-4902-b50b-f9c72cac104f">
+      <features/>
+      <properties/>
+    </arc>
+  </tpn-entities>
 </tpn-editor>

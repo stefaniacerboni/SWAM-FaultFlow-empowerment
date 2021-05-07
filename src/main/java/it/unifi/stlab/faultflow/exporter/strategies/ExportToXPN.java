@@ -1,6 +1,7 @@
 package it.unifi.stlab.faultflow.exporter.strategies;
 
 import it.unifi.stlab.faultflow.exporter.jaxb.*;
+import org.oristool.math.expression.Expolynomial;
 import org.oristool.math.function.EXP;
 import org.oristool.math.function.Erlang;
 import org.oristool.math.function.GEN;
@@ -137,20 +138,31 @@ public interface ExportToXPN extends ExportStrategy {
             stochastic.setK(((Erlang) stochasticTransitionFeature.density()).getShape());
             stochastic.setLambda(((Erlang) stochasticTransitionFeature.density()).getLambda());
             stochastic.setPropertyDataType("4.type.erlang");
-        } else if (GEN.class.equals(stochasticTransitionFeature.density().getClass())) {
-            String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
-            String[] bounds = domain.split("<=");
-            if (bounds[0].equals(bounds[2])) {
-                if (bounds[0].equals("0"))
-                    stochastic.setPropertyDataType("0.type.immediate");
-                else {
-                    stochastic.setPropertyDataType("2.type.deterministic");
-                    stochastic.setValue((int) Double.parseDouble(bounds[0]));
+        }
+        else if (GEN.class.equals(stochasticTransitionFeature.density().getClass())) {
+            if(!((GEN)stochasticTransitionFeature.density()).getDensity().isConstant())
+            {
+                stochastic.setPropertyDataType("5.type.expolynomial");
+                stochastic.setExpressions(((GEN) stochasticTransitionFeature.density()).getDensity().toString());
+                stochastic.setEfts(stochasticTransitionFeature.density().getDomainsEFT().toString());
+                stochastic.setLfts(stochasticTransitionFeature.density().getDomainsLFT().toString());
+                //stochastic.setNormalizationFactor(stochasticTransitionFeature.density());
+            }
+            else {
+                String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
+                String[] bounds = domain.split("<=");
+                if (bounds[0].equals(bounds[2])) {
+                    if (bounds[0].equals("0"))
+                        stochastic.setPropertyDataType("0.type.immediate");
+                    else {
+                        stochastic.setPropertyDataType("2.type.deterministic");
+                        stochastic.setValue((int) Double.parseDouble(bounds[0]));
+                    }
+                } else {
+                    stochastic.setPropertyDataType("1.type.uniform");
+                    stochastic.setEft(Float.valueOf(bounds[0]));
+                    stochastic.setLft(Float.valueOf(bounds[2]));
                 }
-            } else {
-                stochastic.setPropertyDataType("1.type.uniform");
-                stochastic.setEft(Float.valueOf(bounds[0]));
-                stochastic.setLft(Float.valueOf(bounds[2]));
             }
             stochastic.setWeight(1);
         } else if (EXP.class.equals(stochasticTransitionFeature.density().getClass())) {

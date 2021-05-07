@@ -1,10 +1,13 @@
 package it.unifi.stlab.faultflow.model.utils;
 
 import org.apache.commons.math3.distribution.*;
+import org.oristool.math.OmegaBigDecimal;
+import org.oristool.math.expression.Expolynomial;
 import org.oristool.math.function.EXP;
 import org.oristool.math.function.Erlang;
 import org.oristool.math.function.GEN;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
+import org.oristool.simulator.samplers.MetropolisHastings;
 
 import java.math.BigDecimal;
 
@@ -50,6 +53,12 @@ public class PDFParser {
                 String a = "" + (Double.parseDouble(args[0]) - factor);
                 String b = "" + (Double.parseDouble(args[0]) + factor);
                 return StochasticTransitionFeature.newUniformInstance(a, b);
+            case "expoly":
+                args = arguments.split(",");
+                String density = args[0];
+                OmegaBigDecimal eft = new OmegaBigDecimal(args[1]);
+                OmegaBigDecimal lft = new OmegaBigDecimal(args[2]);
+                return StochasticTransitionFeature.newExpolynomial(density, eft, lft);
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -158,6 +167,7 @@ public class PDFParser {
             return "erlang(" + (int) ((GammaDistribution) realDistribution).getShape() + "," + (1/((GammaDistribution) realDistribution).getScale()) + ")";
         } else
             throw new UnsupportedOperationException("This type of RealDistribution is unsupported");
+
     }
 
     private static double checkDivision(String arg){
@@ -172,7 +182,26 @@ public class PDFParser {
         }
     }
 
+    public static GEN parseStringToFunction(String expolyString){
+        String typePDF = expolyString.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
+        String arguments = expolyString.substring(typePDF.length() + 1, expolyString.length() - 1);
+        String[] args = arguments.split(",");
+        String density = args[0];
+        OmegaBigDecimal eft = new OmegaBigDecimal(args[1]);
+        OmegaBigDecimal lft = new OmegaBigDecimal(args[2].trim());
+        return GEN.newExpolynomial(density, eft, lft);
+
+    }
+
     public static BigDecimal generateSample(String pdf) {
-        return BigDecimal.valueOf(PDFParser.parseStringToRealDistribution(pdf).sample());
+        String typePDF = pdf.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
+        if(typePDF.equals("expoly")) {
+            //if it's expoly sample like this:
+            MetropolisHastings metropolisHastings = new MetropolisHastings(parseStringToFunction(pdf));
+            return metropolisHastings.getSample();
+        }
+        else//else, parse into real distribution and sample
+            return BigDecimal.valueOf(PDFParser.parseStringToRealDistribution(pdf).sample());
+
     }
 }
