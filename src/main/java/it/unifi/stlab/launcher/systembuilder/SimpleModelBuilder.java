@@ -39,7 +39,9 @@ public class SimpleModelBuilder {
 
         EndogenousFaultMode enFM_B1 = new EndogenousFaultMode("B_Fault1");
         //enFM_B1.setArisingPDF("dirac(3)");
-        enFM_B1.setArisingPDF("expoly(3 * Exp[-4 x] + x^1 * Exp[-2 x],4,5)");
+        //ogni tanto division undefined quando fa la generazione del campione, soprattutto per lft alti
+        //(a partire da 910-sicuramente da 911 in poi, +inf compreso).
+        enFM_B1.setArisingPDF("expoly(3 * Exp[-4 x] + x^1 * Exp[-2 x],4,10)");
         EndogenousFaultMode enFM_B2 = new EndogenousFaultMode("B_Fault2");
         enFM_B2.setArisingPDF("gaussian(10,5)");
         EndogenousFaultMode enFM_C4 = new EndogenousFaultMode("C_Fault4");

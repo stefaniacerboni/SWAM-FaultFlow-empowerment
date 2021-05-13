@@ -78,15 +78,6 @@ public class ErrorMode extends BaseEntity {
         this(name, function, outgoingFailure);
         setPDF(timetofailurePDF);
     }
-
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, RealDistribution timetofailurePDF, Component component) {
-        this(name, function, outgoingFailure, timetofailurePDF);
-    }
-
-    public ErrorMode(String name, BooleanExpression function, FailureMode outgoingFailure, String timetofailurePDF, Component component) {
-        this(name, function, outgoingFailure, timetofailurePDF);
-    }
-
     public UUID getUuid() {
         return uuid;
     }

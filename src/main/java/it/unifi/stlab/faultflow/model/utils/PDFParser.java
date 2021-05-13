@@ -58,7 +58,10 @@ public class PDFParser {
                 String density = args[0];
                 OmegaBigDecimal eft = new OmegaBigDecimal(args[1]);
                 OmegaBigDecimal lft = new OmegaBigDecimal(args[2]);
-                return StochasticTransitionFeature.newExpolynomial(density, eft, lft);
+                if(Expolynomial.isValid(density))
+                    return StochasticTransitionFeature.newExpolynomial(density, eft, lft);
+                else
+                    throw new UnsupportedOperationException("Function not well formed");
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -140,6 +143,10 @@ public class PDFParser {
         if (Erlang.class.equals(stochasticTransitionFeature.density().getClass())) {
             return "erlang(" + ((Erlang) stochasticTransitionFeature.density()).getShape() + "," + Double.parseDouble(String.valueOf(((Erlang) stochasticTransitionFeature.density()).getLambda())) + ")";
         } else if (GEN.class.equals(stochasticTransitionFeature.density().getClass())) {
+            if(!((GEN)stochasticTransitionFeature.density()).getDensity().isConstant())
+                return "expoly("+((GEN) stochasticTransitionFeature.density()).getDensity().toString()+","+
+                        stochasticTransitionFeature.density().getDomainsEFT().toString()+","+
+                        stochasticTransitionFeature.density().getDomainsLFT().toString();
             String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
             String[] bounds = domain.split("<=");
             if (bounds[0].equals(bounds[2]))
