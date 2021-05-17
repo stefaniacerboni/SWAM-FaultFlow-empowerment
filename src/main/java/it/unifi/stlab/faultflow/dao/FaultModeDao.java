@@ -23,7 +23,11 @@ public class FaultModeDao extends BaseDao<FaultMode> {
     }
 
     public FaultMode getFaultModeById(UUID faultModeUUID) {
-        return entityManager.createQuery("SELECT fm FROM FaultMode fm WHERE fm.uuid=:uuid", FaultMode.class)
-                .setParameter("uuid", faultModeUUID).getSingleResult();
+        try {
+            return entityManager.createQuery("SELECT fm FROM FaultMode fm WHERE fm.uuid=:uuid", FaultMode.class)
+                    .setParameter("uuid", faultModeUUID).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

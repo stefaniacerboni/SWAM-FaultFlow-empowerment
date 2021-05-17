@@ -15,6 +15,6 @@ public class SystemDao extends BaseDao<System> {
     }
 
     public List<System> getAll() {
-        return entityManager.createQuery("SELECT s FROM System s", System.class).getResultList();
+        return entityManager.createQuery("SELECT s FROM System s LEFT JOIN FETCH s.components", System.class).getResultList();
     }
 }

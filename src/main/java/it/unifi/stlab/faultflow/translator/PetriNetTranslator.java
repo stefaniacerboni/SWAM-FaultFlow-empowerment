@@ -4,11 +4,11 @@ import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;
 import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.*;
-import it.unifi.stlab.faultflow.model.operational.Fault;
-import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import it.unifi.stlab.faultflow.model.operational.Error;
 import it.unifi.stlab.faultflow.model.operational.Event;
 import it.unifi.stlab.faultflow.model.operational.Failure;
+import it.unifi.stlab.faultflow.model.operational.Fault;
+import it.unifi.stlab.faultflow.model.utils.PDFParser;
 import org.oristool.models.pn.Priority;
 import org.oristool.models.stpn.MarkingExpr;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
  * propagation ports.
  */
 public class PetriNetTranslator implements Translator {
-    private String sysName;
     private final PetriNet net;
     private final Marking marking;
+    private String sysName;
 
     public PetriNetTranslator() {
         net = new PetriNet();
@@ -46,7 +46,7 @@ public class PetriNetTranslator implements Translator {
         return Character.toString(placeName.charAt(0)).toLowerCase() + placeName.substring(1);
     }
 
-    public void translate(System system, PetriNetExportMethod method){
+    public void translate(System system, PetriNetExportMethod method) {
         this.sysName = system.getName();
         //First add ErrorModes to the net, thus the ErrorMode and its outgoing failure become places and
         //between them there's a transition with the ErrorMode's enabling function
@@ -76,14 +76,12 @@ public class PetriNetTranslator implements Translator {
                             marking.setTokens(a, 1);
                             t = net.addTransition(getTransitionName(a.getName()));
                             if (((EndogenousFaultMode) fault).getArisingPDFToString() != null) {
-                                if(method == PetriNetExportMethod.FAULT_INJECTION) {
+                                if (method == PetriNetExportMethod.FAULT_INJECTION) {
                                     BigDecimal sample = PDFParser.generateSample(((EndogenousFaultMode) fault).getArisingPDFToString());
-                                    t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal(""+sample), MarkingExpr.from("1", net)));
-                                }
-                                else
+                                    t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("" + sample), MarkingExpr.from("1", net)));
+                                } else
                                     t.addFeature(PDFParser.parseStringToStochasticTransitionFeature(((EndogenousFaultMode) fault).getArisingPDFToString()));
-                            }
-                            else
+                            } else
                                 t.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("1"), MarkingExpr.from("1", net)));
                             t.addFeature(new Priority(0));
                             net.addPrecondition(a, t);
@@ -97,8 +95,8 @@ public class PetriNetTranslator implements Translator {
                 for (PropagationPort pp : component.getPropagationPorts()) {
                     a = net.getPlace(pp.getPropagatedFailureMode().getDescription());
                     b = net.addPlace(pp.getExogenousFaultMode().getName());
-                    t = net.getTransition(a.getName()+"toFaults");
-                    if(t==null) {
+                    t = net.getTransition(a.getName() + "toFaults");
+                    if (t == null) {
                         t = net.addTransition(a.getName() + "toFaults");
                         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
                         if (tf == null) {
@@ -107,15 +105,15 @@ public class PetriNetTranslator implements Translator {
                         }
                         net.addPrecondition(a, t);
                     }
-                    if(pp.getRoutingProbability().equals(BigDecimal.ONE) || pp.getRoutingProbability().equals(BigDecimal.valueOf(1.0)))
+                    if (pp.getRoutingProbability().equals(BigDecimal.ONE) || pp.getRoutingProbability().equals(BigDecimal.valueOf(1.0)))
                         net.addPostcondition(t, b);
-                    else{
-                        Place router = net.addPlace("Router"+b.getName());
+                    else {
+                        Place router = net.addPlace("Router" + b.getName());
                         net.addPostcondition(t, router);
                         Transition p = net.addTransition(pp.getRoutingProbability().toString());
                         p.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
                         p.addFeature(new Priority(0));
-                        Transition minusp = net.addTransition(""+(1 - pp.getRoutingProbability().doubleValue()));
+                        Transition minusp = net.addTransition("" + (1 - pp.getRoutingProbability().doubleValue()));
                         minusp.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
                         minusp.addFeature(new Priority(0));
                         net.addPrecondition(router, p);
@@ -138,24 +136,26 @@ public class PetriNetTranslator implements Translator {
      * decorates Fault/Failure occurrence's places with tokens if they're active.
      * Changes the ErroMode's transition with a deterministic transition if specified.
      *
-     * @param event the instance of an event created at Operational Level in a Scenario, that has to be translated
-     *              into a Place in the PetriNet. This can be a Fault, Error or Failure
+     * @param event     the instance of an event created at Operational Level in a Scenario, that has to be translated
+     *                  into a Place in the PetriNet. This can be a Fault, Error or Failure
      * @param timestamp the moment in which the event is expected to occur. For an error, this parameter specifies
      *                  a different delay (deterministic) in the propagation of the failure.
      */
-    public void decorate(Event event, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod){
-        switch(event.getClass().getSimpleName()){
+    public void decorate(Event event, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod) {
+        switch (event.getClass().getSimpleName()) {
             case "Error":
                 decorateError((Error) event, timestamp);
                 break;
             case "Failure":
                 decorateFailure((Failure) event, timestamp, pntMethod);
                 break;
-            default: decorateOccurrence((Fault) event, timestamp, pntMethod);
+            default:
+                decorateOccurrence((Fault) event, timestamp, pntMethod);
         }
     }
+
     private void decorateOccurrence(Fault fault, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod) {
-        if(fault.getFaultMode() instanceof ExogenousFaultMode) {
+        if (fault.getFaultMode() instanceof ExogenousFaultMode) {
             decorateExogenousFaultOccurrence(fault, pntMethod);
         }
         Place a = net.getPlace((fault.getFaultMode().getName() + "Occurrence"));
@@ -164,10 +164,10 @@ public class PetriNetTranslator implements Translator {
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
         if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
-        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
+        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac(" + timestamp.toString() + ")"));
     }
 
-    private void decorateExogenousFaultOccurrence(Fault fault, PetriNetTranslatorMethod pntMethod){
+    private void decorateExogenousFaultOccurrence(Fault fault, PetriNetTranslatorMethod pntMethod) {
         Place a = net.addPlace(fault.getFaultMode().getName() + "Occurrence");
         Transition t = net.addTransition(getTransitionName(a.getName()));
         Place b = net.getPlace(fault.getFaultMode().getName());
@@ -178,7 +178,7 @@ public class PetriNetTranslator implements Translator {
                 transitionsToEdit.add(pc.getTransition());
             }
         }
-        switch(pntMethod) {
+        switch (pntMethod) {
             case CONCURRENT:
                 for (Transition transition : transitionsToEdit) {
                     if (net.getPostconditions(transition).size() > 1) {
@@ -200,7 +200,7 @@ public class PetriNetTranslator implements Translator {
                 break;
             case DETERMINISTIC:
                 List<String> transitionsToDelete = new ArrayList<>();
-                for(Transition transition: transitionsToEdit) {
+                for (Transition transition : transitionsToEdit) {
                     if (net.getPostconditions(transition).size() > 1) {
                         net.removePostcondition(net.getPostcondition(transition, b));
                     } else {
@@ -208,8 +208,8 @@ public class PetriNetTranslator implements Translator {
                         transitionsToDelete.addAll(navigateBackAndRemove(transition));
                     }
                 }
-                for(String tName: transitionsToDelete){
-                    if(net.getTransition(tName)!= null)
+                for (String tName : transitionsToDelete) {
+                    if (net.getTransition(tName) != null)
                         net.removeTransition(net.getTransition(tName));
                 }
                 net.addPrecondition(a, t);
@@ -252,9 +252,9 @@ public class PetriNetTranslator implements Translator {
         return transitionToDelete;
     }
 
-    private void decorateFailure(Failure failure, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod){
+    private void decorateFailure(Failure failure, BigDecimal timestamp, PetriNetTranslatorMethod pntMethod) {
         Place b = net.getPlace(failure.getFailureMode().getDescription());
-        if(b != null) {
+        if (b != null) {
             Place a = net.addPlace(b.getName() + "Occurrence");
             marking.setTokens(a, 1);
             Transition errorModeTransition = net.getTransition(getTransitionName(b.getName()));
@@ -283,22 +283,22 @@ public class PetriNetTranslator implements Translator {
         }
     }
 
-    private String createEnablingFunctionToAppend(Place failure){
+    private String createEnablingFunctionToAppend(Place failure) {
         StringBuilder enablingFunction = new StringBuilder("((" + failure.getName() + "==0)");
-        Transition t = net.getTransition(failure.getName()+"toFaults");
-        for(Postcondition pc: net.getPostconditions(t)){
+        Transition t = net.getTransition(failure.getName() + "toFaults");
+        for (Postcondition pc : net.getPostconditions(t)) {
             enablingFunction.append("&&(").append(pc.getPlace().getName()).append("==0)");
         }
         enablingFunction.append(")");
         return enablingFunction.toString();
     }
 
-    private void decorateError(Error error, BigDecimal timestamp){
+    private void decorateError(Error error, BigDecimal timestamp) {
         Transition t = net.getTransition(getTransitionName(error.getErrorMode().getOutgoingFailure().getDescription()));
         TransitionFeature tf = t.getFeature(StochasticTransitionFeature.class);
         if (tf != null)
             t.removeFeature(StochasticTransitionFeature.class);
-        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac("+timestamp.toString()+")"));
+        t.addFeature(PDFParser.parseStringToStochasticTransitionFeature("dirac(" + timestamp.toString() + ")"));
     }
 
 
@@ -310,7 +310,7 @@ public class PetriNetTranslator implements Translator {
         return marking;
     }
 
-    public String getName(){
+    public String getName() {
         return sysName;
     }
 }

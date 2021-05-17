@@ -18,7 +18,7 @@ public class ErrorModeDao extends BaseDao<ErrorMode> {
     }
 
     public List<ErrorMode> getAll() {
-        return entityManager.createQuery("SELECT em FROM ErrorMode em", ErrorMode.class).getResultList();
+        return entityManager.createQuery("SELECT em FROM ErrorMode em LEFT JOIN FETCH em.inputFaultModes", ErrorMode.class).getResultList();
     }
 
     public ErrorMode getErrorModeByFailureModeID(UUID failureModeID) {

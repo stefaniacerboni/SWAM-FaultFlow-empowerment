@@ -1,13 +1,11 @@
 package it.unifi.stlab.faultflow.model.knowledge.composition;
 
 import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "systems")
@@ -18,11 +16,11 @@ public class System extends BaseEntity {
 
     private String model;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinTable(
-            name="system_components",
-            joinColumns = @JoinColumn( name="system_uuid"),
-            inverseJoinColumns = @JoinColumn( name="component_fk")
+            name = "system_components",
+            joinColumns = @JoinColumn(name = "system_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "component_fk")
     )
     private List<Component> components;
 

@@ -3,40 +3,35 @@ package it.unifi.stlab.faultflow.model.knowledge.composition;
 import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.PropagationPort;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "components")
 public class Component extends BaseEntity {
 
     private final String name;
-
+    @OneToMany(orphanRemoval = true)
+    @JoinTable(
+            name = "component_errormodes",
+            joinColumns = @JoinColumn(name = "component_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "errormode_fk")
+    )
+    private final List<ErrorMode> errorModes;
+    @OneToMany(orphanRemoval = true)
+    @JoinTable(
+            name = "component_propagationports",
+            joinColumns = @JoinColumn(name = "component_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "propagationport_fk")
+    )
+    private final List<PropagationPort> propagationPorts;
     @OneToMany(mappedBy = "parent",
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private List<CompositionPort> children;
-
-    @OneToMany
-    @JoinTable(
-            name="component_errormodes",
-            joinColumns = @JoinColumn( name="component_uuid"),
-            inverseJoinColumns = @JoinColumn( name="errormode_fk")
-    )
-    private final List<ErrorMode> errorModes;
-
-    @OneToMany
-    @JoinTable(
-            name="component_propagationports",
-            joinColumns = @JoinColumn( name="component_uuid"),
-            inverseJoinColumns = @JoinColumn( name="propagationport_fk")
-    )
-    private final List<PropagationPort> propagationPorts;
 
     public Component() {
         this.name = "";

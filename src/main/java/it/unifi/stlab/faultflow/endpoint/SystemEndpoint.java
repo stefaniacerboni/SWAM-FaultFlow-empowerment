@@ -1,6 +1,7 @@
 package it.unifi.stlab.faultflow.endpoint;
 
 import it.unifi.stlab.faultflow.businessLogic.AddSystemController;
+import it.unifi.stlab.faultflow.businessLogic.RemoveSystemController;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.exporter.XPNExporter;
@@ -17,12 +18,15 @@ import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.UUID;
 
 @Path("/system")
 public class SystemEndpoint {
 
     @Inject
     AddSystemController addSystemController = new AddSystemController();
+    @Inject
+    RemoveSystemController removeSystemController = new RemoveSystemController();
 
     @POST
     @Path("")
@@ -68,5 +72,21 @@ public class SystemEndpoint {
         addSystemController.persistSystem(sys);
         return Response.ok(FaultTreeMapper.systemToOutputSystem(sys)).build();
     }
+
+    @GET
+    @Path("/remove/{system_uuid}")
+    public Response removeSystem(@PathParam("system_uuid") String systemUUID) {
+        if (systemUUID == null) {
+            throw new IllegalArgumentException("Please, specify System's UUID as path Parameter!");
+        } else {
+            try {
+                removeSystemController.removeSystem(UUID.fromString(systemUUID));
+            } catch (Exception e) {
+                throw new Error(e.getMessage());
+            }
+        }
+        return Response.ok().build();
+    }
+
 
 }

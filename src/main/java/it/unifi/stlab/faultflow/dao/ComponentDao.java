@@ -20,13 +20,13 @@ public class ComponentDao extends BaseDao<Component> {
 
     public List<Component> getAll() {
         return entityManager.createQuery("SELECT c FROM Component c " +
-                "JOIN FETCH Component.errorModes", Component.class)
+                "LEFT JOIN FETCH c.errorModes", Component.class)
                 .getResultList();
     }
 
     public Component getComponentByErrorModeUUID(UUID errorModeUUID) {
         return entityManager.createQuery("SELECT c FROM Component c " +
-                "JOIN FETCH c.errorModes ce " +
+                "LEFT JOIN FETCH c.errorModes ce " +
                 "WHERE ce.uuid = :uuid", Component.class)
                 .setParameter("uuid", errorModeUUID)
                 .getSingleResult();

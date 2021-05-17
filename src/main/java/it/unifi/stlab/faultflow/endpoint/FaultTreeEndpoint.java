@@ -39,11 +39,9 @@ public class FaultTreeEndpoint {
     @Path("/from_error_mode/{errorMode_uuid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFaultTreeFromErrorMode(@PathParam("errorMode_uuid") String errorModeuuid) {
-//        Component component = PollutionMonitorPreliminaryDesignBuiler.getInstance().getSystem().getComponent("MapReduceProcessorPM10");
-//        ErrorMode errorMode = component.getErrorModes().get(0);
         ErrorMode errorMode;
         if (errorModeuuid == null)
-            throw new IllegalArgumentException("Please, specify ErroreMode's UUID as query Parameter!");
+            throw new IllegalArgumentException("Please, specify ErroreMode's UUID as path Parameter!");
         else {
             errorMode = errorModeDao.getErrorModeById(UUID.fromString(errorModeuuid));
         }
@@ -76,9 +74,7 @@ public class FaultTreeEndpoint {
             }
             return Response.ok(faultTreeDtos).build();
         } catch (NullPointerException exception) {
-            if (componentuuid == null)
-                throw new IllegalArgumentException("Please, specify ErroreMode's UUID as query Parameter!");
-            throw new IllegalArgumentException("Error!");
+            throw new IllegalArgumentException("Error in getting the FaultTree!");
         }
 
     }
