@@ -98,6 +98,9 @@ public class PDFParser {
                 //realDistribution: gaussian(mean, standardDev)
                 args = arguments.split(",");//args[0] is the mean, args[1] is the Variance
                 return new NormalDistribution(Double.parseDouble(args[0]), Math.sqrt(Double.parseDouble(args[1])));
+            case "expoly":
+                args = arguments.split(",");
+                return new ExpolynomialDistribution(args[0], new OmegaBigDecimal(args[1].trim()), new OmegaBigDecimal(args[2].trim()));
             default:
                 throw new UnsupportedOperationException("PDF not supported");
         }
@@ -110,6 +113,9 @@ public class PDFParser {
         } else if (GEN.class.equals(stochasticTransitionFeature.density().getClass())) {
             String domain = ((GEN) stochasticTransitionFeature.density()).getDomain().toString().replaceAll(" ", "").replace("\n", "");
             String[] bounds = domain.split("<=");
+            if(!((GEN)stochasticTransitionFeature.density()).getDensity().isConstant()) {
+                return parseStringToRealDistribution("expoly("+((GEN) stochasticTransitionFeature.density()).getDensity().toString()+","+bounds[0]+","+bounds[2]+")");
+            }
             if (bounds[0].equals(bounds[2])) {
                 return parseStringToRealDistribution("dirac("+bounds[0]+")");
             } else {
@@ -135,7 +141,10 @@ public class PDFParser {
             return parseStringToStochasticTransitionFeature("exp(1/"+((ExponentialDistribution) realDistribution).getMean()+")");
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
             return parseStringToStochasticTransitionFeature("erlang("+(int)((GammaDistribution) realDistribution).getShape()+",1/"+((GammaDistribution) realDistribution).getScale()+")");
-        } else
+        } else if (realDistribution.getClass().equals(ExpolynomialDistribution.class)){
+            return parseStringToStochasticTransitionFeature("expoly("+ ((ExpolynomialDistribution) realDistribution).getDensity()+","+((ExpolynomialDistribution) realDistribution).getEft()+","+((ExpolynomialDistribution) realDistribution).getLft()+")");
+        }
+        else
             throw new UnsupportedOperationException("This type of RealDistribution is unsupported");
     }
 
@@ -171,7 +180,9 @@ public class PDFParser {
         else if (realDistribution.getClass().equals(ExponentialDistribution.class)) {
             return "exp(" + (1/(((ExponentialDistribution) realDistribution).getMean())) + ")";
         } else if (realDistribution.getClass().equals(GammaDistribution.class)) {
-            return "erlang(" + (int) ((GammaDistribution) realDistribution).getShape() + "," + (1/((GammaDistribution) realDistribution).getScale()) + ")";
+            return "erlang(" + (int) ((GammaDistribution) realDistribution).getShape() + "," + (1 / ((GammaDistribution) realDistribution).getScale()) + ")";
+        } else if (realDistribution.getClass().equals(ExpolynomialDistribution.class)){
+            return "expoly("+ ((ExpolynomialDistribution) realDistribution).getDensity() + ","+ ((ExpolynomialDistribution) realDistribution).getEft() + "," + ((ExpolynomialDistribution) realDistribution).getLft() + ")";
         } else
             throw new UnsupportedOperationException("This type of RealDistribution is unsupported");
 
@@ -188,7 +199,7 @@ public class PDFParser {
             return Double.parseDouble(arg);
         }
     }
-
+/*
     public static GEN parseStringToFunction(String expolyString){
         String typePDF = expolyString.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
         String arguments = expolyString.substring(typePDF.length() + 1, expolyString.length() - 1);
@@ -200,14 +211,21 @@ public class PDFParser {
 
     }
 
+ */
+
     public static BigDecimal generateSample(String pdf) {
+        /*
         String typePDF = pdf.toLowerCase().replaceAll("\\s*\\([^()]*\\)\\s*", "");
         if(typePDF.equals("expoly")) {
             //if it's expoly sample like this:
             MetropolisHastings metropolisHastings = new MetropolisHastings(parseStringToFunction(pdf));
             return metropolisHastings.getSample();
         }
+
+
         else//else, parse into real distribution and sample
+
+         */
             return BigDecimal.valueOf(PDFParser.parseStringToRealDistribution(pdf).sample());
 
     }

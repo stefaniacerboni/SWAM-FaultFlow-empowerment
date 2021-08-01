@@ -18,7 +18,7 @@ public class ExamplesLauncher {
         //con il builder del sistema desiderato.
         System s = SimpleModelBuilder.getInstance().getSystem();
         //Exporting petri net as fault injection -faults with deterministic occurrence sampled from the pdfs
-        //PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_INJECTION);
+        PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_INJECTION);
         //Exporting petri net as fault analysis -faults with their original pdf
         PetriNetTranslator pnt = PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_ANALYSIS);
 

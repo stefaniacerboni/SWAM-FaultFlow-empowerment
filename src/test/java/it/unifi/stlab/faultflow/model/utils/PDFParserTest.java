@@ -2,6 +2,7 @@ package it.unifi.stlab.faultflow.model.utils;
 
 import org.apache.commons.math3.distribution.*;
 import org.junit.Test;
+import org.oristool.math.OmegaBigDecimal;
 import org.oristool.models.stpn.trees.StochasticTransitionFeature;
 
 import java.math.BigDecimal;
@@ -103,6 +104,12 @@ public class PDFParserTest {
         actual = PDFParser.parseStochasticTransitionFeatureToRealDistribution(input);
         expected = new GammaDistribution(3,1/4.0);
         assertEquals(expected.getClass(), actual.getClass());
+
+        input = StochasticTransitionFeature.newExpolynomial("3 * Exp[-4 x] + x^1 * Exp[-2 x]", OmegaBigDecimal.ONE, OmegaBigDecimal.TEN);
+        actual = PDFParser.parseStochasticTransitionFeatureToRealDistribution(input);
+        expected = new ExpolynomialDistribution("3 * Exp[-4 x] + x^1 * Exp[-2 x]", OmegaBigDecimal.ONE, OmegaBigDecimal.TEN);
+        assertEquals(expected.getClass(), actual.getClass());
+
     }
     @Test
     public void testParseRealDistributionToStochasticTransitionFeature(){
