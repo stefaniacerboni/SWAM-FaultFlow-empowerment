@@ -1,4 +1,4 @@
-package it.unifi.stlab.faultflow.businessLogic;
+package it.unifi.stlab.faultflow.businessLogic.controller;
 
 import it.unifi.stlab.faultflow.dao.*;
 import it.unifi.stlab.faultflow.model.knowledge.composition.Component;

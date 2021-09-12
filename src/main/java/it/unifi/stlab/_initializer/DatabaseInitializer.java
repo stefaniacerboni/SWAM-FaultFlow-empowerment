@@ -1,6 +1,6 @@
 package it.unifi.stlab._initializer;
 
-import it.unifi.stlab.faultflow.businessLogic.AddSystemController;
+import it.unifi.stlab.faultflow.businessLogic.controller.AddSystemController;
 import it.unifi.stlab.launcher.systembuilder.*;
 
 import javax.annotation.PostConstruct;

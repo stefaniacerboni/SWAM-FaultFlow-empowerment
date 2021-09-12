@@ -42,7 +42,10 @@ public class SystemMapper {
     }
     public static OutputSystemDto systemToOutputSystem(System system){
         OutputSystemDto outputSystemDto = new OutputSystemDto();
+        outputSystemDto.setUuid(system.getUuid().toString());
         outputSystemDto.setName(system.getName());
+        outputSystemDto.setManufacturer(system.getManufacturer());
+        outputSystemDto.setModel(system.getModel());
         List<MetaComponentDto> componentDtos = new ArrayList<>();
         for(Component component : system.getComponents()){
             MetaComponentDto metaComponentDto = new MetaComponentDto();

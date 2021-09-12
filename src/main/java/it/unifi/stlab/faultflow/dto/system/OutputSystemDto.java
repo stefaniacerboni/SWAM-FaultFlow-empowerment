@@ -4,11 +4,20 @@ package it.unifi.stlab.faultflow.dto.system;
 import java.util.List;
 
 public class OutputSystemDto {
+    private String uuid;
     private String name;
     private String manufacturer;
     private String model;
     private List<MetaComponentDto> components;
     private String topLevelComponent;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getName() {
         return name;
