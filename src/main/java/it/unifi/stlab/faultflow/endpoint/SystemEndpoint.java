@@ -2,7 +2,6 @@ package it.unifi.stlab.faultflow.endpoint;
 
 import it.unifi.stlab.faultflow.businessLogic.controller.AddSystemController;
 import it.unifi.stlab.faultflow.businessLogic.controller.RemoveSystemController;
-import it.unifi.stlab.faultflow.businessLogic.controller.ShowSystemsController;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.exporter.XPNExporter;
@@ -26,11 +25,14 @@ public class SystemEndpoint {
 
 
     @Inject
-    AddSystemController addSystemController = new AddSystemController();
+    AddSystemController addSystemController;
     @Inject
-    RemoveSystemController removeSystemController = new RemoveSystemController();
+    RemoveSystemController removeSystemController;
+    /*
     @Inject
     ShowSystemsController showSystemsController = new ShowSystemsController();
+
+     */
 
 
     @POST
@@ -92,6 +94,7 @@ public class SystemEndpoint {
         }
         return Response.ok().build();
     }
+    /*
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
@@ -112,6 +115,8 @@ public class SystemEndpoint {
     public Response updateSystemInfo(@PathParam("system_uuid") String systemUUID, System inputSystem) {
         return Response.ok(showSystemsController.updateSystem(systemUUID, inputSystem)).build();
     }
+
+     */
 
 
 }
