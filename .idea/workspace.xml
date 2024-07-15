@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="faultflow:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:JPA" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7516dc75-aff1-45c7-a95b-2520669ab262" name="Default Changelist" comment="-post quasar">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/LoginEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/faultflow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/faultflow.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/_initializer/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/_initializer/DatabaseInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/ErrorModeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/ErrorModeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/SystemDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/dao/SystemDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/SystemEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/SystemEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/knowledge/propagation/BooleanExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/knowledge/propagation/BooleanExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/knowledge/propagation/operators/KofN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/knowledge/propagation/operators/KofN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/launcher/ExamplesLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unifi/stlab/launcher/ExamplesLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" />
+    </list>
+    <list id="54490349-fe03-4ff8-bd90-692cdf65de80" name="-JPA Annotation" comment="" />
+    <list id="618bcdfb-5b04-4c81-8a57-ebf075bfb1c5" name="JPA annotation ok" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="hibernate-configuration-5.2" />
+        <option value="hibernate-main-5.2" />
+        <option value="Enum" />
+        <option value="TypeScript File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="SystemServiceEndpoint" />
+                <branch-info repo="$PROJECT_DIR$" source="JPA" />
+              </list>
+            </value>
+          </entry>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/NewSystemsBuilders" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="PATH_TO_GIT" value="/usr/local/bin/git" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="product-line-extension" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/WEB-INF/jboss-web.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/web/WEB-INF/web.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/systemJSON/pollutionmonitor/PollutionMonitorSys_NoSuggestionFailure.JSON" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/datasource/faultflow-ds.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/utils/PDFParser.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/launcher/ExamplesLauncher.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
+        <entry key="JPA Structure" value="true" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="JPA Inspector" value="false" />
+        <entry key="JPA Palette" value="false" />
+        <entry key="JPA Structure" value="false" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="#JAVA_HOME" />
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="MessagesViewTool">
+    <option name="defaultListState">
+      <MessageListState>
+        <option name="autoscrollToSource" value="true" />
+        <option name="info" value="true" />
+        <option name="warnings" value="true" />
+      </MessageListState>
+    </option>
+  </component>
+  <component name="ProjectId" id="1fPSIywwqROf8rpPWHhlw709LJX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java/it/unifi/stlab/model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/faultflow-frontend/src/assets/images" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.protractor.protractor_package" value="$PROJECT_DIR$/faultflow-frontend/node_modules/protractor" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/faultflow-frontend/node_modules/typescript/lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="it.unifi.stlab.dao" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/assets/images" />
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/assets" />
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static" />
+      <recent name="$PROJECT_DIR$/web/WEB-INF" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/app/core/services" />
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/app" />
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/app/core" />
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src" />
+      <recent name="$PROJECT_DIR$/faultflow-frontend/src/app/features" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="it.unifi.stlab" />
+      <recent name="it.unifi.stlab.faultflow.dao" />
+      <recent name="it.unifi.stlab.faultflow" />
+      <recent name="it.unifi.stlab.translator" />
+      <recent name="it.unifi.stlab.utils" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="hiddenConfigurations">
+      <map>
+        <entry key="JBossConfiguration">
+          <value>
+            <set>
+              <option value="Wildfly25 Final" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.MainSimulation">
+    <configuration name="ExamplesLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unifi.stlab.launcher.ExamplesLauncher" />
+      <module name="faultflow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unifi.stlab.launcher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FaultFlowToStateFlow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unifi.stlab.launcher.FaultFlowToStateFlow" />
+      <module name="faultflow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unifi.stlab.launcher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainSimulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unifi.stlab.launcher.MainSimulation" />
+      <module name="faultflow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unifi.stlab.launcher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Wildfly25 Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 25.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/faultflow" />
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="faultflow:war">
+          <settings />
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="SERVER" />
+        <option name="BINDING_SET_NAME" value="" />
+        <option name="DOMAIN" value="false" />
+        <option name="SERVER_GROUP" />
+        <option name="USERNAME" value="" />
+        <option name="CREDENTIAL_ALIAS" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="JBoss" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51371" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="faultflow:war" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="PetriNetTranslatorTest.testTransitions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="faultflow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unifi.stlab.faultflow.translator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.unifi.stlab.faultflow.translator" />
+      <option name="MAIN_CLASS_NAME" value="it.unifi.stlab.faultflow.translator.PetriNetTranslatorTest" />
+      <option name="METHOD_NAME" value="testTransitions" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SystemEndpointTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="faultflow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unifi.stlab.faultflow.endpoint.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.unifi.stlab.faultflow.endpoint" />
+      <option name="MAIN_CLASS_NAME" value="it.unifi.stlab.faultflow.endpoint.SystemEndpointTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="E2E Tests (faultflow-frontend)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/faultflow-frontend/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-package value="$PROJECT_DIR$/faultflow-frontend/node_modules/protractor" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/faultflow-frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.ExamplesLauncher" />
+      <item itemvalue="Application.FaultFlowToStateFlow" />
+      <item itemvalue="Application.MainSimulation" />
+      <item itemvalue="JavaScript Debug.Angular Application" />
+      <item itemvalue="JBoss/WildFly Server.Wildfly25 Final" />
+      <item itemvalue="JUnit.PetriNetTranslatorTest.testTransitions" />
+      <item itemvalue="JUnit.SystemEndpointTest" />
+      <item itemvalue="npm.Angular CLI Server" />
+      <item itemvalue="Protractor.E2E Tests (faultflow-frontend)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainSimulation" />
+        <item itemvalue="Application.FaultFlowToStateFlow" />
+        <item itemvalue="Application.ExamplesLauncher" />
+        <item itemvalue="JUnit.SystemEndpointTest" />
+        <item itemvalue="JUnit.PetriNetTranslatorTest.testTransitions" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7516dc75-aff1-45c7-a95b-2520669ab262" name="Default Changelist" comment="" />
+      <changelist id="54490349-fe03-4ff8-bd90-692cdf65de80" name="-JPA Annotation" comment="" />
+      <changelist id="618bcdfb-5b04-4c81-8a57-ebf075bfb1c5" name="JPA annotation ok" comment="" />
+      <created>1596118158748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596118158748</updated>
+      <workItem from="1596118161384" duration="285000" />
+      <workItem from="1596203943312" duration="1071000" />
+      <workItem from="1596294663332" duration="6864000" />
+      <workItem from="1596333489983" duration="2400000" />
+      <workItem from="1596378589103" duration="2653000" />
+      <workItem from="1596462581948" duration="8809000" />
+      <workItem from="1596481649585" duration="1811000" />
+      <workItem from="1596490659075" duration="4856000" />
+      <workItem from="1596496390669" duration="6794000" />
+      <workItem from="1596542372999" duration="6684000" />
+      <workItem from="1596721617277" duration="3279000" />
+      <workItem from="1596810801139" duration="169000" />
+      <workItem from="1596811770461" duration="5485000" />
+      <workItem from="1596842104929" duration="4404000" />
+      <workItem from="1598873756124" duration="39000" />
+      <workItem from="1598881256269" duration="437000" />
+      <workItem from="1598888401841" duration="164000" />
+      <workItem from="1600525650845" duration="38000" />
+      <workItem from="1600676481356" duration="5239000" />
+      <workItem from="1600706626299" duration="1552000" />
+      <workItem from="1600723955431" duration="1041000" />
+      <workItem from="1600779992006" duration="6919000" />
+      <workItem from="1600953135806" duration="1123000" />
+      <workItem from="1600997848282" duration="8313000" />
+      <workItem from="1601282471591" duration="2432000" />
+      <workItem from="1601371898796" duration="208000" />
+      <workItem from="1601372374105" duration="474000" />
+      <workItem from="1601540004092" duration="2859000" />
+      <workItem from="1601643834133" duration="7019000" />
+      <workItem from="1601739970835" duration="2165000" />
+      <workItem from="1602043269919" duration="2426000" />
+      <workItem from="1602045791641" duration="92000" />
+      <workItem from="1602515325325" duration="931000" />
+      <workItem from="1603289598168" duration="733000" />
+      <workItem from="1603616453484" duration="31000" />
+      <workItem from="1603616536581" duration="11135000" />
+      <workItem from="1603656326283" duration="1250000" />
+      <workItem from="1603705181259" duration="10084000" />
+      <workItem from="1603794463819" duration="3381000" />
+      <workItem from="1603815818760" duration="385000" />
+      <workItem from="1603824816428" duration="1867000" />
+      <workItem from="1603973363395" duration="100000" />
+      <workItem from="1603973483930" duration="492000" />
+      <workItem from="1604323692213" duration="504000" />
+      <workItem from="1604586536994" duration="536000" />
+      <workItem from="1605114689091" duration="1978000" />
+      <workItem from="1605190892368" duration="343000" />
+      <workItem from="1605191261768" duration="1610000" />
+      <workItem from="1605276173942" duration="7203000" />
+      <workItem from="1605287831592" duration="1679000" />
+      <workItem from="1605344219537" duration="8624000" />
+      <workItem from="1605623487393" duration="138000" />
+      <workItem from="1605707381051" duration="2866000" />
+      <workItem from="1605785297942" duration="3732000" />
+      <workItem from="1605798553872" duration="3053000" />
+      <workItem from="1605861996940" duration="6645000" />
+      <workItem from="1605952251689" duration="6048000" />
+      <workItem from="1605966007466" duration="7117000" />
+      <workItem from="1606299329802" duration="9167000" />
+      <workItem from="1606830263227" duration="436000" />
+      <workItem from="1606994589340" duration="4055000" />
+      <workItem from="1607006546457" duration="7620000" />
+      <workItem from="1607263546439" duration="1373000" />
+      <workItem from="1607265092197" duration="62000" />
+      <workItem from="1607265229609" duration="2945000" />
+      <workItem from="1607268340493" duration="671000" />
+      <workItem from="1607269124404" duration="7129000" />
+      <workItem from="1607450958049" duration="5244000" />
+      <workItem from="1607513131805" duration="696000" />
+      <workItem from="1607592029341" duration="614000" />
+      <workItem from="1607592723340" duration="1982000" />
+      <workItem from="1607603704466" duration="111000" />
+      <workItem from="1607688111723" duration="18727000" />
+      <workItem from="1607784545610" duration="3607000" />
+      <workItem from="1607788395372" duration="69000" />
+      <workItem from="1607788733736" duration="2905000" />
+      <workItem from="1607792965465" duration="7000" />
+      <workItem from="1607966183828" duration="822000" />
+      <workItem from="1607978877464" duration="1057000" />
+      <workItem from="1608044851202" duration="3069000" />
+      <workItem from="1608061741043" duration="869000" />
+      <workItem from="1608129134963" duration="5838000" />
+      <workItem from="1608227404289" duration="4088000" />
+      <workItem from="1608735790164" duration="1292000" />
+      <workItem from="1608803435228" duration="3335000" />
+      <workItem from="1608806858159" duration="627000" />
+      <workItem from="1610444738082" duration="4382000" />
+      <workItem from="1610451041065" duration="1429000" />
+      <workItem from="1610452650798" duration="279000" />
+      <workItem from="1611824692878" duration="16484000" />
+      <workItem from="1611911818829" duration="9911000" />
+      <workItem from="1611997125333" duration="9428000" />
+      <workItem from="1612090959753" duration="7451000" />
+      <workItem from="1612103448074" duration="31000" />
+      <workItem from="1612176101972" duration="857000" />
+      <workItem from="1612791364137" duration="278000" />
+      <workItem from="1612793697142" duration="338000" />
+      <workItem from="1612794075817" duration="10000" />
+      <workItem from="1612882050205" duration="8927000" />
+      <workItem from="1612955071856" duration="1451000" />
+      <workItem from="1613054074431" duration="7961000" />
+      <workItem from="1613071883785" duration="1736000" />
+      <workItem from="1613131996311" duration="9200000" />
+      <workItem from="1613145811957" duration="7054000" />
+      <workItem from="1613223344718" duration="13936000" />
+      <workItem from="1613259152615" duration="2352000" />
+      <workItem from="1613325012472" duration="4278000" />
+      <workItem from="1613337539206" duration="1604000" />
+      <workItem from="1613401946126" duration="3061000" />
+      <workItem from="1613407900017" duration="3171000" />
+      <workItem from="1613477504436" duration="18148000" />
+      <workItem from="1613521331518" duration="1157000" />
+      <workItem from="1613560213397" duration="10323000" />
+      <workItem from="1613648935283" duration="13257000" />
+      <workItem from="1613679622525" duration="4432000" />
+      <workItem from="1613743763735" duration="3873000" />
+      <workItem from="1613805234953" duration="3222000" />
+      <workItem from="1613987995174" duration="441000" />
+      <workItem from="1614078208090" duration="8716000" />
+      <workItem from="1614114095365" duration="49000" />
+      <workItem from="1614176438469" duration="4460000" />
+      <workItem from="1614184841317" duration="4397000" />
+      <workItem from="1614254596636" duration="6289000" />
+      <workItem from="1614263264452" duration="1319000" />
+      <workItem from="1614272722619" duration="29000" />
+      <workItem from="1614273761347" duration="2053000" />
+      <workItem from="1614356322302" duration="322000" />
+      <workItem from="1614369663452" duration="2304000" />
+      <workItem from="1614426207694" duration="2632000" />
+      <workItem from="1614458616970" duration="6882000" />
+      <workItem from="1614504109990" duration="835000" />
+      <workItem from="1614506089761" duration="2146000" />
+      <workItem from="1614509331683" duration="314000" />
+      <workItem from="1614520805573" duration="15000" />
+      <workItem from="1614524407599" duration="726000" />
+      <workItem from="1614526808006" duration="2023000" />
+      <workItem from="1614593717606" duration="4014000" />
+      <workItem from="1614602095957" duration="179000" />
+      <workItem from="1614610420766" duration="30000" />
+      <workItem from="1614610688815" duration="365000" />
+      <workItem from="1614616908887" duration="5956000" />
+      <workItem from="1614636070069" duration="146000" />
+      <workItem from="1614671229281" duration="5736000" />
+      <workItem from="1614678084173" duration="5665000" />
+      <workItem from="1614684724253" duration="807000" />
+      <workItem from="1614695940113" duration="683000" />
+      <workItem from="1614709036939" duration="8577000" />
+      <workItem from="1614727671510" duration="4441000" />
+      <workItem from="1614758098745" duration="1322000" />
+      <workItem from="1614786178082" duration="11017000" />
+      <workItem from="1614797761801" duration="178000" />
+      <workItem from="1614858995256" duration="1402000" />
+      <workItem from="1614962075763" duration="2550000" />
+      <workItem from="1615131701783" duration="9815000" />
+      <workItem from="1615237145121" duration="2549000" />
+      <workItem from="1615299852169" duration="1601000" />
+      <workItem from="1615309395086" duration="1448000" />
+      <workItem from="1615570679480" duration="153000" />
+      <workItem from="1615571260338" duration="50000" />
+      <workItem from="1615809158543" duration="8347000" />
+      <workItem from="1615900329269" duration="244000" />
+      <workItem from="1615905074304" duration="13474000" />
+      <workItem from="1615942111905" duration="2130000" />
+      <workItem from="1615971159348" duration="3707000" />
+      <workItem from="1615982487551" duration="1739000" />
+      <workItem from="1615992296903" duration="92000" />
+      <workItem from="1615992769897" duration="914000" />
+      <workItem from="1615995730257" duration="4528000" />
+      <workItem from="1616074989292" duration="8337000" />
+      <workItem from="1616245090877" duration="137000" />
+      <workItem from="1616407729668" duration="957000" />
+      <workItem from="1616411868898" duration="887000" />
+      <workItem from="1616424781288" duration="3896000" />
+      <workItem from="1616434180828" duration="805000" />
+      <workItem from="1616578220662" duration="9417000" />
+      <workItem from="1616603736020" duration="7371000" />
+      <workItem from="1616669797907" duration="14667000" />
+      <workItem from="1616695819021" duration="4811000" />
+      <workItem from="1616716184686" duration="5551000" />
+      <workItem from="1616787201445" duration="457000" />
+      <workItem from="1616790927789" duration="1609000" />
+      <workItem from="1617024430046" duration="3620000" />
+      <workItem from="1617112035196" duration="11428000" />
+      <workItem from="1617172355978" duration="296000" />
+      <workItem from="1617187580393" duration="789000" />
+      <workItem from="1617188942027" duration="1488000" />
+      <workItem from="1617695301181" duration="3695000" />
+      <workItem from="1617740004254" duration="69000" />
+      <workItem from="1617890340446" duration="1000" />
+      <workItem from="1618236858297" duration="602000" />
+      <workItem from="1619273818654" duration="395000" />
+      <workItem from="1619281453170" duration="1633000" />
+      <workItem from="1619362370554" duration="12000" />
+      <workItem from="1619362880604" duration="22000" />
+      <workItem from="1619363028434" duration="4000" />
+      <workItem from="1619363185925" duration="703000" />
+      <workItem from="1619363969216" duration="8000" />
+      <workItem from="1619714576540" duration="37000" />
+      <workItem from="1619796969206" duration="399000" />
+      <workItem from="1620037491013" duration="76000" />
+      <workItem from="1620038990173" duration="3914000" />
+      <workItem from="1620225758162" duration="7669000" />
+      <workItem from="1620372147363" duration="1365000" />
+      <workItem from="1620468414689" duration="1003000" />
+      <workItem from="1620473718587" duration="2161000" />
+      <workItem from="1620743204497" duration="1460000" />
+      <workItem from="1620833582451" duration="878000" />
+      <workItem from="1620894988269" duration="279000" />
+      <workItem from="1621084037926" duration="662000" />
+      <workItem from="1621095837625" duration="6837000" />
+      <workItem from="1621175441794" duration="7770000" />
+      <workItem from="1621242794182" duration="1708000" />
+      <workItem from="1621324443573" duration="499000" />
+      <workItem from="1622278834551" duration="60000" />
+      <workItem from="1622278909695" duration="157000" />
+      <workItem from="1623763024408" duration="11000" />
+      <workItem from="1624296751299" duration="3383000" />
+      <workItem from="1624304241866" duration="270000" />
+      <workItem from="1624355195319" duration="55000" />
+      <workItem from="1624443168225" duration="44000" />
+      <workItem from="1624548434891" duration="171000" />
+      <workItem from="1625067283925" duration="740000" />
+      <workItem from="1625068766388" duration="836000" />
+      <workItem from="1625072179046" duration="1190000" />
+      <workItem from="1625580568557" duration="137000" />
+      <workItem from="1625582810096" duration="198000" />
+      <workItem from="1625583751377" duration="195000" />
+      <workItem from="1625583949388" duration="72000" />
+      <workItem from="1625584030266" duration="3061000" />
+      <workItem from="1625676518772" duration="551000" />
+      <workItem from="1626007724818" duration="136000" />
+      <workItem from="1626018670412" duration="37000" />
+      <workItem from="1626018728984" duration="429000" />
+      <workItem from="1626109155766" duration="109000" />
+      <workItem from="1626109460164" duration="33000" />
+      <workItem from="1626109522238" duration="14000" />
+      <workItem from="1626110024281" duration="25000" />
+      <workItem from="1626110071309" duration="40000" />
+      <workItem from="1627038318688" duration="797000" />
+      <workItem from="1627048653125" duration="5365000" />
+      <workItem from="1627136728476" duration="84000" />
+      <workItem from="1627136833375" duration="2723000" />
+      <workItem from="1627833876243" duration="639000" />
+      <workItem from="1627834534868" duration="1128000" />
+      <workItem from="1627845522024" duration="530000" />
+      <workItem from="1627909840174" duration="96000" />
+      <workItem from="1627909964785" duration="565000" />
+      <workItem from="1627995604304" duration="2441000" />
+      <workItem from="1628333826634" duration="3000" />
+      <workItem from="1628784955758" duration="1381000" />
+      <workItem from="1628786772559" duration="5024000" />
+      <workItem from="1628869434345" duration="2416000" />
+      <workItem from="1630333018271" duration="55000" />
+      <workItem from="1630338079839" duration="579000" />
+      <workItem from="1630424103787" duration="11000" />
+      <workItem from="1630513329694" duration="1766000" />
+      <workItem from="1630587503041" duration="3630000" />
+      <workItem from="1630664123678" duration="182000" />
+      <workItem from="1631365060843" duration="6000" />
+      <workItem from="1631374575340" duration="904000" />
+      <workItem from="1631438262040" duration="564000" />
+      <workItem from="1631439104871" duration="9151000" />
+      <workItem from="1631874448130" duration="5619000" />
+      <workItem from="1631895513539" duration="3820000" />
+      <workItem from="1631902980553" duration="2024000" />
+      <workItem from="1631956748975" duration="15209000" />
+      <workItem from="1632001085415" duration="815000" />
+      <workItem from="1632013526653" duration="1538000" />
+      <workItem from="1632047451573" duration="15454000" />
+      <workItem from="1632072389261" duration="42000" />
+      <workItem from="1632073260824" duration="24000" />
+      <workItem from="1633704823518" duration="60000" />
+      <workItem from="1633951895744" duration="25000" />
+      <workItem from="1633951928403" duration="132000" />
+      <workItem from="1637156174264" duration="2937000" />
+      <workItem from="1637251772934" duration="2388000" />
+      <workItem from="1637763129199" duration="181000" />
+      <workItem from="1637763319895" duration="366000" />
+      <workItem from="1637766432304" duration="1499000" />
+      <workItem from="1637768479884" duration="804000" />
+      <workItem from="1637769754164" duration="5161000" />
+      <workItem from="1637784973391" duration="1235000" />
+      <workItem from="1637786736094" duration="52000" />
+      <workItem from="1637786793539" duration="2982000" />
+      <workItem from="1637826897700" duration="13302000" />
+      <workItem from="1637858753801" duration="3683000" />
+      <workItem from="1637944028982" duration="9000" />
+      <workItem from="1638010101695" duration="3986000" />
+      <workItem from="1638276619001" duration="24000" />
+      <workItem from="1639500097501" duration="2313000" />
+      <workItem from="1639570230118" duration="6926000" />
+      <workItem from="1639594240675" duration="815000" />
+      <workItem from="1639656472668" duration="4841000" />
+      <workItem from="1640004904853" duration="560000" />
+      <workItem from="1640268768625" duration="808000" />
+      <workItem from="1641289362542" duration="50000" />
+      <workItem from="1642523157163" duration="135000" />
+      <workItem from="1642591306358" duration="79000" />
+      <workItem from="1643634787823" duration="4327000" />
+      <workItem from="1643650427376" duration="14000" />
+      <workItem from="1644478144846" duration="2716000" />
+      <workItem from="1644481839301" duration="589000" />
+      <workItem from="1644482565702" duration="1008000" />
+      <workItem from="1644485319316" duration="420000" />
+      <workItem from="1644485828149" duration="110000" />
+      <workItem from="1644485972304" duration="8000" />
+      <workItem from="1644486128184" duration="1190000" />
+      <workItem from="1644488917613" duration="2325000" />
+      <workItem from="1644491501925" duration="731000" />
+      <workItem from="1644492342692" duration="437000" />
+      <workItem from="1644498733233" duration="1266000" />
+      <workItem from="1644500610476" duration="2188000" />
+      <workItem from="1644831390999" duration="3000" />
+      <workItem from="1644848218393" duration="79000" />
+      <workItem from="1644848302391" duration="188000" />
+      <workItem from="1644848497039" duration="22000" />
+      <workItem from="1644848545535" duration="76000" />
+      <workItem from="1644848628349" duration="161000" />
+      <workItem from="1645789687985" duration="3833000" />
+      <workItem from="1645800851797" duration="441000" />
+      <workItem from="1645801304775" duration="1098000" />
+      <workItem from="1645817236571" duration="701000" />
+      <workItem from="1645870444491" duration="1358000" />
+      <workItem from="1645871876418" duration="1242000" />
+      <workItem from="1646038981613" duration="1826000" />
+      <workItem from="1647940753138" duration="627000" />
+      <workItem from="1647945689969" duration="1508000" />
+      <workItem from="1648050594264" duration="158000" />
+      <workItem from="1648130957670" duration="16000" />
+      <workItem from="1649146508930" duration="24000" />
+      <workItem from="1649166007329" duration="745000" />
+      <workItem from="1649168643839" duration="3787000" />
+      <workItem from="1649425541553" duration="603000" />
+      <workItem from="1652350101369" duration="1193000" />
+      <workItem from="1652447009947" duration="4000" />
+      <workItem from="1652447591852" duration="607000" />
+      <workItem from="1655322903565" duration="16000" />
+      <workItem from="1656680484178" duration="986000" />
+      <workItem from="1657024829204" duration="861000" />
+      <workItem from="1657722619549" duration="716000" />
+      <workItem from="1666271607839" duration="539000" />
+      <workItem from="1666272672180" duration="927000" />
+      <workItem from="1666275439632" duration="2047000" />
+      <workItem from="1666344814441" duration="7726000" />
+      <workItem from="1666352801511" duration="2315000" />
+      <workItem from="1667325289742" duration="3000" />
+      <workItem from="1668690951604" duration="156000" />
+      <workItem from="1668691112959" duration="685000" />
+      <workItem from="1669066467000" duration="613000" />
+      <workItem from="1669106975327" duration="2000" />
+      <workItem from="1676305821973" duration="536000" />
+      <workItem from="1676897424873" duration="938000" />
+      <workItem from="1676924110063" duration="4000" />
+      <workItem from="1677595579967" duration="3806000" />
+      <workItem from="1677613322080" duration="4000" />
+      <workItem from="1677661915464" duration="333000" />
+      <workItem from="1677701574107" duration="1218000" />
+      <workItem from="1677715415366" duration="21000" />
+      <workItem from="1677716201280" duration="40000" />
+      <workItem from="1677716644527" duration="2592000" />
+      <workItem from="1677752225001" duration="32000" />
+      <workItem from="1678039324911" duration="4000" />
+      <workItem from="1678314974733" duration="1065000" />
+      <workItem from="1678354228860" duration="520000" />
+      <workItem from="1678356655125" duration="599000" />
+      <workItem from="1678364368450" duration="598000" />
+      <workItem from="1678365006044" duration="37000" />
+      <workItem from="1678366236301" duration="573000" />
+      <workItem from="1678772562818" duration="614000" />
+      <workItem from="1679409707562" duration="1318000" />
+      <workItem from="1679434566630" duration="598000" />
+      <workItem from="1679570574233" duration="545000" />
+      <workItem from="1679577206397" duration="38000" />
+      <workItem from="1682369863921" duration="139000" />
+      <workItem from="1686912846345" duration="193000" />
+      <workItem from="1687266317516" duration="51000" />
+      <workItem from="1687873820463" duration="605000" />
+      <workItem from="1687974440958" duration="50000" />
+      <workItem from="1687975427508" duration="77000" />
+      <workItem from="1717686825482" duration="116000" />
+      <workItem from="1718014202842" duration="29000" />
+      <workItem from="1720271739294" duration="7565000" />
+      <workItem from="1720347119167" duration="89000" />
+      <workItem from="1720347281316" duration="2674000" />
+      <workItem from="1720377463167" duration="3088000" />
+      <workItem from="1720427255189" duration="779000" />
+      <workItem from="1720463829879" duration="4334000" />
+      <workItem from="1720471003923" duration="1269000" />
+      <workItem from="1720474587380" duration="1146000" />
+      <workItem from="1720511658925" duration="5549000" />
+      <workItem from="1720560408659" duration="3151000" />
+      <workItem from="1720563935504" duration="1287000" />
+      <workItem from="1720619528341" duration="1627000" />
+      <workItem from="1720625362351" duration="5353000" />
+      <workItem from="1720646837454" duration="961000" />
+      <workItem from="1720694001950" duration="7738000" />
+      <workItem from="1720705492203" duration="4326000" />
+      <workItem from="1720711215992" duration="6819000" />
+      <workItem from="1720726139894" duration="345000" />
+      <workItem from="1720781829407" duration="2116000" />
+      <workItem from="1720785314060" duration="185000" />
+      <workItem from="1720812646246" duration="3854000" />
+      <workItem from="1720852663912" duration="1252000" />
+      <workItem from="1720872612313" duration="7250000" />
+      <workItem from="1720970511597" duration="7084000" />
+      <workItem from="1721038076076" duration="4088000" />
+      <workItem from="1721042928568" duration="2197000" />
+      <workItem from="1721048496949" duration="314000" />
+    </task>
+    <task id="LOCAL-00071" summary="-JSON aggiornati con le modifiche alle PDF">
+      <created>1614602223764</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1614602223764</updated>
+    </task>
+    <task id="LOCAL-00072" summary="-routing prob. added">
+      <created>1614610927524</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1614610927525</updated>
+    </task>
+    <task id="LOCAL-00073" summary="-routing prob. added">
+      <created>1614611036378</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1614611036378</updated>
+    </task>
+    <task id="LOCAL-00074" summary="-nome dinamico del file da esportare in PetriNetExporter.java:23&#10;-creazione della cartella export se non esiste già&#10;-riorganizzazione dei package&#10;-DecemberModelBuilder rinominato in SimpleSystem02Builder (stessa cosa per il JSON)&#10;-corrette PDF in PollutionMonitorModelBuilder.java&#10;-corrette PDF in SteamBoilerModelBuilder.java. Di base se non specificata, la pdf viene già messa a dirac(0) da PDFParser.java">
+      <created>1614622967261</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1614622967262</updated>
+    </task>
+    <task id="LOCAL-00075" summary="-corrette pdf in SteamBoiler_SYS.JSON">
+      <created>1614674952204</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1614674952204</updated>
+    </task>
+    <task id="LOCAL-00076" summary="-corrette pdf in SteamBoiler_SYS.JSON&#10;-aggiunto metodo generateSample e eliminata classe SampleGenerator.java perché non più necessaria (il sampling si può fare semplicemente richiamando i metodi già presenti in PDFParser.java)">
+      <created>1614675071035</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1614675071035</updated>
+    </task>
+    <task id="LOCAL-00077" summary="-corrette pdf in SteamBoiler_SYS.JSON&#10;-aggiunto metodo generateSample e eliminata classe SampleGenerator.java perché non più necessaria (il sampling si può fare semplicemente richiamando i metodi già presenti in PDFParser.java)">
+      <created>1614676945254</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1614676945254</updated>
+    </task>
+    <task id="LOCAL-00078" summary="-routingProbability">
+      <created>1614676980217</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1614676980217</updated>
+    </task>
+    <task id="LOCAL-00079" summary="-sysService cleaned">
+      <created>1614677709664</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1614677709664</updated>
+    </task>
+    <task id="LOCAL-00080" summary="-sysService cleaned">
+      <created>1614678005633</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1614678005633</updated>
+    </task>
+    <task id="LOCAL-00081" summary="-export in gitignore">
+      <created>1614678170345</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1614678170345</updated>
+    </task>
+    <task id="LOCAL-00082" summary="-sysServ final">
+      <created>1614678209344</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1614678209344</updated>
+    </task>
+    <task id="LOCAL-00083" summary="-sysServ final">
+      <created>1614682418071</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1614682418071</updated>
+    </task>
+    <task id="LOCAL-00084" summary="-Supporto per le routing Probabilities nell'esportazione ordinata per componenti">
+      <created>1614683097843</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1614683097843</updated>
+    </task>
+    <task id="LOCAL-00085" summary="-token sui posti di FaultEndogeni in modalità FaultAnalysis">
+      <created>1614685192419</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1614685192420</updated>
+    </task>
+    <task id="LOCAL-00086" summary="-Miglioramenti nella strategia di esportazione ordinata per componenti">
+      <created>1614759410291</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1614759410291</updated>
+    </task>
+    <task id="LOCAL-00087" summary="-Aggiunti builder dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design">
+      <created>1614797020831</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1614797020832</updated>
+    </task>
+    <task id="LOCAL-00088" summary="-Aggiunti builder dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design">
+      <created>1614797216574</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1614797216574</updated>
+    </task>
+    <task id="LOCAL-00089" summary="-Aggiornati JSON dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design">
+      <created>1614967490922</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1614967490922</updated>
+    </task>
+    <task id="LOCAL-00090" summary="-Aggiornati BUILDERS dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design">
+      <created>1614969831777</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1614969831777</updated>
+    </task>
+    <task id="LOCAL-00091" summary="-Aggiunto SystemEndpointTest.java per controllare velocemente che le modifiche fatte ai file JSON siano corrette.&#10;-Controllati e corretti gli altri test dopo le ultime modifiche a PDFParser e Markings in PetriNetTranslator">
+      <created>1615310488208</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1615310488208</updated>
+    </task>
+    <task id="LOCAL-00092" summary="JPA annotation ok">
+      <created>1615816894033</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1615816894034</updated>
+    </task>
+    <task id="LOCAL-00093" summary="JPA annotation &#10;Problem w/ BooleanExpressionConverter.java">
+      <created>1616407835734</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1616407835734</updated>
+    </task>
+    <task id="LOCAL-00094" summary="JPA annotation &#10;Problem w/ BooleanExpressionConverter.java">
+      <created>1616407854723</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1616407854724</updated>
+    </task>
+    <task id="LOCAL-00095" summary="JPA annotation ok">
+      <created>1616407869106</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1616407869106</updated>
+    </task>
+    <task id="LOCAL-00096" summary="JPA annotation">
+      <created>1616408153611</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1616408153611</updated>
+    </task>
+    <task id="LOCAL-00097" summary="JPA annotation">
+      <created>1616408175594</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1616408175595</updated>
+    </task>
+    <task id="LOCAL-00098" summary="JPA annotation">
+      <created>1616408304558</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1616408304558</updated>
+    </task>
+    <task id="LOCAL-00099" summary="dao package moved">
+      <created>1616408374476</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1616408374476</updated>
+    </task>
+    <task id="LOCAL-00100" summary="-cascading annotations removed&#10;-persisting the simpleModelSystem in the DatabaseInitializer.java">
+      <created>1616429362948</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1616429362949</updated>
+    </task>
+    <task id="LOCAL-00101" summary="-implementata persistenza con annotazioni JPA &#10;-converter BooleanExpressionConverter.java funziona correttamente in inserimento&#10;- DatabaseInitializer.java aggiunge su database i sistemi descritti finora">
+      <created>1616590028000</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1616590028001</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Implementazione di task: Endpoint REST per esportazione di uno Stochastic Fault Tree a partire da un fallimento&#10;L'endpoint in questione è FaultTreeEndpoint.java, richiede l'uuid dell'errorMode come parametro in ingresso. &#10;in uscita restituisce il JSON del faultTree sottostante.&#10;-Modificate UUID nelle annotazioni JPA perché java.UUID dà errore nelle query se non viene specificato il tipo di UUID">
+      <created>1616699373597</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1616699373597</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Implementazione di task: Endpoint REST per esportazione di uno Stochastic Fault Tree a partire da un fallimento &amp; dalla componente (ft/component)">
+      <created>1616792120886</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1616792120886</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Piccolo bug in EndogenousFaultMode risolto">
+      <created>1616792555576</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1616792555576</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Bug fix e miglioramenti">
+      <created>1617029571993</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1617029571994</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Bug fix e miglioramenti">
+      <created>1617029583423</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1617029583423</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Miglioramenti su annotazioni JPA, DAO e Endpoint">
+      <created>1617122608223</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1617122608223</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Miglioramenti su annotazioni JPA, DAO e Endpoint">
+      <created>1617127417952</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1617127417953</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Aggiunto endpoint in SystemEndpoint.java che permette di persistere un sistema dato in input come JSON">
+      <created>1617740058339</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1617740058339</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Implementate Correzioni in FaultTreeEndpoint.java e prima implementazione di gestione delle distribuzioni expolinomiali come pdf di errormode e faultmode">
+      <created>1620372889079</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1620372889080</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Implementazione di distribuzioni expolinomiali come pdf di errormode e faultmode. Generazione di campioni nella propagazione di fault in uno scenario mediante algoritmo di Metropolis-Hastings.">
+      <created>1620895257629</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1620895257630</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Implementazione Controller di rimozione sistemi (CRUD)">
+      <created>1621244675795</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1621244675795</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Adapter di ExpolynomialDistribution implementando l'interfaccia di ApacheMaths ed inserendo il sampling di sirio al suo interno">
+      <created>1627835701207</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1627835701207</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Modifiche su endpoint per espansione con frontend">
+      <created>1631439077113</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1631439077114</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Modifiche su endpoint per espansione con frontend">
+      <created>1633951936037</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1633951936037</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Modifiche su endpoint per espansione con frontend">
+      <created>1637763246644</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1637763246645</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Aggiunto modulo di traduzione rete di petri from operation level">
+      <created>1637786655446</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1637786655446</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Aggiunto modulo di traduzione rete di petri from operation level">
+      <created>1644478269301</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1644478269302</updated>
+    </task>
+    <task id="LOCAL-00119" summary="-post quasar">
+      <created>1677595815363</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1677595815364</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UsagesViewTool">
+    <version id="1" />
+    <tabs />
+    <default_view_options>
+      <options category_option="false" module_option="true" model_option="true" root_option="true" path_option="false" count_option="true" info_option="true" view_searched_nodes_option="true" group_searched_nodes_option="true" autoscroll_option="false" />
+    </default_view_options>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/Users/stefaniacerboni/IdeaProjects/faultflow/src/main/java/it/unifi/stlab/DTO/faultTree" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="JPA" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="date">
+                    <value>
+                      <list>
+                        <option value="1614772923756" />
+                        <option value="" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="COLUMN_WIDTH">
+                <map>
+                  <entry key="2" value="168" />
+                  <entry key="3" value="70" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="-token sui posti di FaultEndogeni in modalità FaultAnalysis" />
+    <MESSAGE value="-Miglioramenti nella strategia di esportazione ordinata per componenti" />
+    <MESSAGE value="-Aggiunti builder dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design" />
+    <MESSAGE value="-Aggiornati JSON dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design" />
+    <MESSAGE value="-Aggiornati BUILDERS dei tre sistemi PollutionMonitor: Preliminary_Design, Target_Design e Ideal_Design" />
+    <MESSAGE value="-Aggiunto SystemEndpointTest.java per controllare velocemente che le modifiche fatte ai file JSON siano corrette.&#10;-Controllati e corretti gli altri test dopo le ultime modifiche a PDFParser e Markings in PetriNetTranslator" />
+    <MESSAGE value="JPA annotation &#10;Problem w/ BooleanExpressionConverter.java" />
+    <MESSAGE value="JPA annotation ok" />
+    <MESSAGE value="JPA annotation" />
+    <MESSAGE value="dao package moved" />
+    <MESSAGE value="-cascading annotations removed&#10;-persisting the simpleModelSystem in the DatabaseInitializer.java" />
+    <MESSAGE value="-implementata persistenza con annotazioni JPA &#10;-converter BooleanExpressionConverter.java funziona correttamente in inserimento&#10;- DatabaseInitializer.java aggiunge su database i sistemi descritti finora" />
+    <MESSAGE value="Implementazione di task: Endpoint REST per esportazione di uno Stochastic Fault Tree a partire da un fallimento&#10;L'endpoint in questione è FaultTreeEndpoint.java, richiede l'uuid dell'errorMode come parametro in ingresso. &#10;in uscita restituisce il JSON del faultTree sottostante.&#10;-Modificate UUID nelle annotazioni JPA perché java.UUID dà errore nelle query se non viene specificato il tipo di UUID" />
+    <MESSAGE value="Implementazione di task: Endpoint REST per esportazione di uno Stochastic Fault Tree a partire da un fallimento &amp; dalla componente (ft/component)" />
+    <MESSAGE value="Piccolo bug in EndogenousFaultMode risolto" />
+    <MESSAGE value="Bug fix e miglioramenti" />
+    <MESSAGE value="Miglioramenti su annotazioni JPA, DAO e Endpoint" />
+    <MESSAGE value="Aggiunto endpoint in SystemEndpoint.java che permette di persistere un sistema dato in input come JSON" />
+    <MESSAGE value="Implementate Correzioni in FaultTreeEndpoint.java e prima implementazione di gestione delle distribuzioni expolinomiali come pdf di errormode e faultmode" />
+    <MESSAGE value="Implementazione di distribuzioni expolinomiali come pdf di errormode e faultmode. Generazione di campioni nella propagazione di fault in uno scenario mediante algoritmo di Metropolis-Hastings." />
+    <MESSAGE value="Implementazione Controller di rimozione sistemi (CRUD)" />
+    <MESSAGE value="Adapter di ExpolynomialDistribution implementando l'interfaccia di ApacheMaths ed inserendo il sampling di sirio al suo interno" />
+    <MESSAGE value="Modifiche su endpoint per espansione con frontend" />
+    <MESSAGE value="Aggiunto modulo di traduzione rete di petri from operation level" />
+    <MESSAGE value="-post quasar" />
+    <option name="LAST_COMMIT_MESSAGE" value="-post quasar" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/BasicModelExample.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/it/unifi/stlab/fault2failure/operational/ScenarioTest.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/it/unifi/stlab/fault2failure/knowledge/utils/PDFParserTest.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/it/unifi/stlab/fault2failure/knowledge/utils/PDFParserTest.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/services/BDDService.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/mapper/FaultTreeMapper.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/mapper/FaultTreeMapper.java</url>
+          <line>300</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/utils/PDFParser.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/exporter/strategies/BasicExportToXPN.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/utils/DecemberModelBuilder.java</url>
+          <line>155</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/utils/SteamBoilerModelBuilder.java</url>
+          <line>150</line>
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/DecemberModelExample.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="181" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>266</line>
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>247</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>253</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/DecemberModelExample.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="188" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>195</line>
+          <option name="timeStamp" value="189" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>190</line>
+          <option name="timeStamp" value="190" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/fault2failure/knowledge/translator/PetriNetTranslator.java</url>
+          <line>238</line>
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/services/SystemService.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/lib/hibernate-core-5.4.11.Final.jar!/org/hibernate/event/internal/AbstractSaveEventListener.class</url>
+          <line>135</line>
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/FaultTreeEndpoint.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="211" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/FaultTreeEndpoint.java</url>
+          <line>154</line>
+          <option name="timeStamp" value="216" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/FaultTreeEndpoint.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="218" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/mapper/FaultTreeMapper.java</url>
+          <line>212</line>
+          <option name="timeStamp" value="227" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/mapper/FaultTreeMapper.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="232" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/it/unifi/stlab/faultflow/translator/PetriNetTranslatorTest.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="235" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/FaultTreeEndpoint.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/SystemEndpoint.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="274" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/businessLogic/controller/RemoveSystemController.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="275" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/model/utils/PDFParser.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="280" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/SystemEndpoint.java</url>
+          <line>145</line>
+          <option name="timeStamp" value="284" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/UserProfileEndpoint.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="296" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/SystemEndpoint.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="306" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="307" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="308" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/translator/PetriNetTranslator.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="309" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/faultflow/endpoint/UserProfileEndpoint.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="311" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unifi/stlab/stateflow/StateFlowModel.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="339" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/it/unifi/stlab/faultflow/dao/ErroModeDaoTest.java</url>
+          <line>44</line>
+          <properties class="it.unifi.stlab.faultflow.dao.ErroModeDaoTest">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="210" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/faultflow-frontend/src/app/core/services/auth-guard.service.ts</url>
+          <line>11</line>
+          <option name="timeStamp" value="293" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="336" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((GEN)stochasticTransitionFeature.density()).getDensity().isExponential()" language="JAVA" />
+        <watch expression="((GEN)stochasticTransitionFeature.density()).getDensity().isConstant()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

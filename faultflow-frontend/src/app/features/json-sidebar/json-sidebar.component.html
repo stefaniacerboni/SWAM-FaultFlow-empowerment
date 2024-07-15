@@ -1,0 +1,8 @@
+<div class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <h3>JSON Viewer</h3>
+    <button class="btn btn-secondary" (click)="close()">Close</button>
+  </div>
+  <textarea [(ngModel)]="jsonText" class="form-control" rows="20"></textarea>
+  <button class="btn btn-primary mt-2" (click)="save()">Save</button>
+</div>

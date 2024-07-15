@@ -105,16 +105,18 @@ public class PetriNetTranslator implements Translator {
                         }
                         net.addPrecondition(a, t);
                     }
-                    if (pp.getRoutingProbability().equals(BigDecimal.ONE) || pp.getRoutingProbability().equals(BigDecimal.valueOf(1.0)))
+                    if (pp.getRoutingProbability().equals(BigDecimal.ONE) ||
+                            pp.getRoutingProbability().equals(BigDecimal.valueOf(1.00)) ||
+                    pp.getRoutingProbability().toString().equals("1.00"))
                         net.addPostcondition(t, b);
                     else {
                         Place router = net.addPlace("Router" + b.getName());
                         net.addPostcondition(t, router);
                         Transition p = net.addTransition(pp.getRoutingProbability().toString());
-                        p.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+                        p.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from(p.getName(), net)));
                         p.addFeature(new Priority(0));
                         Transition minusp = net.addTransition("" + (1 - pp.getRoutingProbability().doubleValue()));
-                        minusp.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from("1", net)));
+                        minusp.addFeature(StochasticTransitionFeature.newDeterministicInstance(new BigDecimal("0"), MarkingExpr.from(minusp.getName(), net)));
                         minusp.addFeature(new Priority(0));
                         net.addPrecondition(router, p);
                         net.addPrecondition(router, minusp);

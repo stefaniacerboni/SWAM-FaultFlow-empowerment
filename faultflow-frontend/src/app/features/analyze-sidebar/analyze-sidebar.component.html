@@ -1,0 +1,34 @@
+<div class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <h3>Analyze System</h3>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+  </div>
+  <div class="sidebar-body">
+    <form (ngSubmit)="analyze()">
+      <div class="mb-3">
+        <label for="timelimit" class="form-label">Time Limit</label>
+        <input type="number" class="form-control" id="timelimit" [(ngModel)]="timelimit" name="timelimit" required>
+      </div>
+      <div class="mb-3">
+        <label for="timestep" class="form-label">Time Step</label>
+        <input type="number" class="form-control" id="timestep" [(ngModel)]="timestep" name="timestep" required>
+      </div>
+      <div class="mb-3">
+        <label for="errorTolerance" class="form-label">Error Tolerance</label>
+        <input type="number" class="form-control" id="errorTolerance" [(ngModel)]="errorTolerance" name="errorTolerance" required>
+      </div>
+      <div class="mb-3">
+        <label for="rewards" class="form-label">Rewards</label>
+        <input type="text" class="form-control" id="rewards" [(ngModel)]="rewards" name="rewards">
+      </div>
+      <div class="mb-3">
+        <label for="analysisType" class="form-label">Type of Analysis</label>
+        <select class="form-select" id="analysisType" [(ngModel)]="analysisType" name="analysisType" required>
+          <option value="stochastic">Stochastic</option>
+          <option value="deterministic">Deterministic</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Analyze</button>
+    </form>
+  </div>
+</div>

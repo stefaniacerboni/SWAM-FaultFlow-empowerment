@@ -7,6 +7,7 @@ import it.unifi.stlab.faultflow.model.operational.Scenario;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
 import it.unifi.stlab.launcher.systembuilder.PollutionMonitorModelBuilder;
 import it.unifi.stlab.launcher.systembuilder.SimpleModelBuilder;
+import it.unifi.stlab.launcher.systembuilder.SteamBoilerModelBuilder;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -16,7 +17,7 @@ public class ExamplesLauncher {
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         //Per cambiare sistema da buildare è sufficiente modificare l'istruzione seguente
         //con il builder del sistema desiderato.
-        System s = SimpleModelBuilder.getInstance().getSystem();
+        System s = SteamBoilerModelBuilder.getInstance().getSystem();
         //Exporting petri net as fault injection -faults with deterministic occurrence sampled from the pdfs
         PetriNetExporter.exportPetriNetFromSystem(s, PetriNetExportMethod.FAULT_INJECTION);
         //Exporting petri net as fault analysis -faults with their original pdf

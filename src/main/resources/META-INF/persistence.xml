@@ -14,11 +14,12 @@
         <class>it.unifi.stlab.faultflow.model.knowledge.composition.Component</class>
         <class>it.unifi.stlab.faultflow.model.knowledge.composition.CompositionPort</class>
         <class>it.unifi.stlab.faultflow.model.knowledge.composition.System</class>
-
+        <class>it.unifi.stlab.faultflow.model.user.Role</class>
+        <class>it.unifi.stlab.faultflow.model.user.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> <!--create-drop-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!--create-drop-->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.use_sql_comments" value="true" />

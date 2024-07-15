@@ -1,0 +1,58 @@
+.navbar-container {
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #007bff !important;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #0056b3 !important;
+}
+
+.dropdown-menu {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.navbar-nav.ml-auto .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.jumbotron {
+  background-image: url('src/assets/images/hero-bg.jpg');
+  background-size: cover;
+  color: white;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

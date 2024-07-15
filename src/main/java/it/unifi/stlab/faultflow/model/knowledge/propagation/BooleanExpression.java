@@ -5,6 +5,7 @@ import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.KofN;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.NOT;
 import it.unifi.stlab.faultflow.model.knowledge.propagation.operators.OR;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +145,14 @@ public interface BooleanExpression {
             operator = '.';
         }
         return operator;
+    }
+
+    private List<String> extractInputFault(String plainSirioEnablingCondition){
+        String newString = plainSirioEnablingCondition;
+        newString = newString.replaceAll("&&", "°");
+        newString = newString.replace("||", "°");
+        newString = newString.replaceAll("[^°]", "");
+        return Arrays.asList(newString.split("°"));
     }
 
     default void addChild(BooleanExpression be) {

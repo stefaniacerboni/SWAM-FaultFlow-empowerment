@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <h2>Edit Profile</h2>
+  <form *ngIf="user" (ngSubmit)="onSubmit()" #editProfileForm="ngForm">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" [(ngModel)]="user.username" disabled>
+    </div>
+    <div class="form-group">
+      <label for="name">First Name</label>
+      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="user.name" required>
+    </div>
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" name="surname" class="form-control" [(ngModel)]="user.surname" required>
+    </div>
+    <div class="form-group">
+      <label for="currentPassword">Current Password</label>
+      <input type="password" id="currentPassword" name="currentPassword" class="form-control" [(ngModel)]="currentPassword" required>
+    </div>
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" name="newPassword" class="form-control" [(ngModel)]="newPassword">
+    </div>
+    <div class="form-group">
+      <label for="confirmNewPassword">Confirm New Password</label>
+      <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control" [(ngModel)]="confirmNewPassword">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!editProfileForm.form.valid || (newPassword !== confirmNewPassword && newPassword !== '')">Save Changes</button>
+    <div *ngIf="passwordsDoNotMatch" class="alert alert-danger mt-2">
+      New passwords do not match.
+    </div>
+  </form>
+</div>

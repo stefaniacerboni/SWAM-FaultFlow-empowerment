@@ -1,0 +1,16 @@
+.container {
+  margin-top: 20px;
+}
+
+.table {
+  margin-top: 20px;
+}
+.table .carousel {
+  width: 200px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+}
+
+.table .carousel img {
+  object-fit: cover;
+  height: 100%;
+}

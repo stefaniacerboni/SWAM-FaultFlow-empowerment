@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Systems</h2>
+  <div *ngIf="systems.length; else noSystems">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>Model</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let system of systems">
+        <td>{{ system.name }}</td>
+        <td>{{ system.manufacturer }}</td>
+        <td>{{ system.model }}</td>
+        <td>
+          <button class="btn btn-link p-0" (click)="downloadAsPetrinet(system)" title="Download as PetriNet">
+            <i class="fas fa-download"></i>
+          </button>
+          <button class="btn btn-link p-0" (click)="viewAsJson(system)" title="View as JSON">
+            <i class="fas fa-code"></i>
+          </button>
+          <button class="btn btn-link p-0" (click)="viewImage(system)" title="View Image">
+            <i class="fas fa-image"></i>
+          </button>
+          <button class="btn btn-link p-0" (click)="openAnalyzeSidebar(system)" title="Analyze">
+            <i class="fas fa-chart-bar"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noSystems>
+    <p></p>
+  </ng-template>
+  <app-json-sidebar
+    [isOpen]="isSidebarOpen"
+    [jsonText]="jsonText"
+    (closeSidebar)="closeSidebar()"
+    (saveJson)="saveJson($event)">
+  </app-json-sidebar>
+  <app-analyze-sidebar
+    [isOpen]="isAnalyzeSidebarOpen"
+    [system]="selectedSystem"
+    (closeSidebar)="closeAnalyzeSidebar()"
+    (analyzeSystem)="performAnalysis($event)">
+  </app-analyze-sidebar>
+</div>

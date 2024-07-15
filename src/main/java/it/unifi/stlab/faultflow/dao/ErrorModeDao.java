@@ -33,4 +33,8 @@ public class ErrorModeDao extends BaseDao<ErrorMode> {
         return entityManager.createQuery("SELECT em FROM ErrorMode em JOIN FETCH em.outgoingFailure WHERE em.uuid=:uuid", ErrorMode.class)
                 .setParameter("uuid", errorModeUUID).getSingleResult();
     }
+
+    public List<ErrorMode> findAll() {
+        return entityManager.createQuery("SELECT em FROM ErrorMode em LEFT JOIN FETCH em.inputFaultModes", ErrorMode.class).getResultList();
+    }
 }

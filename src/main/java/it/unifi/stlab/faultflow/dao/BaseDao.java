@@ -1,9 +1,11 @@
 package it.unifi.stlab.faultflow.dao;
 
 import it.unifi.stlab.faultflow.model.knowledge.BaseEntity;
+import it.unifi.stlab.faultflow.model.knowledge.propagation.ErrorMode;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class BaseDao<T extends BaseEntity> {
@@ -41,5 +43,9 @@ public abstract class BaseDao<T extends BaseEntity> {
         }
         return true;
     }
+    public void delete(T entity) {
+        entityManager.remove(entity);
+    }
+
 }
 

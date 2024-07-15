@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Import</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="jsonInput">JSON Input</label>
+      <textarea id="jsonInput" [(ngModel)]="jsonInput" name="jsonInput" class="form-control" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

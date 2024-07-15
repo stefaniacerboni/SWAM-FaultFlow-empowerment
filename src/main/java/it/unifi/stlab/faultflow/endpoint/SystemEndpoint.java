@@ -2,6 +2,8 @@ package it.unifi.stlab.faultflow.endpoint;
 
 import it.unifi.stlab.faultflow.businessLogic.controller.AddSystemController;
 import it.unifi.stlab.faultflow.businessLogic.controller.RemoveSystemController;
+import it.unifi.stlab.faultflow.businessLogic.controller.ShowSystemsController;
+import it.unifi.stlab.faultflow.dao.SystemDao;
 import it.unifi.stlab.faultflow.dto.inputsystemdto.InputSystemDto;
 import it.unifi.stlab.faultflow.exporter.PetriNetExportMethod;
 import it.unifi.stlab.faultflow.exporter.XPNExporter;
@@ -12,6 +14,7 @@ import it.unifi.stlab.faultflow.model.knowledge.composition.System;
 import it.unifi.stlab.faultflow.translator.PetriNetTranslator;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,6 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.UUID;
 
+@Transactional
 @Path("/system")
 public class SystemEndpoint {
 
@@ -28,11 +32,11 @@ public class SystemEndpoint {
     AddSystemController addSystemController;
     @Inject
     RemoveSystemController removeSystemController;
-    /*
     @Inject
-    ShowSystemsController showSystemsController = new ShowSystemsController();
+    ShowSystemsController showSystemsController;
+    @Inject
+    SystemDao systemDao;
 
-     */
 
 
     @POST
@@ -54,7 +58,7 @@ public class SystemEndpoint {
         PetriNetTranslator pnt = new PetriNetTranslator();
         System sys = SystemMapper.BddToSystem(inputSystemDto.getBdd());
         FaultTreeMapper.decorateSystem(inputSystemDto.getFaultTree(), sys);
-        //TODO nome del file generatore casualmente + path configurabile in maniera più elegante attraverso un file di properties
+        //TODO file name should be random generated and the path should be configurable through a property file
         File out = new File("PetriNet.xpn");
         try {
             pnt.translate(sys, PetriNetExportMethod.fromString(method));
@@ -68,6 +72,32 @@ public class SystemEndpoint {
             throw new InternalServerErrorException("Unexpected Server Problem");
         }
     }
+
+    @GET
+    @Path("/{system_uuid}/petrinet")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response getPetriNetFromSystem(@PathParam("system_uuid") String systemUUID,
+                                          @QueryParam("method") @DefaultValue("fa") String method) {
+        PetriNetTranslator pnt = new PetriNetTranslator();
+        System sys = systemDao.getSystemById(UUID.fromString(systemUUID));
+        File out = new File("PetriNet.xpn");
+        try {
+            pnt.translate(sys, PetriNetExportMethod.fromString(method));
+            XPNExporter.export(out, new OrderByComponentToXPN(sys, pnt.getPetriNet(), pnt.getMarking()));
+
+            Response.ResponseBuilder response = Response.ok((Object) out);
+            response.header("Content-Disposition", "attachment; filename=" + out.getName());
+            return response.build();
+        } catch (FileNotFoundException fnf) {
+            throw new NotFoundException("File not found");
+        } catch (JAXBException e) {
+            throw new BadRequestException("There's been a problem with the conversion to XPN");
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Unexpected server problem: "+ e.getMessage());
+        }
+    }
+
+
 
     @POST
     @Path("/load")
@@ -94,14 +124,14 @@ public class SystemEndpoint {
         }
         return Response.ok().build();
     }
-    /*
+
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSystems() {
         return Response.ok(showSystemsController.getAllSystems()).build();
     }
-
+    /*
     @GET
     @Path("/{system_uuid}")
     @Produces(MediaType.APPLICATION_JSON)

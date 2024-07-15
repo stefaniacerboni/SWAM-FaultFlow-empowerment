@@ -16,11 +16,15 @@ public class SystemDao extends BaseDao<System> {
     }
 
     public List<System> getAll() {
-        return entityManager.createQuery("SELECT DISTINCT s FROM System s LEFT JOIN FETCH s.components", System.class).getResultList();
+        return entityManager.createQuery("SELECT DISTINCT s FROM System s LEFT JOIN FETCH s.components LEFT JOIN FETCH s.topLevelComponent", System.class).getResultList();
     }
 
     public System getSystemById(UUID systemUUID){
-        return entityManager.createQuery("SELECT DISTINCT s FROM System s LEFT JOIN FETCH s.components WHERE s.uuid = :uuid", System.class)
+        return entityManager.createQuery("" +
+                        "SELECT DISTINCT s FROM System s " +
+                        "LEFT JOIN FETCH s.components c " +
+                        "LEFT JOIN FETCH s.topLevelComponent " +
+                        "WHERE s.uuid = :uuid", System.class)
                 .setParameter("uuid", systemUUID).getSingleResult();
     }
 }
